@@ -1,0 +1,6 @@
+include ':picker-view'
+include ':chatlib'
+include ':commonlib'
+include ':permissionlib'
+include ':app'
+rootProject.name = "mf-Android"

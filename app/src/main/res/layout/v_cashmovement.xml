@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rlMain"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/main_bg">
+
+    <LinearLayout
+        android:id="@+id/layoutContent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="50.0dip"
+        android:layout_marginBottom="50.0dip"
+        android:background="@drawable/bg_login"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/header_background"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:paddingTop="15.0dip"
+                android:paddingBottom="15.0dip"
+                android:shadowColor="#ff000000"
+                android:shadowDx="1.5"
+                android:shadowDy="1.5"
+                android:shadowRadius="1.5"
+                android:text="@string/nav_withdrawal"
+                android:textColor="@color/normal_text"
+                android:textSize="18.0dip"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="10dp">
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="70dp"
+                android:padding="10dp"
+                android:gravity="start|center_vertical">
+
+                <TextView
+                    android:layout_width="100.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5.0dip"
+                    android:paddingRight="10dp"
+                    android:id="@+id/tvDateLabel"
+                    android:text="@string/lb_cashmovement_request_date_label"
+                    android:textColor="@color/general_lab"
+                    android:maxLines="1"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="10sp"
+                    android:autoSizeMaxTextSize="14sp"
+                    android:autoSizeStepGranularity="2sp" />
+
+                <TextView
+                    android:id="@+id/tvToday"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:paddingLeft="20.0dip"
+                    android:paddingRight="20.0dip"
+                    android:textColor="@color/normal_text" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/vwAccountCashMove"
+                android:layout_width="fill_parent"
+                android:layout_height="70dp"
+                android:padding="10dp"
+                android:gravity="start|center_vertical">
+
+                <TextView
+                    android:layout_width="100.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5.0dip"
+                    android:paddingRight="10dp"
+                    android:text="@string/lb_trader_account"
+                    android:textColor="@color/general_lab"
+                    android:maxLines="1"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="10sp"
+                    android:autoSizeMaxTextSize="14sp"
+                    android:autoSizeStepGranularity="2sp" />
+
+                <TextView
+                    android:id="@+id/tbAccountCashMove"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:paddingLeft="20.0dip"
+                    android:paddingRight="20.0dip"
+                    android:text="-"
+                    android:textColor="@color/normal_text" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="70dp"
+                android:gravity="start|center_vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="100.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5.0dip"
+                    android:paddingRight="10dp"
+                    android:text="@string/txt_withdrawal_amount"
+                    android:textColor="@color/general_lab"
+                    android:maxLines="1"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="10sp"
+                    android:autoSizeMaxTextSize="14sp"
+                    android:autoSizeStepGranularity="2sp" />
+
+                <EditText
+                    android:id="@+id/btnAmount"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.0"
+                    android:inputType="numberDecimal|numberSigned"
+                    android:paddingLeft="20.0dip"
+                    android:paddingRight="20.0dip" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/vwBank"
+                android:layout_width="fill_parent"
+                android:layout_height="70dp"
+                android:gravity="start|center_vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="100.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5.0dip"
+                    android:paddingRight="10dp"
+                    android:text="@string/txt_withdrawal_bankname"
+                    android:textColor="@color/general_lab"
+                    android:maxLines="1"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="10sp"
+                    android:autoSizeMaxTextSize="14sp"
+                    android:autoSizeStepGranularity="2sp" />
+                <Spinner
+                    android:id="@+id/sBank"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/vwBankAcc"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:gravity="start|center_vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="100.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5.0dip"
+                    android:paddingRight="10dp"
+                    android:text="@string/txt_withdrawal_bankacc"
+                    android:textColor="@color/general_lab"
+                    android:maxLines="1"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="10sp"
+                    android:autoSizeMaxTextSize="14sp"
+                    android:autoSizeStepGranularity="2sp" />
+
+                <TextView
+                    android:id="@+id/tvBankAccount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="-"
+                    android:textColor="@color/normal_text" />
+
+            </LinearLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/border"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/tvCashMovementTerms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="-------"
+                    android:textColor="@color/normal_text" />
+            </ScrollView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="0dip"
+            android:background="@drawable/bottom_menu_background_on">
+
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_cancel"
+                android:text="@string/btn_cancel"
+                android:textColor="@color/btn_1" />
+
+            <Button
+                android:id="@+id/btnSubmit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginLeft="10.0dip"
+                android:layout_weight="1"
+                android:background="@drawable/btn_submit"
+                android:text="@string/btn_submit"
+                android:textColor="@color/btn_2" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <include layout="@layout/bar_account" />
+
+    <include layout="@layout/bar_top" />
+
+    <include layout="@layout/bar_botton" />
+
+</RelativeLayout>

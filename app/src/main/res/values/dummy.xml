@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="tvRPrice" type="id"/>
+    <item name="tvAPL" type="id"/>
+    <item name="tvPLDiff" type="id"/>
+    <item name="tvAccuBalInterest" type="id"/>
+    <item name="tvBalInterest" type="id"/>
+    <string name="lbAccuBalInterest"></string>
+    <string name="lbBalInterest"></string>
+            
+    <string name="app_version_string"></string>
+	<string name="lb_running_price"></string>
+	
+	<string name="lb_margin_inout">出入金</string>
+	<string name="lb_margin_in">入金</string>
+	<string name="lb_margin_out">出金</string>
+	<string name="lb_margin_in_or_out">出入金:</string>
+	<string name="lb_margin_password">資金密碼:</string>
+	<string name="lb_phone_password">資金密碼:</string>
+	<string name="lb_margin_amount">金額(人民幣):</string>
+	<string name="lb_bankname">銀行名稱:</string>
+	<string name="lb_bankaccount">銀行帳號:</string>
+	
+	<string name="lb_cashmovement_history">出入金記錄</string>
+	<string name="lb_cashmovement_history_detail">出入金記錄(詳細)</string>
+	<string name="lb_cashmovement_history_ref">參考編號</string>
+	<string name="lb_cashmovement_history_bankname">銀行名稱</string>
+	<string name="lb_cashmovement_history_bankaccount">銀行帳號</string>
+	<string name="lb_cashmovement_history_amount">金額</string>
+	<string name="lb_cashmovement_history_status">狀況</string>
+	<string name="lb_cashmovement_history_reqdate">請求日期</string>
+	<string name="lb_cashmovement_history_updatedate">更新日期</string>
+	
+	<string name="bankname1">建設銀行</string>
+	<string name="cashmovement_NA">不適用</string>
+	<string name="cashmovement_Verified">已驗證</string>
+	<string name="cashmovement_Confirmed">已確認</string>
+	<string name="cashmovement_Rejected">已拒絕</string>		
+</resources>

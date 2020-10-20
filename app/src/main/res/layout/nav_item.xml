@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="wrap_content" android:id="@+id/rlItem" android:padding="2dp" android:layout_width="wrap_content">
+    <Button android:layout_height="25dp" android:layout_width="25dp" android:layout_centerHorizontal="true" android:id="@+id/btnIcon" android:background="@drawable/nav_chart" android:clickable="false"></Button>
+	<TextView android:shadowDx="1.5" android:textColor="@color/normal_text" android:shadowRadius="1.5" android:shadowColor="#000000" android:gravity="center" android:textSize="11dp" android:id="@+id/tvDesc" android:shadowDy="1.5" android:textStyle="bold" android:layout_below="@+id/btnIcon" android:text="P.O. List" android:layout_height="wrap_content" android:layout_centerHorizontal="true" android:layout_width="70dp"></TextView>
+
+
+</RelativeLayout>

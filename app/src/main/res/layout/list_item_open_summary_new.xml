@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:orientation="horizontal" android:id="@+id/llOpenSummary"
+	android:layout_width="fill_parent" android:paddingRight="5dp"
+	android:layout_height="wrap_content" android:paddingLeft="5dp"
+	android:background="@drawable/list_row_odd">
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_weight="1"
+		android:gravity="center_vertical"
+		android:orientation="horizontal">
+
+		<ImageView
+			android:id="@+id/ivBuy"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:src="@drawable/ico_buy" />
+
+		<TextView
+			android:id="@+id/lbContract"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:paddingLeft="2dp"
+			android:text="-"
+			android:textColor="@android:color/white"
+			android:textSize="16sp"></TextView>
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:id="@+id/linearLayout1"
+		android:layout_width="match_parent"
+		android:layout_height="fill_parent"
+		android:layout_weight="1"
+		android:gravity="center_vertical"
+		android:orientation="horizontal">
+
+		<TextView
+			android:id="@+id/lbBuy"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:paddingLeft="2dp"
+			android:text="--"
+			android:textColor="@android:color/white"></TextView>
+
+		<TextView
+			android:id="@+id/lbSell"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:gravity="right"
+			android:paddingRight="2dp"
+			android:text="--"
+			android:textColor="@android:color/white"></TextView>
+	</LinearLayout>
+
+	<TextView
+		android:id="@+id/lbAPrice"
+		textColor="@color/list_level_2_text"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_vertical"
+		android:layout_weight="1"
+		android:text="--"
+		android:textColor="@android:color/white"></TextView>
+
+	<TextView
+		android:id="@+id/lbFloat"
+		textColor="@color/list_level_2_text"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_vertical"
+		android:layout_weight="1"
+		android:gravity="right"
+		android:text="--"></TextView>
+</LinearLayout>
+<!-- 
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/llOpenSummary" android:layout_height="wrap_content"
+	android:gravity="center_vertical" android:orientation="horizontal"
+	android:layout_width="fill_parent" android:padding="5dp"
+	android:background="@drawable/list_bar_2">
+
+	<LinearLayout android:id="@+id/LinearLayout04"
+		android:layout_height="wrap_content" android:orientation="vertical"
+		android:layout_width="fill_parent" android:layout_weight="1"
+		android:padding="2dp" android:background="@drawable/list_col_1">
+		<TextView android:id="@+id/lbContract" android:text="@string/lb_Contract" android:textColor="@color/normal_text" android:layout_width="fill_parent" android:layout_weight="1" android:layout_height="fill_parent" android:textSize="12dp"></TextView>
+
+		
+		<TextView android:id="@+id/TextView02" android:layout_width="fill_parent"
+			android:layout_weight="1" android:layout_height="fill_parent"
+			android:textSize="12dp"></TextView>
+	</LinearLayout>
+	<LinearLayout android:id="@+id/LinearLayout04"
+		android:layout_height="wrap_content" android:orientation="vertical"
+		android:background="@drawable/list_col_1" android:layout_width="fill_parent"
+		android:layout_weight="1" android:padding="2dp"
+		android:layout_marginLeft="5dp">
+
+		
+		<TextView android:text="@string/lb_buy_sell" android:id="@+id/lbBuySell" android:textColor="@color/normal_text" android:layout_height="fill_parent" android:layout_weight="1" android:layout_width="fill_parent" android:textSize="12dp"></TextView>
+		<TextView android:text="@string/lb_lot" android:id="@+id/lbLot"
+			android:textColor="@color/normal_text" android:layout_height="fill_parent"
+			android:layout_weight="1" android:layout_width="fill_parent"
+			android:textSize="12dp"></TextView>
+	</LinearLayout>
+	<LinearLayout android:id="@+id/LinearLayout04"
+		android:layout_height="wrap_content" android:orientation="vertical"
+		android:background="@drawable/list_col_1" android:layout_width="fill_parent"
+		android:layout_weight="1" android:padding="2dp"
+		android:layout_marginLeft="5dp">
+
+
+		
+		<TextView android:id="@+id/lbReqPrice" android:text="@string/lb_deal_rate"
+			android:textColor="@color/normal_text" android:layout_width="fill_parent"
+			android:layout_weight="1" android:layout_height="fill_parent"
+			android:textSize="12dp"></TextView>
+		<TextView android:text="@string/lb_amount" android:id="@+id/lbAmount" android:textColor="@color/normal_text" android:layout_height="fill_parent" android:layout_weight="1" android:layout_width="fill_parent" android:textSize="12dp"></TextView>
+	</LinearLayout>
+	<LinearLayout android:id="@+id/LinearLayout04"
+		android:orientation="vertical" android:background="@drawable/list_col_2"
+		android:layout_width="fill_parent" android:layout_weight="1"
+		android:layout_height="fill_parent" android:padding="2dp"
+		android:layout_marginLeft="5dp">
+		
+		<TextView android:id="@+id/lbCurPrice" android:text="@string/lb_offset"
+			android:layout_height="fill_parent" android:layout_weight="1"
+			android:layout_width="fill_parent" android:textSize="12dp"
+			android:textColor="@color/list_level_2_text"></TextView>
+		
+	<TextView android:id="@+id/lbFloat" android:text="@string/lb_floating" android:layout_width="fill_parent" android:layout_weight="1" android:layout_height="fill_parent" android:textColor="@color/list_level_2_text" android:textSize="12dp"></TextView>
+	</LinearLayout>
+</LinearLayout>
+-->
+<!-- 
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="wrap_content"
+	android:gravity="center_vertical"
+	android:orientation="horizontal" android:paddingRight="8dp"
+	android:layout_marginTop="10dp" android:paddingTop="2dp"
+	android:background="@drawable/list_blue" android:paddingLeft="19dp" android:layout_width="fill_parent" android:id="@+id/llOpenSummary">
+
+	<LinearLayout android:id="@+id/LinearLayout04"
+		android:layout_height="wrap_content" android:orientation="vertical" android:layout_width="60dp">
+		<TextView android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:textColor="@color/normal_text" android:textSize="10dp" android:id="@+id/tvContract" android:text="@string/lb_Contract"></TextView>
+		<TextView android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:textSize="10dp"
+			android:id="@+id/lbLot"
+			android:textColor="@color/list_level_2_text"></TextView>
+	</LinearLayout>
+	<LinearLayout android:id="@+id/LinearLayout04"
+		android:layout_height="wrap_content" android:orientation="vertical"
+		android:layout_width="60dp">
+		<TextView android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:textColor="@color/normal_text" android:textSize="10dp"
+			android:text="@string/lb_buy_sell" android:id="@+id/tvBuySell"></TextView>
+		<TextView android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:textSize="10dp"
+			android:textColor="@color/list_level_2_text" android:id="@+id/tvRate" android:text="@string/lb_rate"></TextView>
+	</LinearLayout>
+	<LinearLayout android:id="@+id/LinearLayout04"
+		android:layout_height="wrap_content" android:orientation="vertical" android:layout_width="40dp">
+		<TextView android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:textColor="@color/normal_text" android:textSize="10dp" android:text="@string/lb_lot" android:id="@+id/tvLot"></TextView>
+		<TextView android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:textColor="@color/normal_text"
+			android:textSize="10dp" android:id="@+id/lbComm"></TextView>
+	</LinearLayout>
+	
+	
+	<LinearLayout android:id="@+id/LinearLayout04"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:orientation="vertical" android:layout_weight="1">
+		<TextView android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:textSize="10dp"
+			android:textColor="@color/normal_text" android:text="@string/lb_amount" android:id="@+id/tvAmount"></TextView>
+		<TextView android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:textSize="10dp" android:text="@string/lb_floating" android:id="@+id/tvFloat" android:textColor="@color/list_level_2_text"></TextView>
+
+	</LinearLayout>
+
+</LinearLayout>
+-->

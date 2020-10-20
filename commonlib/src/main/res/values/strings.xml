@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="permission_record_camera">权限已禁用，请在设置中添加相机、录音及读写存储卡权限</string>
+    <string name="permission_record_audio">权限已禁用，请在设置中添加录音及读写存储卡权限</string>
+    <string name="permission_storage">权限已禁用，请在设置中添加读写存储卡权限</string>
+    <string name="permission_camera">权限已禁用，请在设置中添加相机及读写存储卡权限</string>
+
+    <!--    facebook的key -->
+    <string name="facebook_app_id">1886595781470635</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb1886595781470635</string>
+
+<!--    twitter的key和秘钥-->
+    <string name="com.twitter.sdk.android.CONSUMER_KEY" >XXXXXXXXXXX</string>
+    <string name="com.twitter.sdk.android.CONSUMER_SECRET">XXXXXXXXXXX</string>
+
+
+
+</resources>

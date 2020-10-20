@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/rlMain" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+
+
+	<LinearLayout android:id="@+id/LinearLayout01"
+		android:layout_height="fill_parent" android:layout_width="fill_parent"
+		android:layout_marginBottom="30dp" android:layout_marginTop="50dp"
+		android:background="@drawable/main_bg" android:orientation="vertical">
+
+		<RelativeLayout
+		    android:id="@+id/RelativeLayout02"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:background="@drawable/header_background"
+			android:orientation="vertical">
+
+			<TextView
+				android:id="@+id/TextView04"
+				android:layout_width="fill_parent"
+				android:layout_height="40dp"
+				android:layout_centerHorizontal="true"
+				android:gravity="center"
+				android:shadowColor="#000000"
+				android:shadowDx="1.5"
+				android:shadowDy="1.5"
+				android:shadowRadius="1.5"
+				android:text="@string/db_price_alert"
+				android:textColor="@color/normal_text"
+				android:textSize="18dp"
+				android:textStyle="bold" />
+
+		</RelativeLayout>
+
+		<LinearLayout android:id="@+id/LinearLayout03"
+			android:background="@drawable/list_bg" android:layout_width="fill_parent"
+			android:layout_weight="1" android:layout_height="fill_parent"
+			android:orientation="vertical">
+			<LinearLayout
+				android:id="@+id/llH"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/list_title_bg"
+				android:orientation="horizontal"
+				android:paddingLeft="5dp"
+				android:paddingRight="5dp">
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_weight="1"
+					android:orientation="horizontal">
+
+					<LinearLayout
+						android:id="@+id/ll1"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:layout_weight="2">
+
+						<TextView
+							android:id="@+id/lb_item"
+							android:layout_width="wrap_content"
+							android:layout_height="fill_parent"
+							android:layout_weight="1"
+							android:gravity="left|center"
+							android:shadowColor="#000000"
+							android:shadowDx="1.5"
+							android:shadowDy="1.5"
+							android:shadowRadius="1.5"
+							android:text="@string/lb_pricealert_enable"
+							android:textColor="@color/normal_text"
+							android:textSize="12dp"></TextView>
+
+					</LinearLayout>
+
+					<LinearLayout
+						android:id="@+id/ll2"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:layout_weight="1">
+
+						<TextView
+							android:id="@+id/lb_lot"
+							android:layout_width="wrap_content"
+							android:layout_height="fill_parent"
+							android:layout_weight="1"
+							android:gravity="left|center_vertical"
+							android:shadowColor="#000000"
+							android:shadowDx="1.5"
+							android:shadowDy="1.5"
+							android:shadowRadius="1.5"
+							android:text="@string/lb_pricealert_contract"
+							android:textColor="@color/normal_text"
+							android:textSize="12dp"></TextView>
+					</LinearLayout>
+
+				</LinearLayout>
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_weight="1"
+					android:orientation="horizontal">
+
+					<LinearLayout
+						android:id="@+id/ll3"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:layout_weight="1.5">
+
+						<TextView
+							android:id="@+id/lb_market_price"
+							android:layout_width="wrap_content"
+							android:layout_height="fill_parent"
+							android:gravity="left|center_vertical"
+							android:shadowColor="#000000"
+							android:shadowDx="1.5"
+							android:shadowDy="1.5"
+							android:shadowRadius="1.5"
+							android:text="@string/lb_pricealert_setting"
+							android:textColor="@color/normal_text"
+							android:textSize="12dp"></TextView>
+					</LinearLayout>
+
+					<LinearLayout
+						android:id="@+id/ll4"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:layout_weight="1">
+
+						<TextView
+							android:id="@+id/lb_floating"
+							android:layout_width="wrap_content"
+							android:layout_height="fill_parent"
+							android:layout_weight="1"
+							android:gravity="right|fill_vertical"
+							android:shadowColor="#000000"
+							android:shadowDx="1.5"
+							android:shadowDy="1.5"
+							android:shadowRadius="1.5"
+							android:text="@string/lb_pricealert_price"
+							android:textColor="@color/normal_text"
+							android:textSize="12dp"></TextView>
+
+					</LinearLayout>
+
+				</LinearLayout>
+
+			</LinearLayout>
+
+			<ListView
+				android:id="@+id/lvPriceAlertList"
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent"
+				android:layout_weight="1"
+				android:background="@color/list_bg"
+				android:cacheColorHint="@android:color/transparent"
+				android:divider="@color/normal_text"
+				android:scrollingCache="true"></ListView>
+		</LinearLayout>
+		<LinearLayout
+			android:id="@+id/vGoToLiquidateAll"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="@android:color/transparent">
+
+			<Button
+				android:id="@+id/btnGoToNewPriceAlert"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_above="@+id/include2"
+				android:layout_centerHorizontal="true"
+				android:layout_marginBottom="8dp"
+				android:layout_weight="1"
+				android:background="@drawable/btn_action"
+				android:text="@string/lb_pricealert_add"
+				android:textColor="@color/btn_2"
+				android:textSize="16dp"></Button>
+		</LinearLayout>
+		<!--<include layout="@layout/bar_nav" />-->
+	</LinearLayout>
+
+	<include layout="@layout/bar_account" />
+
+	<include
+		layout="@layout/bar_top"
+		android:layout_alignBottom="@+id/include3"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true" />
+
+	<include layout="@layout/bar_botton" />
+
+</RelativeLayout>

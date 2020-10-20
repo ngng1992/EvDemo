@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/rlPop" android:layout_height="wrap_content"
+	android:background="@android:color/transparent" android:layout_width="wrap_content">
+	
+	<RelativeLayout android:background="@drawable/popup_message_box"
+		android:layout_below="@+id/btnClose" android:id="@+id/rlContent"
+		android:layout_marginTop="-15dp" android:layout_width="310dp" android:layout_centerInParent="true" android:layout_height="310dp">
+		
+
+		<com.mfinance.everjoy.app.widget.FontFitTextView android:id="@+id/TextView01" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:layout_centerHorizontal="true"
+			android:textColor="@color/normal_text"
+			android:textSize="17dp" android:layout_marginTop="10dp" android:text="@string/lb_liq_history_detail"/>
+
+		<LinearLayout android:layout_height="wrap_content"
+			android:id="@+id/LinearLayout01" android:layout_below="@+id/TextView01" android:orientation="vertical" android:layout_centerInParent="true" android:layout_width="fill_parent" android:paddingLeft="20dp" android:paddingRight="20dp" android:paddingTop="10dp">
+			<LinearLayout android:paddingTop="10dp" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+			<com.mfinance.everjoy.app.widget.FontFitTextView android:textColor="@color/general_lab" android:layout_width="fill_parent" android:layout_weight="1" android:layout_height="wrap_content" android:id="@+id/lbBuyRef" android:text="@string/lb_b_ref" android:singleLine="true"/>
+			<com.mfinance.everjoy.app.widget.FontFitTextView android:textColor="@color/general_lab" android:layout_width="fill_parent" android:layout_weight="1" android:layout_height="wrap_content" android:text="-" android:id="@+id/tvBuyRef" android:gravity="center_vertical|right" android:paddingRight="10dp" android:singleLine="true"/>
+			<com.mfinance.everjoy.app.widget.FontFitTextView android:textColor="@color/general_lab" android:layout_width="fill_parent" android:layout_weight="1" android:layout_height="wrap_content" android:id="@+id/lbAmount" android:text="@string/lb_amount" android:singleLine="true"/>
+			<com.mfinance.everjoy.app.widget.FontFitTextView android:layout_width="fill_parent" android:layout_weight="1" android:layout_height="wrap_content" android:id="@+id/tvAmount" android:text="-" android:textColor="@color/general_lab" android:gravity="center_vertical|right" android:singleLine="true"/>
+			
+		</LinearLayout>
+		<LinearLayout android:paddingTop="10dp" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+			<com.mfinance.everjoy.app.widget.FontFitTextView android:textColor="@color/general_lab" android:layout_width="fill_parent" android:layout_weight="1" android:layout_height="wrap_content" android:id="@+id/lbContract" android:text="@string/lb_Contract" android:singleLine="true"/>
+			<com.mfinance.everjoy.app.widget.FontFitTextView android:layout_width="fill_parent" android:layout_weight="1" android:layout_height="wrap_content" android:id="@+id/tvContract" android:text="-" android:textColor="@color/general_lab" android:gravity="center_vertical|right" android:paddingRight="10dp" android:singleLine="true"/>
+			<com.mfinance.everjoy.app.widget.FontFitTextView android:textColor="@color/general_lab" android:layout_width="fill_parent" android:layout_weight="1" android:layout_height="wrap_content" android:id="@+id/lbLot" android:text="@string/lb_lot" android:singleLine="true"/>
+			<com.mfinance.everjoy.app.widget.FontFitTextView android:layout_width="fill_parent" android:layout_weight="1" android:layout_height="wrap_content" android:id="@+id/tvLot" android:text="-" android:textColor="@color/general_lab" android:gravity="center_vertical|right" android:singleLine="true"/>
+
+		</LinearLayout>
+		<LinearLayout android:paddingTop="10dp" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+
+			<com.mfinance.everjoy.app.widget.FontFitTextView
+			    android:id="@+id/lbTradeDate"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="1"
+			    android:text="@string/lb_trade_date_detail"
+			    android:textColor="@color/general_lab" android:singleLine="true">
+</com.mfinance.everjoy.app.widget.FontFitTextView>
+			<com.mfinance.everjoy.app.widget.FontFitTextView android:layout_width="fill_parent" android:layout_weight="1" android:layout_height="wrap_content" android:text="-" android:textColor="@color/general_lab" android:id="@+id/tvTradeDate" android:gravity="center_vertical|right" android:paddingRight="10dp" android:singleLine="true"/>
+			<com.mfinance.everjoy.app.widget.FontFitTextView android:textColor="@color/general_lab" android:layout_width="fill_parent" android:layout_weight="1" android:layout_height="wrap_content" android:id="@+id/lbSellRef" android:text="@string/lb_s_ref" android:singleLine="true"/>
+			<com.mfinance.everjoy.app.widget.FontFitTextView android:layout_width="fill_parent" android:layout_weight="1" android:layout_height="wrap_content" android:text="-" android:textColor="@color/general_lab" android:id="@+id/tvSellRef" android:gravity="center_vertical|right" android:singleLine="true"/>
+		</LinearLayout>
+		<LinearLayout android:paddingTop="10dp" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+			<com.mfinance.everjoy.app.widget.FontFitTextView android:textColor="@color/general_lab" android:layout_width="fill_parent" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/lb_b_rate" android:id="@+id/lbBuyRate" android:singleLine="true"/>
+			<com.mfinance.everjoy.app.widget.FontFitTextView android:layout_width="fill_parent" android:layout_weight="1" android:layout_height="wrap_content" android:text="-" android:textColor="@color/general_lab" android:id="@+id/tvBuyRate" android:gravity="center_vertical|right" android:paddingRight="10dp" android:singleLine="true"/>
+			<com.mfinance.everjoy.app.widget.FontFitTextView android:textColor="@color/general_lab" android:layout_width="fill_parent" android:layout_weight="1" android:layout_height="wrap_content" android:id="@+id/lbSellRate" android:text="@string/lb_s_rate" android:singleLine="true"/>
+			<com.mfinance.everjoy.app.widget.FontFitTextView android:layout_width="fill_parent" android:layout_weight="1" android:layout_height="wrap_content" android:text="-" android:textColor="@color/general_lab" android:id="@+id/tvSellRate" android:gravity="center_vertical|right" android:singleLine="true"/>
+		</LinearLayout>
+		<LinearLayout android:paddingTop="10dp" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+			<com.mfinance.everjoy.app.widget.FontFitTextView android:textColor="@color/general_lab" android:layout_width="fill_parent" android:layout_weight="1" android:layout_height="wrap_content" android:id="@+id/lbBuyDate" android:text="@string/lb_b_date" android:singleLine="true"/>
+			<com.mfinance.everjoy.app.widget.FontFitTextView android:layout_width="fill_parent" android:layout_weight="1" android:layout_height="wrap_content" android:text="-" android:textColor="@color/general_lab" android:id="@+id/tvBuyDate" android:gravity="center_vertical|right" android:paddingRight="10dp" android:singleLine="true"/>
+			<com.mfinance.everjoy.app.widget.FontFitTextView android:textColor="@color/general_lab" android:layout_width="fill_parent" android:layout_weight="1" android:layout_height="wrap_content" android:id="@+id/lbSellDate" android:text="@string/lb_s_date" android:singleLine="true"/>
+			<com.mfinance.everjoy.app.widget.FontFitTextView android:layout_width="fill_parent" android:layout_weight="1" android:layout_height="wrap_content" android:text="-" android:textColor="@color/general_lab" android:id="@+id/tvSellDate" android:gravity="center_vertical|right" android:singleLine="true"/>
+		</LinearLayout>
+		<LinearLayout android:paddingTop="10dp" android:layout_width="fill_parent" android:layout_height="wrap_content" >
+			<com.mfinance.everjoy.app.widget.FontFitTextView android:textColor="@color/general_lab" android:layout_width="fill_parent" android:layout_weight="1" android:layout_height="wrap_content" android:id="@+id/lbCommission" android:text="@string/lb_commission" android:singleLine="true"/>
+			<com.mfinance.everjoy.app.widget.FontFitTextView android:layout_width="fill_parent" android:layout_weight="1" android:layout_height="wrap_content" android:text="-" android:textColor="@color/general_lab" android:id="@+id/tvCommission" android:gravity="center_vertical|right" android:paddingRight="10dp" android:singleLine="true"/>
+			<com.mfinance.everjoy.app.widget.FontFitTextView android:textColor="@color/general_lab" android:layout_width="fill_parent" android:layout_weight="1" android:layout_height="wrap_content" android:id="@+id/lbPL" android:text="@string/lb_pl" android:singleLine="true"/>
+			<com.mfinance.everjoy.app.widget.FontFitTextView android:layout_width="fill_parent" android:layout_weight="1" android:layout_height="wrap_content" android:text="-" android:textColor="@color/general_lab" android:id="@+id/tvPL" android:gravity="center_vertical|right" android:singleLine="true"/>
+		</LinearLayout>		
+		
+		</LinearLayout>
+	</RelativeLayout>
+
+	
+	<Button android:layout_height="wrap_content"
+		android:layout_width="wrap_content" android:id="@+id/btnClose"
+		android:background="@drawable/pop_btn_close"
+		android:layout_alignRight="@+id/rlContent" android:layout_marginRight="0dp"></Button>
+</RelativeLayout>

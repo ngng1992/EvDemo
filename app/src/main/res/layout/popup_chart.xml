@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/rlPop" android:layout_height="wrap_content"
+	android:background="@android:color/transparent" android:layout_width="wrap_content">
+
+
+	<RelativeLayout android:layout_height="fill_parent"
+		android:layout_width="fill_parent">
+		<com.mfinance.everjoy.app.widget.zoom.ImageZoomView
+			xmlns:android="http://schemas.android.com/apk/res/android"
+			android:id="@+id/ivChart" android:layout_height="fill_parent"
+			android:layout_width="fill_parent" android:layout_weight="1" />
+
+		<LinearLayout android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:id="@+id/LinearLayout01"
+			android:layout_centerHorizontal="true" android:layout_marginTop="30dp">
+			<Button android:text="@+id/Button03" android:id="@+id/Button03"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+			<Button android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:id="@+id/Button01"
+				android:text="@+id/Button01" />
+			<Button android:text="@+id/Button02" android:id="@+id/Button02"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+			<Button android:text="Close" android:id="@+id/btnClose"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>						
+		</LinearLayout>
+	</RelativeLayout>
+</RelativeLayout>

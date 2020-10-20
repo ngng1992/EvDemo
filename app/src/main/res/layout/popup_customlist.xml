@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rlPop"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent" >
+
+    <RelativeLayout
+        android:id="@+id/rlContent"
+        android:layout_width="wrap_content"
+        android:layout_height="400dp"
+        android:layout_below="@+id/btnClose"
+        android:layout_marginTop="-15dp"
+        android:background="@drawable/pd_pop_action">
+
+        <TextView
+            android:id="@+id/TextView01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="@string/db_customize_list"
+            android:textColor="@color/normal_text"
+            android:textSize="17dp"></TextView>
+
+        <LinearLayout
+            android:id="@+id/llLevel1"
+            android:layout_width="270dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/TextView01"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llLevel2"
+            android:layout_width="270dp"
+            android:layout_height="260dp"
+            android:layout_below="@+id/llLevel1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/pop_bg"
+            android:padding="5dp">
+
+            <com.mfinance.everjoy.app.widget.wheel.WheelView
+                android:id="@+id/p1"
+                android:layout_width="100dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/btnAdd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:layout_weight="1"
+                    android:scaleType="center"
+                    android:src="@drawable/list_arrow_right" />
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/list_arrow_down"
+                    android:visibility="invisible" />
+
+                <ImageView
+                    android:id="@+id/btnRemove"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="50dp"
+                    android:layout_weight="1"
+                    android:scaleType="center"
+                    android:src="@drawable/list_arrow_left" />
+
+            </LinearLayout>
+
+            <com.mfinance.everjoy.app.widget.wheel.WheelView
+                android:id="@+id/p3"
+                android:layout_width="100dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnOK"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/llLevel2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btn_2"
+            android:text="@string/btn_ok"
+            android:textColor="@color/btn_2"></Button>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/rlContent"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="0dp"
+        android:background="@drawable/pop_btn_close" >
+    </Button>
+
+</RelativeLayout>

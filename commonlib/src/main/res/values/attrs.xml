@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--    自定义输入验证码-->
+    <declare-styleable name="VerificationCodeInput">
+        <attr name="box" format="integer" />
+        <attr name="child_h_padding" format="dimension" />
+        <attr name="child_v_padding" format="dimension" />
+        <attr name="child_width" format="dimension" />
+        <attr name="child_height" format="dimension" />
+        <attr name="padding" format="dimension" />
+        <attr name="box_bg_focus" format="reference" />
+        <attr name="box_bg_normal" format="reference" />
+        <attr name="inputType" format="string" />
+        <attr name="isNeedBgLine" format="boolean" />
+        <attr name="txtSize" format="float" />
+        <attr name="txtColor" format="dimension" />
+        <attr name="lineColor" format="dimension" />
+    </declare-styleable>
+
+
+    <!--    线条滑动块-->
+    <declare-styleable name="LineStepView">
+        <attr name="lineCount" format="integer" />
+        <attr name="lineWidth" format="dimension" />
+        <attr name="lineHeight" format="dimension" />
+        <attr name="linePadding" format="dimension" />
+        <attr name="lineUnSelectAlpha" format="float" />
+        <attr name="lineUnSelectBgColor" format="dimension" />
+        <attr name="lineSelectBgColor" format="dimension" />
+    </declare-styleable>
+
+</resources>

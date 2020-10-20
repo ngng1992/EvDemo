@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/base_rl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--    使用沉浸式的view-->
+    <View
+        android:id="@+id/view_full_status"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/whiteff">
+
+    </View>
+
+    <include
+        layout="@layout/include_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view_full_status">
+
+    </include>
+
+    <View
+        android:id="@+id/base_view_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_01"
+        android:layout_below="@+id/base_appbar"
+        android:background="@color/whitee1">
+
+    </View>
+
+</RelativeLayout>

@@ -1,0 +1,159 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.jakewharton.butterknife'
+
+android {
+
+    signingConfigs {
+        release {
+            storeFile file("../read/everjoy.jks")
+            storePassword "everjoy"
+            keyAlias "everjoy"
+            keyPassword "everjoy"
+        }
+
+        debug {
+            storeFile file("../read/everjoy.jks")
+            storePassword 'everjoy'
+            keyAlias = 'everjoy'
+            keyPassword 'everjoy'
+        }
+    }
+
+    compileSdkVersion 30
+    buildToolsVersion "30.0.1"
+
+    useLibrary 'org.apache.http.legacy'
+
+    defaultConfig {
+        applicationId "com.mfinance.everjoy"
+        minSdkVersion 24
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // 支持矢量图
+        vectorDrawables.useSupportLibrary = true
+        // 多dex
+        multiDexEnabled true
+        // 默认支持的语言
+        resConfigs "zh","en"
+
+        // arm64-v8a支持64位CPU，armeabi-v7a支持32位CPU
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a", "x86"
+        }
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath false
+            }
+        }
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            zipAlignEnabled true
+            // 开启混淆
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    // jni存放目录
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['src/main/jniLibs']
+        }
+    }
+
+    // 新浪
+//    splits {
+//        abi {
+//            enable true
+//            reset()
+//            include 'armeabi-v7a', 'arm64-v8a' //根据需求自己修改
+//            universalApk true
+//        }
+//    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+
+//    configurations.all() {
+//        Configuration configuration ->
+//            //当遇到版本冲突时直接构建失败
+//            configuration.resolutionStrategy.failOnVersionConflict()
+//    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    implementation 'org.jetbrains:annotations:15.0'
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    implementation 'com.google.guava:guava:18.0'
+    implementation 'joda-time:joda-time:2.7'
+    implementation files('libs/mf-chart-android.jar')
+    implementation files('libs/naga-3_0.jar')
+    implementation 'org.simpleframework:simple-xml:2.3.2'
+    implementation 'net.java.truelicense:truelicense-obfuscate:2.4.1'
+    implementation files('libs/uk.co.jasonfry.android.tools.jar')
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.3'
+    implementation files('libs/pushy-sdk-1.0.55.jar')
+    implementation files('libs/commons-compress-1.15.jar')
+    implementation files('libs/jaxb-api-2.2.4.jar')
+    implementation('xerces:xercesImpl:2.12.0') {
+        exclude module: 'xml-apis'
+    }
+
+    // 分包
+    implementation 'androidx.multidex:multidex:2.0.1'
+
+    // 公有的库
+    implementation project(path: ':commonlib')
+
+    // 友盟统计、崩溃日志
+    implementation files('libs/umeng-analytics-8.1.6.jar')
+    implementation files('libs/umeng-common-2.2.5.jar')
+
+    // 加载图片
+    implementation rootProject.ext.dependencies.glide
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
+    // View注解
+    implementation 'com.jakewharton:butterknife:10.2.3'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
+
+    // 环信 Google firebase cloud messaging
+    implementation 'com.google.android.gms:play-services-base:11.4.0'
+    implementation 'com.google.firebase:firebase-messaging:11.4.0'
+    implementation 'com.hyphenate:hyphenate-sdk:3.6.8'
+    implementation project(path: ':chatlib')
+
+    implementation rootProject.ext.dependencies.BaseRecyclerViewAdapterHelper
+
+    // 滚动选择控件
+    implementation project(path: ':picker-view')
+}

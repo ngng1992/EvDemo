@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/grv_emoji"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:numColumns="8"
+    android:paddingLeft="10dp"
+    android:horizontalSpacing="10dp"
+    android:verticalSpacing="10dp"
+    android:scrollbars="none">
+
+<!--    设置左边距，避免靠左-->
+</GridView>

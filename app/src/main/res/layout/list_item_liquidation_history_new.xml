@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:orientation="horizontal" android:id="@+id/llHistory"
+	android:layout_width="fill_parent" android:paddingRight="5dp"
+	android:layout_height="wrap_content" android:paddingLeft="5dp"
+	android:background="@drawable/list_row_odd">
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="fill_parent"
+		android:layout_weight="1"
+		android:gravity="center_vertical"
+		android:orientation="vertical">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:orientation="horizontal">
+
+			<TextView
+				android:id="@+id/lbContract"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="bottom"
+				android:text="-"
+				android:textColor="@android:color/white"
+				android:textSize="16sp"></TextView>
+		</LinearLayout>
+
+		<TextView
+			android:id="@+id/lbTranDate"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="-"
+			android:textColor="@android:color/white"></TextView>
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="fill_parent"
+		android:layout_weight="1"
+		android:gravity="center_vertical"
+		android:orientation="horizontal">
+
+		<TextView
+			android:id="@+id/lbBuy"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:paddingLeft="2dp"
+			android:text="--"
+			android:textColor="@android:color/white"/>
+
+		<TextView
+			android:id="@+id/lbSell"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:gravity="right"
+			android:paddingRight="2dp"
+			android:text="--"
+			android:textColor="@android:color/white"/>
+	</LinearLayout>
+
+	<TextView
+		android:id="@+id/lbExecPrice"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_vertical"
+		android:layout_weight="1"
+		android:text="--"
+		android:textColor="@android:color/white"/>
+
+	<TextView
+		android:id="@+id/lbFloat"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_vertical"
+		android:layout_weight="1"
+		android:gravity="right"
+		android:text="--"
+		android:textColor="@android:color/white"/>
+</LinearLayout>

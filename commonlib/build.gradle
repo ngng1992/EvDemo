@@ -1,0 +1,69 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.1"
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    // 自定义网络
+    api rootProject.ext.dependencies.rxjava
+    api rootProject.ext.dependencies.rxandroid
+    api rootProject.ext.dependencies.okhttp
+    api rootProject.ext.dependencies.retrofit
+    api rootProject.ext.dependencies["converter-gson"]
+    api rootProject.ext.dependencies["adapter-rxjava"]
+
+    // OKGO网络框架
+    api 'com.lzy.net:okgo:3.0.4'
+
+    // 权限
+    implementation project(path: ':permissionlib')
+
+    // 工具使用
+    api rootProject.ext.dependencies.utilcodex
+
+    // 微信分享登录
+    api 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+    // QQ分享登录
+    api files('libs/open_sdk_r8353806_lite.jar')
+    // 新浪登录和分享
+    api 'com.sina.weibo.sdk:core:4.4.3:openDefaultRelease@aar'
+    // Facebook 核心代码、登录、分享
+    api 'com.facebook.android:facebook-core:8.0.0'
+    api 'com.facebook.android:facebook-login:8.0.0'
+    api 'com.facebook.android:facebook-share:8.0.0'
+    // twitter分享登录
+    api('com.twitter.sdk.android:twitter:3.3.0@aar') {
+        transitive = true
+    }
+
+    // eventbus
+    api 'org.greenrobot:eventbus:3.2.0'
+
+    // 小红点
+    api rootProject.ext.dependencies.badgeview
+}

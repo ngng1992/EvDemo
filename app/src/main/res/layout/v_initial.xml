@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlMain"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/initial_bg"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <LinearLayout
+                    android:id="@+id/linearLayout4"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="vertical">
+
+                    <ProgressBar
+                        android:id="@+id/pb_loading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center">
+
+					</ProgressBar>
+
+                    <TextView
+                        android:id="@+id/tvAppLauncherMsg"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="@string/lb_app_laucher_problem"
+                        android:textColor="@color/normal_text"
+                        android:visibility="gone" />
+
+                    <Button
+                        android:id="@+id/btnRetry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/btn_1"
+                        android:text="@string/lb_retry"
+                        android:textColor="@color/btn_1"
+                        android:visibility="gone"></Button>
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/ivLogo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/loading_screen_logo"
+                    android:visibility="visible"></ImageView>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="fill_parent"
+            android:layout_height="25dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:text="@string/lb_copyright"
+                android:textColor="#ffffff"
+                android:textSize="11dp"></TextView>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="10dp"
+        android:background="@drawable/declaration_background"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/disclaimer_title"
+            android:textColor="#ffffff"
+            android:textSize="23sp" >
+        </TextView>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="4dp"
+            android:background="@drawable/declaration_line" >
+        </View>
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.0"
+            android:overScrollMode="never"
+            android:paddingBottom="21dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="15dp"
+            android:scrollbarStyle="outsideOverlay" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="@string/long_string"
+                android:textColor="#ffffff"
+                android:textSize="14sp" >
+            </TextView>
+        </ScrollView>
+
+        <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:gravity="bottom"
+	        android:orientation="vertical">
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+             	android:paddingLeft="20dp"
+                android:gravity="left"
+                android:text="@string/disclaimer_footer"
+                android:textColor="#ff0000"
+                android:textSize="14sp" >
+            </TextView>
+	        <LinearLayout android:layout_height="wrap_content"
+				android:id="@+id/llLevel6"
+				android:layout_width="fill_parent" android:paddingTop="6dp"
+				android:paddingLeft="10dp"
+	            android:paddingRight="10dp"
+	            android:layout_marginTop="7dp"
+	            android:layout_marginBottom="20dp">
+		        <Button
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:background="@drawable/declaration_button"
+		            android:onClick="confirmBtn"
+		            android:text="@string/disclaimer_iagree"
+		            android:textColor="#ffffff"
+		            android:layout_weight="1" android:layout_margin="10dp"
+		            >
+		        </Button>
+		        <Button android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:onClick="cancelBtn"
+						android:textColor="#ffffff"
+						android:background="@drawable/declaration_button"
+						android:text="@string/disclaimer_idisagree"
+						android:layout_weight="1" android:layout_margin="10dp">
+
+				</Button>
+	        </LinearLayout>
+		</LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

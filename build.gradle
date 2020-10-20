@@ -1,0 +1,50 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+apply from: "config.gradle"
+
+buildscript {
+    repositories {
+        jcenter()
+        google()
+        mavenCentral()
+
+        // 以下四行代码为阿里gradle 源
+//        maven{ url 'https://maven.aliyun.com/repository/google'}
+//        maven{ url 'https://maven.aliyun.com/repository/gradle-plugin'}
+//        maven{ url 'https://maven.aliyun.com/repository/public'}
+//        maven{ url 'https://maven.aliyun.com/repository/jcenter'}
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.0.1'
+        classpath 'com.jakewharton:butterknife-gradle-plugin:10.2.3'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        google()
+        // 环信
+//        maven { url 'http://developer.huawei.com/repo'} //如果需要使用华为推送HMS，则需要加上此句
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
+        mavenCentral()
+        maven { url "https://dl.bintray.com/thelasterstar/maven/" }
+        maven { url 'https://jitpack.io' }
+
+        // 以下四行代码为阿里gradle 源
+//        maven{ url 'https://maven.aliyun.com/repository/google'}
+//        maven{ url 'https://maven.aliyun.com/repository/gradle-plugin'}
+//        maven{ url 'https://maven.aliyun.com/repository/public'}
+//        maven{ url 'https://maven.aliyun.com/repository/jcenter'}
+
+        flatDir {
+            dirs 'libs'
+            // 把libs中的aar文件转到app里面
+//            dirs project(':app').file('libs')
+//            dirs project(':pllib').file('libs')
+        }
+    }
+}

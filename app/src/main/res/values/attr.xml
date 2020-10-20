@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PageSwitcher">
+        <!-- Reference to the library that contains the gesture to recognize-->
+        <attr name="gestureLibrary" format="reference"/>
+        <!-- References to animation used when going to previous or next view -->
+        <attr name="nextIn" format="reference"/>
+        <attr name="nextOut" format="reference"/>
+        <attr name="previousIn" format="reference"/>
+        <attr name="previousOut" format="reference"/>
+        <!-- Gesture used to go to the previous and next views -->
+        <attr name="previousGesture" format="string"/>
+        <attr name="nextGesture" format="string"/>
+    </declare-styleable>
+
+
+<!--    新增========================= -->
+
+
+    <!--    完善资料 通用属性 -->
+    <declare-styleable name="AccountEditorInfoView">
+        <attr name="txtLeft" format="string" />
+        <attr name="txtRight" format="string" />
+        <attr name="txtRightHint" format="string" />
+        <attr name="isVisibilityGoto" format="boolean" />
+        <attr name="isEditor" format="boolean" />
+        <attr name="editorInputType" format="enum">
+            <enum name="text" value="1"/>
+            <enum name="email" value="2"/>
+            <enum name="phone" value="3"/>
+        </attr>
+    </declare-styleable>
+
+</resources>

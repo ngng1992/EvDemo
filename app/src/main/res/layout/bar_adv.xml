@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_alignParentBottom="true"
+	android:orientation="vertical" android:id="@+id/lladv"
+	android:gravity="center_vertical" android:layout_height="44dp"
+	android:visibility="gone"
+	android:background="@color/no_chanage">
+	<android.webkit.WebView android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:id="@+id/wvAdv"></android.webkit.WebView>
+</LinearLayout>

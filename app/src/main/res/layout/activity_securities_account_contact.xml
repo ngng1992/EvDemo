@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/bg_signup">
+
+    </ImageView>
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_24">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_16"
+            android:src="@drawable/ic_gray33_left_back11">
+
+        </ImageView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/sec_acc_ui_title"
+            android:textColor="@color/gray1e"
+            android:textSize="@dimen/sp_18">
+
+        </TextView>
+
+    </RelativeLayout>
+
+    <com.mfinance.everjoy.everjoy.view.AccountStepView
+        android:id="@+id/ll_account_step"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_title"
+        android:layout_marginTop="@dimen/dp_16"
+        android:orientation="horizontal">
+
+    </com.mfinance.everjoy.everjoy.view.AccountStepView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll_account_step"
+        android:layout_marginTop="@dimen/dp_16"
+        android:background="@drawable/bg_whiteff_corner24"
+        android:orientation="vertical">
+
+        <net.mfinance.commonlib.view.LineStepView
+            android:id="@+id/ll_step_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_16"
+            app:lineCount="4"
+            app:lineHeight="@dimen/dp_2"
+            app:linePadding="@dimen/dp_4"
+            app:lineSelectBgColor="@color/yellowd2"
+            app:lineUnSelectAlpha="0.3"
+            app:lineWidth="@dimen/dp_12">
+
+        </net.mfinance.commonlib.view.LineStepView>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dp_16"
+                    android:text="@string/ui_contact"
+                    android:textColor="@color/gray1e"
+                    android:textSize="@dimen/sp_16">
+
+                </TextView>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_16"
+                    android:layout_marginRight="@dimen/dp_16">
+
+                    <TextView
+                        android:id="@+id/tv_email"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/dp_12"
+                        android:layout_marginTop="@dimen/dp_12"
+                        android:layout_marginBottom="@dimen/dp_12"
+                        android:text="@string/ui_email"
+                        android:textColor="@color/gray68"
+                        android:textSize="@dimen/sp_14">
+
+                    </TextView>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_email_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/tv_email">
+
+                        <EditText
+                            android:id="@+id/et_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_toLeftOf="@+id/iv_goto"
+                            android:background="@null"
+                            android:inputType="textEmailAddress"
+                            android:gravity="center_vertical"
+                            android:hint="@string/ui_input_email"
+                            android:paddingTop="@dimen/dp_12"
+                            android:paddingBottom="@dimen/dp_12"
+                            android:textColor="@color/gray1e"
+                            android:textColorHint="@color/graycb"
+                            android:textSize="@dimen/sp_14">
+
+                        </EditText>
+
+                        <ImageView
+                            android:id="@+id/iv_goto"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:paddingRight="@dimen/dp_4"
+                            android:src="@drawable/ic_graycd_right_back15"
+                            android:visibility="gone">
+
+                        </ImageView>
+
+
+                    </RelativeLayout>
+
+                    <View
+                        android:id="@+id/view_line0"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.2dp"
+                        android:layout_below="@+id/rl_email_content"
+                        android:layout_toRightOf="@+id/tv_email"
+                        android:background="@color/grayf1">
+
+                    </View>
+
+                </RelativeLayout>
+
+                <com.mfinance.everjoy.everjoy.view.AccountEditorInfoView
+                    android:id="@+id/ll_editor_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:isEditor="true"
+                    app:isVisibilityGoto="false"
+                    app:editorInputType="phone"
+                    app:txtLeft="@string/ui_phone"
+                    app:txtRightHint="@string/ui_input_phone">
+
+                </com.mfinance.everjoy.everjoy.view.AccountEditorInfoView>
+
+                <com.mfinance.everjoy.everjoy.view.AccountEditorInfoView
+                    android:id="@+id/ll_editor_house"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:isEditor="true"
+                    app:isVisibilityGoto="false"
+                    app:txtLeft="@string/ui_house"
+                    app:txtRightHint="@string/ui_input_house">
+
+                </com.mfinance.everjoy.everjoy.view.AccountEditorInfoView>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_16"
+                    android:layout_marginRight="@dimen/dp_16">
+
+                    <TextView
+                        android:id="@+id/tv_address"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/dp_12"
+                        android:layout_marginTop="@dimen/dp_12"
+                        android:layout_marginBottom="@dimen/dp_12"
+                        android:text="@string/ui_address"
+                        android:textColor="@color/gray68"
+                        android:textSize="@dimen/sp_14">
+
+                    </TextView>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_address_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/tv_address">
+
+                        <EditText
+                            android:id="@+id/et_address_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_toLeftOf="@+id/tv_address_compare"
+                            android:background="@null"
+                            android:gravity="center_vertical"
+                            android:hint="@string/ui_input_address"
+                            android:paddingTop="@dimen/dp_12"
+                            android:paddingBottom="@dimen/dp_12"
+                            android:textColor="@color/gray1e"
+                            android:textColorHint="@color/graycb"
+                            android:textSize="@dimen/sp_14">
+
+                        </EditText>
+
+                        <TextView
+                            android:id="@+id/tv_address_compare"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/ui_address_compare"
+                            android:textColor="@color/blue18"
+                            android:layout_marginLeft="@dimen/dp_8"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true">
+
+                        </TextView>
+
+                    </RelativeLayout>
+
+                    <View
+                        android:id="@+id/view_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.2dp"
+                        android:layout_below="@+id/rl_address_content"
+                        android:layout_toRightOf="@+id/tv_address"
+                        android:background="@color/grayf1">
+
+                    </View>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dp_16"
+                    android:text="@string/ui_edu_work"
+                    android:textColor="@color/gray1e"
+                    android:textSize="@dimen/sp_16">
+
+                </TextView>
+
+                <com.mfinance.everjoy.everjoy.view.AccountEditorInfoView
+                    android:id="@+id/ll_editor_edu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:isEditor="false"
+                    app:isVisibilityGoto="true"
+                    app:txtLeft="@string/ui_edu"
+                    app:txtRightHint="@string/sec_acc_ui_select">
+
+                </com.mfinance.everjoy.everjoy.view.AccountEditorInfoView>
+
+                <com.mfinance.everjoy.everjoy.view.AccountEditorInfoView
+                    android:id="@+id/ll_editor_work"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:isEditor="false"
+                    app:isVisibilityGoto="true"
+                    app:txtLeft="@string/ui_work"
+                    app:txtRightHint="@string/sec_acc_ui_select">
+
+                </com.mfinance.everjoy.everjoy.view.AccountEditorInfoView>
+
+                <com.mfinance.everjoy.everjoy.view.AccountEditorInfoView
+                    android:id="@+id/ll_editor_comp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:isEditor="true"
+                    app:isVisibilityGoto="false"
+                    app:txtLeft="@string/ui_comp"
+                    app:txtRightHint="@string/ui_input_comp">
+
+                </com.mfinance.everjoy.everjoy.view.AccountEditorInfoView>
+
+                <com.mfinance.everjoy.everjoy.view.AccountEditorInfoView
+                    android:id="@+id/ll_editor_comp_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:isEditor="true"
+                    app:isVisibilityGoto="false"
+                    app:txtLeft="@string/ui_comp_address"
+                    app:txtRightHint="@string/ui_input_comp_address">
+
+                </com.mfinance.everjoy.everjoy.view.AccountEditorInfoView>
+
+                <com.mfinance.everjoy.everjoy.view.AccountEditorInfoView
+                    android:id="@+id/ll_editor_comp_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:isEditor="true"
+                    app:isVisibilityGoto="false"
+                    app:txtLeft="@string/ui_comp_phone"
+                    app:editorInputType="phone"
+                    app:txtRightHint="@string/ui_input_comp_phone">
+
+                </com.mfinance.everjoy.everjoy.view.AccountEditorInfoView>
+
+                <com.mfinance.everjoy.everjoy.view.AccountEditorInfoView
+                    android:id="@+id/ll_editor_business"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:isEditor="false"
+                    app:isVisibilityGoto="true"
+                    app:txtLeft="@string/ui_business"
+                    app:txtRightHint="@string/sec_acc_ui_select">
+
+                </com.mfinance.everjoy.everjoy.view.AccountEditorInfoView>
+
+                <com.mfinance.everjoy.everjoy.view.AccountEditorInfoView
+                    android:id="@+id/ll_editor_profession"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:isEditor="false"
+                    app:isVisibilityGoto="true"
+                    app:txtLeft="@string/ui_profession"
+                    app:txtRightHint="@string/sec_acc_ui_select">
+
+                </com.mfinance.everjoy.everjoy.view.AccountEditorInfoView>
+
+                <com.mfinance.everjoy.everjoy.view.AccountEditorInfoView
+                    android:id="@+id/ll_editor_working"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:isEditor="false"
+                    app:isVisibilityGoto="true"
+                    app:txtLeft="@string/ui_working"
+                    app:txtRightHint="@string/sec_acc_ui_select">
+
+                </com.mfinance.everjoy.everjoy.view.AccountEditorInfoView>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/ll_next"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_16"
+            android:layout_marginBottom="@dimen/dp_16"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_prev"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_44"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/dp_16"
+                    android:layout_marginRight="@dimen/dp_16"
+                    android:background="@drawable/bg_yellowfa_corner24"
+                    android:gravity="center"
+                    android:text="@string/ui_prev"
+                    android:textColor="@color/yellowd2"
+                    android:textSize="@dimen/sp_16">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/tv_next"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_44"
+                    android:layout_marginLeft="@dimen/dp_16"
+                    android:layout_marginRight="@dimen/dp_16"
+                    android:background="@drawable/bg_yellowd2_corner24"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:alpha="0.5"
+                    android:text="@string/sec_acc_ui_next"
+                    android:textColor="@color/whiteff"
+                    android:textSize="@dimen/sp_16">
+
+                </TextView>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/tv_contact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginRight="@dimen/dp_16"
+                android:text="@string/sec_acc_ui_contact"
+                android:textColor="@color/gray68"
+                android:textSize="@dimen/sp_14">
+
+            </TextView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

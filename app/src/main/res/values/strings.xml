@@ -1,0 +1,901 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <string name="release_date">20160812</string>
+    <string name="title_open_position_summary">Open Positions Summary</string>
+    <string name="lb_message">Message : </string>
+    <string name="lb_Message">Message</string>
+    <string name="lb_status">Status : </string>
+    <string name="lb_action">TRADE</string>
+    <string name="title_transaction_status">Transaction Status</string>
+    <string name="title_edit_order">Edit Order</string>
+    <string name="db_open_position_summary">Open Positions Summary</string>
+    <string name="db_open_position_listing">Open Positions</string>
+    <string name="db_price_list">Market Quotes</string>
+    <string name="db_chart">Chart</string>
+    <string name="db_new_position">Market Order</string>
+    <string name="db_price_summary">Chart</string>
+    <string name="db_price_alert">Price Alert</string>
+    <string name="db_price_alert_history">Price Alert Records</string>
+    <string name="db_pending_order_listing">Pending Orders</string>
+    <string name="db_new_order">Entry Order</string>
+    <string name="db_liquidation_history">Liquidation History</string>
+    <string name="db_setting">Settings</string>
+    <string name="db_transaction_status">Transaction Status</string>
+    <string name="db_executed_order_history">Executed Entry Orders</string>
+    <string name="db_cancelled_order_history">Cancelled Orders</string>
+    <string name="db_main_page">Main Page</string>
+    <string name="lb_detail">DETAIL</string>
+    <string name="db_online_statement">Online Statement</string>
+    <string name="db_customize_list">User Portfolio</string>
+    <string name="title_about_us">About OTX</string>
+    <string name="title_liquidation_history">Liquidation History</string>
+    <string name="lb_s_date">Sell Date :</string>
+    <string name="lb_s_rate">Sell Price :</string>
+    <string name="lb_b_rate">Buy Price :</string>
+    <string name="lb_s_ref">Sell Ref. :</string>
+    <string name="lb_b_ref">Buy Ref. :</string>
+    <string name="lb_b_date">Buy Date :</string>
+    <string name="lb_tran_time">TRAN. TIME</string>
+    <string name="title_cancel_order">Cancelled Orders</string>
+    <string name="lb_cancel_time">Can. Time : </string>
+    <string name="lb_cancel_date">Can. Date : </string>
+    <string name="lb_criteria">Criteria</string>
+    <string name="lb_to">To</string>
+    <string name="lb_from">From</string>
+    <string name="lb_date_select">Enquiry</string>
+    <string name="lb_today">Today</string>
+    <string name="lb_executed_time">Exec. Time : </string>
+    <string name="lb_executed_amount">EXE. AMT</string>
+    <string name="lb_executed_lot">Exec. Lot  (Amount): </string>
+    <string name="lb_executed_date">Exec. Date : </string>
+    <string name="title_executed_order">Executed Entry Orders</string>
+    <string name="lb_oco_ref">OCO REF.</string>
+    <string name="lb_open_ref">OP. REF</string>
+    <string name="lb_good_till">Good Till</string>
+    <string name="lb_limit_stop">LMT/STP</string>
+    <string name="lb_req_rate">R.RTE</string>
+    <string name="title_pending_order">Pending Order</string>
+    <string name="title_cancel_multiple_pending_order">Cancel Pending Order</string>
+    <string name="lb_unselect">Deselect</string>
+    <string name="lb_all">ALL</string>
+    <string name="lb_select">Select</string>
+    <string name="lb_un_select_all">Deselect All</string>
+    <string name="lb_select_all">Select All</string>
+    <string name="lb_buy_sell">B/S</string>
+    <string name="lb_deal_rate">D.RTE</string>
+    <string name="lb_floating">Float. P/L</string>
+    <string name="lb_floating_with_quo">Float. P/L : </string>
+    <string name="lb_offset">OFFSET</string>
+    <string name="lb_amount">Amt.</string>
+    <string name="lb_amount_with_quo">Amt.) : </string>
+    <string name="lb_commission">Comm. : </string>
+    <string name="lb_Contract">Contract</string>
+    <string name="lb_tran_date">TRAN. DATE</string>
+    <string name="lb_ref">Ref. : </string>
+    <string name="title_liquidation">Liquidate</string>
+    <string name="pop_action_buy">New Buy Deal</string>
+    <string name="pop_action_sell">New Sell Deal</string>
+    <string name="pop_action_buy_limit">New Buy Limit Order</string>
+    <string name="pop_action_sell_limit">New Sell Limit Order</string>
+    <string name="pop_action_buy_stop">New Buy Stop Order</string>
+    <string name="pop_action_sell_stop">New Sell Stop Order</string>
+    <string name="pop_action_title">Action</string>
+    <string name="lb_liquidate">LIQUIDATE</string>
+    <string name="title_open_position">Open Positions</string>
+    <string name="title_contract_list">Market Quotes</string>
+    <string name="liquidation_fail">Cannot liquidate different types of Contract together!</string>
+    <string name="liquidation_error">Please select at least one record to liquidate.</string>
+    <string name="are_you_sure">Are you sure ?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <!-- Login Screen -->
+    <string name="title_login">Login</string>
+    <string name="title_forgot_password">Forgot Password</string>
+    <string name="title_change_password">Change Password</string>
+    <string name="lb_user_name">Username</string>
+    <string name="lb_password">Password</string>
+    <string name="lb_new_password">New Password</string>
+    <string name="lb_confirm_new_password">Confirm New Password</string>
+    <string name="title_password_criteria">Password Criteria</string>
+    <string name="lb_password_criteria_length">#s1-#s2 char(s) long</string>
+    <string name="lb_password_criteria_optional">includes at least:</string>
+    <string name="lb_password_criteria_optional_min_digit">#s digit(s)</string>
+    <string name="lb_password_criteria_optional_min_lowercase">#s lowercase char(s)</string>
+    <string name="lb_password_criteria_optional_min_uppercase">#s uppercase char(s)</string>
+    <string name="lb_password_criteria_optional_min_symbol">#s1 symbol char(s) #s2</string>
+    <string name="lb_save_password">Save Password</string>
+    <string name="lb_practice_account">Demo</string>
+    <string name="lb_production_account">Live</string>
+    <string name="lb_practice_account_long">Demo</string>
+    <string name="lb_production_account_long">Live</string>
+    <string name="lb_forgot_password">Forgot Password</string>
+    <string name="lb_forgot_password_remark">*Remark: For Practice Account Only</string>
+    <!-- Login Screen -->
+    <!-- Account Section -->
+    <string name="lb_account">Account:</string>
+    <string name="lb_trader_account">Trader Account:</string>
+    <string name="lb_account_name">Account Name:</string>
+    <string name="lb_currency">Contract</string>
+    <string name="lb_date">Date</string>
+    <string name="lb_floating_pl">Floating P/L</string>
+    <string name="lb_own_equity">Equity</string>
+    <string name="lb_balance">New Balance</string>
+    <string name="lb_usable_margin">Usable Margin</string>
+    <string name="lb_equity_margin">EQUITY/MARGIN</string>
+    <string name="lb_margin_requirement">Req. Margin</string>
+    <string name="lb_effective_margin">Eff. Margin</string>
+    <string name="lb_trade_date">Trade Date</string>
+    <string name="lb_credit">Credit Limit</string>
+    <string name="lb_credit_non_tradable">Non-Tradable Credit</string>
+    <string name="lb_equity">Equity</string>
+    <string name="lb_margin_call_amount">Call Margin</string>
+    <string name="lb_magin_tradable">Tradable Unclear Margin</string>
+    <string name="lb_magin_non_tradable">Non-Tradable Unclear Margin</string>
+    <!-- Account Section -->
+    <!-- Common -->
+    <string name="lb_bid">Sell</string>
+    <string name="lb_ask">Buy</string>
+    <string name="lb_high">High:</string>
+    <string name="lb_low">Low:</string>
+    <string name="lb_total_amount">Total Amount</string>
+    <string name="lb_lot">Lot</string>
+    <string name="lb_rate">Price : </string>
+    <string name="txt_splippage">Slippage</string>
+    <!-- Common -->
+    <!-- PageSwitcher -->
+    <string name="pageswitcher_previous_gesture">previous</string>
+    <string name="pageswitcher_next_gesture">next</string>
+    <!-- PageSwitcher -->
+    <!--  -->
+    <string name="jan">Jan</string>
+    <string name="feb">Feb</string>
+    <string name="mar">Mar</string>
+    <string name="apr">Apr</string>
+    <string name="may">May</string>
+    <string name="jun">Jun</string>
+    <string name="jul">Jul</string>
+    <string name="aug">Aug</string>
+    <string name="sep">Sep</string>
+    <string name="oct">Oct</string>
+    <string name="nov">Nov</string>
+    <string name="dec">Dec</string>
+    <!--  -->
+    <!-- New Deal -->
+    <string name="title_new_position">Market Order</string>
+    <string name="lb_buy">BUY</string>
+    <string name="lb_sell">SELL</string>
+    <!-- New Deal -->
+    <!-- New Order -->
+    <string name="title_new_order">Entry Order</string>
+    <string name="lb_oco">OCO :</string>
+    <string name="lb_oco_alt">OCO Ref.:</string>
+    <string name="lb_liquidate_ref">Liquidate :</string>
+    <!-- New Order -->
+    <string-array name="sp_buy_sell">
+        <item>BUY</item>
+        <item>SELL</item>
+    </string-array>
+    <string-array name="sp_chart_type">
+        <item>BAR</item>
+        <item>LINE</item>
+        <item>CANDLE</item>
+    </string-array>
+    <string-array name="sp_chart_period_map">
+        <item>Minute</item>
+        <item>FiveMinute</item>
+        <item>FifteenMinute</item>
+        <item>ThirtyMinute</item>
+        <item>Hourly</item>
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+    </string-array>
+    <string-array name="sp_chart_period">
+        <item>1 MIN</item>
+        <item>5 MIN</item>
+        <item>15 MIN</item>
+        <item>30 MIN</item>
+        <item>HOURLY</item>
+        <item>DAILY</item>
+        <item>WEEKLY</item>
+        <item>MONTHLY</item>
+    </string-array>
+    <string-array name="sp_time_out">
+        <item>15 MIN</item>
+        <item>30 MIN</item>
+        <item>45 MIN</item>
+        <item>1 HOUR</item>
+        <item>NEVER</item>
+    </string-array>
+    <string name="tb_on">ON</string>
+    <string name="tb_off">OFF</string>
+    <string name="tb_friday">FRIDAY</string>
+    <string name="tb_cancel">CANCEL</string>
+    <string name="tb_end_of_day">TODAY</string>
+    <string name="tb_limit">LIMIT</string>
+    <string name="tb_stop">STOP</string>
+    <string name="tb_limit_a">TP : </string>
+    <string name="tb_stop_a">SL : </string>
+    <string name="btn_ok">OK</string>
+    <string name="btn_clear">Clear</string>
+    <string name="btn_logout">LOGOUT</string>
+    <string name="btn_login">LOGIN</string>
+    <string name="btn_submit">SUBMIT</string>
+    <string name="btn_cancel">CANCEL</string>
+    <string name="btn_delete">DELETE</string>
+    <string name="btn_confirm">CONFIRM</string>
+    <string name="bar_system_status">SYSTEM STATUS</string>
+    <string name="hello">Hello World, MobileTraderActivity!</string>
+    <string name="app_name">Everjoy</string>
+    <string name="msg_300">Invalid Trade Date</string>
+    <string name="msg_301">Day End Processing...</string>
+    <string name="msg_302">User not found</string>
+    <string name="msg_303">Invalid Password/Username</string>
+    <string name="msg_304">User is not active</string>
+    <string name="msg_305">Invalid User Type</string>
+    <string name="msg_306">Login failure</string>
+    <string name="msg_307">Lost Connection</string>
+    <string name="msg_308">Missing login ID</string>
+    <string name="msg_383">Invalid Password/Username</string>
+    <string name="msg_393">Invalid Password/Username</string>
+    <string name="msg_8001">Duplicate login occurs</string>
+    <string name="msg_310">Please login first</string>
+    <string name="msg_311">Invalid Trade Date</string>
+    <string name="msg_312">Account Locked. Please contact our Customer Services officer.</string>
+    <string name="msg_313">Account is not activated yet</string>
+    <string name="msg_314">Unstable internet connection with your region. \nPlease try again later.</string>
+    <string name="msg_315">Invalid App ID</string>
+    <string name="msg_316">Invalid OTP</string>
+    <string name="msg_317">Password expired. Please update on platform.</string>
+    <string name="msg_318">Do you forget password?</string>
+    <string name="msg_400">Password Changed</string>
+    <string name="msg_401">Fail to change Password</string>
+    <string name="msg_402">Password length does not match</string>
+    <string name="msg_403">Invalid Old Password</string>
+    <string name="msg_404">Please login again</string>
+    <string name="msg_405">User suspended</string>
+    <string name="msg_406">User suspension fail</string>
+    <string name="msg_407">User disconnected</string>
+    <string name="msg_408">User disconnection fail</string>
+    <string name="msg_409">Failed to change password in RoboX. \nPlease login to RoboX and rebind mF account with the new password</string>
+    <string name="msg_410">Cannot reuse old password</string>
+    <string name="msg_411">New password is not strong enough</string>
+    <string name="msg_412">This is your first login, please change your password</string>
+    <string name="msg_413">Your last password update was #s days ago, please change your password</string>
+    <string name="msg_444">Please confirm new password</string>
+    <string name="msg_600">Can\'t add order</string>
+    <string name="msg_601">Can\'t amend order</string>
+    <string name="msg_602">Can\'t cancel order</string>
+    <string name="msg_603">Can\'t Execute order</string>
+    <string name="msg_604">Can\'t get order</string>
+    <string name="msg_605">Fail to override</string>
+    <string name="msg_606">Server busy, try again later</string>
+    <string name="msg_607">New Order Added (#s)</string>
+    <string name="msg_608">Order Amended (#s)</string>
+    <string name="msg_609">Order Executed (#s)</string>
+    <string name="msg_610">Order Cancelled (#s)</string>
+    <string name="msg_611">Short Margin or Exceed Trading Limit</string>
+    <string name="msg_612">Fail to add client to waiting queue</string>
+    <string name="msg_613">Client already in waiting queue</string>
+    <string name="msg_614">Dealer reject price</string>
+    <string name="msg_615">Invalid Price</string>
+    <string name="msg_616">Invalid Amount</string>
+    <string name="msg_617">Request Failure</string>
+    <string name="msg_618">Exceed Auto Deal Limit</string>
+    <string name="msg_619">Are you sure to Cancel Order :</string>
+    <string name="msg_620">Minimum trade lot should be (#s)</string>
+    <string name="msg_621">Trade lot should be a multiple of (#s)</string>
+    <string name="msg_622">Can\'t add order! Liquidation order total lot size cannot exceed open position lot size</string>
+    <string name="msg_700">Can\'t Add Deal</string>
+    <string name="msg_701">Can\'t Get Deal</string>
+    <string name="msg_702">Fail to override</string>
+    <string name="msg_703">Server busy, try again later.</string>
+    <string name="msg_704">New Deal Added (#s)</string>
+    <string name="msg_705">New House Deal Added (#s)</string>
+    <string name="msg_706">Short Margin or Exceed Trading Limit</string>
+    <string name="msg_707">Fail to add client to waiting queue</string>
+    <string name="msg_708">Client already in waiting queue</string>
+    <string name="msg_709">Dealer reject price</string>
+    <string name="msg_710">Price Changed</string>
+    <string name="msg_711">Invalid Amount</string>
+    <string name="msg_712">Request Failure</string>
+    <string name="msg_713">Exceed Auto Deal Limit</string>
+    <string name="msg_714">Request Timeout</string>
+    <string name="msg_715">Deal creation failed due to price change, please try again.</string>
+    <string name="msg_716">Cut Loss Processing...</string>
+    <string name="msg_718">Account expired</string>
+    <string name="msg_719">Liquidate All function is now allowed for this customer.</string>
+    <string name="msg_900">Cannot open audio stream line</string>
+    <string name="msg_901">Invalid Input</string>
+    <string name="msg_902">Please enter a positive integer!</string>
+    <string name="msg_903">Please input a valid proxy port!</string>
+    <string name="msg_904">Please input a valid proxy host!</string>
+    <string name="msg_905">The FROM date shouldn\'t be larger than TO date!</string>
+    <string name="msg_906">The date difference shouldn\'t be larger than #s days!</string>
+    <string name="msg_907">Please select the dates first!</string>
+    <string name="msg_908">Error! Please try again.</string>
+    <string name="msg_909">Please provide a reason to reject!</string>
+    <string name="msg_910">New Order</string>
+    <string name="msg_911">Amend Order</string>
+    <string name="msg_912">Execute Order</string>
+    <string name="msg_913">New Deal</string>
+    <string name="msg_914">Session aborted by client</string>
+    <string name="msg_915">Session put on hold</string>
+    <string name="msg_916">Accepted</string>
+    <string name="msg_917">Processing</string>
+    <string name="msg_918">Rejected</string>
+    <string name="msg_919">Waiting for Dealer\'s reply</string>
+    <string name="msg_920">Waiting for Dealer to pick up</string>
+    <string name="msg_921">Dealer has lost connection</string>
+    <string name="msg_922">No dealer available at this time</string>
+    <string name="msg_923">Waiting for server response</string>
+    <string name="msg_924">Please input4 Account to be display</string>
+    <string name="msg_925">Accept the deal?</string>
+    <string name="msg_926">Accept the order?</string>
+    <string name="msg_927">Deal Done</string>
+    <string name="msg_928">Order Done</string>
+    <string name="msg_929">Invalid Bank Account</string>
+    <string name="msg_930">Invalid Trailing Stop Size</string>
+    <string name="msg_931">Not Available to add/modify order</string>
+    <string name="msg_932">Not Available to add deal</string>
+    <string name="msg_933">Non-Trading Hour</string>
+    <string name="msg_934">Price Changed</string>
+    <string name="msg_935">Invalid Account</string>
+    <string name="msg_936">Invalid Stop Order</string>
+    <string name="msg_937">The excessive liquidation orders have been cancelled.</string>
+    <string name="msg_938">Open Position does not exist</string>
+    <string name="msg_939">Maximum amount of Limit/Stop entry orders exceeded!</string>
+    <string name="msg_940">Override Fail. Invalid password or the Override User is not active</string>
+    <string name="msg_941">Override Fail. No privilege to do override</string>
+    <string name="msg_942">Override Fail. Invalid Margin information value</string>
+    <string name="msg_943">Override Fail. Exceeds your authorized override amount</string>
+    <string name="msg_944">Override Fail. Invalid trading limit information</string>
+    <string name="msg_945">Override Fail. Forbidden to do self overriding</string>
+    <string name="msg_946">Switch to Manual Approval</string>
+    <string name="msg_947">Exceed Maximum Trade Lot</string>
+    <string name="msg_948">Account Locked. Not allow to do trades</string>
+    <string name="msg_949">Account Locked. Not allow to add new trade</string>
+    <string name="msg_950">Not Allowed to trade this contract</string>
+    <string name="msg_954">Liquidation Only</string>
+    <string name="msg_955">No. of lot of Order cannot exceed the max. lot per bar.</string>
+    <string name="msg_981">Deposit Request Sent</string>
+    <string name="msg_982">Withdrawal Request Sent</string>
+    <string name="msg_983">Withdrawal Request Failure (Reason: Amount)!</string>
+    <string name="msg_984">Withdrawal Request Failure (Reason: Account Type)!</string>
+    <string name="msg_985">Deposit/Withdrawal Request Failure!</string>
+    <string name="msg_986">Deposit (MI) amount must be within #s1 - #s2.</string>
+    <string name="msg_987">Withdrawal amount must be within #s2.</string>
+    <string name="msg_1002">Previous deal request is processing, please try again later.</string>
+    <string name="msg_1003">Deposit Request Failure (Reason: Online Deposit Limit)!</string>
+    <string name="msg_1004">Withdrawal Request Failure (Reason: Online Withdrawal Limit)!</string>
+    <string name="msg_1005">Deposit Request Failure (Reason: Total Online Deposit Limit)!</string>
+    <string name="msg_1006">Withdrawal Request Failure (Reason: Total Online Withdrawal Limit)!</string>
+    <string name="msg_1007">Deposit Request processing</string>
+    <string name="msg_1008">Withdrawal Request processing</string>
+    <string name="msg_1030">Withdrawal fail - Non-service hour</string>
+    <string name="msg_1031">Withdrawal fail - Withdrawal should be requested within #s1</string>
+    <string name="msg_1010">Entry order price is too close to current price</string>
+    <string name="msg_1011">Partial Liquidation is not allowed!</string>
+    <string name="msg_1025">Deposit Request Cancelled</string>
+    <string name="msg_1026">Withdrawal Request Cancelled</string>
+    <string name="msg_1027">Cannot Canncel Deposit Request</string>
+    <string name="msg_1028">Cannot Canncel Withdrawal Request</string>
+    <string name="msg_4001">Your mobile trader is not up-to-date, please update it in Android Market.</string>
+    <string name="msg_4002">Transaction Failed</string>
+    <string name="msg_4003">Your Margin is lower than #s%</string>
+    <string name="msg_4004">Practice accounts cannot login to the live system</string>
+    <string name="msg_4005">Live accounts cannot login to the practice system</string>
+    <string name="title_setting">Settings</string>
+    <string name="title_contract_setting">Trade Settings</string>
+    <string name="lb_default_pipe">Default Slippage</string>
+    <string name="lb_add_limit_order">Add Limit Order</string>
+    <string name="lb_default_limit_pips">Default Take Profit Pips</string>
+    <string name="lb_add_stop_order">Add Stop Order</string>
+    <string name="lb_default_stop_pips">Default Stop Loss Pips</string>
+    <string name="lb_default_currency">Default Contract : </string>
+    <string name="lb_default_currency_raw">Default Contract</string>
+    <string name="lb_default_start">Default Start Page :</string>
+    <string name="lb_default_start_apply">(Changes will be applied at next login)</string>
+    <string name="lb_default_lot">Default Lot : </string>
+    <string name="lb_default_lot_raw">Default Lot</string>
+    <string name="lb_time_out_with_quo">Time Out : </string>
+    <string name="lb_on_click_trade">One Click Trade</string>
+    <string name="lb_on_click_trade_with_quo">One Click Trade : </string>
+    <string name="lb_on_click_trade_detail">*Liquidation with one click trade will use the (Last in First out) as the closing order.</string>
+    <string name="lb_post_facebook">Post To Facebook</string>
+    <string name="lb_buy_power">Margin Level</string>
+    <string name="btn_back">Back</string>
+    <string name="lb_total_amt">Total Amount : </string>
+    <string name="lb_lot_wit_quo">Lot (Amount): </string>
+    <string name="lb_lot_wit_quo_no_amount">Lot: </string>
+    <string name="lb_rate_with_quo">Price : </string>
+    <string name="lb_gt_with_quo">Good Till : </string>
+    <string name="lb_oco_with_quo">OCO : </string>
+    <string name="lb_liq_lot_with_quo">Liq. Lot : </string>
+    <string name="lb_total_pl_with_quo">Float. P/L : </string>
+    <string name="btn_edit">EDIT</string>
+    <string name="lb_deal">Deal</string>
+    <string name="lb_order">Order</string>
+    <string name="msg_request_sent">Request sent</string>
+    <string name="msg_no_deal_available">No deal available</string>
+    <string name="please_wait">Please wait....</string>
+    <string name="lb_time_out">Time Out</string>
+    <string name="lb_alert_time_out">Alerting for Time Out</string>
+    <string name="lb_language">Language</string>
+    <string name="lb_change_language_msg"></string>
+    <string name="lb_p_default_lot">Def. Lot : </string>
+    <string name="lb_account_register">Free Register</string>
+    <string name="lb_account_register_des">Create a practice account</string>
+    <string name="lb_account_register_new_des">Free Register \nCreate a practice account</string>
+    <string name="lb_create">Create</string>
+    <string name="lb_confirm_password">Confirm Password</string>
+    <string name="msg_register_1">Username cannot be empty</string>
+    <string name="msg_register_2">Password cannot be empty</string>
+    <string name="msg_register_3">Confirm Password cannot be empty</string>
+    <string name="msg_register_4">Email not correct</string>
+    <string name="msg_register_5">Confirm Password dose not match with Password</string>
+    <string name="msg_register_6">Minimum password length is #num# digits</string>
+    <string name="msg_register_7">Username must be in alphanumeric (a-z,0-9)</string>
+    <string name="msg_register_success">Registration Successful</string>
+    <string name="msg_register_account_in_used">Username already in used</string>
+    <string name="msg_register_fail">Create practice account fail, please contact us for account creation.</string>
+    <string name="msg_disconnect">Lost connection between server and mobile.</string>
+    <string name="nav_open_position_summary">O.P. Sum.</string>
+    <string name="nav_open_position_listing">O.P. List</string>
+    <string name="nav_price_list">Market Quotes</string>
+    <string name="nav_chart">Chart</string>
+    <string name="nav_new_position">New Pos.</string>
+    <string name="nav_price_summary">Price Sum.</string>
+    <string name="nav_pending_order_listing">P.O. List</string>
+    <string name="nav_new_order">New Order</string>
+    <string name="nav_liquidation_history">Liq. Hist</string>
+    <string name="nav_settting">Settings</string>
+    <string name="nav_transaction_status">Tran. Status</string>
+    <string name="nav_executed_order_history">E.O. Hist</string>
+    <string name="nav_cancelled_order_history">C.O. Hist</string>
+    <string name="nav_main_page">Main Page</string>
+    <string name="nav_online_statement">STATEMENT</string>
+    <string name="nav_customize_list">User Portfolio</string>
+    <!-- Open Position -->
+    <string name="lb_market_price">Market Price</string>
+    <string name="lb_market_price_shortform">M. Price</string>
+    <string name="lb_open_position_detail">Open Position Detail</string>
+    <string name="lb_item">Contract</string>
+    <string name="lb_price">Price</string>
+    <string name="lb_price_open_position">Open Price</string>
+    <string name="lb_price_with_quo">Price : </string>
+    <string name="lb_price_open_position_with_quo">Open Price : </string>
+    <string name="lb_trade_date_detail">Trade Date : </string>
+    <string name="lb_interest_detail">Interest : </string>
+    <string name="lb_request_date_detail">Request Time : </string>
+    <string name="lb_market_price_detail">Market Price : </string>
+    <string name="lb_float_pl">Floating P/L : </string>
+    <!-- Open Position -->
+    <!-- Open Positions Summary -->
+    <string name="lb_average_price">Average Price</string>
+    <string name="lb_open_position_summary_detail">Open Positions Summary Detail</string>
+    <string name="lb_contact_detail">Contact Detail</string>
+    <!-- Open Positions Summary -->
+    <!-- Pending Order -->
+    <string name="lb_t_price">Request Price</string>
+    <string name="lb_c_price">Market Price</string>
+    <string name="lb_pending_order_detail">Pending Orders Detail</string>
+    <string name="lb_liquidate_no">Liquidate : </string>
+    <string name="lb_t_price_detail">Request Price : </string>
+    <string name="lb_Contract_with_quo">Contract : </string>
+    <string name="lb_good_till_with_quo">Good Till : </string>
+    <!-- Pending Order -->
+    <!-- Transaction status -->
+    <string name="lb_type">Type</string>
+    <string name="lb_time">Time</string>
+    <string name="lb_transaction_status_detail">Transaction Status Detail</string>
+    <string name="lb_time_detail">Time : </string>
+    <!-- Transaction status -->
+    <!-- Excuted Order -->
+    <string name="lb_excuted_order_detail">Executed Orders Detail</string>
+    <!-- Excuted Order -->
+    <!-- Liquidation history -->
+    <string name="lb_exe_price">O.Price/L.Price</string>
+    <string name="lb_liq_history_detail">Liquidation History Detail</string>
+    <string name="lb_pl">P/L</string>
+    <string name="lb_pl_with_quo">P/L : </string>
+    <!-- Liquidation history -->
+    <!-- Cancelled Order -->
+    <string name="lb_cancelled_order_detail">Cancelled Order Detail</string>
+    <!-- Cancelled Order -->
+    <string name="title_information">Information</string>
+    <string name="msg_quit">Do you want to quit?</string>
+    <string name="msg_reset_password_success">Reset password successful. Please check your email.</string>
+    <string name="msg_reset_password_fail">Reset password failed. You may have entered an invalid username and/or email. Please re-enter a registered username and email or contact us.</string>
+    <string name="lb_loading">Loading....</string>
+    <string name="msg_empty_username">Please insert Username</string>
+    <string name="msg_empty_password">Please insert Password</string>
+    <string name="msg_empty_otp">Please insert OTP code</string>
+    <string name="msg_restart">Restart Now?\n(If you choose "Yes", the application will shut down automatically. If "No", the language will be changed upon next start up)</string>
+    <string name="msg_in_demo">The following function is temporarily unavailable in demo release:\n\n 1. Forgot password\n 2. Free Register</string>
+    <string name="msg_known_issue">Known Issue</string>
+    <string name="msg_network">Please Check the internet connection</string>
+    <string name="msg_update_apps">Sorry, your version is not matching with our updated version.Please press ok to update in Google Play</string>
+    <string name="lb_copyright"></string>
+    <string name="lb_retry">Retry</string>
+    <string name="lb_app_laucher_problem">If there’s an error displaying or unable to start up the application, please contact the support hotline.</string>
+    <string name="lb_close">CLOSE</string>
+    <string name="please_contact_cs">Please contact customer service:</string>
+    <string name="tel">Tel : </string>
+    <string name="email">Email : </string>
+    <string name="qq">QQ : </string>
+    <string name="h_with_colon">H : </string>
+    <string name="l_with_colon">L : </string>
+    <string name="chart_no_data">This contract does not include any chart data.</string>
+    <string name="disclaimer_title">Disclaimer</string>
+    <string name="disclaimer_iagree">I Agree</string>
+    <string name="disclaimer_idisagree">I Disagree</string>
+    <string name="disclaimer_footer">于以下位置选择“我同意”，表示阁下已清楚知悉及阅读并同意遵守以下条款及细则。</string>
+    <string name="long_string">i. 市场风险和网上交易\r\n贵金属等杠杆式金融产品交易涉及相当大的风险，其并非对每个投资者都适合。虽然网上交易为客户带来很多方便或更有效率，但它并不降低贵金属等产品交易本身的风险。因此客户在交易前应自行决定是否需要谘询法律意见，并须准备承担此风险。\r\n\r\nii. 密码保护\r\n客户必须将密码保密，确保没有协力厂商取用其交易设施。客户同意对所有经电邮或电子交易平台传送来的指示和对所有经由电邮、电子交易平台、电话或书面向本公司发出的指示确实负责，即使是由协力厂商发出，这些指示已和客户密码或客户签名和帐户号码认证，根据本公司的判断相信这是客户表面授权。本公司并没有责任对这个表面许可权作进一步查询，也没有责任因为依据这些表面许可权所采取的或不采取的行动所造成之后果负责。客户须对密码的保密性、安全性及其使用独自承担责任。\r\n\r\niii. 互联网故障\r\n互联网的运作不在本公司控制范围之内，因此不能确保通过互联网的接受和发放的信号，客户电子设备的结构或联接的可靠性，本公司绝不对互联网上交易中出现的通讯故障、错误或延迟负责。客户确认网路设施是在“现况”的基础上向其提供，使用该网路设施完全由客户独自承受风险，包括硬体和软体发生故障的风险。任何系统故障可能导致不能按客户的指令执行或无法执行。客户同时亦确认由于无法预计的通讯阻塞或其他原因，电子传送可能不是一种可靠的通讯方法。通过网上买卖服务进行交易，在传送和接收客户指示或其他资料会出现延迟，在执行客户指示时亦会出现延迟或可能以不同于客户发出的指示价格执行其指示，通讯设施亦可能会出现故障或中断。客户还需承担通讯被误解或错误的风险，而指示发出后通常不可取消。对于上述事宜及有关资料传输或通讯设施、电力故障的问题或其他原因或本公司无法合理预计或控制的原因所造成指示传输上的延误包括但不限于交易指令的延误及登录网路设施的失败或无效，本公司不会承担或负上任何责任。\r\n\r\niv. 报价错误\r\n倘若报价或成交价出现错误时，本公司对于帐户结余并不负责。有关错误可能包括但不限于: 交易员的错误报价，非国际市场之报价、或是任何报价错误 (例如由于硬体、软体或者通讯线路或系统故障导致报价错误或许第三者提供了错误的外部资料)。本公司不需为错误所导致的帐户余额负责，客户下单时需预留足够的时间执行订单和系统计算所需保证金的时间。若订单的执行价格或订单设定和市场价格过于接近，这可能会触发其他订单 (所有订单类型) 或发出保证金提示。本公司不会对由于系统没有足够时间执行订单或进行运算所产生的保证金提示、帐户结余或帐户头寸负责。上文不得视作内容尽列，一旦发生报价或执行错误，本公司保留对有关帐户进行必要更正或调整的权利。对于报价或执行错误而产生的任何争议，我们将依据绝对酌情权进行解决，若因此带来任何损失、损害或责任，客户同意予以赔偿使本公司不受损害。\r\n\r\nv. 操控价格、执行及平台\r\n本公司绝对严禁以任何形式对其价格、执行及平台进行操控。若本公司怀疑任何帐户从事操控，本公司保留对帐户进行调查及审核等的相关权利，并从涉嫌帐户中扣除由相关活动所赚取的盈利款项。本公司保留对相关帐户进行必要更正或调整的权利。对于涉嫌从事操控的帐户，本公司依据绝对酌情权，要求交易员进行干预、对下单进行核准以及/或终止有关客户的帐户。对于由套戥及/或操控所产生的任何纠纷，本公司将依据绝对酌情权进行解决。本公司可依据酌情权决定向任何相关监督机构或执法机构报告有关事件。\r\n\r\n *如上述之中文版本与英文版本有任何不一致之处，必须以中文版本为准。</string>
+    <string name="wv_font_color">#FFFFFF</string>
+    <string name="wv_bg_color">#000000</string>
+    <string name="db_company_profile">Company Profile</string>
+    <string name="db_news_content">Corporate Announ.</string>
+    <string name="db_realtime_news">News</string>
+    <string name="db_day_plan">Day Plan</string>
+    <string name="db_economic_data">Economic Indicators</string>
+    <string name="db_master">Expert Commentaries</string>
+    <string name="db_contact_us">Contact Us</string>
+    <string name="db_terms">Terms and conditions</string>
+    <string name="nav_company_profile">Comp. Prof.</string>
+    <string name="nav_news_content">Cor. Anno.</string>
+    <string name="nav_realtime_news">News</string>
+    <string name="nav_day_plan">Day Plan</string>
+    <string name="nav_economic_data">E.Indicators</string>
+    <string name="nav_master">E. Comm.</string>
+    <string name="nav_contact_us">Contact Us</string>
+    <string name="nav_terms">Terms</string>
+    <string name="lb_address">Address</string>
+    <string name="lb_tel">Office</string>
+    <string name="lb_fax">Fax</string>
+    <string name="lb_website">Website</string>
+    <string name="lb_email">E-mail</string>
+    <string name="lb_china_free">China (Toll Free)</string>
+    <string name="lb_24_hotline">24-hrs Hotline</string>
+    <string name="lb_release_time">Release Time</string>
+    <string name="lb_country">Country</string>
+    <string name="lb_before_value">Value Before</string>
+    <string name="lb_forecast_value">Forecast Value</string>
+    <string name="lb_actual_value">Actual Value</string>
+    <string name="lb_previous">Previous</string>
+    <string name="lb_forecast">Forecast</string>
+    <string name="lb_refresh_time">Refresh(Min.) : </string>
+    <string name="db_hour_product">Hourly Market Analysis</string>
+    <string name="lb_publish_time">Publish Time</string>
+    <string name="nav_hour_product">H.M. Analy.</string>
+    <string name="db_acc_bal">Account Balance</string>
+    <string name="nav_acc_bal">Acc. Bal.</string>
+    <string name="lb_slippage">Slippage : </string>
+    <string name="lb_pip">pips : </string>
+    <string name="msg_989">Transaction Rejected. It was caused by market closed.</string>
+    <string name="lb_aboutus_copyright"></string>
+    <string name="lb_takeprofit">Take Profit Price : </string>
+    <string name="lb_takeprofit_alt">Take Profit: </string>
+    <string name="lb_stoploss">Stop Loss Price : </string>
+    <string name="lb_stoploss_alt">Stop Loss: </string>
+    <string name="lb_takeprofit_shortform">TP : </string>
+    <string name="lb_stoploss_shortform">SL : </string>
+    <string name="trailing_stop">Trail Stop</string>
+    <string name="nav_withdrawal">Withdrawal</string>
+    <string name="nav_deposit">Deposit</string>
+    <string name="txt_withdrawal_amount">Amount:</string>
+    <string name="txt_withdrawal_bankacc">Bank Account No.:</string>
+    <string name="txt_withdrawal_bankname">Bank Name:</string>
+    <string name="confirm_in">Confirm deposit?</string>
+    <string name="confirm_out">Confirm withdrawal?</string>
+    <string name="title_terms">Terms</string>
+    <string name="confirm">Confirm</string>
+    <string name="lb_margin_amount_error">Please input the correct amount value</string>
+    <string name="lb_margin_error">Please input all input fields</string>
+    <string name="smeq">\\u2265</string>
+    <string name="menu_price">Price</string>
+    <string name="menu_trade">Trade</string>
+    <string name="menu_position">Position</string>
+    <string name="menu_history">History</string>
+    <string name="menu_setting">Settings</string>
+    <string name="menu_system_msg">System Message</string>
+    <string name="menu_announcement">Corporate Announcement</string>
+    <string name="menu_news">News</string>
+    <string name="menu_fund">Fund</string>
+    <string name="menu_economic">Economic Indicators</string>
+    <string name="menu_contact_us">Contact Us</string>
+    <string name="menu_terms">Terms and Conditions</string>
+    <string name="db_setting_id">Finger Print</string>
+    <string name="lb_login_id">Finger print login</string>
+    <string name="Activate">ACTIVATE</string>
+    <string name="Deactivate">DEACTIVATE</string>
+    <string name="id_text">Enabling the Finger Print Sensor replaces user ID and password in the login process and allows you to manage your account.   Important Notice - Please read before activating Finger Print Sensor. \nFor you personal data protection, we recommend:   Not to enable Finger Print Sensor if there is other person\'s fingerprint saved on your device.   Not to root the device.</string>
+    <string name="id_text_ok">Activating fingerprint sign on here means that any fingerprint saved on your device can access the application and account.</string>
+    <string name="id_done">Fingerprint sign on is now activated.</string>
+    <string name="id_scaning">Place your finger.</string>
+    <string name="id_fail">Authentication Fail. Please retry</string>
+    <string name="id_not_support">Finger print does not supported on this device.</string>
+    <string name="id_no_passcode">Please setup passcode in the system setting.</string>
+    <string name="id_no_fingerprint">Please setup fingerprint in the system setting.</string>
+    <string name="id_not_save_password">Please turn on "Save Password" on login page.</string>
+    <string name="btn_continue">Continue</string>
+    <string name="db_two_fa">Two Factor Authentication</string>
+    <string name="two_fa_text">An authentication code (OTP) is sent to your devices.</string>
+    <string name="two_fa_text2">Please input OTP in below, and press continue.</string>
+    <string name="two_fa_mail">Email:</string>
+    <string name="two_fa_mobile">Mobile number:</string>
+    <string name="two_fa_resend">Resend OTP code</string>
+    <string name="app_timeout">Connection Timeout. Application will restart</string>
+    <string name="noti_name">Trader Service</string>
+    <string name="noti_desc">Trader Service Running in Background</string>
+    <string name="ssl">SSL Certificate</string>
+    <string name="ssl_continue">Continue?</string>
+    <string name="btn_sort">Sort</string>
+    <string name="title_contract_list_sort">Sort</string>
+    <string name="btn_save">Save</string>
+    <string name="lb_caution">Caution</string>
+    <string name="msg_save_or_not">Changes are made.\nDo you want to save them before leaving?</string>
+    <string name="lb_successful_save">Saved successfully</string>
+    <string name="msg_reset_confirm">Confirm to reset?</string>
+    <string name="lb_successful_reset">Reset successfully</string>
+    <string name="title_liquidate_all">Liquidate All</string>
+    <string name="title_multiple_liquidate">Multiple Liquidate</string>
+    <string name="btn_liquidate_all">Liquidate All</string>
+    <string name="txt_liquidate_method_LIFO">LIFO</string>
+    <string name="txt_liquidate_method_FIFO">FIFO</string>
+    <string name="txt_liquidate_slippage">Slippage</string>
+    <string name="txt_liquidate_all_buy_sell">Buy/Sell</string>
+    <string name="txt_liquidate_lot">Liquidation Lot</string>
+    <string name="txt_liquidate_all_method">Liq. Method</string>
+    <string name="title_withdrawal_history">Withdrawal Record</string>
+    <string name="lb_cashmovement_ref">Withdrawal ID</string>
+    <string name="lb_cashmovement_amount">Amount</string>
+    <string name="lb_cashmovement_status">Status</string>
+    <string name="lb_cashmovement_request_date">Requested Date</string>
+    <string name="lb_cashmovement_request_date_label">App. Date:</string>
+    <string name="lb_cashmovement_request_date_deposit_label">Deposit Date:</string>
+    <string name="lb_cashmovement_request_date_withdrawal_label">Withdrawal Date:</string>
+    <string name="lb_cashmovement_last_update_by">Operator</string>
+    <string name="title_withdrawal_history_detail">Withdrawal Record Detail</string>
+    <string name="lb_cashmovement_bank_name">Bank Name</string>
+    <string name="lb_cashmovement_bank_account">Bank Account</string>
+    <string name="lb_cashmovement_update_date">Update Date</string>
+    <string name="txt_cashmovement_NA">Processing</string>
+    <string name="txt_cashmovement_Verified">Verified</string>
+    <string name="txt_cashmovement_Confirmed">Confirmed</string>
+    <string name="txt_cashmovement_Rejected">Rejected</string>
+    <string name="txt_cashmovement_Cancelled">Cancelled</string>
+    <string name="txt_btnCancelCashMovement">Cancel Request</string>
+    <string name="btn_multiple_cancel_order">Batch Cancel</string>
+    <string name="txt_limit_order_pips">Take Profit</string>
+    <string name="txt_stop_order_pips">Stop Loss</string>
+    <string name="txt_free_lot">Free Lot</string>
+    <string name="txt_realized_pnl">Realized P/L</string>
+    <string name="confirm_liquidation">Please confirm to liquidate</string>
+    <string name="confirm_cancel_order">Do you confirm to cancel the selected order(s)?</string>
+
+    <string name="lb_pricealert_enable">Enable</string>
+    <string name="lb_pricealert_contract">Contract</string>
+    <string name="lb_pricealert_setting">Alert Setting</string>
+    <string name="lb_pricealert_price">M. Price (S/B)</string>
+    <string name="lb_pricealert_add">Add Price Alert</string>
+    <string name="lb_pricealert_type0">Price Higher Bid</string>
+    <string name="lb_pricealert_type1">Price Lower Bid</string>
+    <string name="lb_pricealert_type2">Volatility 10 Mins</string>
+    <string name="lb_pricealert_type3">Volatility 30 Mins</string>
+    <string name="lb_pricealert_type4">Price Higher Ask</string>
+    <string name="lb_pricealert_type5">Price Lower Bid</string>
+    <string name="lb_pricealert_history_contract">Contract</string>
+    <string name="lb_pricealert_history_type">Alert Type</string>
+    <string name="lb_pricealert_history_price">Alert Price</string>
+    <string name="lb_pricealert_history_time">Time</string>
+    <string name="lb_pricealert_add_title">Add Price Alert</string>
+    <string name="lb_pricealert_add_price">Alert Price (Sell/Buy)</string>
+    <string name="lb_pricealert_add_type">Alert Type</string>
+    <string name="lb_pricealert_add_alertprice">Alert Price</string>.
+    <string name="lb_pricealert_add_goodtil">Good Till</string>
+    <string name="lb_pricealert_add_goodtil0">Today</string>
+    <string name="lb_pricealert_add_goodtil1">This Week</string>
+    <string name="lb_pricealert_add_goodtil2">This Month</string>
+    <string name="lb_pricealert_add_added">Price Alert Added</string>
+    <string name="lb_pricealert_add_added_confirm">Confirm Adding Price Alert?</string>
+    <string name="lb_pricealert_add_error_lower">Alert Price cannot be lower than #s</string>
+    <string name="lb_pricealert_add_error_higher">Alert Price cannot be higher than #s</string>
+    <string name="lb_pricealert_edit">Edit</string>
+    <string name="lb_pricealert_edit_title">Edit Price Alert</string>
+    <string name="lb_pricealert_edit_edited">Price Alert Edited</string>
+    <string name="lb_pricealert_edit_edited_confirm">Confirm Editing Price Alert?</string>
+    <string name="lb_pricealert_delete">Delete</string>
+    <string name="lb_pricealert_delete_confirm">Delete Price Alert?</string>
+    <string name="lb_pricealert_message_1023">Exceeded maximum alert number</string>
+    <string name="lb_pricealert_message_alert">Price Alert:</string>
+    <string name="lb_pricealert_message_alert_bid">Current Bid Price</string>
+    <string name="lb_pricealert_message_alert_ask">Current Ask Price</string>
+
+
+    <!--    新增/////////////////////// -->
+
+    <string name="tips">提示</string>
+    <string name="str_other_login_point">您的账号已在别的设备上登录！</string>
+    <string name="define">确认</string>
+    <string name="cancel">取消</string>
+    <string name="str_loading">正在加载...</string>
+    <string name="str_login">登录</string>
+    <string name="str_register">注册</string>
+    <string name="str_join_app">欢迎加入</string>
+    <string name="str_join_login">欢迎登录</string>
+    <string name="str_email">邮箱账号</string>
+    <string name="str_go_login">已有账号，去登录</string>
+    <string name="str_register_agree">注册即代表您同意</string>
+    <string name="str_code">验证码</string>
+    <string name="str_fingerprint_login">使用指纹验证登录</string>
+    <string name="str_new_register">新用户注册</string>
+    <string name="str_social_login">第三方账号登录</string>
+    <string name="toast_exit">再按一次退出%1$s</string>
+
+    <string name="login_ui_account_blocked">此账户已经封锁</string>
+    <string name="login_ui_account_blocked_desc">已连续5次输入错误登记密码，\n为了安全理由，此账户已经封锁。</string>
+    <string name="login_ui_know">我知道了</string>
+    <string name="login_ui_forget_pwd">忘记密码</string>
+
+    <string name="verif_ui_title">登录验证</string>
+    <string name="verif_ui_send_msg">已发送验证码到%1$s的电邮，请输入短信验证</string>
+    <string name="verif_ui_resend_code_second">%1$ds后重发验证码</string>
+    <string name="verif_ui_resend_code">重发验证码</string>
+    <string name="toast_input_code">请输入您的验证码</string>
+
+    <string name="sec_acc_ui_title">开通大圣证券账户</string>
+    <string name="sec_acc_ui_edit_info">编辑资料</string>
+    <string name="sec_acc_ui_open_account">开通账户</string>
+    <string name="sec_acc_ui_risk_disclosure">风险披露</string>
+    <string name="sec_acc_ui_signing_agreement">协议签署</string>
+    <string name="sec_acc_ui_info">个人资料</string>
+    <string name="sec_acc_ui_recognition">自动识别</string>
+    <string name="sec_acc_ui_chinese_nikename">称谓</string>
+    <string name="sec_acc_ui_mr">先生</string>
+    <string name="sec_acc_ui_mrs">太太</string>
+    <string name="sec_acc_ui_miss">小姐</string>
+    <string name="sec_acc_ui_chinese_name">中文姓名</string>
+    <string name="sec_acc_ui_input_chinese_name">请输入中文姓名</string>
+    <string name="sec_acc_ui_eg_name">英文姓名</string>
+    <string name="sec_acc_ui_input_eg_name">（非必填）请输入英文姓名</string>
+    <string name="sec_acc_ui_birthplace">出生地区</string>
+    <string name="sec_acc_ui_hk">中国香港</string>
+    <string name="sec_acc_ui_birthday">出生日期</string>
+    <string name="toast_sec_acc_eighteen">声请人必须年满18岁或以上</string>
+    <string name="sec_acc_ui_select">请选择</string>
+    <string name="sec_acc_ui_marriage">婚姻状况</string>
+    <string name="sec_acc_ui_sex">性别</string>
+    <string name="sec_acc_ui_country">国籍地区</string>
+    <string name="sec_acc_ui_cardtype">证件类型</string>
+    <string name="sec_acc_ui_cardid">证件号码</string>
+    <string name="toast_sec_acc_cardid_format">错误证件号码格式</string>
+    <string name="sec_acc_ui_bank_area">银行账户所属地区</string>
+    <string name="sec_acc_ui_next">下一步</string>
+    <string name="sec_acc_ui_contact">如有问题，立即在线咨询</string>
+
+    <string name="recg_ui_auto">上载证件自动填写</string>
+    <string name="recg_ui_front">正面</string>
+    <string name="recg_ui_background">反面</string>
+
+    <string name="touch_to_focus">触摸屏幕对焦</string>
+    <string name="cn_idcard_back">请将带国徽的一面放到框内</string>
+    <string name="cn_idcard_front">请将头像的一面放到框内</string>
+
+    <string name="select_camera">相机</string>
+    <string name="select_photo">相册</string>
+
+    <string name="ui_contact">联系方式</string>
+    <string name="ui_prev">上一步</string>
+    <string name="ui_email">电邮</string>
+    <string name="ui_input_email">请输入您的电邮</string>
+    <string name="ui_phone">电话</string>
+    <string name="ui_input_phone">请输入您的电话</string>
+    <string name="ui_house">住址</string>
+    <string name="ui_input_house">请输入您的住址</string>
+    <string name="ui_address">通讯地址</string>
+    <string name="ui_input_address">请输入您的通讯地址</string>
+    <string name="ui_address_compare">与住址相同</string>
+    <string name="ui_edu_work">学历及工作资料</string>
+    <string name="ui_edu">教育程度</string>
+    <string name="ui_work">工作状况</string>
+    <string name="ui_comp">雇主名称</string>
+    <string name="ui_input_comp">请输入雇主名称</string>
+    <string name="ui_comp_address">公司地址</string>
+    <string name="ui_input_comp_address">（非必填）请输入公司地址</string>
+    <string name="ui_comp_phone">公司电话</string>
+    <string name="ui_input_comp_phone">（非必填）请输入公司电话</string>
+    <string name="ui_business">业务性质</string>
+    <string name="ui_profession">职业</string>
+    <string name="ui_working">工作年资</string>
+
+
+
+
+
+
+
+    <string name="sec_acc_ui_income">年收入</string>
+    <string name="sec_acc_ui_input">请输入</string>
+    <string name="sec_acc_ui_property">资产净值</string>
+    <string name="sec_acc_ui_house">住宅类别</string>
+    <string name="sec_acc_ui_source_funds">资金来源</string>
+    <string name="sec_acc_ui_fundstype">资产类别</string>
+    <string name="sec_acc_ui_investment_target">投资目标</string>
+    <string name="sec_acc_ui_taking_risks">可承受风险</string>
+    <string name="sec_acc_ui_investment_quota">平均年投资额</string>
+    <string name="sec_acc_ui_investment_experience">投资经验</string>
+
+
+
+
+
+
+
+
+
+
+
+    <string name="str_phone">手机号码</string>
+    <string name="toast_copied">已复制</string>
+    <string name="str_appointment_consultation">预约咨询</string>
+    <string name="str_email_login">电邮登录</string>
+    <string name="str_pwd">密码</string>
+    <string name="str_forget_pwd">忘记密码?</string>
+    <string name="str_quick_login">快速登入</string>
+    <string name="toast_input_email">请输入您的邮箱账号</string>
+
+    <string name="toast_input_login_pwd">请输入您的登录密码</string>
+    <string name="toast_email_error">邮箱格式不正确</string>
+    <string name="toast_input_pwd">请输入密码</string>
+    <string name="str_login_error">登入帐户/密码错误</string>
+    <string name="str_pwd_error">登入账户/密码错误，你还有%1$d次机会登录此账户。</string>
+    <string name="str_pls_reset_pwd">请重设密码</string>
+
+
+    <string name="str_submit">提交</string>
+    <string name="str_resend_code">重新发送</string>
+    <string name="str_resend_code_second">(于%1$d秒后可重新发送)</string>
+    <string name="str_send_code_email">我们将验证码发送到您登记的电邮。</string>
+    <string name="toast_code_error">错误验证码</string>
+    <string name="str_reset_pwd">重置密码</string>
+    <string name="str_newpwd">新密码</string>
+    <string name="str_define_newpwd">确认新密码</string>
+    <string name="str_pwd_rule">8到16位数字或字母</string>
+    <string name="str_pwd_rule_error">密码格式不正确</string>
+    <string name="str_pls_input_code">请输入验证码</string>
+    <string name="str_get_code">获取验证码</string>
+    <string name="str_read_user_agreement">我已阅读并同意</string>
+    <string name="str_user_agreement">《注册用户使用协议》</string>
+    <string name="str_second">%1$d秒</string>
+    <string name="str_email_rule_error">错误电邮格式</string>
+    <string name="str_agreement_file">开户文件</string>
+    <string name="str_client_agreement">客户协议书及风险披露声明</string>
+    <string name="str_terms">使用条款及细则</string>
+    <string name="str_north_trade">有关透过中华通北向交易之特别风险</string>
+    <string name="str_american_trade">投资美国交易所上市证券的交易风险</string>
+    <string name="str_aeoi">AEOI个人税务身份自我声明书(CRS/FATCA)</string>
+    <string name="str_price_standard">收费标准</string>
+    <string name="str_change_lan">繁简英切换声明</string>
+    <string name="str_login_pwd">登录密码</string>
+    <string name="str_define_login_pwd">确认登录密码</string>
+    <string name="str_login_pwd_rule">密码应为8-16个字符并包含一个大写字母，一个小写字母，一个数字和一个特殊字符。</string>
+    <string name="str_quick_register">快速注册</string>
+    <string name="str_account">账号</string>
+    <string name="str_success_register">您已成功注册</string>
+    <string name="str_opening_securities">极速开通证券账户\n在开户前请准备</string>
+    <string name="str_identity_doc">身份证明文件</string>
+    <string name="str_address_doc">住址证明文件</string>
+    <string name="str_bank_card">银行卡</string>
+    <string name="str_passport_desc">(非永久居民需要提供)</string>
+    <string name="str_read_account_file">本人已详细阅读并同意签署所有《开户文件》</string>
+    <string name="str_not_american">本人不是美国公民/美国居民或持有美国护照/绿卡</string>
+    <string name="str_not_hk_employee">不是香港证监会的持牌或注册人士或任何持牌或注册机构之董事或雇员</string>
+    <string name="str_not_company_employee">不是上市公司之高级职员、董事或大股东</string>
+    <string name="str_not_everjoy_relationship">本人和悦有证券有限公司或其联营公司的董事或僱员没有任何关系</string>
+    <string name="str_not_other_account">本人或与其「有关的账户」没有於悦有证券有限公司或悦有集团(下称“悦有”)操作/持有其他账户</string>
+    <string name="str_not_government">不是任何国家/地方之政界人士/政党领袖/政府高级官员: 并同上述人土没有任何联系</string>
+    <string name="str_not_bankruptcy">本人未在过去7年中曾经破产或递送破产申请</string>
+
+    <string name="str_open_account">立即开通</string>
+</resources>

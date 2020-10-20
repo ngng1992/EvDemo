@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_whiteff_c8">
+
+    <ImageView
+        android:id="@+id/iv_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:padding="@dimen/dp_16"
+        android:src="@mipmap/btn_close">
+
+    </ImageView>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/str_agreement_file"
+        android:textColor="@color/gray00"
+        android:textSize="@dimen/sp_20">
+
+    </TextView>
+
+    <View
+        android:layout_marginTop="@dimen/dp_16"
+        style="@style/ViewLine">
+
+    </View>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/blue02"
+        android:textSize="@dimen/sp_16"
+        android:padding="@dimen/dp_16"
+        android:text="@string/str_client_agreement">
+
+    </TextView>
+
+    <View
+        style="@style/ViewLine">
+
+    </View>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/blue02"
+        android:padding="@dimen/dp_16"
+        android:textSize="@dimen/sp_16"
+        android:text="@string/str_terms">
+
+    </TextView>
+
+    <View
+        style="@style/ViewLine">
+
+    </View>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/blue02"
+        android:padding="@dimen/dp_16"
+        android:textSize="@dimen/sp_16"
+        android:text="@string/str_north_trade">
+
+    </TextView>
+
+    <View
+        style="@style/ViewLine">
+
+    </View>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/blue02"
+        android:padding="@dimen/dp_16"
+        android:textSize="@dimen/sp_16"
+        android:text="@string/str_american_trade">
+
+    </TextView>
+
+    <View
+        style="@style/ViewLine">
+
+    </View>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/blue02"
+        android:padding="@dimen/dp_16"
+        android:textSize="@dimen/sp_16"
+        android:text="@string/str_aeoi">
+
+    </TextView>
+
+    <View
+        style="@style/ViewLine">
+
+    </View>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/blue02"
+        android:padding="@dimen/dp_16"
+        android:textSize="@dimen/sp_16"
+        android:text="@string/str_price_standard">
+
+    </TextView>
+
+    <View
+        style="@style/ViewLine">
+
+    </View>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/blue02"
+        android:padding="@dimen/dp_16"
+        android:textSize="@dimen/sp_16"
+        android:text="@string/str_change_lan">
+
+    </TextView>
+
+    <View
+        style="@style/ViewLine">
+
+    </View>
+
+</LinearLayout>

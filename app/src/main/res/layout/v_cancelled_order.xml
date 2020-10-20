@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/rlMain" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+
+	<LinearLayout android:id="@+id/LinearLayout01"
+		android:layout_height="fill_parent" android:layout_width="fill_parent"
+		android:layout_marginBottom="30dp" android:layout_marginTop="50dp"
+		android:background="@drawable/main_bg" android:orientation="vertical">
+
+		<RelativeLayout
+		    android:id="@+id/RelativeLayout02"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:background="@drawable/header_background" >
+
+			<TextView android:id="@+id/TextView04"
+				android:layout_height="wrap_content" android:textColor="@color/normal_text"
+				android:textStyle="bold" android:gravity="center_horizontal"
+				android:textSize="18dp" android:paddingTop="7dp"
+				android:paddingBottom="2dp" android:shadowColor="#000000"
+				android:shadowDx="1.5" android:shadowDy="1.5" android:shadowRadius="1.5"
+				android:layout_width="wrap_content" android:layout_centerHorizontal="true" android:text="@string/title_cancel_order"></TextView>
+
+			<Button android:layout_alignParentRight="true"
+				android:layout_centerVertical="true" android:layout_height="20dp"
+				android:textColor="@color/btn_2" android:layout_margin="4dp"
+				android:textSize="10dp" android:id="@+id/btnToday" android:text="@string/lb_today" android:background="@drawable/btn_2" android:layout_width="50dp"></Button>
+			<Button android:layout_centerVertical="true" android:layout_height="20dp"
+				android:textColor="@color/btn_2" android:textSize="10dp" android:id="@+id/btnSelectDate" android:layout_alignParentLeft="true" android:text="@string/lb_date_select" android:layout_margin="4dp" android:background="@drawable/btn_2" android:layout_width="50dp"></Button>
+
+		</RelativeLayout>
+
+		<LinearLayout android:id="@+id/LinearLayout03"
+			android:background="@drawable/list_bg" android:layout_width="fill_parent"
+			android:layout_weight="1" android:layout_height="fill_parent"
+			android:orientation="vertical">
+			<LinearLayout 
+				android:orientation="horizontal" android:id="@+id/llH" android:background="@drawable/list_tile_bg1" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingRight="5dp" android:paddingLeft="5dp">
+				<LinearLayout android:id="@+id/ll1" android:layout_height="fill_parent" android:layout_width="70dp">
+					<ImageView android:layout_width="wrap_content" android:src="@drawable/ico_item"
+						android:id="@+id/ivH1" android:layout_height="fill_parent"></ImageView>
+					<TextView android:id="@+id/lbH11"
+						android:layout_height="fill_parent" android:textSize="12dp"
+						android:layout_width="wrap_content"
+						android:gravity="left|center" android:layout_weight="1" android:text="@string/lb_item" android:textColor="@color/normal_text" android:shadowColor="#000000" android:shadowDx="1.5" android:shadowDy="1.5" android:shadowRadius="1.5"></TextView>
+				</LinearLayout>
+				<LinearLayout android:id="@+id/ll2" android:layout_height="fill_parent" android:gravity="center_horizontal" android:layout_width="40dp">
+					<ImageView android:id="@+id/ivH21" android:src="@drawable/ico_buy"
+						android:layout_height="fill_parent" android:layout_width="wrap_content"></ImageView>
+					<ImageView android:src="@drawable/ico_sell" android:id="@+id/ivH22"
+						android:layout_height="fill_parent" android:layout_width="wrap_content"
+						android:layout_marginLeft="2dp"></ImageView>
+				</LinearLayout>
+				<LinearLayout android:layout_height="fill_parent"
+					android:id="@+id/ll3" android:layout_width="65dp">
+					<ImageView android:src="@drawable/ico_limit"
+						android:layout_height="fill_parent" android:layout_width="wrap_content"
+						android:id="@+id/ivH31"></ImageView>
+					<TextView android:layout_height="fill_parent"
+						android:layout_width="wrap_content" android:layout_weight="1"
+						android:gravity="center" android:textSize="12dp" android:id="@+id/lbH31"  android:text="@string/lb_lot" android:textColor="@color/normal_text" android:shadowColor="#000000" android:shadowDx="1.5" android:shadowDy="1.5" android:shadowRadius="1.5"></TextView>
+					<ImageView android:src="@drawable/ico_stop" android:gravity="right"
+						android:layout_height="fill_parent" android:layout_width="wrap_content"
+						android:id="@+id/ivH32"></ImageView>
+				</LinearLayout>
+				<LinearLayout android:layout_height="fill_parent" android:id="@+id/ll4" android:layout_width="60dp" android:paddingLeft="5dp">
+					<ImageView android:layout_width="wrap_content"
+						android:id="@+id/ivH41"
+						android:layout_height="fill_parent" android:src="@drawable/ico_time"></ImageView>
+					<TextView android:id="@+id/lbH41" android:layout_height="fill_parent"
+						android:textSize="12dp" android:layout_width="wrap_content"
+						 android:gravity="center_vertical" android:text="@string/lb_time" android:textColor="@color/normal_text" android:shadowColor="#000000" android:shadowDx="1.5" android:shadowDy="1.5" android:shadowRadius="1.5"></TextView>
+				</LinearLayout>
+				<LinearLayout android:layout_height="fill_parent"
+					android:id="@+id/ll5" android:layout_weight="1" android:layout_width="fill_parent" android:gravity="right">
+					<ImageView android:layout_width="wrap_content"
+						android:id="@+id/ivH51"
+						android:layout_height="fill_parent" android:src="@drawable/ico_floating"></ImageView>
+					<TextView android:id="@+id/lbH51" android:layout_height="fill_parent"
+						android:textSize="12dp" android:layout_width="wrap_content"
+						 android:gravity="center_vertical" android:text="@string/lb_t_price" android:textColor="@color/normal_text" android:shadowColor="#000000" android:shadowDx="1.5" android:shadowDy="1.5" android:shadowRadius="1.5"></TextView>
+				</LinearLayout>
+			
+			</LinearLayout>			
+			<ListView android:id="@+id/lvOrder" android:layout_width="fill_parent"
+				android:layout_weight="1" android:divider="@color/normal_text" android:background="@color/list_bg"
+				android:layout_height="fill_parent" android:cacheColorHint="@android:color/transparent" android:scrollingCache="true">
+			</ListView>
+			
+		</LinearLayout>
+		<include layout="@layout/bar_nav" />
+	</LinearLayout>
+
+	<include layout="@layout/bar_account" />
+	<include layout="@layout/bar_top" />
+	<include layout="@layout/bar_botton" />
+
+</RelativeLayout>

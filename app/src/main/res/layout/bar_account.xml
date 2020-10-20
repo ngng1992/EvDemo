@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rlAccount"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="-260dp"
+    android:clickable="false">
+
+    <ImageView
+        android:id="@+id/bg_account"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:alpha="0.7"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg_login" />
+
+    <LinearLayout
+        android:id="@+id/llAccount"
+        android:layout_width="fill_parent"
+        android:layout_height="260dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/main_account_bg"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp">
+
+        <LinearLayout
+            android:id="@+id/LinearLayout01"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <com.mfinance.everjoy.app.widget.FontFitTextView
+                        android:id="@+id/lbAccount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:text="@string/lb_account"
+                        android:textColor="@color/normal_text"
+                        android:textSize="10sp"></com.mfinance.everjoy.app.widget.FontFitTextView>
+
+                    <com.mfinance.everjoy.app.widget.FontFitTextView
+                        android:id="@+id/tvAcc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="2dp"
+                        android:singleLine="true"
+                        android:text="-"
+                        android:textColor="@color/normal_text"
+                        android:textSize="10sp"></com.mfinance.everjoy.app.widget.FontFitTextView>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LinearLayout02"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <com.mfinance.everjoy.app.widget.FontFitTextView
+                        android:id="@+id/lbBalance"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text="@string/lb_balance"
+                        android:textColor="@color/normal_text"
+                        android:textSize="10sp"></com.mfinance.everjoy.app.widget.FontFitTextView>
+
+                    <com.mfinance.everjoy.app.widget.FontFitTextView
+                        android:id="@+id/TextView03"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text="@string/lb_floating_pl"
+                        android:textColor="@color/normal_text"
+                        android:textSize="10sp"></com.mfinance.everjoy.app.widget.FontFitTextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvBalance"
+                        android:layout_width="@color/btn_1"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:singleLine="true"
+                        android:text="-"
+                        android:textColor="@color/btn_1"
+                        android:textSize="20sp" />
+
+                    <com.mfinance.everjoy.app.widget.FontFitTextView
+                        android:id="@+id/tvFloating"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:paddingRight="2dp"
+                        android:singleLine="true"
+                        android:text="-"
+                        android:textSize="20sp"></com.mfinance.everjoy.app.widget.FontFitTextView>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/bg_splitter" />
+
+        <LinearLayout
+            android:id="@+id/LinearLayout03"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <com.mfinance.everjoy.app.widget.FontFitTextView
+                android:id="@+id/lbCredit"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:singleLine="true"
+                android:text="@string/lb_credit"
+                android:textColor="@color/normal_text"></com.mfinance.everjoy.app.widget.FontFitTextView>
+
+            <com.mfinance.everjoy.app.widget.FontFitTextView
+                android:id="@+id/tvCredit"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:paddingRight="2dp"
+                android:singleLine="true"
+                android:text="-"></com.mfinance.everjoy.app.widget.FontFitTextView>
+
+            <com.mfinance.everjoy.app.widget.FontFitTextView
+                android:id="@+id/lbEquity"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:singleLine="true"
+                android:text="@string/lb_equity"
+                android:textColor="@color/normal_text"></com.mfinance.everjoy.app.widget.FontFitTextView>
+
+            <com.mfinance.everjoy.app.widget.FontFitTextView
+                android:id="@+id/tvEquity"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:singleLine="true"
+                android:text="-"></com.mfinance.everjoy.app.widget.FontFitTextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LinearLayout04"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.mfinance.everjoy.app.widget.FontFitTextView
+                        android:id="@+id/lbOwnEquity"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="@string/lb_own_equity"
+                        android:textColor="@color/normal_text"
+                        android:textSize="10sp"></com.mfinance.everjoy.app.widget.FontFitTextView>
+
+                    <com.mfinance.everjoy.app.widget.FontFitTextView
+                        android:id="@+id/lbMarginRequirement"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="@string/lb_margin_requirement"
+                        android:textColor="@color/normal_text"
+                        android:textSize="10sp"></com.mfinance.everjoy.app.widget.FontFitTextView>
+
+                    <com.mfinance.everjoy.app.widget.FontFitTextView
+                        android:id="@+id/lbUsableMargin"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="@string/lb_usable_margin"
+                        android:textColor="@color/normal_text"
+                        android:textSize="10sp"></com.mfinance.everjoy.app.widget.FontFitTextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.mfinance.everjoy.app.widget.FontFitTextView
+                        android:id="@+id/tvOwnEquity"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="-"
+                        android:textColor="@color/btn_1"></com.mfinance.everjoy.app.widget.FontFitTextView>
+
+                    <com.mfinance.everjoy.app.widget.FontFitTextView
+                        android:id="@+id/tvInitialMargin"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="-"
+                        android:textColor="@color/btn_1"></com.mfinance.everjoy.app.widget.FontFitTextView>
+
+                    <com.mfinance.everjoy.app.widget.FontFitTextView
+                        android:id="@+id/tvUsableMargin"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="-"
+                        android:textColor="@color/btn_1"></com.mfinance.everjoy.app.widget.FontFitTextView>
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/bg_splitter" />
+
+        <LinearLayout
+            android:id="@+id/LinearLayout05"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/TextView01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/lb_buy_power"
+                android:textColor="@color/normal_text"
+                android:textSize="10sp"></TextView>
+
+            <ProgressBar
+                android:id="@+id/pbRate"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1" />
+
+            <com.mfinance.everjoy.app.widget.FontFitTextView
+                android:id="@+id/tvBuyPower"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="right"
+                android:text="-%"
+                android:textColor="@color/normal_text"
+                android:textSize="10sp"></com.mfinance.everjoy.app.widget.FontFitTextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LinearLayout06"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="5dp">
+
+                    <ImageButton
+                        android:id="@+id/btn_statement"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/btn_statement"
+                        android:scaleType="fitXY" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/imageView11"
+                                android:layout_width="45dp"
+                                android:layout_height="35dp"
+                                android:paddingRight="2dp"
+                                android:paddingLeft="2dp"
+                                android:src="@drawable/icon_statement"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:id="@+id/textView8"
+                                android:layout_width="115dp"
+                                android:layout_height="35dp"
+                                android:gravity="center_vertical|center_horizontal"
+                                android:text="@string/nav_online_statement"
+                                android:textColor="@android:color/black"
+                                android:textSize="16dp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="5dp">
+
+                    <ImageButton
+                        android:id="@+id/btn_logout"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/btn_logout"
+                        android:scaleType="fitXY" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/imageView11"
+                                android:layout_width="45dp"
+                                android:layout_height="35dp"
+                                android:paddingLeft="2dp"
+                                android:paddingRight="2dp"
+                                android:src="@drawable/icon_logout"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:id="@+id/textView8"
+                                android:layout_width="115dp"
+                                android:layout_height="35dp"
+                                android:gravity="center_vertical|center_horizontal"
+                                android:text="@string/btn_logout"
+                                android:textColor="@android:color/black"
+                                android:textSize="16dp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/btnAccUp"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_alignBottom="@+id/llAccount"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="4dp"
+        android:layout_weight="1"
+        android:src="@drawable/main_account_up_btn"></ImageView>
+
+    <ImageView
+        android:id="@+id/btnAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llAccount"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-4dp"
+        android:src="@drawable/btn_down"
+        android:visibility="invisible" />
+
+</RelativeLayout>

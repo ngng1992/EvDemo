@@ -1,0 +1,721 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_open_position_summary">仓位总结</string>
+    <string name="lb_message">信息 : </string>
+    <string name="lb_Message">信息</string>
+    <string name="lb_status">状况 : </string>
+    <string name="lb_action">交易</string>
+    <string name="title_transaction_status">交易状况</string>
+    <string name="title_edit_order">修改挂单</string>
+    <string name="db_open_position_summary">仓位总结</string>
+    <string name="db_open_position_listing">开仓部位</string>
+    <string name="db_price_list">市场价格</string>
+    <string name="db_chart">产品图表</string>
+    <string name="db_new_position">新增市价单</string>
+    <string name="db_price_summary">图表</string>
+	<string name="db_price_alert">价格提醒</string>
+	<string name="db_price_alert_history">价格提醒记录</string>
+    <string name="db_pending_order_listing">未完成挂单</string>
+    <string name="db_new_order">新增挂单</string>
+    <string name="db_liquidation_history">已平仓部位</string>
+    <string name="db_setting">设置</string>
+    <string name="db_transaction_status">交易状况</string>
+    <string name="db_executed_order_history">已执行挂单</string>
+    <string name="db_cancelled_order_history">已取消挂单</string>
+    <string name="db_main_page">主页</string>
+    <string name="lb_detail">详细</string>
+    <string name="db_online_statement">报表</string>
+    <string name="db_customize_list">自选组合</string>
+    <string name="title_about_us">关於奥米加</string>
+    <string name="title_liquidation_history">已平仓部位</string>
+    <string name="lb_s_date">卖出日期 : </string>
+    <string name="lb_s_rate">卖出价格 : </string>
+    <string name="lb_b_rate">买进价格 : </string>
+    <string name="lb_s_ref">卖出编号 : </string>
+    <string name="lb_b_ref">买进编号 : </string>
+    <string name="lb_b_date">买进日期 : </string>
+    <string name="lb_tran_time">交易时间</string>
+    <string name="title_cancel_order">已取消挂单</string>
+    <string name="lb_cancel_time">取消时间 : </string>
+    <string name="lb_cancel_date">取消日期 : </string>
+    <string name="lb_criteria">准则</string>
+    <string name="lb_to">至</string>
+    <string name="lb_from">由</string>
+    <string name="lb_date_select">查询</string>
+    <string name="lb_today">今天</string>
+    <string name="lb_executed_time">执行时间 : </string>
+    <string name="lb_executed_amount">执行单位 : </string>
+    <string name="lb_executed_lot">执行手数(单位) : </string>
+    <string name="lb_executed_date">执行日期 : </string>
+    <string name="title_executed_order">已执行挂单</string>
+    <string name="lb_oco_ref">自动取消挂单</string>
+    <string name="lb_open_ref">平仓编号</string>
+    <string name="lb_good_till">期限</string>
+    <string name="lb_limit_stop">限价/停损</string>
+    <string name="lb_req_rate">指令价格</string>
+    <string name="title_pending_order">未完成挂单</string>
+    <string name="title_cancel_multiple_pending_order">取消挂单</string>
+    <string name="lb_unselect">取消选择</string>
+    <string name="lb_all">全部</string>
+    <string name="lb_select">选择</string>
+    <string name="lb_un_select_all">取消全部选择</string>
+    <string name="lb_select_all">选择全部</string>
+    <string name="lb_buy_sell">买进/卖出</string>
+    <string name="lb_deal_rate">成交价</string>
+    <string name="lb_floating">浮动盈/亏</string>
+    <string name="lb_floating_with_quo">浮动盈/亏  :  </string>
+    <string name="lb_offset">折算价</string>
+    <string name="lb_amount">单位</string>
+    <string name="lb_amount_with_quo">单位) : </string>
+    <string name="lb_commission">手续费 : </string>
+    <string name="lb_Contract">合约</string>
+    <string name="lb_tran_date">交易日期</string>    
+    <string name="lb_ref">编号 : </string>
+    <string name="title_liquidation">平仓</string>
+    <string name="pop_action_buy">新增市价单(买)</string>
+    <string name="pop_action_sell">新增市价单(卖)</string>
+    <string name="pop_action_buy_limit">新增限价单(买)</string>   
+    <string name="pop_action_sell_limit">新增限价单(卖)</string>
+    <string name="pop_action_buy_stop">新增停损单(买)</string>
+    <string name="pop_action_sell_stop">新增停损单(卖)</string>
+    <string name="pop_action_title">动作</string>
+    <string name="lb_liquidate">平仓</string>
+    <string name="title_open_position">开仓部位</string>
+    <string name="title_contract_list">市场价格</string>
+    <string name="liquidation_fail">不能同时清算不同种类的合约!</string>
+    <string name="liquidation_error">请选择合约进行平仓</string>
+    <string name="are_you_sure">你肯定吗？</string>
+    <string name="yes">是</string>
+    <string name="no">否</string>
+    <!--Login Screen--> 
+    <string name="title_login">登入</string>
+    <string name="title_forgot_password">忘记密码</string>
+    <string name="title_change_password">更改密码</string>
+    <string name="lb_user_name">用户</string>
+    <string name="lb_password">密码</string>
+    <string name="lb_new_password">新密码</string>
+    <string name="lb_confirm_new_password">确认新密码</string>
+    <string name="title_password_criteria">密码条件</string>
+    <string name="lb_password_criteria_length">#s1-#s2 位元</string>
+    <string name="lb_password_criteria_optional">包括最少:</string>
+    <string name="lb_password_criteria_optional_min_digit">#s 个数字</string>
+    <string name="lb_password_criteria_optional_min_lowercase">#s 个小写英文字元</string>
+    <string name="lb_password_criteria_optional_min_uppercase">#s 个大写英文字元</string>
+    <string name="lb_password_criteria_optional_min_symbol">#s1 个符号字元 #s2</string>
+    <string name="lb_save_password">保存密码</string>
+    <string name="lb_practice_account">模拟</string>
+    <string name="lb_production_account">真实</string>
+    <string name="lb_practice_account_long">模拟帐户</string>
+    <string name="lb_production_account_long">真实帐户</string>
+    <string name="lb_forgot_password">忘记密码</string> 
+    <string name="lb_forgot_password_remark">*注意: 只限模拟帐户</string>
+    <!--Login Screen--> 
+    <!--Account Section-->
+    <string name="lb_account">帐户:</string>
+    <string name="lb_trader_account">交易帐户:</string>
+    <string name="lb_account_name">帐户名称:</string>
+    <string name="lb_currency">合约</string>
+    <string name="lb_date">日期</string>
+    <string name="lb_floating_pl">浮动盈/亏</string>
+    <string name="lb_own_equity">资产净值</string>
+    <string name="lb_balance">新结存</string>
+    <string name="lb_usable_margin">可用按金</string>
+    <string name="lb_equity_margin">保证金比率(%)</string>
+    <string name="lb_margin_requirement">按金需求</string>
+    <string name="lb_effective_margin">有效按金</string>
+    <string name="lb_trade_date">交易日期</string>
+    <string name="lb_credit">信用额度</string>
+    <string name="lb_credit_non_tradable">持仓信用额</string>
+    <string name="lb_equity">可支配金额</string>
+    <string name="lb_margin_call_amount">追补按金</string>
+    <string name="lb_magin_tradable">待核交易按金</string>
+    <string name="lb_magin_non_tradable">待核非交易按金</string>
+    <!--Account Section-->
+    <!--Common-->
+    <string name="lb_bid">卖出</string>
+    <string name="lb_ask">买进</string>
+    <string name="lb_high">高:</string>
+    <string name="lb_low">低:</string>   
+    <string name="lb_total_amount">总单位</string>
+    <string name="lb_lot">手数</string>
+    <string name="lb_rate">价格 : </string>
+    <string name="txt_splippage">滑点</string>
+    <!--Common-->
+    <!--PageSwitcher--> 
+    <string name="pageswitcher_previous_gesture">previous</string>
+    <string name="pageswitcher_next_gesture">next</string>
+    <!--PageSwitcher-->
+    <!--  -->
+    <string name="jan">Jan</string>
+    <string name="feb">Feb</string>
+    <string name="mar">Mar</string>
+    <string name="apr">Apr</string>
+    <string name="may">May</string>
+    <string name="jun">Jun</string>
+    <string name="jul">Jul</string>
+    <string name="aug">Aug</string>
+    <string name="sep">Sep</string>
+    <string name="oct">Oct</string>
+    <string name="nov">Nov</string>
+    <string name="dec">Dec</string>
+    <!--  -->
+    <!--New Deal-->
+    <string name="title_new_position">新增市价单</string>
+    <string name="lb_buy">买进</string>
+    <string name="lb_sell">卖出</string>
+    <!--New Deal-->
+    <!--New Order-->
+    <string name="title_new_order">新增挂单</string>
+    <string name="lb_oco">取消挂单 : </string>
+    <string name="lb_oco_alt">双向限价单编号 :</string>
+    <string name="lb_liquidate_ref"></string>
+    <!--New Order-->
+    <string-array name="sp_buy_sell">
+        <item>买进</item>
+        <item>卖出</item>
+    </string-array>
+    <string-array name="sp_chart_type">
+        <item>柱状图</item>
+        <item>线型图</item>
+        <item>阴阳烛</item>
+    </string-array>
+    <string-array name="sp_chart_period_map">
+        <item>Minute</item>
+        <item>FiveMinute</item>
+        <item>FifteenMinute</item>
+        <item>ThirtyMinute</item>
+        <item>Hourly</item>
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+    </string-array>
+    <string-array name="sp_chart_period">
+        <item>一分钟</item>
+        <item>五分钟</item>
+        <item>十五分钟</item>
+        <item>三十分钟</item>
+        <item>一小时</item>
+        <item>一天</item>
+        <item>一星期</item>
+        <item>一个月</item>
+    </string-array>
+    <string-array name="sp_time_out">
+        <item>十五分钟</item>
+        <item>三十分钟</item>
+        <item>四十五分钟</item>
+        <item>一小时</item>
+        <item>永不</item>
+    </string-array>
+    <string name="tb_on">开</string>
+    <string name="tb_off">关</string>
+    <string name="tb_friday">星期五</string>
+    <string name="tb_end_of_day">即日</string>
+    <string name="tb_limit">限价</string>
+    <string name="tb_stop">停损</string>
+    <string name="tb_limit_a">止盈 : </string>
+    <string name="tb_stop_a">止损 : </string>
+    <string name="tb_cancel">取消</string>
+    <string name="btn_ok">确定</string>
+    <string name="btn_clear">清除</string>
+    <string name="btn_logout">登出</string>
+    <string name="btn_login">登入</string>
+    <string name="btn_submit">提交</string>
+    <string name="btn_cancel">取消</string>
+    <string name="btn_confirm">确认</string>
+    <string name="btn_delete">删除</string>
+    <string name="bar_system_status">系统信息</string>
+    <string name="hello">Hello World, MobileTraderActivity!</string>
+    <string name="app_name">Everjoy</string>
+    <string name="msg_300">交易日错误</string>
+    <string name="msg_301">日结处理中...</string>
+    <string name="msg_302">找不到用户</string>
+    <string name="msg_303">密码不符</string>
+    <string name="msg_304">用户不活跃</string>
+    <string name="msg_305">用户类型不符</string>
+    <string name="msg_306">登入失败</string>
+    <string name="msg_307">失去连接</string>
+    <string name="msg_308">没有输入登入名称</string>
+    <string name="msg_383">密码不符/找不到用户</string>
+    <string name="msg_393">密码不符/找不到用户</string>
+    <string name="msg_8001">重覆登入</string>
+    <string name="msg_310">请先登入</string>
+    <string name="msg_311">错误交易日</string>
+    <string name="msg_312">帐户已锁定，请联络客户服务部。</string>
+    <string name="msg_313">帐户未被启用</string>
+    <string name="msg_314">账户登录所在地网络不稳定，请重新登录！</string>
+    <string name="msg_315">错误App ID</string>
+    <string name="msg_316">错误OTP</string>
+    <string name="msg_317">密码逾期。请先更新密码。</string>
+    <string name="msg_318">你忘记密码了吗？</string>
+    <string name="msg_400">密码已更改</string>
+    <string name="msg_401">密码更改失败</string>
+    <string name="msg_402">密码长度不符</string>
+    <string name="msg_403">旧密码错误</string>
+    <string name="msg_404">请重新登入</string>
+    <string name="msg_405">用戶已暂停</string>
+    <string name="msg_406">用戶暂停失败</string>
+    <string name="msg_407">用戶连线已中断</string>
+    <string name="msg_408">用戶连线失效失败</string>
+    <string name="msg_409">RoboX 密码未能更新. \n请登入RoboX并用新密码重新绑定mF户口</string>
+    <string name="msg_410">不能重用旧密码</string>
+    <string name="msg_411">新密码不够复杂</string>
+    <string name="msg_412">初次登入，请变更密码</string>
+    <string name="msg_413">上次更新密码已经是 #s 天前，请变更密码</string>
+    <string name="msg_444">請确认密码</string>
+    <string name="msg_600">新增挂单失败</string>
+    <string name="msg_601">修改挂单失败</string>
+    <string name="msg_602">取消挂单失败</string>
+    <string name="msg_603">执行挂单失败</string>
+    <string name="msg_604">拿取挂单失败</string>
+    <string name="msg_605">置换失败</string>
+    <string name="msg_606">伺服器繁忙, 请稍後再试</string>
+    <string name="msg_607">新增挂单 (#s)</string>
+    <string name="msg_608">挂单已更改 (#s)</string>
+    <string name="msg_609">挂单已执行 (#s)</string>
+    <string name="msg_610">挂单已取消 (#s)</string>
+    <string name="msg_611">按金不足或超出交易限制</string>
+    <string name="msg_612">客户加入等候队伍失败</string>
+    <string name="msg_613">客户己排队等候</string>
+    <string name="msg_614">交易员拒绝以此价格交易</string>
+    <string name="msg_615">输入错误价位</string>
+    <string name="msg_616">输入错误手数</string>
+    <string name="msg_617">请求失败</string>
+    <string name="msg_618">超出每次自动交易限额</string>
+    <string name="msg_619">确定取消挂单 :</string>
+    <string name="msg_620">最小张数 (#s) 手</string>
+    <string name="msg_621">张数要是 (#s) 的倍数</string>
+    <string name="msg_622">增加挂单失败！平仓挂单总手数不能超出仓位手数</string>
+    <string name="msg_700">交易送出失败</string>
+    <string name="msg_701">取回交易资料失败</string>
+    <string name="msg_702">置换失败</string>
+    <string name="msg_703">伺服器繁忙, 请稍後再试</string>
+    <string name="msg_704">新增交易 (#s)</string>msg_982
+    <string name="msg_705">新增内务交易 (#s)</string>
+    <string name="msg_706">按金不足或超出交易限制</string>
+    <string name="msg_707">客户加入等候队伍失败</string>
+    <string name="msg_708">客户己排队等候</string>
+    <string name="msg_709">交易员拒绝以此价格交易</string>
+    <string name="msg_710">价格已变动</string>
+    <string name="msg_711">输入错误银码</string>
+    <string name="msg_712">请求失败</string>
+    <string name="msg_713">超出每次自动交易限额</string>
+    <string name="msg_714">请求失败, 逾时等候</string>
+    <string name="msg_715">交易创建失败，由于价格变动，请再试一次。</string>    
+    <string name="msg_716">斩仓处理中...</string>    
+    <string name="msg_718">账户逾期</string>
+    <string name="msg_719">此客户不允许全部平仓</string>
+    <string name="msg_900">无法打开音频流线</string>
+    <string name="msg_901">输入错误</string>
+    <string name="msg_902">请输入正数</string>
+    <string name="msg_903">请输入正确主机埠</string>
+    <string name="msg_904">请输入正确主机</string>
+    <string name="msg_905">完成日期下可早於开始日期</string>
+    <string name="msg_906">日期差距应不多於#s天</string>
+    <string name="msg_907">请先选择日期!</string>
+    <string name="msg_908">错误! 请再输入!</string>
+    <string name="msg_909">请输入拒绝理由</string>
+    <string name="msg_910">新增挂单</string>
+    <string name="msg_911">修改挂单</string>
+    <string name="msg_912">执行挂单</string>
+    <string name="msg_913">新增交易</string>
+    <string name="msg_914">客户取消交易</string>
+    <string name="msg_915">交易暂停</string>
+    <string name="msg_916">接受</string>
+    <string name="msg_917">进行中</string>
+    <string name="msg_918">拒絶</string>
+    <string name="msg_919">请等候交易员回覆</string>
+    <string name="msg_920">请等候交易员处理</string>
+    <string name="msg_921">交易员与系统连接断开</string>
+    <string name="msg_922">交易员繁忙</string>
+    <string name="msg_923">请等候伺服器处理</string>
+    <string name="msg_924">请输入客户</string>
+    <string name="msg_925">接受交易?</string>
+    <string name="msg_926">接受挂单?</string>
+    <string name="msg_927">交易取消</string>
+    <string name="msg_928">挂单取消</string>
+    <string name="msg_929">请输入正确银行户口</string>
+    <string name="msg_930">Invalid Trailing Stop Size</string>
+    <string name="msg_931">Not Available to add/modify order</string>
+    <string name="msg_932">Not Available to add deal</string>
+    <string name="msg_933">非交易时段</string>
+    <string name="msg_934">价格已变动</string>
+    <string name="msg_935">Invalid Account</string>
+    <string name="msg_936">停损单错误</string>
+    <string name="msg_937">额外的平仓单已被取消</string>
+    <string name="msg_938">市价单不存在</string>
+    <string name="msg_939">已超过最大入市挂单手数!</string>
+    <string name="msg_940">Override Fail. Invalid password or the Override User is not active</string>
+    <string name="msg_941">Override Fail. No privilege to do override</string>
+    <string name="msg_942">Override Fail. Invalid Margin information value</string>
+    <string name="msg_943">Override Fail. Exceeds your authorized override amount</string>
+    <string name="msg_944">Override Fail. Invalid trading limit information</string>
+    <string name="msg_945">Override Fail. Forbidden to do self overriding</string>
+    <string name="msg_946">Switch to Manual Approval</string>
+    <string name="msg_947">已超过最大交易手数!</string>
+    <string name="msg_948">帐户已锁定，交易失败</string>
+    <string name="msg_949">帐户已锁定，新增交易失败</string>
+    <string name="msg_950">非交易合约</string>
+    <string name="msg_954">只可平仓</string>
+    <string name="msg_955">挂单手数不能超过每间隔最大手数。</string>
+    <string name="msg_981">存款要求正等待审核</string>
+    <string name="msg_982">提款要求正等待审核</string>
+    <string name="msg_983">提款要求失败</string>
+    <string name="msg_984">不能使用提款功能</string>
+    <string name="msg_985">出存款要求失败</string>
+    <string name="msg_986">存款金额必须为#s1-#s2之内</string>
+    <string name="msg_987">提款金额必须为#s2之内</string>
+    <string name="msg_1002">较早前交易请求正在处理中，请稍后再试</string>
+    <string name="msg_1003">超出单笔存款限额</string>
+    <string name="msg_1004">超出单笔提款限额</string>
+    <string name="msg_1005">超出累积存款限额</string>
+    <string name="msg_1006">超出累积提款限额</string>
+    <string name="msg_1007">存款处理中</string>
+    <string name="msg_1008">提款处理中</string>
+    <string name="msg_1030">提款失败 - 非服务时间</string>
+    <string name="msg_1031">提款失败 - 申请时间只限于 #s1</string>
+    <string name="msg_1010">指令价格过于接近现价</string>
+    <string name="msg_1011">部份平仓不允许!</string>
+    <string name="msg_1025">提款请求已取消</string>
+    <string name="msg_1026">存款请求已取消</string>
+    <string name="msg_1027">求无法取消取款请求</string>
+    <string name="msg_1028">无法取消存款请</string>
+    <string name="msg_4001">你的手机交易平台已经过期，请前往Android市场下载更新版本。</string>
+    <string name="msg_4002">交易失败</string>
+    <string name="msg_4003">阁下保证金已低过 #s% 水平</string>
+    <string name="msg_4004">模拟帐户无法登入真实系统</string>
+    <string name="msg_4005">真实帐户无法登入模拟系统</string>
+    <string name="title_setting">设置</string>
+    <string name="title_contract_setting">交易设定</string>
+    <string name="lb_default_pipe">预设滑点</string>
+    <string name="lb_add_limit_order">加入限价挂单</string>
+    <string name="lb_default_limit_pips">预设止盈點数</string>
+    <string name="lb_add_stop_order">加入限价挂单</string>
+    <string name="lb_default_stop_pips">预设止损點数</string>
+    <string name="lb_default_currency">预设合约 : </string>
+    <string name="lb_default_currency_raw">预设合约</string>
+    <string name="lb_default_start">预设开始页 : </string>
+    <string name="lb_default_start_apply">(变更会在下次登入时生效)</string>
+    <string name="lb_default_lot">预设交易手数 : </string>
+    <string name="lb_default_lot_raw">预设手数</string>
+    <string name="lb_time_out_with_quo">逾时登出 : </string>
+    <string name="lb_on_click_trade">一键交易</string>
+    <string name="lb_on_click_trade_with_quo">一键交易 : </string>
+    <string name="lb_on_click_trade_detail">*请注意，当以一键交易平仓时，系统会使用 \'后进先出(会由最后加入的单开始平仓)\' 模式作为平仓顺序。</string>
+    <string name="lb_post_facebook">发布至Facebook</string>
+    <string name="lb_buy_power">保证金水平</string>
+    <string name="btn_back">返回</string>
+    <string name="lb_total_amt">总单位 : </string>
+    <string name="lb_lot_wit_quo">手数 (单位): </string>
+    <string name="lb_lot_wit_quo_no_amount">手数: </string>
+    <string name="lb_rate_with_quo">价格 : </string>
+    <string name="lb_gt_with_quo">期限 : </string>
+    <string name="lb_oco_with_quo">取消挂单 : </string>
+    <string name="lb_liq_lot_with_quo">平仓手数 : </string>
+    <string name="lb_total_pl_with_quo">浮动盈/亏 ： </string>
+    <string name="btn_edit">更改</string>
+    <string name="lb_deal">市价单</string>
+    <string name="lb_order">挂单</string>
+    <string name="msg_request_sent">指令已传出</string>
+    <string name="msg_no_deal_available">没有市价单</string>
+    <string name="please_wait">请稍候....</string>
+    <string name="lb_time_out">逾时登出</string>
+    <string name="lb_alert_time_out">逾时登出警报</string>
+    <string name="lb_language">语言</string>
+    <string name="lb_change_language_msg"></string>
+    <string name="lb_p_default_lot">预设手数 : </string>
+    <string name="lb_account_register">免费注册</string>
+    <string name="lb_account_register_des">建立模拟帐户</string>
+    <string name="lb_account_register_new_des">免费注册 \n建立模拟帐户</string>
+    <string name="lb_create">登记</string>
+    <string name="lb_confirm_password">确认密码</string>
+    <string name="msg_register_1">用户名称不能为空</string>
+    <string name="msg_register_2">密码不能为空</string>
+    <string name="msg_register_3">确认密码不能为空</string>
+    <string name="msg_register_4">电邮地址不正确</string>
+    <string name="msg_register_5">确认密码和密码不同 </string>
+    <string name="msg_register_6">密码最少#num#个位</string>
+    <string name="msg_register_7">使用者名称只可以是英文字母和数字(a-z,0-9)</string>
+    <string name="msg_register_success">登记完成</string>
+    <string name="msg_register_account_in_used">用户名称已被使用</string>
+    <string name="msg_register_fail">登记模拟帐户失败, 如有任何问题请与我们联络.</string>
+    <string name="msg_disconnect">与伺服器失去连线</string>
+    <string name="nav_open_position_summary">仓位总结</string>
+    <string name="nav_open_position_listing">开仓部位</string>
+    <string name="nav_price_list">市场价格</string>
+    <string name="nav_chart">产品图表</string>
+    <string name="nav_new_position">新增市价单</string>
+    <string name="nav_price_summary">价格总结</string>
+    <string name="nav_pending_order_listing">未完成挂单</string>
+    <string name="nav_new_order">新增挂单</string>
+    <string name="nav_liquidation_history">已平仓记录</string>
+    <string name="nav_settting">设置</string>
+    <string name="nav_transaction_status">交易状况</string>
+    <string name="nav_executed_order_history">已执行挂单</string>
+    <string name="nav_cancelled_order_history">已取消挂单</string>
+    <string name="nav_main_page">主页</string>
+    <string name="nav_online_statement">报表</string>
+    <string name="nav_customize_list">自选组合</string>
+    <!-- Open Position -->
+    <string name="lb_market_price">巿场价</string>
+    <string name="lb_market_price_shortform">巿场价</string>
+    <string name="lb_open_position_detail">开仓部位明细</string>
+    <string name="lb_item">合约</string>
+    <string name="lb_price">价格</string>
+    <string name="lb_price_open_position">开仓价</string>
+    <string name="lb_price_with_quo">价格 : </string>
+    <string name="lb_price_open_position_with_quo">开仓价 : </string>
+    <string name="lb_trade_date_detail">交易日期 : </string>
+    <string name="lb_interest_detail">利息 : </string>
+    <string name="lb_request_date_detail">指令時間 : </string>
+    <string name="lb_market_price_detail">巿场价 : </string>
+    <string name="lb_float_pl">浮动盈亏 : </string>
+    <!-- Open Position -->
+    <!-- Open Position Summary-->
+    <string name="lb_average_price">平均价格</string>
+    <string name="lb_open_position_summary_detail">仓位总结明细</string>
+    <string name="lb_contact_detail">货币明细</string>
+    <!-- Open Position Summary-->
+    <!-- Pending Order -->
+    <string name="lb_t_price">指令价格</string>
+    <string name="lb_c_price">巿场价</string>
+    <string name="lb_pending_order_detail">未完成挂单明细</string>
+    <string name="lb_liquidate_no">平仓编号 : </string>
+    <string name="lb_t_price_detail">指令价格</string>
+    <string name="lb_Contract_with_quo">合约 : </string>
+    <string name="lb_good_till_with_quo">期限 : </string>
+    <!-- Pending Order -->
+    <!-- Transaction status -->
+    <string name="lb_type">类别</string>
+    <string name="lb_time">时间</string>
+    <string name="lb_transaction_status_detail">交易状况明细</string>
+    <string name="lb_time_detail">时间 : </string>
+    <!-- Transaction status -->
+    <!-- Excuted Order -->
+    <string name="lb_excuted_order_detail">已执行挂单明细</string>
+    <!-- Excuted Order -->
+    <!-- Liquidation history -->
+    <string name="lb_exe_price">开仓价格/平仓价格</string>
+    <string name="lb_liq_history_detail">已平仓记录明细</string>
+    <string name="lb_pl">盈/亏</string>
+    <string name="lb_pl_with_quo">盈/亏 : </string>
+    <!-- Liquidation history -->
+    <!-- Cancelled Order -->
+    <string name="lb_cancelled_order_detail">已取消挂单明细</string>
+    <!-- Cancelled Order -->
+    <string name="title_information">信息</string>
+    <string name="msg_quit">是否想退出?</string>
+    <string name="msg_reset_password_success">重设密码已经完成, 请检查你的邮箱.</string>
+    <string name="msg_reset_password_fail">你的用户名称或电邮不正确, 因此未能重设密码, 请重新输入用户名称和电邮或联络我们.</string>
+    <string name="lb_loading">载入中....</string>
+    <string name="msg_empty_username">请输入用户名称</string>
+    <string name="msg_empty_password">请输入密码</string>
+    <string name="msg_empty_otp">请输入OTP</string>
+    <string name="msg_restart">即时生效?\n(P.S 如选择\"是\", 应用程序将自动关闭,\"否\"则将会留待程序重开时自行更新语言)</string>
+    <string name="msg_in_demo">以下功能不会在预览版提供:\n\n 1. 忘记密码\n 2. 免费注册</string>
+    <string name="msg_known_issue">已知问题</string>
+    <string name="msg_network">请检验阁下网络连线</string>
+    <string name="msg_update_apps">对不起，你现在的版本不是最新，请按确定前往Google Play更新版本</string>
+    <string name="lb_copyright"></string>
+    <string name="lb_retry">重新连接</string>
+    <string name="lb_app_laucher_problem">如出现错误显示或不能开启程式，请联络支援热线。</string>
+    <string name="lb_close">关闭</string>
+    <string name="please_contact_cs">请联系客服:</string>
+    <string name="tel">电话 : </string>
+    <string name="email">邮箱 : </string>
+    <string name="qq">QQ : </string>
+    <string name="h_with_colon">高 : </string>
+    <string name="l_with_colon">低 : </string>   
+    <string name="chart_no_data">抱歉，此产品并不提供图表数据。</string>
+    <string name="disclaimer_title">免责声明</string>
+    <string name="disclaimer_iagree">我同意</string>
+    <string name="disclaimer_idisagree">我不同意</string>
+    <string name="disclaimer_footer">于以下位置选择“我同意”，表示阁下已清楚知悉及阅读并同意遵守以下条款及细则。</string>
+    <string name="long_string">i. 市场风险和网上交易\r\n贵金属等杠杆式金融产品交易涉及相当大的风险，其并非对每个投资者都适合。虽然网上交易为客户带来很多方便或更有效率，但它并不降低贵金属等产品交易本身的风险。因此客户在交易前应自行决定是否需要谘询法律意见，并须准备承担此风险。\r\n\r\nii. 密码保护\r\n客户必须将密码保密，确保没有协力厂商取用其交易设施。客户同意对所有经电邮或电子交易平台传送来的指示和对所有经由电邮、电子交易平台、电话或书面向本公司发出的指示确实负责，即使是由协力厂商发出，这些指示已和客户密码或客户签名和帐户号码认证，根据本公司的判断相信这是客户表面授权。本公司并没有责任对这个表面许可权作进一步查询，也没有责任因为依据这些表面许可权所采取的或不采取的行动所造成之后果负责。客户须对密码的保密性、安全性及其使用独自承担责任。\r\n\r\niii. 互联网故障\r\n互联网的运作不在本公司控制范围之内，因此不能确保通过互联网的接受和发放的信号，客户电子设备的结构或联接的可靠性，本公司绝不对互联网上交易中出现的通讯故障、错误或延迟负责。客户确认网路设施是在“现况”的基础上向其提供，使用该网路设施完全由客户独自承受风险，包括硬体和软体发生故障的风险。任何系统故障可能导致不能按客户的指令执行或无法执行。客户同时亦确认由于无法预计的通讯阻塞或其他原因，电子传送可能不是一种可靠的通讯方法。通过网上买卖服务进行交易，在传送和接收客户指示或其他资料会出现延迟，在执行客户指示时亦会出现延迟或可能以不同于客户发出的指示价格执行其指示，通讯设施亦可能会出现故障或中断。客户还需承担通讯被误解或错误的风险，而指示发出后通常不可取消。对于上述事宜及有关资料传输或通讯设施、电力故障的问题或其他原因或本公司无法合理预计或控制的原因所造成指示传输上的延误包括但不限于交易指令的延误及登录网路设施的失败或无效，本公司不会承担或负上任何责任。\r\n\r\niv. 报价错误\r\n倘若报价或成交价出现错误时，本公司对于帐户结余并不负责。有关错误可能包括但不限于: 交易员的错误报价，非国际市场之报价、或是任何报价错误 (例如由于硬体、软体或者通讯线路或系统故障导致报价错误或许第三者提供了错误的外部资料)。本公司不需为错误所导致的帐户余额负责，客户下单时需预留足够的时间执行挂单和系统计算所需保证金的时间。若挂单的执行价格或挂单设定和市场价格过于接近，这可能会触发其他挂单 (所有挂单类型) 或发出保证金提示。本公司不会对由于系统没有足够时间执行挂单或进行运算所产生的保证金提示、帐户结余或帐户头寸负责。上文不得视作内容尽列，一旦发生报价或执行错误，本公司保留对有关帐户进行必要更正或调整的权利。对于报价或执行错误而产生的任何争议，我们将依据绝对酌情权进行解决，若因此带来任何损失、损害或责任，客户同意予以赔偿使本公司不受损害。\r\n\r\nv. 操控价格、执行及平台\r\n本公司绝对严禁以任何形式对其价格、执行及平台进行操控。若本公司怀疑任何帐户从事操控，本公司保留对帐户进行调查及审核等的相关权利，并从涉嫌帐户中扣除由相关活动所赚取的盈利款项。本公司保留对相关帐户进行必要更正或调整的权利。对于涉嫌从事操控的帐户，本公司依据绝对酌情权，要求交易员进行干预、对下单进行核准以及/或终止有关客户的帐户。对于由套戥及/或操控所产生的任何纠纷，本公司将依据绝对酌情权进行解决。本公司可依据酌情权决定向任何相关监督机构或执法机构报告有关事件。\r\n\r\n *如上述之中文版本与英文版本有任何不一致之处，必须以中文版本为准。</string>
+    <string name="wv_font_color">#FFFFFF</string>
+    <string name="wv_bg_color">#000000</string>
+	<string name="db_company_profile">公司简介</string>
+    <string name="db_news_content">最新公布</string>
+    <string name="db_realtime_news">即时新闻</string>
+    <string name="db_day_plan">每日策略</string>
+    <string name="db_economic_data">经济数据</string>
+    <string name="db_master">名家评论</string>
+    <string name="db_contact_us">联络我们</string>
+    <string name="db_terms">服务条款</string>
+    <string name="nav_company_profile">公司简介</string>
+    <string name="nav_news_content">最新公布</string>
+    <string name="nav_realtime_news">即时新闻</string>
+    <string name="nav_day_plan">每日策略</string>
+    <string name="nav_economic_data">经济数据</string>
+    <string name="nav_master">名家评论</string>
+    <string name="nav_contact_us">联络我们</string>
+    <string name="nav_terms">服务条款</string>
+    <string name="lb_address">公司地址</string>
+    <string name="lb_tel">集团总机 </string>
+    <string name="lb_fax">公司传真</string>
+    <string name="lb_website">网址</string>
+    <string name="lb_email">电邮地址</string>
+    <string name="lb_china_free">中国(免费)</string>
+    <string name="lb_24_hotline">24小时服务热线</string>
+    <string name="lb_release_time">发布时间</string>
+    <string name="lb_country">国家</string>
+    <string name="lb_before_value">前值</string>
+    <string name="lb_forecast_value">预期数值</string>
+    <string name="lb_actual_value">实值数值</string>
+    <string name="lb_previous">前值</string>
+    <string name="lb_forecast">预期</string>
+    <string name="lb_refresh_time">更新频道(分钟) : </string>
+	<string name="db_hour_product">财经新闻</string>
+	<string name="lb_publish_time">发布时间</string>
+	<string name="nav_hour_product">财经新闻</string>
+	<string name="db_acc_bal">户口结余</string>
+    <string name="nav_acc_bal">户口结余</string>
+    <string name="lb_slippage">滑点 : </string>
+    <string name="lb_pip">点子 : </string>
+    <string name="msg_989">对不起，交易拒绝，市场现正休市中。</string>
+    <string name="lb_aboutus_copyright"></string>
+    <string name="lb_takeprofit">止盈价格 : </string>
+    <string name="lb_takeprofit_alt">止盈 : </string>
+    <string name="lb_stoploss">止损价格 : </string>
+    <string name="lb_stoploss_alt">止损 : </string>
+    <string name="lb_takeprofit_shortform">止盈 : </string>
+    <string name="lb_stoploss_shortform">止损 : </string>
+    <string name="trailing_stop">移动止损</string>
+    <string name="nav_withdrawal">提款</string>
+    <string name="nav_deposit">存款</string>
+    <string name="txt_withdrawal_amount">金额:</string>
+    <string name="txt_withdrawal_bankacc">银行帐号:</string>
+    <string name="txt_withdrawal_bankname">银行名称:</string>
+    <string name="confirm_in">确认存款?</string>
+    <string name="confirm_out">确认提款?</string>
+    <string name="title_terms">条款</string>
+    <string name="confirm">确认</string>
+    <string name="lb_margin_amount_error">请输入正确金额</string>
+    <string name="lb_margin_error">请输入所有栏位</string>
+	<string name="smeq">\\u2265</string>
+    <string name="menu_history">交易记录</string>
+    <string name="menu_position">仓位</string>
+    <string name="menu_price">行情</string>
+    <string name="menu_setting">设置</string>
+    <string name="menu_trade">交易</string>
+    <string name="menu_system_msg">系统讯息</string>
+    <string name="menu_announcement">最新公布</string>
+    <string name="menu_news">即时新闻</string>
+    <string name="menu_fund">资金</string>
+    <string name="menu_economic">经济数据</string>
+    <string name="menu_contact_us">联络我们</string>
+    <string name="menu_terms">服务条款</string>
+    <string name="db_setting_id">指纹设置</string>
+	<string name="lb_login_id">指纹登入</string>
+	<string name="Activate">启用</string>
+    <string name="Deactivate">停用</string>
+	<string name="id_text">启用指紋感应器后你将毋须使用用户登入账号和密码登入。重要提示 － 请在启用指紋感应器前细阅。\n为保障您的个人资料，我们建议：假如你的装置上储存了其他人的指纹识别，切勿在此交易应用启用指紋。不要破解装置上的作业系统。</string>
+    <string name="id_text_ok">任何储存在您的装置上的指纹识别可以登入您的交易程式。</string>
+    <string name="id_done">指紋识别已成功启用</string>
+	<string name="id_scaning">请确认指纹。</string>
+    <string name="id_fail">认证失败。请重试。</string>
+	<string name="id_not_support">此装置不支援指纹认证。</string>
+    <string name="id_no_passcode">请先设置系统密码。</string>
+    <string name="id_no_fingerprint">请先设置指纹认证。</string>
+    <string name="id_not_save_password">请先于登入页面开启『保存密码』功能。</string>
+    <string name="btn_continue">继续</string>
+    <string name="db_two_fa">一次性流动验证编码</string>
+    <string name="two_fa_text">为继续进行你的指示，一次性流动验证编码已发送到您登记的装置。</string>
+    <string name="two_fa_text2">请在下面输入，再按「继续」。</string>
+    <string name="two_fa_mail">电邮:</string>
+    <string name="two_fa_mobile">手机号码:</string>
+    <string name="two_fa_resend">再发送一次性流动验证编码</string>
+    <string name="app_timeout">连接超时。 应用程序将重启</string>
+    <string name="noti_name">交易程序</string>
+    <string name="noti_desc">交易程序在背景运作</string>
+    <string name="ssl">SSL证书验证</string>
+    <string name="ssl_continue">继续？</string>
+    <string name="btn_sort">排序</string>
+    <string name="title_contract_list_sort">排序</string>
+    <string name="btn_save">保存</string>
+    <string name="lb_caution">注意</string>
+    <string name="msg_save_or_not">已作出更改.\n是否要在离开前保存它们?</string>
+    <string name="lb_successful_save">保存成功</string>
+    <string name="msg_reset_confirm">确认重置?</string>
+    <string name="lb_successful_reset">重置成功</string>
+    <string name="title_liquidate_all">全部平仓</string>
+    <string name="title_multiple_liquidate">多项平仓</string>
+    <string name="btn_liquidate_all">全部平仓</string>
+    <string name="txt_liquidate_method_LIFO">后入先出</string>
+    <string name="txt_liquidate_method_FIFO">先入先出</string>
+    <string name="txt_liquidate_slippage">滑点</string>
+    <string name="txt_liquidate_all_buy_sell">买/卖</string>
+    <string name="txt_liquidate_lot">平仓手数</string>
+    <string name="txt_liquidate_all_method">平仓方法</string>
+    <string name="title_withdrawal_history">提款记录</string>
+    <string name="lb_cashmovement_ref">提款ID</string>
+    <string name="lb_cashmovement_amount">金额</string>
+    <string name="lb_cashmovement_status">状态</string>
+    <string name="lb_cashmovement_request_date">申请日期</string>
+    <string name="lb_cashmovement_request_date_label">申请日期:</string>
+    <string name="lb_cashmovement_request_date_deposit_label">存款日期:</string>
+    <string name="lb_cashmovement_request_date_withdrawal_label">提款日期:</string>
+    <string name="lb_cashmovement_last_update_by">操作者</string>
+    <string name="title_withdrawal_history_detail">提款记录明细</string>
+    <string name="lb_cashmovement_bank_name">银行名称</string>
+    <string name="lb_cashmovement_bank_account">银行帐号</string>
+    <string name="lb_cashmovement_update_date">更新日期</string>
+    <string name="txt_cashmovement_NA">处理中</string>
+    <string name="txt_cashmovement_Verified">已验证</string>
+    <string name="txt_cashmovement_Confirmed">已审核</string>
+    <string name="txt_cashmovement_Rejected">已拒绝</string>
+    <string name="txt_cashmovement_Cancelled">已取消</string>
+    <string name="txt_btnCancelCashMovement">取消申请</string>
+    <string name="btn_multiple_cancel_order">批量取消</string>
+    <string name="txt_limit_order_pips">止盈</string>
+    <string name="txt_stop_order_pips">止损</string>
+    <string name="txt_free_lot">信用手数</string>
+    <string name="txt_realized_pnl">实际盈/亏</string>
+    <string name="confirm_liquidation">请确认平仓</string>
+    <string name="confirm_cancel_order">你确定取消所选择的挂单吗?</string>
+	
+	<string name="lb_pricealert_enable">启用</string>
+	<string name="lb_pricealert_contract">产品</string>
+	<string name="lb_pricealert_setting">提醒设定</string>
+	<string name="lb_pricealert_price">现价（卖出／买进）</string>
+	<string name="lb_pricealert_add">新增价格提醒</string>
+	<string name="lb_pricealert_type0">高于卖出价</string>
+	<string name="lb_pricealert_type1">低于卖出价</string>
+	<string name="lb_pricealert_type2">Volatility 10 Mins</string>
+	<string name="lb_pricealert_type3">Volatility 30 Mins</string>
+	<string name="lb_pricealert_type4">高于买进价</string>
+	<string name="lb_pricealert_type5">低于买进价</string>
+	<string name="lb_pricealert_history_contract">产品</string>
+	<string name="lb_pricealert_history_type">提醒类型</string>
+	<string name="lb_pricealert_history_price">提醒价格</string>
+	<string name="lb_pricealert_history_time">时间</string>
+	<string name="lb_pricealert_add_title">新增价格提醒</string>
+	<string name="lb_pricealert_add_price">现价（卖出／买进）</string>
+	<string name="lb_pricealert_add_type">提醒类型</string>
+	<string name="lb_pricealert_add_alertprice">提醒价格</string>.
+	<string name="lb_pricealert_add_goodtil">期限</string>
+	<string name="lb_pricealert_add_goodtil0">今日</string>
+	<string name="lb_pricealert_add_goodtil1">本周</string>
+	<string name="lb_pricealert_add_goodtil2">本月</string>
+	<string name="lb_pricealert_add_added">价格提醒已新增</string>
+	<string name="lb_pricealert_add_added_confirm">确定新增价格提醒？ </string>
+	<string name="lb_pricealert_add_error_lower">提醒价格不能少于#s</string>
+	<string name="lb_pricealert_add_error_higher">提醒价格不能高于#s</string>
+	<string name="lb_pricealert_edit">修改</string>
+	<string name="lb_pricealert_edit_title">修改价格提醒</string>
+	<string name="lb_pricealert_edit_edited">价格提醒已修改</string>
+	<string name="lb_pricealert_edit_edited_confirm">确定修改价格提醒？ </string>
+	<string name="lb_pricealert_delete">删除</string>
+	<string name="lb_pricealert_delete_confirm">确定删除价格提醒？ </string>
+	<string name="lb_pricealert_message_1023">超过最大提醒数目</string>
+	<string name="lb_pricealert_message_alert">到价提示:</string>
+	<string name="lb_pricealert_message_alert_bid">现卖出价</string>
+	<string name="lb_pricealert_message_alert_ask">现买进价</string>
+
+
+
+
+
+
+
+
+</resources>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/rlPop" android:layout_height="wrap_content"
+	android:background="@android:color/transparent" android:layout_width="wrap_content">
+
+
+	<RelativeLayout android:layout_width="wrap_content"
+		android:background="@drawable/pd_pop_action"
+		android:layout_below="@+id/btnClose" android:id="@+id/rlContent"
+		android:layout_marginTop="-15dp" android:layout_height="400dp">
+		<TextView android:id="@+id/TextView01" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:layout_centerHorizontal="true"
+			android:text="@string/pop_action_title" android:textColor="@color/normal_text"
+			android:textSize="17dp" android:layout_marginTop="18dp"></TextView>
+		<LinearLayout android:layout_height="wrap_content"
+			android:id="@+id/LinearLayout01" android:layout_below="@+id/TextView01" android:layout_marginLeft="30dp"
+			android:layout_width="250dp" android:orientation="vertical" android:layout_centerInParent="true" android:layout_marginTop="16dp">
+			
+			<android.webkit.WebView android:id="@+id/webView"
+			android:layout_height="fill_parent" android:layout_width="fill_parent" android:layout_marginBottom="10dp"/> 
+		</LinearLayout>
+	</RelativeLayout>
+	<Button android:layout_height="wrap_content"
+		android:layout_width="wrap_content" android:id="@+id/btnClose"
+		android:background="@drawable/pop_btn_close"
+		android:layout_alignRight="@+id/rlContent" android:layout_marginRight="-10dp"></Button>
+</RelativeLayout>

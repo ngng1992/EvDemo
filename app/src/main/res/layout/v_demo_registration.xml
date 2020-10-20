@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/rlMain" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+	
+	<LinearLayout android:id="@+id/LinearLayout01"
+		android:layout_height="fill_parent" android:layout_width="fill_parent"
+		android:layout_marginBottom="30dp" android:layout_marginTop="50dp"
+		android:orientation="vertical" android:background="@drawable/main_bg">
+		<include layout="@layout/bar_nav" />
+	</LinearLayout>
+	<include layout="@layout/bar_account" />
+	<include layout="@layout/bar_top" />
+	<include layout="@layout/bar_botton" />
+
+	<WebView
+	    android:id="@+id/wvReport"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_alignParentBottom="true"
+	    android:layout_alignParentLeft="true" />
+
+	<Button
+	    android:id="@+id/btnClose"
+	    android:layout_width="28dp"
+	    android:layout_height="28dp"
+	    android:layout_alignParentRight="true"
+	    android:layout_alignParentTop="true"
+	    android:background="@drawable/pop_btn_close"
+	    android:layout_marginTop="10dp" android:layout_marginRight="10dp"/>
+
+</RelativeLayout>
+
+

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:id="@+id/rlMain" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+
+	<LinearLayout
+		android:id="@+id/LinearLayout01"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:layout_marginBottom="30dp"
+		android:layout_marginTop="50dp"
+		android:background="@drawable/bg_login"
+		android:orientation="vertical">
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
+
+			<RelativeLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+
+				<ImageView
+					android:layout_width="wrap_content"
+					android:layout_height="40dp"
+					android:scaleType="fitXY"
+					android:src="@drawable/header_background" />
+
+				<TextView
+					android:layout_width="fill_parent"
+					android:layout_height="40dp"
+					android:layout_gravity="center_horizontal"
+					android:gravity="center"
+					android:text="@string/db_online_statement"
+					android:textColor="@color/normal_text"
+					android:textSize="18sp"
+					android:textStyle="bold" />
+
+			</RelativeLayout>
+		</LinearLayout>
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:gravity="center_horizontal"
+			android:paddingLeft="25dp"
+			android:paddingRight="25dp"
+			android:paddingTop="30dp">
+
+			<ImageView
+				android:layout_width="match_parent"
+				android:layout_height="200dp"
+				android:background="@color/border"
+				android:padding="1dp"
+				android:scaleType="fitXY"
+				android:src="@drawable/bg_pop_l" />
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="200dp"
+				android:layout_gravity="center"
+				android:orientation="vertical">
+
+				<TextView
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_horizontal"
+					android:layout_marginTop="10dp"
+					android:gravity="center_horizontal"
+					android:text="@string/lb_date_select"
+					android:textColor="@color/normal_text"
+					android:textSize="15dp"/>
+
+				<LinearLayout
+					android:id="@+id/linearLayout2"
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					android:orientation="vertical"
+					android:paddingLeft="20dp"
+					android:paddingRight="20dp">
+
+					<LinearLayout
+						
+						android:layout_width="fill_parent"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="15dp">
+
+						<TextView
+							
+							android:layout_width="fill_parent"
+							android:layout_height="wrap_content"
+							android:layout_weight="1"
+							android:text="@string/lb_from"
+							android:textColor="@color/general_lab"
+							android:textSize="14dp"></TextView>
+
+						<Button
+							android:id="@+id/btnFrom"
+							android:layout_width="fill_parent"
+							android:layout_height="35dp"
+							android:layout_weight="1"
+							android:background="@drawable/btn_select_sm"
+							android:text="-"
+							android:textColor="@color/btn_1"></Button>
+					</LinearLayout>
+
+					<ImageView
+						android:id="@+id/imageView1"
+						android:layout_width="fill_parent"
+						android:layout_height="2dp"
+						android:layout_marginBottom="5dp"
+						android:background="@drawable/pd_pop_line"></ImageView>
+
+					<LinearLayout
+						
+						android:layout_width="fill_parent"
+						android:layout_height="wrap_content">
+
+						<TextView
+							
+							android:layout_width="fill_parent"
+							android:layout_height="wrap_content"
+							android:layout_weight="1"
+							android:text="@string/lb_to"
+							android:textColor="@color/general_lab"
+							android:textSize="14dp"></TextView>
+
+						<Button
+							android:id="@+id/btnTo"
+							android:layout_width="fill_parent"
+							android:layout_height="35dp"
+							android:layout_weight="1"
+							android:background="@drawable/btn_select_sm"
+							android:text="-"
+							android:textColor="@color/btn_1"></Button>
+					</LinearLayout>
+
+				</LinearLayout>
+
+				<Button
+					android:id="@+id/btnOK"
+					android:layout_width="wrap_content"
+					android:layout_height="40dp"
+					android:layout_gravity="center_horizontal"
+					android:layout_marginTop="9dp"
+					android:background="@drawable/btn_normal"
+					android:text="@string/btn_ok"
+					android:textColor="@color/btn_2"></Button>
+			</LinearLayout>
+		</RelativeLayout>
+
+		<!--<include layout="@layout/bar_nav" />-->
+	</LinearLayout>
+	<include layout="@layout/bar_account" />
+	<include layout="@layout/bar_top" />
+	<include layout="@layout/bar_botton" />
+
+	<WebView
+	    android:id="@+id/wvReport"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_alignParentBottom="true"
+	    android:layout_alignParentLeft="true"
+	    android:visibility="invisible" />
+
+	<Button
+	    android:id="@+id/btnClose"
+	    android:layout_width="28dp"
+	    android:layout_height="28dp"
+	    android:layout_alignParentRight="true"
+	    android:layout_alignParentTop="true"
+	    android:background="@drawable/pop_btn_close"
+	    android:visibility="invisible" android:layout_marginTop="10dp" android:layout_marginRight="10dp"/>
+
+</RelativeLayout>
+
+

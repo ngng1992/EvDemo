@@ -1,0 +1,83 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <string name="app_name" >chatmodule</string>
+
+    <string name="str_input_new_msg">请输入新消息</string>
+    <string name="str_recorder_normal">按住说话</string>
+    <string name="str_recorder_recording">松开结束</string>
+    <string name="finger_slippery_cancel_send">手指上滑，取消发送</string>
+    <string name="str_record_sound_short">录音时间过短</string>
+    <string name="str_send">发送</string>
+    <string name="str_camera">拍照</string>
+    <string name="str_image">图片</string>
+    <string name="str_video">视频</string>
+    <string name="location">位置</string>
+    <string name="voice_call">语音</string>
+    <string name="not_join_group">您未加入该群组</string>
+    <string name="user_mutes">您已被禁言</string>
+    <string name="send_fail">发送失败</string>
+    <string name="sending">正在发送中...</string>
+    <string name="receiving">正在接收中...</string>
+    <string name="str_chat_delete">删除</string>
+    <string name="str_chat_reply">回复</string>
+    <string name="str_chat_copy">复制</string>
+    <string name="str_chat_recall">撤回</string>
+    <string name="toast_recall_fail">撤回失败</string>
+    <string name="toast_video_thumb">无法获取视频缩略图</string>
+    <string name="toast_voice_time">录音时长过短</string>
+    <string name="date_night">晚上 hh:mm</string>
+    <string name="date_wee_hours">凌晨 hh:mm</string>
+    <string name="date_afternoon">下午 hh:mm</string>
+    <string name="date_forenoon">上午 hh:mm</string>
+    <string name="date_yesterday">昨天 HH:mm</string>
+    <string name="date_month_day">M月d日 HH:mm</string>
+    <string name="str_yours">您</string>
+    <string name="invalid_url_img">无效的图片地址</string>
+    <string name="toast_no_cant_send_empty">不能发送空消息</string>
+    <string name="toast_no_cant_get_video_time">无法获取视频时长</string>
+    <string name="toast_file_too_large">文件过大</string>
+    <string name="toast_unable_parse">第三方视频，无法解析</string>
+    <string name="chat_guid_price">指导价：¥%1$s万</string>
+    <string name="chat_intent_price">意向价：¥%1$s万</string>
+
+    <string name="loaction_brackets">[%1$s的位置]</string>
+    <string name="mine_location_brackets">[我的位置]</string>
+    <string name="pic_brackets">[图片]</string>
+    <string name="voice_brackets">[语音]</string>
+    <string name="video_brackets">[视频]</string>
+    <string name="file_brackets">[文件]</string>
+    <string name="voice_call_brackets">[语音通话]</string>
+    <string name="chat_car_detail">汽车详情</string>
+    <string name="mute">静音</string>
+    <string name="hands_free">免提</string>
+    <string name="hang_up">挂断</string>
+    <string name="refuse">拒绝</string>
+    <string name="answer">接听</string>
+    <string name="are_connected_to_each_other">正在连接对方…</string>
+    <string name="have_connected_with">已经和对方建立连接</string>
+    <string name="in_the_call">通话中…</string>
+    <string name="network_unstable">网络不稳定</string>
+    <string name="no_call_data">没有通话数据</string>
+    <string name="refused">已拒绝</string>
+    <string name="the_other_party_refused_to_accept">对方拒绝接受…</string>
+    <string name="connection_failure">连接建立失败…</string>
+    <string name="the_other_party_is_not_online">对方不在线，请稍后再拨…</string>
+    <string name="the_other_is_on_the_phone_please">对方正在通话中，请稍后再拨</string>
+    <string name="the_other_party_did_not_answer_new">对方未接听</string>
+    <string name="the_other_is_hang_up">对方已经挂断</string>
+    <string name="did_not_answer">未接听</string>
+    <string name="has_been_cancelled">已取消</string>
+    <string name="service_not_enable">服务未启用</string>
+    <string name="service_arrearages">服务欠费</string>
+    <string name="service_forbidden">服务禁止</string>
+    <string name="call_version_inconsistent">通话协议版本不一致</string>
+    <string name="call_duration">通话时长</string>
+    <string name="The_other_party_has_refused_to">对方已拒绝</string>
+    <string name="The_other_is_not_online">对方不在线</string>
+    <string name="The_other_is_on_the_phone">对方正在通话中</string>
+    <string name="The_other_party_did_not_answer">对方未接听</string>
+    <string name="Has_been_cancelled">已取消</string>
+
+    <string name="toast_net_unusual">网络异常</string>
+
+
+</resources>

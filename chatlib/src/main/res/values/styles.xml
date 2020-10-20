@@ -1,0 +1,36 @@
+<resources>
+
+    <!-- 设置弹出窗口的属性，frame叠加，isfloat是否浮动，tarnslucent是否半透明，dim是背景是否变暗 -->
+    <style name="RecordSoundDialogStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <declare-styleable name="MenuItem">
+        <attr name="menu_title" format="string" />
+        <attr name="icon" format="reference" />
+    </declare-styleable>
+
+    <style name="Animation_top_left">
+        <item name="android:windowEnterAnimation">@anim/open_top_left</item>
+        <item name="android:windowExitAnimation">@anim/close_top_left</item>
+    </style>
+
+    <style name="Animation_bottom_left">
+        <item name="android:windowEnterAnimation">@anim/open_bottom_left</item>
+        <item name="android:windowExitAnimation">@anim/close_bottom_left</item>
+    </style>
+
+    <style name="Animation_bottom_right">
+        <item name="android:windowEnterAnimation">@anim/open_bottom_right</item>
+        <item name="android:windowExitAnimation">@anim/close_bottom_right</item>
+    </style>
+    <style name="Animation_top_right">
+        <item name="android:windowEnterAnimation">@anim/open_top_right</item>
+        <item name="android:windowExitAnimation">@anim/close_top_right</item>
+    </style>
+
+</resources>

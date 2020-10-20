@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:id="@+id/rlPop" android:layout_height="wrap_content"
+	android:background="@android:color/transparent" android:layout_width="wrap_content">
+
+
+	<RelativeLayout
+		android:id="@+id/rlContent"
+		android:layout_width="wrap_content"
+		android:layout_height="270dp"
+		android:layout_below="@+id/btnClose"
+		android:layout_marginTop="-15dp"
+		android:paddingLeft="10dp"
+		android:paddingRight="10dp">
+
+		<ImageView
+			android:id="@+id/imageView27"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:background="@color/border"
+			android:padding="1dp"
+			android:scaleType="fitXY"
+			android:src="@drawable/bg_pop_l" />
+
+		<TextView
+			android:id="@+id/TextView01"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_centerHorizontal="true"
+			android:layout_marginTop="10dp"
+			android:text="@string/lb_action"
+			android:textColor="@color/normal_text"
+			android:textSize="17dp"></TextView>
+
+		<LinearLayout
+			android:id="@+id/LinearLayout01"
+			android:layout_width="250dp"
+			android:layout_height="wrap_content"
+			android:layout_below="@+id/TextView01"
+			android:layout_centerInParent="true"
+			android:layout_marginLeft="30dp"
+			android:layout_marginTop="20dp"
+			android:orientation="vertical">
+
+			<LinearLayout
+				android:id="@+id/llBuy"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="5dp">
+
+				<TextView
+					
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_below="@+id/Button01"
+					android:layout_centerHorizontal="true"
+					android:layout_weight="1"
+					android:text="@string/pop_action_buy"
+					android:textColor="@color/general_lab"
+					android:textStyle="bold"></TextView>
+
+				<ImageView
+					
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:src="@drawable/pd_pop_arrow"></ImageView>
+			</LinearLayout>
+
+			<ImageView
+				
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:background="@drawable/pd_pop_line"
+				android:src="@drawable/pd_pop_line" />
+
+			<LinearLayout
+				android:id="@+id/llSell"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="5dp"
+				android:layout_marginTop="5dp">
+
+				<TextView
+					
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_below="@+id/Button01"
+					android:layout_centerHorizontal="true"
+					android:layout_weight="1"
+					android:text="@string/pop_action_sell"
+					android:textColor="@color/general_lab"
+					android:textStyle="bold"></TextView>
+
+				<ImageView
+					
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:src="@drawable/pd_pop_arrow"></ImageView>
+			</LinearLayout>
+
+			<ImageView
+				
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:background="@drawable/pd_pop_line"
+				android:src="@drawable/pd_pop_line" />
+
+			<LinearLayout
+				android:id="@+id/llBuyLimit"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="5dp"
+				android:layout_marginTop="5dp">
+
+				<TextView
+					
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_below="@+id/Button01"
+					android:layout_centerHorizontal="true"
+					android:layout_weight="1"
+					android:text="@string/pop_action_buy_limit"
+					android:textColor="@color/general_lab"
+					android:textStyle="bold"></TextView>
+
+				<ImageView
+					
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:src="@drawable/pd_pop_arrow"></ImageView>
+			</LinearLayout>
+
+			<ImageView
+				
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:background="@drawable/pd_pop_line"
+				android:src="@drawable/pd_pop_line" />
+
+			<LinearLayout
+				android:id="@+id/llSellLimit"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="5dp"
+				android:layout_marginTop="5dp">
+
+				<TextView
+					
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_below="@+id/Button01"
+					android:layout_centerHorizontal="true"
+					android:layout_weight="1"
+					android:text="@string/pop_action_sell_limit"
+					android:textColor="@color/general_lab"
+					android:textStyle="bold"></TextView>
+
+				<ImageView
+					
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:src="@drawable/pd_pop_arrow"></ImageView>
+			</LinearLayout>
+
+			<ImageView
+				
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:background="@drawable/pd_pop_line"
+				android:src="@drawable/pd_pop_line" />
+
+			<LinearLayout
+				android:id="@+id/llBuyStop"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="5dp"
+				android:layout_marginTop="5dp">
+
+				<TextView
+					
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_below="@+id/Button01"
+					android:layout_centerHorizontal="true"
+					android:layout_weight="1"
+					android:text="@string/pop_action_buy_stop"
+					android:textColor="@color/general_lab"
+					android:textStyle="bold"></TextView>
+
+				<ImageView
+					
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:src="@drawable/pd_pop_arrow"></ImageView>
+			</LinearLayout>
+
+			<ImageView
+				
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:background="@drawable/pd_pop_line"
+				android:src="@drawable/pd_pop_line" />
+
+			<LinearLayout
+				android:id="@+id/llSellStop"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="5dp"
+				android:layout_marginTop="5dp">
+
+				<TextView
+					
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_below="@+id/Button01"
+					android:layout_centerHorizontal="true"
+					android:layout_weight="1"
+					android:text="@string/pop_action_sell_stop"
+					android:textColor="@color/general_lab"
+					android:textStyle="bold"></TextView>
+
+				<ImageView
+					
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:src="@drawable/pd_pop_arrow"></ImageView>
+			</LinearLayout>
+
+			<ImageView
+				
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:background="@drawable/pd_pop_line"
+				android:src="@drawable/pd_pop_line" />
+		</LinearLayout>
+
+
+	</RelativeLayout>
+
+	<Button
+		android:id="@+id/btnClose"
+		android:layout_width="30dp"
+		android:layout_height="30dp"
+		android:layout_alignRight="@+id/rlContent"
+		android:layout_marginBottom="-5dp"
+		android:layout_marginRight="0dp"
+		android:background="@drawable/icon_close"></Button>
+</RelativeLayout>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:id="@+id/rlMain"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+
+	<LinearLayout
+		android:id="@+id/LinearLayout01"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:layout_marginBottom="30dp"
+		android:layout_marginTop="50dp"
+		android:background="@drawable/main_bg"
+		android:orientation="vertical">
+
+		<RelativeLayout
+			android:id="@+id/relativeLayout1"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:background="@drawable/header_background"
+			android:gravity="center_horizontal"
+			android:paddingBottom="2dp"
+			android:paddingTop="7dp">
+
+			<TextView
+				android:id="@+id/TextView04"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:gravity="center_horizontal"
+				android:shadowColor="#000000"
+				android:shadowDx="1.5"
+				android:shadowDy="1.5"
+				android:shadowRadius="1.5"
+				android:text="@string/menu_news"
+				android:textColor="@color/normal_text"
+				android:textSize="18dp"
+				android:textStyle="bold"></TextView>
+
+		</RelativeLayout>
+
+	</LinearLayout>
+
+	<include layout="@layout/bar_account" />
+
+	<include layout="@layout/bar_top" />
+
+	<include layout="@layout/bar_botton" />
+
+
+</RelativeLayout>
+
+

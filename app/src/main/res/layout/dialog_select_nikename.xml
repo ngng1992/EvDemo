@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/whiteff"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_ms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_mr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:padding="@dimen/dp_16"
+            android:text="@string/sec_acc_ui_mr"
+            android:textColor="@color/select_yellowd2_txt"
+            android:textSize="@dimen/sp_16">
+
+        </TextView>
+
+        <ImageView
+            android:id="@+id/iv_mr"
+            android:layout_width="wrap_content"
+            android:src="@drawable/ic_mark_selected"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_30"
+            android:layout_height="wrap_content">
+
+        </ImageView>
+
+    </RelativeLayout>
+
+
+    <View
+        style="@style/ViewLine">
+
+    </View>
+
+    <RelativeLayout
+        android:id="@+id/rl_mrs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_mrs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_16"
+            android:layout_centerInParent="true"
+            android:text="@string/sec_acc_ui_mrs"
+            android:textColor="@color/select_yellowd2_txt"
+            android:textSize="@dimen/sp_16">
+
+        </TextView>
+
+        <ImageView
+            android:id="@+id/iv_mrs"
+            android:layout_width="wrap_content"
+            android:src="@drawable/ic_mark_selected"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            android:layout_marginRight="@dimen/dp_30"
+            android:layout_height="wrap_content">
+
+        </ImageView>
+
+    </RelativeLayout>
+
+    <View
+        style="@style/ViewLine">
+
+    </View>
+
+    <RelativeLayout
+        android:id="@+id/rl_miss"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_miss"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_16"
+            android:layout_centerInParent="true"
+            android:text="@string/sec_acc_ui_miss"
+            android:textColor="@color/select_yellowd2_txt"
+            android:textSize="@dimen/sp_16">
+
+        </TextView>
+
+        <ImageView
+            android:id="@+id/iv_miss"
+            android:layout_width="wrap_content"
+            android:src="@drawable/ic_mark_selected"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            android:layout_marginRight="@dimen/dp_30"
+            android:layout_height="wrap_content">
+
+        </ImageView>
+
+    </RelativeLayout>
+
+    <View
+        style="@style/ViewLine">
+
+    </View>
+
+</LinearLayout>

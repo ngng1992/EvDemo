@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlMain"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <LinearLayout
+        android:id="@+id/llCenter"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/main_bg"
+        android:orientation="vertical"
+        android:paddingTop="20dp">
+        <!--
+                <com.mfinance.everjoy.app.widget.pageswitcher.PageSlider
+                    android:layout_width="fill_parent" android:layout_height="fill_parent"
+                    android:id="@+id/psItem" android:scrollbars="none"
+                    android:layout_weight="1">
+                    <GridView android:id="@+id/gvItem" android:layout_width="fill_parent"
+                        android:layout_height="fill_parent" android:numColumns="3"></GridView>
+                    <GridView android:id="@+id	/gvItem2" android:layout_width="fill_parent"
+                        android:layout_height="fill_parent" android:numColumns="3"></GridView>
+                </com.mfinance.everjoy.app.widget.pageswitcher.PageSlider>
+         -->
+        <uk.co.jasonfry.android.tools.ui.SwipeView
+            android:id="@+id/svMain"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1">
+
+            <GridView
+                android:id="@+id/gvItem"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:horizontalSpacing="10dp"
+                android:numColumns="3"
+                android:verticalSpacing="20dp" />
+
+            <GridView
+                android:id="@+id/gvItem2"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:horizontalSpacing="10dp"
+                android:numColumns="3"
+                android:verticalSpacing="20dp" />
+        </uk.co.jasonfry.android.tools.ui.SwipeView>
+
+        <uk.co.jasonfry.android.tools.ui.PageControl
+            android:id="@+id/page_control"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" />
+
+        <include layout="@layout/bar_adv" />
+    </LinearLayout>
+
+    <include layout="@layout/bar_account" />
+
+    <include layout="@layout/bar_top" />
+
+    <include layout="@layout/bar_botton" />
+</RelativeLayout>
+

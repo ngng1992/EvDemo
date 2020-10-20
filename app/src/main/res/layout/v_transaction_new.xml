@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/rlMain" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+
+
+	<LinearLayout android:id="@+id/LinearLayout01"
+		android:layout_height="fill_parent" android:layout_width="fill_parent"
+		android:layout_marginBottom="30dp" android:layout_marginTop="50dp"
+		android:background="@drawable/main_bg" android:orientation="vertical">
+
+		<RelativeLayout
+		    android:id="@+id/RelativeLayout02"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:background="@drawable/header_background" >
+
+			<TextView
+				android:id="@+id/TextView04"
+				android:layout_width="fill_parent"
+				android:layout_height="40dp"
+				android:layout_centerHorizontal="true"
+				android:gravity="center"
+				android:shadowColor="#000000"
+				android:shadowDx="1.5"
+				android:shadowDy="1.5"
+				android:shadowRadius="1.5"
+				android:text="@string/title_transaction_status"
+				android:textColor="@color/normal_text"
+				android:textSize="18dp"
+				android:textStyle="bold"></TextView>
+
+		</RelativeLayout>
+
+		<LinearLayout
+			android:id="@+id/LinearLayout03"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:layout_weight="1"
+			android:background="@drawable/list_bg"
+			android:orientation="vertical">
+
+			<LinearLayout
+				android:id="@+id/llH"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/list_title_bg"
+				android:orientation="horizontal"
+				android:paddingLeft="5dp"
+				android:paddingRight="5dp">
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_weight="1"
+					android:orientation="horizontal">
+
+					<LinearLayout
+						android:id="@+id/ll3"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:layout_weight="1">
+
+						<TextView
+							android:id="@+id/lbH31"
+							android:layout_width="wrap_content"
+							android:layout_height="fill_parent"
+							android:layout_weight="1"
+							android:gravity="left|center"
+							android:shadowColor="#000000"
+							android:shadowDx="1.5"
+							android:shadowDy="1.5"
+							android:shadowRadius="1.5"
+							android:text="@string/lb_item"
+							android:textColor="@color/normal_text"
+							android:textSize="12dp"></TextView>
+					</LinearLayout>
+
+					<LinearLayout
+						android:id="@+id/ll4"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:layout_marginLeft="15dp"
+						android:layout_weight="1">
+
+						<TextView
+							android:id="@+id/lbH41"
+							android:layout_width="wrap_content"
+							android:layout_height="fill_parent"
+							android:gravity="left|center_vertical"
+							android:shadowColor="#000000"
+							android:shadowDx="1.5"
+							android:shadowDy="1.5"
+							android:shadowRadius="1.5"
+							android:text="@string/lb_type"
+							android:textColor="@color/normal_text"
+							android:textSize="12dp"></TextView>
+					</LinearLayout>
+
+					<LinearLayout
+						android:id="@+id/ll2"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:layout_weight="1"
+						android:gravity="center_horizontal">
+
+						<TextView
+							
+							android:layout_width="match_parent"
+							android:layout_height="fill_parent"
+							android:layout_weight="1"
+							android:gravity="left|center"
+							android:shadowColor="#000000"
+							android:shadowDx="1.5"
+							android:shadowDy="1.5"
+							android:shadowRadius="1.5"
+							android:text="@string/lb_lot"
+							android:textColor="@color/normal_text"
+							android:textSize="12dp"></TextView>
+
+						<TextView
+							
+							android:layout_width="match_parent"
+							android:layout_height="fill_parent"
+							android:layout_weight="1"
+							android:gravity="left|center"
+							android:shadowColor="#000000"
+							android:shadowDx="1.5"
+							android:shadowDy="1.5"
+							android:shadowRadius="1.5"
+							android:text="@string/lb_time"
+							android:textColor="@color/normal_text"
+							android:textSize="12dp"></TextView>
+					</LinearLayout>
+
+				</LinearLayout>
+
+				<LinearLayout
+					android:id="@+id/ll5"
+					android:layout_width="match_parent"
+					android:layout_height="fill_parent"
+					android:layout_weight="2"
+					android:gravity="right">
+
+					<TextView
+						android:id="@+id/lbH51"
+						android:layout_width="wrap_content"
+						android:layout_height="fill_parent"
+						android:gravity="right|center_vertical"
+						android:shadowColor="#000000"
+						android:shadowDx="1.5"
+						android:shadowDy="1.5"
+						android:shadowRadius="1.5"
+						android:text="@string/lb_Message"
+						android:textColor="@color/normal_text"
+						android:textSize="12dp"></TextView>
+				</LinearLayout>
+
+			</LinearLayout>
+
+			<ListView
+				android:id="@+id/lvTransaction"
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent"
+				android:layout_weight="1"
+				android:background="@color/list_bg"
+				android:cacheColorHint="@android:color/transparent"
+				android:divider="@color/normal_text"
+				android:scrollingCache="true"></ListView>
+
+		</LinearLayout>
+		<!--<include layout="@layout/bar_nav" />-->
+	</LinearLayout>
+
+	<include layout="@layout/bar_account" />
+	<include layout="@layout/bar_top" />
+	<include layout="@layout/bar_botton" />
+
+</RelativeLayout>

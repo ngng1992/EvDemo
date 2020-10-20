@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menuItemSort"
+        android:title="@string/btn_sort"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+    <item android:id="@+id/menuItemContractSetting"
+        android:title="@string/title_contract_setting"
+        android:textSize="18dp"
+        android:textStyle="bold"/>
+</menu>

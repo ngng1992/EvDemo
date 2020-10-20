@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:id="@+id/rlMain">
+
+	<LinearLayout android:layout_height="fill_parent"
+		android:layout_width="fill_parent" android:layout_marginBottom="31dp"
+		android:orientation="vertical" android:layout_marginTop="50dp" android:id="@+id/llMain" android:background="@drawable/list_bg">
+
+		<RelativeLayout android:layout_height="wrap_content"
+			android:id="@+id/rlTitle" android:layout_width="fill_parent">
+			
+		</RelativeLayout>
+		<LinearLayout android:layout_width="fill_parent"
+			android:layout_weight="1" android:layout_height="fill_parent"
+			android:orientation="vertical"
+			android:id="@+id/llContent">
+			<LinearLayout android:layout_width="fill_parent" android:orientation="vertical"
+				android:layout_height="wrap_content" android:id="@+id/llHeader">
+			</LinearLayout>
+			<android.webkit.WebView android:layout_height="fill_parent" android:id="@+id/wvContent" android:layout_width="fill_parent" android:scrollbarStyle="insideOverlay" android:scrollbars="none"></android.webkit.WebView>
+		</LinearLayout>	
+		<!-- 
+		<include layout="@layout/bar_adv" />
+		-->
+		<include layout="@layout/bar_nav" />
+	</LinearLayout>
+	<include layout="@layout/bar_account" />
+	<include layout="@layout/bar_top" />
+	<include layout="@layout/bar_botton" />
+	<include layout="@layout/frame_loading" />
+</RelativeLayout>

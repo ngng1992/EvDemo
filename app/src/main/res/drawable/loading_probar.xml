@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rotate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fromDegrees="0.0"
+    android:pivotX="50%"
+    android:pivotY="50%"
+    android:toDegrees="360.0">
+<!--    android:toDegrees="360"默认360，越大转速越快-->
+
+    <shape
+        android:innerRadiusRatio="3"
+        android:shape="ring"
+        android:thicknessRatio="11"
+        android:useLevel="false">
+
+        <gradient
+            android:centerColor="#999999"
+            android:centerY="0.50"
+            android:endColor="#FFFFFF"
+            android:startColor="#666666"
+            android:type="sweep"
+            android:useLevel="false" />
+
+    </shape>
+
+</rotate>

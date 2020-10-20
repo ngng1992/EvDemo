@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="wheel_text">#000000</color>
+	<color name="list_level_2_text">#FFFFFF</color>
+	
+	<color name="top">#663399</color>
+	<color name="account">#000000</color>
+	<color name="botton">#663399</color>	
+	
+	<color name="up">#00ff04</color>
+	<color name="down">#FF0000</color>
+	<color name="no_chanage">#FFFFFF</color>
+	
+	<color name="price_list_no_change">#FFFFFF</color>
+	
+	<color name="pd_up">#064445</color>
+	<color name="pd_down">#820009</color>
+	<color name="pd_no_chanage">#9ba2a8</color>
+	 
+	<color name="positive">#00ff04</color>
+	<color name="negative">#FF0000</color>
+	
+	<color name="tb_on">#FFFFFF</color>
+	<color name="tb_off">#666666</color>
+	
+	<color name="normal_text">#FFFFFF</color>
+	<color name="general_lab">#FFFFFF</color>
+	<color name="btn_1">#FFFFFF</color>
+	<color name="btn_2">#FFFFFF</color>
+	<color name="db_item">#FFFFFF</color>
+	<color name="login_msg_box">#FFFFFF</color>
+	
+	<color name="short_cut_bg">#000000</color>
+	
+	<color name="qa_text">#333333</color>
+	
+	<color name="list_bg">#000000</color>
+	
+	<color name="list_column_1">#000000</color>
+	
+	<color name="detail_title_bold">#333333</color>
+	
+	<color name="list_red_word">#6e6445</color>
+	
+	<color name="line_color">#E0E0E0</color>
+    <color name="border">#555555</color>
+	<color name="blue_text">#0099cc</color>
+
+	<color name="theme_text">#FF3039</color>
+
+
+	<!--    view被选中时的颜色-->
+	<color name="colorPrimary">#FFFFFF</color>
+	<!--    状态栏颜色-->
+	<color name="colorPrimaryDark">#FFFFFF</color>
+	<!--    editview光标等颜色-->
+	<!--    <color name="colorAccent">#D81B60</color>-->
+	<color name="colorAccent">#d2ab5f</color>
+
+
+	<color name="whiteff">#FFFFFF</color>
+	<color name="whitee3">#E3E3E3</color>
+	<color name="whitee1">#E1E1E1</color>
+	<color name="whitede">#DEDEDE</color>
+	<color name="whiteea">#EAEAEA</color>
+
+
+	<color name="gray00">#000000</color>
+	<color name="gray33">#333333</color>
+	<color name="gray66">#666666</color>
+	<color name="gray99">#999999</color>
+	<color name="graya00">#A0000000</color>
+
+	<color name="blue03">#03DAC5</color>
+	<color name="blue02">#02B4E4</color>
+
+
+	<color name="redff">#FF0000</color>
+
+
+
+	<color name="gray1e">#1e1f23</color>
+	<color name="blue18">#186bd9</color>
+	<color name="yellowd2">#d2ab5f</color>
+	<color name="gray68">#686c78</color>
+	<color name="graye6">#e6eaef</color>
+	<color name="graycb">#cbd1da</color>
+	<color name="grayf1">#f1f4f7</color>
+	<color name="preview_mock">#9a000000</color>
+	<color name="yellowfa">#faf7f0</color>
+
+</resources>
+

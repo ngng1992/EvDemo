@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<style name="Animations" />
+
+	<!-- PopDownMenu -->
+	<style name="Animations.PopDownMenu" />
+	
+	<style name="Animations.PopDownMenu.Left">
+		<item name="android:windowEnterAnimation">@anim/quickaction_grow_from_topleft_to_bottomright</item>
+		<item name="android:windowExitAnimation">@anim/quickaction_shrink_from_bottomright_to_topleft</item>
+	</style>
+	
+	<style name="Animations.PopDownMenu.Right">
+		<item name="android:windowEnterAnimation">@anim/quickaction_grow_from_topright_to_bottomleft</item>
+		<item name="android:windowExitAnimation">@anim/quickaction_shrink_from_bottomleft_to_topright</item>
+	</style>
+	
+	<style name="Animations.PopDownMenu.Center">
+		<item name="android:windowEnterAnimation">@anim/quickaction_grow_from_top</item>
+		<item name="android:windowExitAnimation">@anim/quickaction_shrink_from_bottom</item>
+	</style>
+	
+	<!-- PopUpMenu -->
+	<style name="Animations.PopUpMenu" />
+	
+	<style name="Animations.PopUpMenu.Left">
+		<item name="android:windowEnterAnimation">@anim/quickaction_grow_from_bottomleft_to_topright</item>
+		<item name="android:windowExitAnimation">@anim/quickaction_shrink_from_topright_to_bottomleft</item>
+	</style>
+	
+	<style name="Animations.PopUpMenu.Right">
+		<item name="android:windowEnterAnimation">@anim/quickaction_grow_from_bottomright_to_topleft</item>
+		<item name="android:windowExitAnimation">@anim/quickaction_shrink_from_topleft_to_bottomright</item>
+	</style>
+	
+	<style name="Animations.PopUpMenu.Center">
+		<item name="android:windowEnterAnimation">@anim/quickaction_grow_from_bottom</item>
+		<item name="android:windowExitAnimation">@anim/quickaction_shrink_from_top</item>
+	</style>
+<!-- 		
+	<style name="Title">
+		<item name="android:textColor">@color/news_date</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_width">fill_parent</item>
+		<item name="android:background">@drawable/setting_title_menu_background_1</item>
+		<item name="android:gravity">center</item>
+		<item name="android:layout_marginBottom">15px</item>
+		<item name="android:textSize">25px</item>
+		<item name="android:textStyle">bold</item>
+		<item name="android:shadowColor">#000000</item>
+		<item name="android:shadowDx">1</item>
+		<item name="android:shadowDy">1</item>
+		<item name="android:shadowRadius">1</item>
+	</style>
+	
+	
+	<style name="TitleLevel1">
+		<item name="android:textColor">@color/news_date</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:background">@drawable/setting_title_menu_background_1</item>
+		<item name="android:gravity">center_vertical</item>
+		<item name="android:layout_marginTop">35px</item>
+		<item name="android:paddingLeft">30px</item>
+		<item name="android:layout_marginBottom">15px</item>
+		<item name="android:textSize">25px</item>
+		<item name="android:textStyle">bold</item>
+		<item name="android:shadowColor">#000000</item>
+		<item name="android:shadowDx">1</item>
+		<item name="android:shadowDy">1</item>
+		<item name="android:shadowRadius">1</item>
+	</style>
+
+	<style name="TitleLevel2">
+		<item name="android:layout_gravity">left</item>
+		<item name="android:textColor">@color/news_date</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_width">300px</item>
+		<item name="android:background">@drawable/setting_title_menu_background_2</item>
+		<item name="android:gravity">center_vertical</item>
+		<item name="android:paddingLeft">40px</item>
+		<item name="android:layout_marginBottom">5px</item>
+		<item name="android:textSize">20px</item>
+		<item name="android:textStyle">bold</item>
+		<item name="android:shadowColor">#000000</item>
+		<item name="android:shadowDx">1</item>
+		<item name="android:shadowDy">1</item>
+		<item name="android:shadowRadius">1</item>
+	</style>
+	
+	<style name="SettingDialog">
+		<item name="android:layout_width">fill_parent</item>
+		<item name="android:background">@drawable/setting_group1_background</item>
+		<item name="android:orientation">vertical</item>
+		<item name="android:paddingLeft">40px</item>
+		<item name="android:layout_marginBottom">5px</item>
+	</style>
+	<style name="SettingItem">
+		<item name="android:textColor">@color/news_date</item>
+		<item name="android:layout_marginLeft">5px</item>
+		<item name="android:layout_marginBottom">5px</item>
+		<item name="android:textSize">20px</item>
+	</style>
+	
+	<style name="RadioButton" parent="@android:style/Widget.CompoundButton.RadioButton">
+	 	<item name="android:layout_width">wrap_content</item>
+	 	<item name="android:button">@drawable/selector_radio_btn</item>
+	 	<item name="android:textSize">20px</item>
+	 	<item name="android:layout_height">28px</item>
+	 	<item name="android:textColor">@color/news_date</item>
+	 	<item name="android:layout_marginBottom">5px</item>
+	</style>
+ -->
+
+
+
+
+
+	<!-- Base application theme. -->
+	<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+		<!-- Customize your theme here. -->
+		<item name="colorPrimary">@color/colorPrimary</item>
+		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+		<item name="colorAccent">@color/colorAccent</item>
+	</style>
+
+	<style name="AppTheme.NoActionBar">
+		<item name="windowActionBar">false</item>
+		<item name="windowNoTitle">true</item>
+	</style>
+
+	<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+	<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+	<!--秒开app，在onCreate()中setTheme(R.style.FastStartStyle);不要在manifest中设置横竖屏-->
+	<style name="FastStartStyle" parent="android:Theme.Translucent.NoTitleBar.Fullscreen" />
+
+	<!--    背景白色-->
+	<style name="BaseDialog" parent="android:style/Theme.Dialog">
+		<!--背景颜色及和透明程度-->
+		<item name="android:windowBackground">@android:color/transparent</item>
+		<item name="android:background">@android:color/transparent</item>
+		<!--是否去除标题 -->
+		<item name="android:windowNoTitle">true</item>
+		<!--是否去除边框-->
+		<item name="android:windowFrame">@null</item>
+		<!--是否浮现在activity之上-->
+		<item name="android:windowIsFloating">true</item>
+		<!--背景不变暗色-->
+		<item name="android:backgroundDimEnabled">false</item>
+	</style>
+
+	<!--    背景暗色-->
+	<style name="BaseDialogDark" parent="android:style/Theme.Dialog">
+		<!--背景颜色及和透明程度-->
+		<item name="android:windowBackground">@android:color/transparent</item>
+		<item name="android:background">@android:color/transparent</item>
+		<!--是否去除标题 -->
+		<item name="android:windowNoTitle">true</item>
+		<!--是否去除边框-->
+		<item name="android:windowFrame">@null</item>
+		<!--是否浮现在activity之上-->
+		<item name="android:windowIsFloating">true</item>
+		<!--背景变暗色-->
+		<item name="android:backgroundDimEnabled">true</item>
+	</style>
+
+	<!--在屏幕中间由小到大进入，由大到小退出-->
+	<style name="ScaleAnimationStyle" parent="android:Animation">
+		<item name="android:windowEnterAnimation">@anim/scale_to_big_enter</item>
+		<item name="android:windowExitAnimation">@anim/scale_to_min_exit</item>
+	</style>
+
+
+	<!--    横向的线条-->
+	<style name="ViewLine">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">@dimen/dp_01</item>
+		<item name="android:background">@color/whitee3</item>
+	</style>
+
+	<!--    横向的线条-->
+	<style name="ViewLineV">
+		<item name="android:layout_width">@dimen/dp_01</item>
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:background">@color/whitee3</item>
+	</style>
+
+	<!--    横向的线条-->
+	<style name="ViewLineGray99">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">@dimen/dp_01</item>
+		<item name="android:background">@color/gray99</item>
+	</style>
+
+	<!--toolbar上menu字体大小-->
+	<style name="AppTheme.ActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+		<item name="actionMenuTextColor">@color/gray33</item>
+		<item name="android:textSize">@dimen/sp_14</item>
+	</style>
+
+	<!--向外：点击有水波纹效果，适应大部分view-->
+	<style name="BGOut">
+		<item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
+	</style>
+
+	<!--向内：点击有水波纹效果-->
+	<style name="BGInner">
+		<item name="android:background">?android:attr/selectableItemBackground</item>
+	</style>
+
+	<!--dialog从底部出来和退出动画-->
+	<style name="BottomViewAnimStyle" parent="android:Animation">
+		<item name="android:windowEnterAnimation">@anim/bottom_dialog_anim_enter</item>
+		<item name="android:windowExitAnimation">@anim/bottom_dialog_anim_exit</item>
+	</style>
+
+</resources>

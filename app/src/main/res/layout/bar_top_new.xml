@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/rlTop"
+	android:layout_width="fill_parent"
+	android:layout_height="match_parent"
+	android:layout_alignParentTop="true">
+
+	<ImageView
+		android:id="@+id/imageView4"
+		android:layout_width="wrap_content"
+		android:layout_height="50dp"
+		android:scaleType="fitXY"
+		android:src="@drawable/main_title" />
+
+	<ImageView
+		android:id="@+id/btnAccountTop"
+		android:layout_width="30dp"
+		android:layout_height="30dp"
+		android:layout_alignParentRight="true"
+		android:layout_marginRight="10dp"
+		android:layout_marginTop="10dp"
+		android:src="@drawable/btn_acc" />
+
+	<ImageView
+		android:id="@+id/imageView1"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:layout_centerInParent="false"
+		android:layout_marginTop="5dp"
+		android:paddingBottom="3dp"
+		android:paddingTop="3dp"
+		android:scaleType="fitCenter"
+		android:src="@drawable/logo">
+
+	</ImageView>
+
+	<LinearLayout
+		android:id="@+id/llNav"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerVertical="false">
+
+		<ImageView
+			android:id="@+id/btnDash"
+			android:layout_width="30dp"
+			android:layout_height="30dp"
+			android:layout_marginLeft="10dp"
+			android:layout_marginTop="10dp"
+			android:scaleType="center"
+			android:src="@drawable/btn_menu"></ImageView>
+
+	</LinearLayout>
+
+	<RelativeLayout
+		android:id="@+id/rlMenu"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_marginLeft="-400dp"
+		android:layout_marginTop="50dp">
+
+		<ImageView
+			android:id="@+id/bg_menu"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentStart="true"
+			android:layout_alignParentTop="true"
+			android:alpha="0.7"
+			android:scaleType="fitXY"
+			android:src="@drawable/bg_login"
+			android:visibility="invisible" />
+
+		<LinearLayout
+			android:id="@+id/llMenu"
+			android:layout_width="250dp"
+			android:layout_height="match_parent"
+			android:background="@drawable/bg_nav"
+			android:orientation="vertical">
+
+			<LinearLayout
+				android:id="@+id/llPriceMenu"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="2dp"
+				android:orientation="vertical">
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="50dp"
+					android:orientation="horizontal">
+
+					<ImageView
+						android:id="@+id/imageView15"
+						android:layout_width="40dp"
+						android:layout_height="40dp"
+						android:layout_gravity="left|center"
+						android:layout_marginLeft="20dp"
+						android:src="@drawable/icon_market" />
+
+					<TextView
+						android:id="@+id/textView"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_gravity="center"
+						android:layout_marginLeft="10dp"
+						android:text="@string/menu_price"
+						android:textColor="@android:color/white"
+						android:textSize="15sp" />
+				</LinearLayout>
+
+				<ImageView
+					android:id="@+id/imageView13"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:scaleType="fitXY"
+					android:src="@drawable/bg_splitter" />
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:id="@+id/llTradeMenu"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical">
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="50dp"
+					android:orientation="horizontal">
+
+					<ImageView
+						android:id="@+id/imageView16"
+						android:layout_width="40dp"
+						android:layout_height="40dp"
+						android:layout_gravity="left|center"
+						android:layout_marginLeft="20dp"
+						android:src="@drawable/icon_trade" />
+
+					<TextView
+						android:id="@+id/textView4"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_gravity="center"
+						android:layout_marginLeft="10dp"
+						android:text="@string/menu_trade"
+						android:textColor="@android:color/white"
+						android:textSize="15sp" />
+
+				</LinearLayout>
+
+				<ImageView
+					android:id="@+id/imageView12"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:scaleType="fitXY"
+					android:src="@drawable/bg_splitter" />
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:id="@+id/llPositionMenu"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical">
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="50dp"
+					android:orientation="horizontal">
+
+					<ImageView
+						android:id="@+id/imageView17"
+						android:layout_width="40dp"
+						android:layout_height="40dp"
+						android:layout_gravity="left|center"
+						android:layout_marginLeft="20dp"
+						android:src="@drawable/icon_position" />
+
+					<TextView
+						android:id="@+id/textView5"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_gravity="center"
+						android:layout_marginLeft="10dp"
+						android:text="@string/menu_position"
+						android:textColor="@android:color/white"
+						android:textSize="15sp" />
+
+				</LinearLayout>
+
+				<ImageView
+					android:id="@+id/imageView7"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:scaleType="fitXY"
+					android:src="@drawable/bg_splitter" />
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:id="@+id/llHistoryMenu"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical">
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="50dp"
+					android:orientation="horizontal">
+
+					<ImageView
+						android:id="@+id/imageView18"
+						android:layout_width="40dp"
+						android:layout_height="40dp"
+						android:layout_gravity="left|center"
+						android:layout_marginLeft="20dp"
+						android:src="@drawable/icon_history" />
+
+					<TextView
+						android:id="@+id/textView6"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_gravity="center"
+						android:layout_marginLeft="10dp"
+						android:text="@string/menu_history"
+						android:textColor="@android:color/white"
+						android:textSize="15sp" />
+
+				</LinearLayout>
+
+				<ImageView
+					android:id="@+id/imageView10"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:scaleType="fitXY"
+					android:src="@drawable/bg_splitter" />
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:id="@+id/llSettingMenu"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical">
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="50dp"
+					android:orientation="horizontal">
+
+					<ImageView
+						android:id="@+id/imageView19"
+						android:layout_width="40dp"
+						android:layout_height="40dp"
+						android:layout_gravity="left|center"
+						android:layout_marginLeft="20dp"
+						android:src="@drawable/icon_setting" />
+
+					<TextView
+						android:id="@+id/textView7"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_gravity="center"
+						android:layout_marginLeft="10dp"
+						android:text="@string/menu_setting"
+						android:textColor="@android:color/white"
+						android:textSize="15sp" />
+
+				</LinearLayout>
+
+				<ImageView
+					android:id="@+id/imageView14"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:scaleType="fitXY"
+					android:src="@drawable/bg_splitter" />
+
+			</LinearLayout>
+
+		</LinearLayout>
+
+	</RelativeLayout>
+</RelativeLayout>
