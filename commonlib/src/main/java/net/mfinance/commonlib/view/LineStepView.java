@@ -26,6 +26,7 @@ public class LineStepView extends LinearLayout {
     private float lineUnSelectAlpha;
     private int lineUnSelectBgColor;
     private int lineSelectBgColor;
+    private int selectIndex;
 
     public LineStepView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -46,6 +47,7 @@ public class LineStepView extends LinearLayout {
         lineUnSelectAlpha = a.getFloat(R.styleable.LineStepView_lineUnSelectAlpha, 0.3f);
         lineUnSelectBgColor = a.getColor(R.styleable.LineStepView_lineUnSelectBgColor, Color.GRAY);
         lineSelectBgColor = a.getColor(R.styleable.LineStepView_lineSelectBgColor, Color.WHITE);
+        selectIndex = a.getColor(R.styleable.LineStepView_selectIndex, 0);
         a.recycle();
         initView(context);
     }
@@ -63,7 +65,7 @@ public class LineStepView extends LinearLayout {
             view.setLayoutParams(layoutParams);
             addView(view);
         }
-        scrollStep(0);
+        scrollStep(selectIndex);
     }
 
     /**

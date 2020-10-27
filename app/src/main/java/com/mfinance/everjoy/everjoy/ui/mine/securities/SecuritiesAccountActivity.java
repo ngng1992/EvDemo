@@ -29,7 +29,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * 开通大圣证券账户
+ * 开通大圣证券账户 - 第一页 个人资料
  */
 public class SecuritiesAccountActivity extends BaseViewActivity {
 
@@ -156,7 +156,13 @@ public class SecuritiesAccountActivity extends BaseViewActivity {
                 .setTextSize(1f)
                 .setTargetText(target)
                 .setUnderline(false)
-                .setClick(false)
+                .setClick(true)
+                .setOnClickSpannableStringListener(new StringTextView.OnClickSpannableStringListener() {
+                    @Override
+                    public void onClickSpannableString(View view) {
+                        ContactActivity.startContactActivity(SecuritiesAccountActivity.this);
+                    }
+                })
                 .create();
     }
 
@@ -368,22 +374,38 @@ public class SecuritiesAccountActivity extends BaseViewActivity {
         llAccountStep.scrollStep(index);
     }
 
-    @OnClick({R.id.tv_recognition, R.id.tv_next, R.id.tv_contact, R.id.iv_back})
+    @OnClick({R.id.iv_back, R.id.tv_recognition, R.id.tv_next})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.iv_back:
+                saveToSP();
+                finish();
+                break;
             case R.id.tv_recognition:
                 RecognitionActivity.startActivityResult(this);
                 break;
             case R.id.tv_next:
                 // 填写联系方式
+                saveToSP();
                 startActivity(new Intent(this, SecuritiesAccountContactActivity.class));
-                break;
-            case R.id.tv_contact:
-                startActivity(new Intent(this, ContactActivity.class));
                 break;
             default:
                 break;
         }
+    }
+
+    /**
+     * 保存到本地
+     */
+    private void saveToSP() {
+
+    }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        saveToSP();
+        finish();
     }
 
     @Override
@@ -396,4 +418,6 @@ public class SecuritiesAccountActivity extends BaseViewActivity {
             }
         }
     }
+
+
 }

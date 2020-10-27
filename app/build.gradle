@@ -156,4 +156,7 @@ dependencies {
 
     // 滚动选择控件
     implementation project(path: ':picker-view')
+
+    // 音乐播放
+    implementation 'ywl.ywl5320:wlmedia:1.1.4-small'
 }

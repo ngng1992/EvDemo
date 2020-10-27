@@ -17,8 +17,9 @@ import com.mfinance.everjoy.everjoy.dialog.impl.OnClickDialogOrFragmentViewListe
 import com.mfinance.everjoy.everjoy.pics.FileSelector;
 import com.mfinance.everjoy.everjoy.pics.FileUtil;
 import com.mfinance.everjoy.everjoy.pics.GlideShowUtils;
-import com.mfinance.everjoy.everjoy.ui.mine.certificate.CaraIdHKActivity;
-import com.mfinance.everjoy.everjoy.ui.mine.certificate.CardIdZHActivity;
+import com.mfinance.everjoy.everjoy.ui.mine.securities.photo.CaraIdHKActivity;
+import com.mfinance.everjoy.everjoy.ui.mine.securities.photo.CardIdZHActivity;
+import com.mfinance.everjoy.everjoy.utils.Contents;
 import com.mfinance.everjoy.everjoy.view.AccountEditorInfoView;
 
 import net.mfinance.chatlib.utils.ConfigUtils;
@@ -248,7 +249,7 @@ public class RecognitionActivity extends BaseViewActivity {
                 GlideShowUtils.showImage(this, isFront ? ivCardFront : ivCardBackground, path);
             }
         }
-        if (requestCode == FileSelector.REQUEST_CODE_SELECT_PHOTO) {
+        if (requestCode == Contents.REQUEST_CODE_SELECT_PHOTO) {
             if (data != null) {
                 Uri uri = data.getData();
                 if (uri != null) {

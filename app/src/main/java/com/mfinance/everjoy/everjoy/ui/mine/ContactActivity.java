@@ -1,5 +1,7 @@
 package com.mfinance.everjoy.everjoy.ui.mine;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -7,6 +9,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.PhoneUtils;
 import com.mfinance.everjoy.R;
 import com.mfinance.everjoy.everjoy.base.BaseViewActivity;
+import com.mfinance.everjoy.everjoy.ui.mine.securities.FinanceActivity;
 import com.mfinance.everjoy.everjoy.utils.ToolsUtils;
 
 import butterknife.BindView;
@@ -16,6 +19,10 @@ import butterknife.OnClick;
  * 在线咨询
  */
 public class ContactActivity extends BaseViewActivity {
+
+    public static void startContactActivity(Activity activity) {
+        activity.startActivity(new Intent(activity, ContactActivity.class));
+    }
 
     @BindView(R.id.tv_phone)
     TextView tvPhone;

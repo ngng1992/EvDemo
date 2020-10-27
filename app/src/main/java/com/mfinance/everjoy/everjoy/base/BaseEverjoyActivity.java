@@ -316,6 +316,7 @@ public class BaseEverjoyActivity extends AppCompatActivity implements ServiceCon
                     doUnbindService();
                     break;
                 case ServiceFunction.ACT_FINISH_ACTIVITY:
+                    // TODO 登录成功？
                     finish();
                     break;
                 case ServiceFunction.ACT_SHOW_ACC_INFO:

@@ -70,7 +70,7 @@ public class StringUtils {
     public static String rename(String fileName) {
         String temp = fileName.substring(0, fileName.lastIndexOf("."));
         String suffix = fileName.substring(fileName.lastIndexOf("."));
-        return temp + "_" + DateUtils.getCreateFileName() + suffix;
+        return temp + "btn_pause" + DateUtils.getCreateFileName() + suffix;
     }
 
     /**
@@ -94,7 +94,7 @@ public class StringUtils {
      */
     public static String getEncryptionValue(String url, int width, int height) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(url).append("_").append(width).append("x").append(height);
+        stringBuilder.append(url).append("btn_pause").append(width).append("x").append(height);
         return ValueOf.toString(Math.abs(hash(stringBuilder.hashCode())));
     }
 

@@ -5,6 +5,9 @@ import android.os.Environment;
 import android.util.Log;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * 配置项
@@ -22,7 +25,7 @@ public class ConfigUtils {
     public static final String FILE_DIR = Environment.getExternalStorageDirectory() + "/" + ConfigUtils.NAME;
 
     /**
-     * 保存拍摄身份证的目录
+     * 保存拍摄身份证、证件等的目录
      */
     public static final String FILE_IDCARDS = Environment.getExternalStorageDirectory() + "/" + ConfigUtils.NAME +"/idcards";
 
@@ -50,6 +53,28 @@ public class ConfigUtils {
             filevideos.mkdirs();
         }
     }
+
+
+    /**
+     * 文件视频路径
+     */
+    public static String getVideoNamePath() {
+        String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(new Date());
+        String path = ConfigUtils.FILE_VIDEOS + "/" +  "video_" + timeStamp + ".mp4";
+        Log.e("video", "videopath = " + path);
+        return path;
+    }
+
+    /**
+     * 证件路径
+     */
+    public static String getFileNamePath() {
+        String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(new Date());
+        String path = ConfigUtils.FILE_IDCARDS + "/" +  "cards_" + timeStamp + ".jpg";
+        Log.e("video", "imagepath = " + path);
+        return path;
+    }
+
 
     /**
      * 获取文件存储路径

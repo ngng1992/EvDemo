@@ -1,12 +1,19 @@
+confluence app文档
+
+    http://ejconfluence.m-finance.net/
+
+    devandroid
+    mF123456
+
 每天发送工作日志
 
     tommy.ng@m-finance.net
 
     terry.chan@m-finance.net
 
-
 测试账号
-帳號：johnnymf 密碼：mF123456
+
+    帳號：johnnymf 密碼：mF123456
 
 证券登录账号
 
@@ -18,6 +25,11 @@
 
   User: TEST03
    Password:        emuxnmwbqmh
+
+收件人 : Chris Chui
+联系电话 : 3979 6648
+香港告士打道77告士打道77-79号富通大厦1801室
+
 
 1. Facebook App ID,
 3368598136542224
@@ -123,6 +135,8 @@ SVN项目地址：
     新浪sdk：[新浪sdk](https://github.com/sinaweibosdk/weibo_android_sdk)
 
     facebook：[fecebook登录分享](https://github.com/facebook/facebook-android-sdk)
+    
+    wlmedia：[音视频播放](https://github.com/wanliyang1990/wlmedia)
 
 ## cmd命令
 

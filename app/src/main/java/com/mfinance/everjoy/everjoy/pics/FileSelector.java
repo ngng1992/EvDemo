@@ -10,6 +10,7 @@ import android.provider.MediaStore;
 import androidx.core.content.FileProvider;
 
 import com.blankj.utilcode.util.ImageUtils;
+import com.mfinance.everjoy.everjoy.utils.Contents;
 
 import net.mfinance.chatlib.utils.ConfigUtils;
 
@@ -23,16 +24,13 @@ import java.util.Locale;
  */
 public class FileSelector {
 
-    public static final int REQUEST_CODE_SELECT_PHOTO = 100;
-    public static final int REQUEST_CODE_SELECT_CAMERA = 101;
-
     /**
      * 选择1张图片
      */
     public static void selectImage(Activity activity) {
         Intent intentToPickPic = new Intent(Intent.ACTION_PICK, null);
         intentToPickPic.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-        activity.startActivityForResult(intentToPickPic, REQUEST_CODE_SELECT_PHOTO);
+        activity.startActivityForResult(intentToPickPic, Contents.REQUEST_CODE_SELECT_PHOTO);
     }
 
     /**
@@ -49,7 +47,7 @@ public class FileSelector {
         String mTempPhotoPath = photoFile.getAbsolutePath();
         Uri imageUri = FileProvider7.getUriForFile(activity, photoFile);
         intentToTakePhoto.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-        activity.startActivityForResult(intentToTakePhoto, REQUEST_CODE_SELECT_CAMERA);
+        activity.startActivityForResult(intentToTakePhoto, Contents.REQUEST_CODE_SELECT_CAMERA);
         return mTempPhotoPath;
     }
 

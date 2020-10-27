@@ -87,7 +87,7 @@ public class MultiLanguageUtil {
     }
 
     private String getSystemLanguage(Locale locale) {
-        return locale.getLanguage() + "_" + locale.getCountry();
+        return locale.getLanguage() + "btn_pause" + locale.getCountry();
 
     }
 

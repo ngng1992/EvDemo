@@ -767,5 +767,4 @@ public class ToolsUtils {
         activity.startActivity(intent);
     }
 
-
 }

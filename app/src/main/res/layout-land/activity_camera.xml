@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="#000">
 
-    <com.mfinance.everjoy.everjoy.ui.mine.certificate.CameraPreview
+    <com.mfinance.everjoy.everjoy.ui.mine.securities.photo.CameraPreview
         android:id="@+id/camera_surface"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

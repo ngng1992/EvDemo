@@ -13,9 +13,10 @@ import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import androidx.multidex.MultiDex;
+
 import com.blankj.utilcode.util.Utils;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import com.lzy.okgo.OkGo;
 import com.mfinance.everjoy.BuildConfig;
 import com.mfinance.everjoy.app.bo.ContractObj;
 import com.mfinance.everjoy.app.bo.LiquidationRecord;
@@ -54,8 +55,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
-
-import androidx.multidex.MultiDex;
 
 /* -- Facebook
 import com.facebook.android.AsyncFacebookRunner;
@@ -550,7 +549,7 @@ public class MobileTraderApplication extends Application {
         super.attachBaseContext(localeContextWrapper);
 
         // 分包工具
-		MultiDex.install(this);
+        MultiDex.install(this);
     }
 
     /**
