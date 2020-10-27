@@ -1,15 +1,23 @@
 package com.mfinance.everjoy.everjoy.ui.mine;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
+import android.os.Bundle;
 import android.os.Message;
 import android.os.RemoteException;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,13 +33,16 @@ import com.mfinance.everjoy.BuildConfig;
 import com.mfinance.everjoy.app.CompanySettings;
 import com.mfinance.everjoy.R;
 import com.mfinance.everjoy.app.constant.FXConstants;
+import com.mfinance.everjoy.app.constant.Protocol;
 import com.mfinance.everjoy.app.constant.ServiceFunction;
 import com.mfinance.everjoy.app.model.DataRepository;
+import com.mfinance.everjoy.app.model.LoginProgress;
 import com.mfinance.everjoy.app.pojo.ConnectionStatus;
 import com.mfinance.everjoy.app.service.internal.PriceAgentConnectionProcessor;
 import com.mfinance.everjoy.app.util.CommonFunction;
 import com.mfinance.everjoy.app.util.MessageObj;
 import com.mfinance.everjoy.app.util.Utility;
+import com.mfinance.everjoy.everjoy.base.BaseEverjoyActivity;
 import com.mfinance.everjoy.wxapi.WXEntryActivity;
 import com.mfinance.everjoy.everjoy.base.BaseViewActivity;
 import com.mfinance.everjoy.everjoy.dialog.PwdErrorDialog;
@@ -60,8 +71,13 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.stream.Collectors;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -70,16 +86,13 @@ import butterknife.OnClick;
  * 登录
  */
 public class LoginActivity extends BaseViewActivity {
-
-
+    Timer loginTimer;
+    boolean tokenLogin = false;
+    boolean securityLogin = false;
     public static void loginActivity(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
         context.startActivity(intent);
     }
-
-    private static String USERNAME = "johnnymf";
-    private static String PASSWORD = "mF123456";
-
     @BindView(R.id.et_email)
     EditText etEmail;
     @BindView(R.id.et_pwd)
@@ -94,6 +107,72 @@ public class LoginActivity extends BaseViewActivity {
     View vpageSocialOne;
     @BindView(R.id.vpage_social_two)
     View vpageSocialTwo;
+
+    @BindView(R.id.tvTitle)
+    TextView tvTitle;
+
+    class Task extends TimerTask {
+        @Override
+        public void run() {
+            if (dialog != null && dialog.isShowing()) {
+                boolean isFinished = false;
+
+                // Timeout occur
+                int RoundRobinIndex = 0;
+                int iTrialIndex = 0;
+
+
+                if (CompanySettings.checkProdServer() == 1) {
+                    app.iTrialIndexProd = (app.iTrialIndexProd + 1) % app.alLoginInfoProd.size();
+                    iTrialIndex = app.iTrialIndexProd;
+                    RoundRobinIndex = app.RoundRobinIndexProd;
+                }
+
+                if (CompanySettings.ENABLE_FATCH_SERVER || CompanySettings.FOR_TEST || iTrialIndex == RoundRobinIndex) {
+                    isFinished = true;
+                    app.isLoading = false;
+                    // If IP is fetch from Server or OTX Mode, or RR Trial has finished
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            dialog.dismiss();
+                            dialog = null;
+                            Toast.makeText(app, R.string.msg_306,
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+
+                Message msg = Message.obtain(null, ServiceFunction.SRV_LOGOUT);
+                msg.replyTo = mServiceMessengerHandler;
+                try {
+                    Bundle data = new Bundle();
+                    data.putBoolean(Protocol.Logout.REDIRECT, false);
+                    msg.setData(data);
+                    mService.send(msg);
+                } catch (RemoteException e) {
+                    Log.e(TAG, "Unable to send login message", e.fillInStackTrace());
+                }
+
+                if (isFinished == false) {
+                    // Wait 2 seconds to let the previous connection close
+                    try {
+                        Thread.sleep(2000);
+                        Runnable r = new moveToLogin();
+                        (new Thread(r)).start();
+                        loginTimer.schedule(new Task(), 60 * 1000);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            } else {
+                // The login progress is interrupted, change the isLoading to false
+                app.isLoading = false;
+            }
+
+        }
+    }
 
     /**
      * 密码错误次数
@@ -122,13 +201,37 @@ public class LoginActivity extends BaseViewActivity {
 
     @Override
     protected void initView(View currentView) {
-//        LoginUtils.initLogin(this);
+        LoginUtils.initLogin(this);
         // 登录有空格
         String login = tvLogin.getText().toString();
         char[] chars = login.toCharArray();
         login = chars[0] + "  " + chars[1];
         tvLogin.setText(login);
         setViewPagerView();
+
+        if (app.bLogon){
+            securityLogin = true;
+            tvTitle.setText("LV3");
+        }
+
+        if (!securityLogin && app.getPasswordToken() != null && app.getLoginID() != null){
+            tokenLogin = true;
+            LoginProgress.reset();
+            if (loginTimer != null) {
+                loginTimer.cancel();
+            }
+            loginTimer = new Timer();
+            loginTimer.schedule(new Task(), 600 * 1000);
+
+            if (app.getLoginType() == -1) {
+                Runnable r = new moveToLogin();
+                (new Thread(r)).start();
+            }
+            else {
+                Runnable r = new moveToLogin(app.getLoginType(), app.getLoginID(), app.getOpenID());
+                (new Thread(r)).start();
+            }
+        }
     }
 
     private void setViewPagerView() {
@@ -244,16 +347,27 @@ public class LoginActivity extends BaseViewActivity {
             @Override
             public void onLogin(LoginBean loginBean) {
                 // 登录成功
+                app.setOpenID(loginBean.getOpenId());
+
+                LoginProgress.reset();
+                if (loginTimer != null) {
+                    loginTimer.cancel();
+                }
+                loginTimer = new Timer();
+                loginTimer.schedule(new Task(), 600 * 1000);
+                Runnable r = new moveToLogin(loginBean.getOAuthType(), loginBean.getNickname(), loginBean.getOpenId());
+                (new Thread(r)).start();
             }
 
             @Override
             public void onCancel() {
-
+                System.out.println("startSocialLogin onCancel");
             }
 
             @Override
             public void onError(String msg) {
-
+                System.out.println("startSocialLogin onError");
+                Toast.makeText(LoginActivity.this.getBaseContext(), msg, Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -280,7 +394,42 @@ public class LoginActivity extends BaseViewActivity {
                 startActivity(new Intent(this, ForgetPwdActivity.class));
                 break;
             case R.id.tv_login:
-                login();
+                View view1 = getCurrentFocus();
+                if (view1 != null) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+
+                if (!securityLogin) {
+                    String email = etEmail.getText().toString();
+                    if (TextUtils.isEmpty(email)) {
+                        ToastUtils.showToast(this, R.string.toast_input_email);
+                        return;
+                    }
+                    if (!RegexUtils.isEmail(email)) {
+                        ToastUtils.showToast(this, R.string.toast_email_error);
+                        return;
+                    }
+                    String pwd = etPwd.getText().toString();
+                    if (TextUtils.isEmpty(pwd)) {
+                        ToastUtils.showToast(this, R.string.toast_input_login_pwd);
+                        return;
+                    }
+
+                    LoginProgress.reset();
+                    tokenLogin = false;
+                    app.setPasswordToken(null);
+                    if (loginTimer != null) {
+                        loginTimer.cancel();
+                    }
+                    loginTimer = new Timer();
+                    loginTimer.schedule(new Task(), 600 * 1000);
+                    Runnable r = new moveToLogin();
+                    (new Thread(r)).start();
+                }
+                else {
+                    login(-1, etEmail.getText().toString(), etPwd.getText().toString());
+                }
                 break;
             case R.id.tv_fingerprint_login:
                 // 指纹登录
@@ -291,27 +440,6 @@ public class LoginActivity extends BaseViewActivity {
             default:
                 break;
         }
-    }
-
-    /**
-     * 邮箱登录
-     */
-    private void login() {
-        String email = etEmail.getText().toString();
-        if (TextUtils.isEmpty(email)) {
-            ToastUtils.showToast(this, R.string.toast_input_email);
-            return;
-        }
-        if (!RegexUtils.isEmail(email)) {
-            ToastUtils.showToast(this, R.string.toast_email_error);
-            return;
-        }
-        String pwd = etPwd.getText().toString();
-        if (TextUtils.isEmpty(pwd)) {
-            ToastUtils.showToast(this, R.string.toast_input_login_pwd);
-            return;
-        }
-        startLogin();
     }
 
     /**
@@ -342,287 +470,112 @@ public class LoginActivity extends BaseViewActivity {
         finish();
     }
 
+    public class moveToLogin implements Runnable {
+        private int oType;
+        private String userName;
+        private String openID;
 
-    public void startLogin() {
-        try {
-            DataRepository.getInstance().clear();
-            DataRepository.getInstance().setStrUser(USERNAME);
-            if (ToolsUtils.checkNetwork(mMobileTraderApplication)) {
-                Thread thread = new Thread(new Runnable() {
+        public moveToLogin() {
+            this.oType = -1;
+        }
+
+        public moveToLogin(int oType, String userName, String openID) {
+            this.oType = oType;
+            this.userName = userName;
+            this.openID = openID;
+        }
+
+        public void run() {
+            try {
+                runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ConnectionStatus connectionStatus = mMobileTraderApplication.data.getGuestPriceAgentConnectionStatus();
-                        switch (connectionStatus) {
-                            case CONNECTING:
-                            case CONNECTED:
-                                Message message = Message.obtain(null, ServiceFunction.SRV_GUEST_PRICE_AGENT);
-                                message.arg1 = PriceAgentConnectionProcessor.ActionType.DISCONNECT.getValue();
-                                try {
-                                    mService.send(message);
-                                } catch (Exception ex) {
-
-                                }
-                                Message message1 = Message.obtain(null, ServiceFunction.SRV_GUEST_PRICE_AGENT);
-                                message1.arg1 = PriceAgentConnectionProcessor.ActionType.RESET.getValue();
-                                try {
-                                    mService.send(message1);
-                                } catch (Exception ex) {
-
-                                }
-                                break;
-                            default:
-                                break;
-                        }
-//                        String sID = etID.getEditableText().toString();
-////                        String sRptgrp = etRptgrp.getEditableText().toString();
-//                        String sPass = etPassword.getEditableText().toString();
-
-//                        if (sRptgrp.length() > 0)
-//                            CompanySettings.COMPANY_PREFIX = sRptgrp + "_";
-//                        SharedPreferences.Editor editor = setting.edit();
-
-                        //editor.putBoolean(FXConstants.SETTING_SAVE_LOGIN_INFO, tbSavePassword.isChecked());
-
-//							    if(tbSavePassword.isChecked()){
-//							    	editor.putString(FXConstants.SETTING_USER_ID, etID.getEditableText().toString());
-//							    	CommonFunction cf = new CommonFunction();
-//						            cf.setKey(Utility.getINIPasswdKey());
-//							    	editor.putString(FXConstants.SETTING_USER_PASSWORD, cf.encryptText(sPass));
-//							    	editor.putString("report_group", etRptgrp.getEditableText().toString());
-//							    }
-
-                        //editor.putBoolean(FXConstants.SETTING_PLATFORM_TYPE, tbPlatformType.isChecked());
-
-//                        editor.commit();
-
-                        if (CompanySettings.ENABLE_FATCH_REPORT_GROUP)
-                            try {
-                                boolean isDemo = false; //tbPlatformType.isChecked();
-//                                if (CompanySettings.newinterface) {
-//                                    if (label_demo.getTextColors().equals(res.getColor(R.color.theme_text)))
-//                                        isDemo = true;
-//                                } else
-//                                    isDemo = tbPlatformType.isChecked();
-
-                                if (CompanySettings.ENABLE_FATCH_PLATFORM_ID_FROM_MOBILE_SERVICE)
-                                    CompanySettings.PLATFORM_ID_FROM_MOBILE_SERVICE = 1;
-
-                                String URL = mMobileTraderApplication.getReportGroupURL(isDemo)
-                                        + "id=" + USERNAME;
-                                if (isDemo)
-                                    URL += "&isDemo=1";
-                                else
-                                    URL += "&isDemo=0";
-                                String result = fetch(URL);
-
-                                if (BuildConfig.DEBUG)
-                                    Log.e("REPORT_GROUP", result);
-
-                                String[] results = result.split("\\|");
-                                if (results.length > 1) {
-                                    CompanySettings.PLATFORM_ID_FROM_MOBILE_SERVICE = Integer.parseInt(results[0]);
-                                    result = results[1];
-                                }
-
-                                if (isDemo)
-                                    CompanySettings.DEMO_REPORT_GROUP = result;
-                                else
-                                    CompanySettings.PRODUCTION_REPORT_GROUP = result;
-                            } catch (Exception e) {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Toast.makeText(mMobileTraderApplication, R.string.msg_306,
-                                                Toast.LENGTH_SHORT).show();
-                                        mMobileTraderApplication.isLoading = false;
-                                    }
-                                });
-                                return;
-                            }
-
-                        if (CompanySettings.ENABLE_FATCH_REPORT_GROUP_OTX)
-                            try {
-                                CommonFunction cf = new CommonFunction(false);
-                                cf.setKey(Utility.getHttpKey());
-
-                                String rptgrp = CompanySettings.COMPANY_PREFIX.replace("_", "");
-                                String platform = "";
-                                String result = "";
-                                if (CompanySettings.newinterface) {
-                                    platform = "production";//tbPlatformType.isChecked()?"demo":"production";
-                                    result = fetch(mMobileTraderApplication.getReportGroupURL(false)
-                                            + "param=" + cf.encryptText("rptgroup=" + CompanySettings.COMPANY_PREFIX.replace("_", "") + "&ios=false"));
-                                } else {
-                                    result = fetch(mMobileTraderApplication.getReportGroupURL(false))
-                                            + "param=" + cf.encryptText("rptgroup=" + CompanySettings.COMPANY_PREFIX.replace("_", "") + "&ios=false");
-                                }
-                                result = cf.decryptText(result);
-                                //Log.e("FATCH_REQ", "rptgroup=" + CompanySettings.COMPANY_PREFIX.replace("_", "")+ "&ios=false");
-                                Log.i("FATCH_URL", mMobileTraderApplication.getReportGroupURL(false)
-                                        + "param=" + cf.encryptText("rptgroup=" + CompanySettings.COMPANY_PREFIX.replace("_", "") + "&ios=false"));
-                                Log.i("FATCH_REP", result);
-                                JSONObject jo = new JSONObject(result);
-                                if (platform.equals("demo")) {
-                                    mMobileTraderApplication.loginInfoDemo.sURL = jo.getString("ip");
-                                    mMobileTraderApplication.loginInfoDemo.sPort = jo.getString("port");
-                                    CompanySettings.DEMO_REPORT_GROUP = rptgrp;
-                                } else {
-                                    mMobileTraderApplication.loginInfoProd.sURL = jo.getString("ip");
-                                    mMobileTraderApplication.loginInfoProd.sPort = jo.getString("port");
-                                    CompanySettings.PRODUCTION_REPORT_GROUP = rptgrp;
-                                }
-                                MessageObj.setKey(Integer.parseInt(jo.getString("keyCode")), jo.getString("messageKey"));
-                            } catch (Exception e) {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Toast.makeText(mMobileTraderApplication, R.string.msg_306,
-                                                Toast.LENGTH_SHORT).show();
-                                        mMobileTraderApplication.isLoading = false;
-                                    }
-                                });
-                                return;
-                            }
-
-                        if (CompanySettings.ENABLE_FATCH_SERVER)
-                            try {
-                                String platform = "";
-                                if (CompanySettings.newinterface)
-                                    platform = "production";//tbPlatformType.isChecked()?"demo":"production";
-                                else
-                                    platform = "demo";
-
-                                String result = fetch(mMobileTraderApplication.getServerByIdURL()
-                                        + "id=" + USERNAME + "&platform=" + platform);
-                                //Log.e("FATCH_SERVER", result);
-                                JSONObject jo = new JSONObject(result);
-                                if (platform.equals("demo")) {
-                                    mMobileTraderApplication.loginInfoDemo.sURL = jo.getString("url");
-                                    mMobileTraderApplication.loginInfoDemo.sPort = jo.getString("port");
-                                } else {
-                                    mMobileTraderApplication.loginInfoProd.sURL = jo.getString("url");
-                                    mMobileTraderApplication.loginInfoProd.sPort = jo.getString("port");
-                                }
-                            } catch (Exception e) {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Toast.makeText(mMobileTraderApplication, R.string.msg_306,
-                                                Toast.LENGTH_SHORT).show();
-                                        mMobileTraderApplication.isLoading = false;
-                                    }
-                                });
-                                return;
-                            }
-
-                        login(USERNAME, PASSWORD);
+                        if (dialog == null)
+                            dialog = ProgressDialog.show(LoginActivity.this, "", res.getString(R.string.please_wait), true);
                     }
                 });
-                thread.start();
-            } else {
-                if (CompanySettings.ENABLE_FATCH_SERVER || CompanySettings.FOR_TEST || CompanySettings.ENABLE_FATCH_REPORT_GROUP_OTX) {
 
+                DataRepository.getInstance().clear();
+                if (ToolsUtils.checkNetwork(app)) {
+                    Thread thread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ConnectionStatus connectionStatus = app.data.getGuestPriceAgentConnectionStatus();
+                            switch (connectionStatus) {
+                                case CONNECTING:
+                                case CONNECTED:
+                                    Message message = Message.obtain(null, ServiceFunction.SRV_GUEST_PRICE_AGENT);
+                                    message.arg1 = PriceAgentConnectionProcessor.ActionType.DISCONNECT.getValue();
+                                    try {
+                                        mService.send(message);
+                                    } catch (Exception ex) {
+
+                                    }
+                                    Message message1 = Message.obtain(null, ServiceFunction.SRV_GUEST_PRICE_AGENT);
+                                    message1.arg1 = PriceAgentConnectionProcessor.ActionType.RESET.getValue();
+                                    try {
+                                        mService.send(message1);
+                                    } catch (Exception ex) {
+
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                            if (oType == -1) {
+                                String email = etEmail.getText().toString();
+                                String pwd = etPwd.getText().toString();
+                                if (tokenLogin)
+                                    login(oType, app.getLoginID(), "");
+                                else
+                                    login(oType, email, pwd);
+                            }
+                            else {
+                                login(oType, userName, openID);
+                            }
+                        }
+                    });
+                    thread.start();
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-    }
+    };
 
-
-    public void login(String strID, String strPassword) {
+    public void login(int oType, String strID, String strPassword) {
 
         Message loginMsg = Message.obtain(null, ServiceFunction.SRV_LOGIN);
         loginMsg.replyTo = mServiceMessengerHandler;
 
-        boolean demo = false;
+        loginMsg.getData().putString(ServiceFunction.LOGIN_TYPE, Integer.toString(oType));
 
-//        if (CompanySettings.newinterface) {
-//            if (label_demo.getCurrentTextColor() == (res.getColor(R.color.theme_text)))
-//                demo = true;
-//        } else {
-//            if (tbPlatformType.isChecked())
-//                demo = true;
-//        }
-
-        if (demo) {
-            loginMsg.getData().putString(ServiceFunction.LOGIN_PLATFORM_TYPE, FXConstants.DEMO);
-        } else {
-            loginMsg.getData().putString(ServiceFunction.LOGIN_PLATFORM_TYPE, FXConstants.PRODUCT);
+        if (!securityLogin) {
+            loginMsg.getData().putString(ServiceFunction.LOGIN_LEVEL, "2");
+            if (oType == -1) {
+                loginMsg.getData().putString(ServiceFunction.LOGIN_EMAIL, strID);
+                loginMsg.getData().putString(ServiceFunction.LOGIN_PASSWORD, strPassword);
+                loginMsg.getData().putString(ServiceFunction.LOGIN_PASSWORDTOKEN, app.getPasswordToken());
+            } else {
+                loginMsg.getData().putString(ServiceFunction.LOGIN_OTYPE, Integer.toString(oType));
+                loginMsg.getData().putString(ServiceFunction.LOGIN_USERNAME, strID);
+                loginMsg.getData().putString(ServiceFunction.LOGIN_OPENID, strPassword);
+            }
+        }else {
+            loginMsg.getData().putString(ServiceFunction.LOGIN_LEVEL, "3");
+            loginMsg.getData().putString(ServiceFunction.LOGIN_USERNAME, strID);
+            loginMsg.getData().putString(ServiceFunction.LOGIN_PASSWORD, strPassword);
         }
 
-        if (CompanySettings.newinterface) {
-//            if (IDLogin) {
-//                CommonFunction cf = new CommonFunction();
-//                cf.setKey(Utility.getINIPasswdKey());
-//                strID = setting.getString(FXConstants.SETTING_USER_ID, "");
-//                strPassword = cf.decryptText(setting.getString(FXConstants.SETTING_USER_PASSWORD, ""));
-//            }
-//            if (bSavePassword) {
-//                SharedPreferences.Editor editor = setting.edit();
-//                editor.putBoolean(FXConstants.SETTING_SAVE_LOGIN_INFO, bSavePassword);
-//                editor.putString(FXConstants.SETTING_USER_ID, etID.getEditableText().toString());
-//                CommonFunction cf = new CommonFunction();
-//                cf.setKey(Utility.getINIPasswdKey());
-//                if (!IDLogin && etPassword.getEditableText().toString() != null)
-//                    editor.putString(FXConstants.SETTING_USER_PASSWORD, cf.encryptText(etPassword.getEditableText().toString()));
-//                editor.putString("report_group", etRptgrp.getEditableText().toString());
-//                editor.commit();
-//            }
-        }
-        // williamto 08012020: [Tanrich] old and new layout uses the same flow for save password
-        else {
-//            if (tbSavePassword.isChecked()) {
-//                SharedPreferences.Editor editor = setting.edit();
-//                editor.putBoolean(FXConstants.SETTING_SAVE_LOGIN_INFO, tbSavePassword.isChecked());
-//                editor.putString(FXConstants.SETTING_USER_ID, etID.getEditableText().toString());
-//                CommonFunction cf = new CommonFunction();
-//                cf.setKey(Utility.getINIPasswdKey());
-//                if (!IDLogin && etPassword.getEditableText().toString() != null)
-//                    editor.putString(FXConstants.SETTING_USER_PASSWORD, cf.encryptText(etPassword.getEditableText().toString()));
-//                editor.putString("report_group", etRptgrp.getEditableText().toString());
-//                editor.commit();
-//            }
-        }
-
-        loginMsg.getData().putString(ServiceFunction.LOGIN_ID, strID);
-        loginMsg.getData().putString(ServiceFunction.LOGIN_PASSWORD, strPassword);
-//        if (!CompanySettings.ENABLE_FATCH_SERVER && !CompanySettings.FOR_TEST && !CompanySettings.ENABLE_FATCH_REPORT_GROUP_OTX) {
-//            if (demo)
-//                loginMsg.getData().putInt(ServiceFunction.LOGIN_CONN_INDEX, mMobileTraderApplication.iTrialIndexDemo);
-//            else if (CompanySettings.checkProdServer() == 1)
-//                loginMsg.getData().putInt(ServiceFunction.LOGIN_CONN_INDEX, mMobileTraderApplication.iTrialIndexProd);
-//            else if (CompanySettings.checkProdServer() == 2)
-//                loginMsg.getData().putInt(ServiceFunction.LOGIN_CONN_INDEX, mMobileTraderApplication.iTrialIndexProd2);
-//            else if (CompanySettings.checkProdServer() == 3)
-//                loginMsg.getData().putInt(ServiceFunction.LOGIN_CONN_INDEX, mMobileTraderApplication.iTrialIndexProd3);
-//            else if (CompanySettings.checkProdServer() == 4)
-//                loginMsg.getData().putInt(ServiceFunction.LOGIN_CONN_INDEX, mMobileTraderApplication.iTrialIndexProd4);
-//            else if (CompanySettings.checkProdServer() == 5)
-//                loginMsg.getData().putInt(ServiceFunction.LOGIN_CONN_INDEX, mMobileTraderApplication.iTrialIndexProd5);
-//            else if (CompanySettings.checkProdServer() == 6)
-//                loginMsg.getData().putInt(ServiceFunction.LOGIN_CONN_INDEX, mMobileTraderApplication.iTrialIndexProd6);
-//            else if (CompanySettings.checkProdServer() == 7)
-//                loginMsg.getData().putInt(ServiceFunction.LOGIN_CONN_INDEX, mMobileTraderApplication.iTrialIndexProd7);
-//            else if (CompanySettings.checkProdServer() == 8)
-//                loginMsg.getData().putInt(ServiceFunction.LOGIN_CONN_INDEX, mMobileTraderApplication.iTrialIndexProd8);
-//            else if (CompanySettings.checkProdServer() == 9)
-//                loginMsg.getData().putInt(ServiceFunction.LOGIN_CONN_INDEX, mMobileTraderApplication.iTrialIndexProd9);
-//            else if (CompanySettings.checkProdServer() == 10)
-//                loginMsg.getData().putInt(ServiceFunction.LOGIN_CONN_INDEX, mMobileTraderApplication.iTrialIndexProd10);
-//        } else
-            loginMsg.getData().putInt(ServiceFunction.LOGIN_CONN_INDEX, -1);
+        loginMsg.getData().putInt(ServiceFunction.LOGIN_CONN_INDEX, -1);
 
         try {
-            //Save id, pwd for 2FA
-            mMobileTraderApplication.data.setTwoFAMessage(loginMsg);
-
             mService.send(loginMsg);
         } catch (RemoteException e) {
             Log.e("login", "Unable to send login message", e.fillInStackTrace());
         }
     }
-
 
     public static String fetch(String address) throws Exception {
         HttpClient client = new DefaultHttpClient();
@@ -649,5 +602,17 @@ public class LoginActivity extends BaseViewActivity {
     protected void onDestroy() {
         super.onDestroy();
 //        LoginUtils.release();
+    }
+
+    @Override
+    public void updateUI() {}
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (dialog != null) {
+            dialog.dismiss();
+            dialog = null;
+        }
     }
 }

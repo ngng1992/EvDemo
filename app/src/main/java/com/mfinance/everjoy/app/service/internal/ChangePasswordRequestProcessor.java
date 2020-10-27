@@ -7,8 +7,6 @@ import com.mfinance.everjoy.app.constant.IDDictionary;
 import com.mfinance.everjoy.app.constant.Protocol;
 import com.mfinance.everjoy.app.constant.ServiceFunction;
 import com.mfinance.everjoy.app.model.DataRepository;
-import com.mfinance.everjoy.app.pojo.ChangePasswordRequest;
-import com.mfinance.everjoy.app.pojo.ChangePasswordRequestBuilder;
 import com.mfinance.everjoy.app.service.FxMobileTraderService;
 import com.mfinance.everjoy.app.util.MessageObj;
 
@@ -28,23 +26,6 @@ public class ChangePasswordRequestProcessor implements MessageProcessor {
         message.setField(Protocol.ChangePassword.NEW_PASSWORD, data.getString(Protocol.ChangePassword.NEW_PASSWORD));
 
         lock.lock();
-        ChangePasswordRequest changePasswordRequest = null;
-        try {
-            ChangePasswordRequest oldRequest = service.app.data.getChangePasswordRequest();
-            if (oldRequest == DataRepository.EMPTY_CHANGE_PASSWORD_REQUEST || !oldRequest.isPending()) {
-                ChangePasswordRequestBuilder builder = new ChangePasswordRequestBuilder();
-                changePasswordRequest = builder.setPending(true)
-                        .setId(UUID.randomUUID().toString())
-                        .createChangePasswordRequest();
-                service.connection.sendMessage(message);
-                service.app.data.setChangePasswordRequest(changePasswordRequest);
-            }
-        } finally {
-            lock.unlock();
-        }
-        if (changePasswordRequest != null) {
-            service.broadcast(ServiceFunction.ACT_UPDATE_UI, null);
-        }
 
         return false;
     }

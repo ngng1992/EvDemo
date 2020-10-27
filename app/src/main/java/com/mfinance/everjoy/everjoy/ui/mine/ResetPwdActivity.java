@@ -1,7 +1,10 @@
 package com.mfinance.everjoy.everjoy.ui.mine;
 
+import android.os.Message;
+import android.os.RemoteException;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -9,6 +12,8 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.RegexUtils;
 import com.mfinance.everjoy.R;
+import com.mfinance.everjoy.app.constant.Protocol;
+import com.mfinance.everjoy.app.constant.ServiceFunction;
 import com.mfinance.everjoy.everjoy.base.BaseViewActivity;
 
 import butterknife.BindView;
@@ -18,7 +23,6 @@ import butterknife.OnClick;
  * 重置密码
  */
 public class ResetPwdActivity extends BaseViewActivity {
-
 
     @BindView(R.id.et_newpwd)
     EditText etNewpwd;
@@ -68,11 +72,22 @@ public class ResetPwdActivity extends BaseViewActivity {
                 }
                 break;
             case R.id.tv_submit:
+                resetPassword(etNewpwd.getText().toString());
                 break;
             default:
                 break;
         }
     }
 
+    public void resetPassword(String newPassword) {
+        Message resetPwdMsg = Message.obtain(null, ServiceFunction.SRV_RESET_PASSWORD);
+        resetPwdMsg.replyTo = mServiceMessengerHandler;
 
+        resetPwdMsg.getData().putString(ServiceFunction.RESETPASSWORD_NEWPASSWORD, newPassword);
+        try {
+            mService.send(resetPwdMsg);
+        } catch (RemoteException e) {
+            Log.e("login", "Unable to send login message", e.fillInStackTrace());
+        }
+    }
 }

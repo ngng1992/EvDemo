@@ -8,17 +8,21 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 
+import net.mfinance.commonlib.share.Utils;
 import net.mfinance.commonlib.share.bean.LoginBean;
 import net.mfinance.commonlib.share.impl.OnLoginListener;
 
 import org.json.JSONObject;
 
 import java.util.Collections;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class FacebookLoginUtils {
 
@@ -38,7 +42,7 @@ public class FacebookLoginUtils {
                     @Override
                     public void onUserInfo(String id, String name, String gender, String picUrl) {
                         if (onLoginListener != null) {
-                            LoginBean loginBean = new LoginBean(id, name, gender, picUrl);
+                            LoginBean loginBean = new LoginBean(Utils.LoginOAuthType.FACEBOOK, id, name, gender, picUrl);
                             onLoginListener.onLogin(loginBean);
                         }
                     }

@@ -898,4 +898,9 @@
     <string name="str_not_bankruptcy">本人未在过去7年中曾经破产或递送破产申请</string>
 
     <string name="str_open_account">立即开通</string>
+
+    <string name="login_fail_1">Wrong Password/Token</string>
+    <string name="login_fail_2">Account Locked</string>
+    <string name="login_fail_3">Server has reached max. connection</string>
+
 </resources>

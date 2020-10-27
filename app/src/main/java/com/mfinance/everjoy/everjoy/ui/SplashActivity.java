@@ -10,12 +10,15 @@ import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 
 import com.mfinance.everjoy.app.CompanySettings;
+import com.mfinance.everjoy.app.InitialActivity;
 import com.mfinance.everjoy.app.MobileTraderApplication;
 import com.mfinance.everjoy.R;
 import com.mfinance.everjoy.everjoy.base.BaseEverjoyActivity;
 import com.mfinance.everjoy.everjoy.network.okhttp.OkHttpUtils;
 import com.mfinance.everjoy.everjoy.network.okhttp.OnHttpCompleteListener;
 import com.mfinance.everjoy.everjoy.ui.home.MainActivity;
+import com.mfinance.everjoy.everjoy.ui.mine.LoginActivity;
+import com.mfinance.everjoy.everjoy.ui.mine.RegisterActivity;
 import com.mfinance.everjoy.everjoy.ui.mine.securities.SecuritiesAccountActivity;
 import com.mfinance.everjoy.everjoy.utils.ToolsUtils;
 
@@ -70,7 +73,7 @@ public class SplashActivity extends BaseEverjoyActivity {
             @Override
             public void onHasPermission(boolean hasPermission) {
                 if (hasPermission) {
-                    startActivity(new Intent(SplashActivity.this, SecuritiesAccountActivity.class));
+                    startActivity(new Intent(SplashActivity.this, InitialActivity.class));
                     finish();
                 }
 //                if (hasPermission) {
@@ -104,25 +107,20 @@ public class SplashActivity extends BaseEverjoyActivity {
     private void startMainActivityAndCheckNetwork() {
         if (ToolsUtils.checkNetwork(this)) {
             if (ToolsUtils.isAppLaucherURLAvailable()) {
-                if (!ToolsUtils.checkVersionOK(mMobileTraderApplication)) {
+                if (!ToolsUtils.checkVersionOK(app)) {
                     // 版本不符合要求，去安卓市场下载
                     ToolsUtils.openAndroidMarket(this);
                 } else {
-                    if (ToolsUtils.isServerAvailable(mMobileTraderApplication)) {
+                    if (ToolsUtils.isServerAvailable(app)) {
                         // 网络请求一次url，保存
-                        String contractListURL = mMobileTraderApplication.getContractListURL();
+                        String contractListURL = app.getContractListURL();
                         OkHttpUtils.getRequest(contractListURL, new OnHttpCompleteListener() {
                             @Override
                             public void onComplete(String result) {
-                                CompanySettings.parseJson(mMobileTraderApplication, result);
+                                CompanySettings.parseJson(app, result);
                             }
 
                         });
-
-                        if (CompanySettings.ENABLE_FATCH_REPORT_GROUP_OTX) {
-                            mMobileTraderApplication.loginInfoDemoServer_otx = new MobileTraderApplication.LoginInfo(mMobileTraderApplication.loginInfoDemo.sURL, mMobileTraderApplication.loginInfoDemo.sPort);
-                            mMobileTraderApplication.loginInfoProdServer_otx = new MobileTraderApplication.LoginInfo(mMobileTraderApplication.loginInfoProd.sURL, mMobileTraderApplication.loginInfoProd.sPort);
-                        }
 
                         startMainActivity(4);
                     } else {
@@ -135,12 +133,6 @@ public class SplashActivity extends BaseEverjoyActivity {
                 startMainActivity(2);
             }
         } else {
-            // 无网络
-            if (CompanySettings.ENABLE_FATCH_REPORT_GROUP_OTX) {
-                mMobileTraderApplication.loginInfoDemoServer_otx = new MobileTraderApplication.LoginInfo(CompanySettings.loginInfoTest.sURL, CompanySettings.loginInfoTest.sPort);
-                mMobileTraderApplication.loginInfoProdServer_otx = new MobileTraderApplication.LoginInfo(CompanySettings.loginInfoTest.sURL, CompanySettings.loginInfoTest.sPort);
-            }
-
             startMainActivity(1);
         }
     }

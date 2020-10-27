@@ -446,7 +446,7 @@ public class ServerConnection {
 	                    
 	                    MessageObj msgIncoming;
 	                    boolean bDecodable = false;
-	                    
+
 	                    if (CompanySettings.FORCE_NEW_PRICE_STREAMING_PROTOCOL == true &&
 	                    		iServiceType == IDDictionary.TRADER_LIVE_PRICE_TYPE && iFunctionType == IDDictionary.TRADER_UPDATE_STREAM_PRICE)
 	                    {
@@ -467,22 +467,24 @@ public class ServerConnection {
 	                    
 	                    if (bDecodable) {
 	                    	if (iServiceType == IDDictionary.TRADER_LOGIN_SERVICE_TYPE && iFunctionType == IDDictionary.TRADER_REQUEST_LOGIN_RETURN) {
-								String hexMessageLength = msgIncoming.getField(Protocol.LoginResponse.HEXADECIMAL_MESSAGE_LENGTH);
-								if (hexMessageLength != null) {
-									Set<Pair<Integer, Integer>> temp = new HashSet<>();
-									for (String serviceFunctionCode : hexMessageLength.split(";")) {
-										String[] s = serviceFunctionCode.split(":");
-										if (s.length > 1) {
-											try {
-												temp.add(new Pair<>(Integer.parseInt(s[0]), Integer.parseInt(s[1])));
-											} catch (NumberFormatException ex) {
-											}
-										}
-									}
-									hexLengthMessages = temp;
-								}
+//								String hexMessageLength = msgIncoming.getField(Protocol.LoginResponse.HEXADECIMAL_MESSAGE_LENGTH);
+//								if (hexMessageLength != null) {
+//									Set<Pair<Integer, Integer>> temp = new HashSet<>();
+//									for (String serviceFunctionCode : hexMessageLength.split(";")) {
+//										String[] s = serviceFunctionCode.split(":");
+//										if (s.length > 1) {
+//											try {
+//												temp.add(new Pair<>(Integer.parseInt(s[0]), Integer.parseInt(s[1])));
+//											} catch (NumberFormatException ex) {
+//											}
+//										}
+//									}
+//									hexLengthMessages = temp;
+//								}
 							}
-	                    	lbqMessage.add(msgIncoming);
+
+							System.out.println("msgIncoming " + msgIncoming.getServiceType() + " " + msgIncoming.getFunctionType());
+							lbqMessage.add(msgIncoming);
 	                    }
 	                    
 	                    //listener.notifyMessageReceived();

@@ -4,88 +4,88 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@drawable/initial_bg"
-        android:orientation="vertical">
+	<LinearLayout
+		android:id="@+id/linearLayout3"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:background="@mipmap/bg_sign"
+		android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/linearLayout1"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
+		<LinearLayout
+			android:id="@+id/linearLayout1"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:layout_weight="1"
+			android:orientation="vertical">
 
-            <RelativeLayout
-                android:id="@+id/relativeLayout1"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+			<RelativeLayout
+				android:id="@+id/relativeLayout1"
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent">
 
-                <LinearLayout
-                    android:id="@+id/linearLayout4"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="20dp"
-                    android:orientation="vertical">
+				<ImageView
+					android:id="@+id/ivLogo"
+					android:layout_width="100dp"
+					android:layout_height="100dp"
+					android:layout_centerInParent="true"
+					android:src="@mipmap/app_icon"
+					android:visibility="visible"></ImageView>
 
-                    <ProgressBar
-                        android:id="@+id/pb_loading"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center">
+				<LinearLayout
+					android:id="@+id/linearLayout4"
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					android:layout_alignParentBottom="true"
+					android:layout_marginBottom="20dp"
+					android:orientation="vertical">
+
+					<Button
+						android:id="@+id/btnRetry"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_gravity="center_horizontal"
+						android:background="@drawable/btn_1"
+						android:text="@string/lb_retry"
+						android:textColor="@color/btn_1"
+						android:visibility="gone"></Button>
+
+					<ProgressBar
+						android:id="@+id/pb_loading"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_gravity="center">
 
 					</ProgressBar>
 
-                    <TextView
-                        android:id="@+id/tvAppLauncherMsg"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:text="@string/lb_app_laucher_problem"
-                        android:textColor="@color/normal_text"
-                        android:visibility="gone" />
+					<TextView
+						android:id="@+id/tvAppLauncherMsg"
+						android:layout_width="fill_parent"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="10dp"
+						android:layout_marginRight="10dp"
+						android:text="@string/lb_app_laucher_problem"
+						android:textColor="@color/normal_text"
+						android:visibility="gone" />
+				</LinearLayout>
+			</RelativeLayout>
+		</LinearLayout>
 
-                    <Button
-                        android:id="@+id/btnRetry"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/btn_1"
-                        android:text="@string/lb_retry"
-                        android:textColor="@color/btn_1"
-                        android:visibility="gone"></Button>
-                </LinearLayout>
+		<LinearLayout
+			android:id="@+id/linearLayout2"
+			android:layout_width="fill_parent"
+			android:layout_height="25dp"
+			android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/ivLogo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/loading_screen_logo"
-                    android:visibility="visible"></ImageView>
-            </RelativeLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="fill_parent"
-            android:layout_height="25dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="match_parent"
-                android:layout_height="fill_parent"
-                android:gravity="center"
-                android:text="@string/lb_copyright"
-                android:textColor="#ffffff"
-                android:textSize="11dp"></TextView>
-        </LinearLayout>
-    </LinearLayout>
+			<TextView
+				android:id="@+id/textView1"
+				android:layout_width="match_parent"
+				android:layout_height="fill_parent"
+				android:gravity="center"
+				android:text="@string/lb_copyright"
+				android:textColor="#ffffff"
+				android:textSize="11dp"></TextView>
+		</LinearLayout>
+	</LinearLayout>
 
     <LinearLayout
         android:id="@+id/dView"
@@ -159,7 +159,6 @@
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 		            android:background="@drawable/declaration_button"
-		            android:onClick="confirmBtn"
 		            android:text="@string/disclaimer_iagree"
 		            android:textColor="#ffffff"
 		            android:layout_weight="1" android:layout_margin="10dp"

@@ -486,4 +486,6 @@ public abstract class HuanxinChatActivity extends AppCompatActivity {
     protected void showMemberExited(String roomId, String roomName, String participant) {
 
     }
+
+    public abstract void updateUI();
 }

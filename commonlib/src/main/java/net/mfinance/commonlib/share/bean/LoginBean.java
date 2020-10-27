@@ -14,10 +14,13 @@ public class LoginBean {
     private String sex;
     private String headimgurl;
 
+    private int oAuthType = 0;
+
     public LoginBean() {
     }
 
-    public LoginBean(String openId, String nickname, String sex, String headimgurl) {
+    public LoginBean(int oAuthType, String openId, String nickname, String sex, String headimgurl) {
+        this.oAuthType = oAuthType;
         this.openId = openId;
         this.nickname = nickname;
         this.sex = sex;
@@ -54,5 +57,13 @@ public class LoginBean {
 
     public void setHeadimgurl(String headimgurl) {
         this.headimgurl = headimgurl;
+    }
+
+    public int getOAuthType() {
+        return oAuthType;
+    }
+
+    public void setOAuthType(int oAuthType) {
+        this.oAuthType = oAuthType;
     }
 }

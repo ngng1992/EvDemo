@@ -2,7 +2,6 @@ package com.mfinance.everjoy.app.service.internal;
 
 import com.mfinance.everjoy.BuildConfig;
 import com.mfinance.everjoy.app.CompanySettings;
-import com.mfinance.everjoy.app.LoginActivity;
 import com.mfinance.everjoy.app.constant.ServiceFunction;
 import com.mfinance.everjoy.app.service.FxMobileTraderService;
 
@@ -79,7 +78,7 @@ public class DisconnectProcessor implements MessageProcessor {
 			if (BuildConfig.DEBUG)
 				Log.i(TAG, "[Close Connection]");
 
-			LoginActivity.identityPassed = false;
+			//LoginActivity.identityPassed = false;
 			
 			try{
 				service.connection.closeConnection();

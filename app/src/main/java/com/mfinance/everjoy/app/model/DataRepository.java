@@ -2,9 +2,7 @@ package com.mfinance.everjoy.app.model;
 
 import android.os.Message;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -25,20 +23,8 @@ import com.mfinance.everjoy.app.bo.OpenPositionRecord;
 import com.mfinance.everjoy.app.bo.OrderRecord;
 import com.mfinance.everjoy.app.bo.SystemMessage;
 import com.mfinance.everjoy.app.bo.TransactionObj;
-import com.mfinance.everjoy.app.constant.Protocol;
 import com.mfinance.everjoy.app.constant.ServiceFunction;
-import com.mfinance.everjoy.app.pojo.BankAccount;
-import com.mfinance.everjoy.app.pojo.CancelCastMovementRequest;
-import com.mfinance.everjoy.app.pojo.CashMovementRequest;
-import com.mfinance.everjoy.app.pojo.ChangePasswordRequest;
-import com.mfinance.everjoy.app.pojo.ChangePasswordRequestBuilder;
 import com.mfinance.everjoy.app.pojo.ConnectionStatus;
-import com.mfinance.everjoy.app.pojo.ContractDefaultSetting;
-import com.mfinance.everjoy.app.pojo.NewsSummary;
-import com.mfinance.everjoy.app.pojo.PasswordControl;
-import com.mfinance.everjoy.app.pojo.PasswordControlBuilder;
-import com.mfinance.everjoy.app.pojo.PriceAlertHistoryObject;
-import com.mfinance.everjoy.app.pojo.PriceAlertObject;
 import com.mfinance.everjoy.app.util.MessageObj;
 import com.mfinance.everjoy.app.util.PriceMessageObj;
 import com.mfinance.everjoy.hungkee.xml.Advertisement;
@@ -85,13 +71,8 @@ public class DataRepository {
 	 * User passowrd
 	 */
 	private String strPassword;
-	public static PasswordControl EMPTY_PASSWORD_CONTROL = new PasswordControlBuilder().createPasswordControl();
-	/**
-	 * Password Control
-	 */
-	private PasswordControl passwordControl = EMPTY_PASSWORD_CONTROL;
-	public static ChangePasswordRequest EMPTY_CHANGE_PASSWORD_REQUEST = new ChangePasswordRequestBuilder().createChangePasswordRequest();
-	private volatile ChangePasswordRequest changePasswordRequest = EMPTY_CHANGE_PASSWORD_REQUEST;
+
+	private String strEmail;
 	/**
 	 * Server URL
 	 */
@@ -198,10 +179,8 @@ public class DataRepository {
 	 */
 	private HashMap<String, int[]> hmContractImage = new HashMap<String, int[]>();
 
-	private Map<String, ContractDefaultSetting> contractDefaultSettingMap = Collections.EMPTY_MAP;
 	private Map<String, String> depositTermsMap = Collections.EMPTY_MAP;
 	private Map<String, String> withdrawalTermsMap = Collections.EMPTY_MAP;
-	private CancelCastMovementRequest cancelCashMovementRequest;
 
 	public static HashMap<String, Integer> hmCurrImageMap = new HashMap<String, Integer>();
 	static{
@@ -508,7 +487,6 @@ public class DataRepository {
 	 * HashMap for storing advertisement
 	 */
 	private HashMap<String, Advertisement> hmAdvertisements = new HashMap<String, Advertisement>(20);
-	private List<NewsSummary> newsSummaries = Collections.EMPTY_LIST;
 	/**
 	 * HashMap for storing Price data
 	 */
@@ -569,6 +547,14 @@ public class DataRepository {
 		this.strPassword = strPassword;
 	}
 
+	public String getStrEmail() {
+		return strEmail;
+	}
+
+	public void setStrEmail(String strEmail) {
+		this.strEmail = strEmail;
+	}
+
 	/**
 	 * Get server URL
 	 * @return server URL
@@ -615,9 +601,6 @@ public class DataRepository {
 	}
 
 	private String pushyToken = null;
-	private List<PriceAlertObject> priceAlertList = Collections.EMPTY_LIST;
-	private List<PriceAlertHistoryObject> priceAlertHistoryList = Collections.EMPTY_LIST;
-	private PriceAlertObject selectedPriceAlert;
 	private boolean priceAlertUpdateEnable = false;
 	/**
 	 * Add contract object
@@ -1340,15 +1323,9 @@ public class DataRepository {
 		PriceMessageObj.cleanUp();
 
 		//isNewPriceMessage = false;
-		passwordControl = EMPTY_PASSWORD_CONTROL;
-		changePasswordRequest = EMPTY_CHANGE_PASSWORD_REQUEST;
-		bankList = Collections.EMPTY_LIST;
+
 		depositTermsMap = Collections.EMPTY_MAP;
 		withdrawalTermsMap = Collections.EMPTY_MAP;
-		newsSummaries = Collections.EMPTY_LIST;
-
-		priceAlertList = Collections.EMPTY_LIST;
-		priceAlertHistoryList = Collections.EMPTY_LIST;
 	}
 
 	public void clearSystemMessage(){
@@ -1539,11 +1516,11 @@ public class DataRepository {
 		hmTwoFA.put(ServiceFunction.LOGIN_PLATFORM_TYPE, hmTwoFATemp.get(ServiceFunction.LOGIN_PLATFORM_TYPE));
 		hmTwoFA.put(ServiceFunction.LOGIN_CONN_INDEX, hmTwoFATemp.get(ServiceFunction.LOGIN_CONN_INDEX));
 
-		hmTwoFA.put(Protocol.LoginResponse.TWO_FA, msgObj.getField(Protocol.LoginResponse.TWO_FA));
-		hmTwoFA.put(Protocol.LoginResponse.TWO_FA_PREFIX, msgObj.getField(Protocol.LoginResponse.TWO_FA_PREFIX));
-		hmTwoFA.put(Protocol.LoginResponse.TWO_FA_EXPIRY, msgObj.getField(Protocol.LoginResponse.TWO_FA_EXPIRY));
-		hmTwoFA.put(Protocol.LoginResponse.TWO_FA_MOBILE, msgObj.getField(Protocol.LoginResponse.TWO_FA_MOBILE));
-		hmTwoFA.put(Protocol.LoginResponse.TWO_FA_EMAIL, msgObj.getField(Protocol.LoginResponse.TWO_FA_EMAIL));
+//		hmTwoFA.put(Protocol.LoginResponse.TWO_FA, msgObj.getField(Protocol.LoginResponse.TWO_FA));
+//		hmTwoFA.put(Protocol.LoginResponse.TWO_FA_PREFIX, msgObj.getField(Protocol.LoginResponse.TWO_FA_PREFIX));
+//		hmTwoFA.put(Protocol.LoginResponse.TWO_FA_EXPIRY, msgObj.getField(Protocol.LoginResponse.TWO_FA_EXPIRY));
+//		hmTwoFA.put(Protocol.LoginResponse.TWO_FA_MOBILE, msgObj.getField(Protocol.LoginResponse.TWO_FA_MOBILE));
+//		hmTwoFA.put(Protocol.LoginResponse.TWO_FA_EMAIL, msgObj.getField(Protocol.LoginResponse.TWO_FA_EMAIL));
 	}
 
 	public int sessTimeoutAlert = -1;
@@ -1551,85 +1528,12 @@ public class DataRepository {
 
 	public boolean timeoutAlert = false;
 
-	public PasswordControl getPasswordControl() {
-		return passwordControl;
-	}
-
-	public void setPasswordControl(PasswordControl passwordControl) {
-		this.passwordControl = passwordControl;
-	}
-
-	public ChangePasswordRequest getChangePasswordRequest() {
-		return changePasswordRequest;
-	}
-
-	public void setChangePasswordRequest(ChangePasswordRequest changePasswordRequest) {
-		this.changePasswordRequest = changePasswordRequest;
-	}
-
 	private String systemAlertMessage = "";
 	public void setSystemAlertMessage(String msg){
 		systemAlertMessage = msg;
 	}
 	public String getSystemAlertMessage(){
 		return systemAlertMessage;
-	}
-	private CashMovementRequest cashMovementRequest;
-	private List<BankAccount> bankList = Collections.EMPTY_LIST;
-	public List<BankAccount> getBankList() {
-		return bankList;
-	}
-
-	public void setBankList(List<BankAccount> bankList) {
-		this.bankList = Collections.unmodifiableList(bankList);
-	}
-
-    public Map<String, ContractDefaultSetting> getContractDefaultSettingMap() {
-        return contractDefaultSettingMap;
-    }
-
-    public void setContractDefaultSettingMap(Map<String, ContractDefaultSetting> contractDefaultSettingMap) {
-        this.contractDefaultSettingMap = Collections.unmodifiableMap(contractDefaultSettingMap);
-    }
-
-	public List<NewsSummary> getNewsSummaries() {
-		return newsSummaries;
-	}
-
-	public void setNewsSummaries(List<NewsSummary> newsSummaries) {
-		this.newsSummaries = Collections.unmodifiableList(newsSummaries);
-	}
-
-	public Map<String, String> getDepositTermsMap() {
-		return depositTermsMap;
-	}
-
-	public void setDepositTermsMap(Map<String, String> depositTermsMap) {
-		this.depositTermsMap = Collections.unmodifiableMap(depositTermsMap);
-	}
-
-	public Map<String, String> getWithdrawalTermsMap() {
-		return withdrawalTermsMap;
-	}
-
-	public void setWithdrawalTermsMap(Map<String, String> withdrawalTermsMap) {
-		this.withdrawalTermsMap = Collections.unmodifiableMap(withdrawalTermsMap);
-	}
-
-	public CashMovementRequest getCashMovementRequest() {
-		return cashMovementRequest;
-	}
-
-	public void setCashMovementRequest(CashMovementRequest cashMovementRequest) {
-		this.cashMovementRequest = cashMovementRequest;
-	}
-
-	public CancelCastMovementRequest getCancelCashMovementRequest() {
-		return cancelCashMovementRequest;
-	}
-
-	public void setCancelCashMovementRequest(CancelCastMovementRequest cancelCashMovementRequest) {
-		this.cancelCashMovementRequest = cancelCashMovementRequest;
 	}
 
 	public ConnectionStatus getGuestPriceAgentConnectionStatus() {
@@ -1646,97 +1550,6 @@ public class DataRepository {
 
 	public void setGuestPriceAgentConnectionId(int guestPriceAgentConnectionId) {
 		this.guestPriceAgentConnectionId = guestPriceAgentConnectionId;
-	}
-
-	public List<PriceAlertObject> getPriceAlertList() {
-		return priceAlertList;
-	}
-
-	public void setPriceAlertList(List<PriceAlertObject> priceAlertList) {
-		this.priceAlertList = Collections.unmodifiableList(priceAlertList);
-	}
-
-	public List<PriceAlertHistoryObject> getPriceAlertHistoryList() {
-		return priceAlertHistoryList;
-	}
-
-	public void setPriceAlertHistoryList(List<PriceAlertHistoryObject> priceAlertHistoryList) {
-		this.priceAlertHistoryList = Collections.unmodifiableList(priceAlertHistoryList);
-	}
-
-	public void addPriceAlertHistory (PriceAlertHistoryObject priceAlertHistoryObject){
-		List arrList = new ArrayList(this.priceAlertHistoryList);
-		arrList.add(0, priceAlertHistoryObject);
-		this.priceAlertHistoryList = Collections.unmodifiableList(arrList);
-	}
-
-	public void setSelectedPriceAlertRef(int ref) {
-		if (ref == -1) {
-			selectedPriceAlert = null;
-			return;
-		}
-		for (int i = 0 ; i < this.priceAlertList.size() ; i ++){
-			PriceAlertObject obj = this.priceAlertList.get(i);
-			if (obj.getId() == ref) {
-				selectedPriceAlert = obj;
-				return;
-			}
-		}
-	}
-
-	public PriceAlertObject getSelectedPriceAlertRef() {
-		return selectedPriceAlert;
-	}
-
-	public PriceAlertObject getPriceAlertListByRef(int ref) {
-		boolean newRecords = true;
-		for (int i = 0 ; i < this.priceAlertList.size() ; i ++){
-			PriceAlertObject obj = this.priceAlertList.get(i);
-			if (obj.getId() == ref) {
-				return obj;
-			}
-		}
-		return null;
-	}
-
-	public void updatePriceAlertListByRef(int ref, PriceAlertObject priceAlertObj) {
-		boolean newRecords = true;
-		for (int i = 0 ; i < this.priceAlertList.size() ; i ++){
-			PriceAlertObject obj = this.priceAlertList.get(i);
-			if (obj.getId() == ref) {
-				List arrList = new ArrayList(this.priceAlertList);
-				arrList.set(i, priceAlertObj);
-				this.priceAlertList = Collections.unmodifiableList(arrList);
-				newRecords = false;
-				return;
-			}
-		}
-		if (newRecords) {
-			List arrList = new ArrayList(this.priceAlertList);
-			arrList.add(0, priceAlertObj);
-			this.priceAlertList = Collections.unmodifiableList(arrList);
-		}
-		//this.priceAlertList = Collections.unmodifiableList(priceAlertList);
-	}
-
-	public void removePriceAlertListByRef(int ref) {
-		for (int i = 0 ; i < this.priceAlertList.size() ; i ++){
-			PriceAlertObject obj = this.priceAlertList.get(i);
-			if (obj.getId() == ref) {
-				List arrList = new ArrayList(this.priceAlertList);
-				arrList.remove(obj);
-				this.priceAlertList = Collections.unmodifiableList(arrList);
-				return;
-			}
-		}
-	}
-
-	public boolean getPriceAlertUpdateEnable (){
-		return priceAlertUpdateEnable;
-	}
-
-	public void setPriceAlertUpdateEnable(boolean b){
-		this.priceAlertUpdateEnable = b;
 	}
 
 	public void setPushyToken(String token){

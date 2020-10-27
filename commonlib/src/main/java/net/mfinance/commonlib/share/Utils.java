@@ -12,6 +12,14 @@ import net.mfinance.commonlib.share.qq.QQShareUtils;
 import net.mfinance.commonlib.share.wechat.WechatUtils;
 
 public class Utils {
+    public static class LoginOAuthType{
+        public static int FACEBOOK = 1;
+        public static int TWITTER = 2;
+        public static int WECHAT = 3;
+        public static int SINA = 4;
+        public static int IG = 5;
+        public static int QQ = 7;
+    }
 
     /**
      * QQ

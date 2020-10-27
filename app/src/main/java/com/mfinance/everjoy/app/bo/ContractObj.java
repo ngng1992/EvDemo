@@ -647,26 +647,17 @@ public class ContractObj{
 	public void updateBidAsk(){
 		double dNewBid = Utility.roundToDouble(dBid + (dOffset + dBidAdjust + dBidAdjustRpt) * Math.pow(10.0, -iRateDecPt), iRateDecPt, iRateDecPt);
 		double dNewAsk;
-		if( CompanySettings.ENABLE_FATCH_REPORT_GROUP_OTX )
-			dNewAsk = Utility.roundToDouble((dBid + dSpread * Math.pow(10.0, -iRateDecPt)) + (dOffset + dAskAdjust + dAskAdjustRpt) * Math.pow(10.0, -iRateDecPt), iRateDecPt, iRateDecPt);
-		else
-			dNewAsk = Utility.roundToDouble(dAsk + (dOffset + dAskAdjust + dAskAdjustRpt) * Math.pow(10.0, -iRateDecPt), iRateDecPt, iRateDecPt);
+		dNewAsk = Utility.roundToDouble(dAsk + (dOffset + dAskAdjust + dAskAdjustRpt) * Math.pow(10.0, -iRateDecPt), iRateDecPt, iRateDecPt);
 		dBidAsk[0] = dNewBid;
 		dBidAsk[1] = dNewAsk;
 	}
 	
 	public boolean isViewable(){
-		if(CompanySettings.ENABLE_FATCH_REPORT_GROUP_OTX)
-			return bRptViewable && bViewable;
-		else
-			return bViewable;
+		return bViewable;
 	}
 	
 	public boolean isTradable(){
-		if(CompanySettings.ENABLE_FATCH_REPORT_GROUP_OTX)
-			return bTradable && bRptTradable;
-		else
-			return bTradable;
+		return bTradable;
 	}
 	
 	public void setRptViewable(boolean b){
