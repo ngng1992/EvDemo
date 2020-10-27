@@ -488,8 +488,8 @@ public class LoginActivity extends BaseViewActivity {
             LoginVerificationActivity.startLoginVerificationActivity(LoginActivity.this, "1693538112@qq.com");
         } else {
             MainActivity.startMainActivity2(this);
+            finish();
         }
-        finish();
     }
 
     public class moveToLogin implements Runnable {

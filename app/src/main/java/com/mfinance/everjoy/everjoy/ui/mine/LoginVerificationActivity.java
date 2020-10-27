@@ -118,10 +118,10 @@ public class LoginVerificationActivity extends BaseViewActivity {
                 finish();
                 break;
             case R.id.tv_submit:
-                if (TextUtils.isEmpty(code)) {
-                    ToastUtils.showToast(this, R.string.toast_input_code);
-                    return;
-                }
+//                if (TextUtils.isEmpty(code)) {
+//                    ToastUtils.showToast(this, R.string.toast_input_code);
+//                    return;
+//                }
 
                 // TODO 验证成功
                 if (isForgetPwd) {

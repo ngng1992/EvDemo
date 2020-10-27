@@ -1,3 +1,6 @@
+companySetting loginInfoTest 換成"202.155.229.105", 15100
+jimmy.xiao@m-finance.net mF123456
+
 confluence app文档
 
     http://ejconfluence.m-finance.net/
