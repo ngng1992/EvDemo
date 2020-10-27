@@ -38,11 +38,11 @@ android {
         // 多dex
         multiDexEnabled true
         // 默认支持的语言
-        resConfigs "zh","en"
+        resConfigs "zh", "en"
 
         // arm64-v8a支持64位CPU，armeabi-v7a支持32位CPU
         ndk {
-            abiFilters "armeabi-v7a", "arm64-v8a", "x86"
+            abiFilters "arm64-v8a"//, "armeabi-v7a", "x86"
         }
 
         javaCompileOptions {
@@ -79,14 +79,14 @@ android {
     }
 
     // 新浪
-//    splits {
-//        abi {
-//            enable true
-//            reset()
-//            include 'armeabi-v7a', 'arm64-v8a' //根据需求自己修改
-//            universalApk true
-//        }
-//    }
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'arm64-v8a'//, 'armeabi-v7a' //根据需求自己修改
+            universalApk true
+        }
+    }
 
     lintOptions {
         checkReleaseBuilds false
