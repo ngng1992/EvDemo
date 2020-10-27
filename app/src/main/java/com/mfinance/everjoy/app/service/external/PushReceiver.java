@@ -10,7 +10,7 @@ import android.media.RingtoneManager;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 
-import com.mfinance.everjoy.app.BaseActivity;
+import com.mfinance.everjoy.everjoy.base.BaseEverjoyActivity;
 
 public class PushReceiver extends BroadcastReceiver {
     int order = 1;
@@ -34,7 +34,7 @@ public class PushReceiver extends BroadcastReceiver {
                 .setLights(Color.RED, 1000, 1000)
                 .setVibrate(new long[]{0, 400, 250, 400})
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-                .setContentIntent(PendingIntent.getActivity(context, 0, new Intent(context, BaseActivity.class), PendingIntent.FLAG_UPDATE_CURRENT));
+                .setContentIntent(PendingIntent.getActivity(context, 0, new Intent(context, BaseEverjoyActivity.class), PendingIntent.FLAG_UPDATE_CURRENT));
 
         // Automatically configure a Notification Channel for devices running Android O+
         Pushy.setNotificationChannel(builder, context);

@@ -3,11 +3,6 @@ package com.mfinance.everjoy.app.service.external;
 import com.mfinance.everjoy.app.bo.SystemMessage;
 import com.mfinance.everjoy.app.constant.Protocol;
 import com.mfinance.everjoy.app.constant.ServiceFunction;
-import com.mfinance.everjoy.app.pojo.CancelCastMovementRequest;
-import com.mfinance.everjoy.app.pojo.CancelCastMovementRequestBuilder;
-import com.mfinance.everjoy.app.pojo.CashMovementRequest;
-import com.mfinance.everjoy.app.pojo.CashMovementRequestBuilder;
-import com.mfinance.everjoy.app.pojo.ChangePasswordRequestBuilder;
 import com.mfinance.everjoy.app.service.FxMobileTraderService;
 import com.mfinance.everjoy.app.util.MessageMapping;
 import com.mfinance.everjoy.app.util.MessageObj;
@@ -42,65 +37,6 @@ public class SystemMessageHandler extends ServerMessageHandler {
 			strMsgCode = sCode;
 		} else {
 			strMsgCode = msgObj.getField(Protocol.SystemMessage.MSGCD + "1");
-		}
-
-		if (changePasswordFailMsgCode.contains(strMsgCode)) {
-			ChangePasswordRequestBuilder builder = new ChangePasswordRequestBuilder(service.app.data.getChangePasswordRequest());
-			service.app.data.setChangePasswordRequest(
-					builder.setPending(false)
-							.setSuccessful(false)
-							.createChangePasswordRequest()
-			);
-		}
-		if (changePasswordSuccessfulMsgCode.contains(strMsgCode)) {
-			ChangePasswordRequestBuilder builder = new ChangePasswordRequestBuilder(service.app.data.getChangePasswordRequest());
-			service.app.data.setChangePasswordRequest(
-					builder.setPending(false)
-							.setSuccessful(true)
-							.createChangePasswordRequest()
-			);
-		}
-		if (cashMovementFailMsgCode.contains(strMsgCode)) {
-			CashMovementRequest cashMovementRequest = service.app.data.getCashMovementRequest();
-			if (cashMovementRequest != null && cashMovementRequest.isPending()) {
-				CashMovementRequestBuilder cashMovementRequestBuilder = new CashMovementRequestBuilder(cashMovementRequest);
-				cashMovementRequestBuilder.setPending(false).setSuccess(false);
-				service.app.data.setCashMovementRequest(cashMovementRequestBuilder.createCashMovementRequest());
-			}
-		}
-		if (cashMovementSuccessfulMsgCode.contains(strMsgCode)) {
-			CashMovementRequest cashMovementRequest = service.app.data.getCashMovementRequest();
-			if (cashMovementRequest != null && cashMovementRequest.isPending()) {
-				boolean sendURL = strMsgCode.equals("1007") || strMsgCode.equals("1008");
-				CashMovementRequestBuilder cashMovementRequestBuilder = new CashMovementRequestBuilder(cashMovementRequest);
-				cashMovementRequestBuilder.setPending(false).setSuccess(true);
-				cashMovementRequestBuilder.setSendURL(sendURL);
-				Optional<String> url = Optional.ofNullable(msgObj.getField("url"));
-				if (sendURL && url.isPresent()) {
-					cashMovementRequestBuilder.setUrl(url.get());
-				}
-				String[] split = msgObj.getField(Protocol.SystemMessage.MSG).split(Pattern.quote("\t"));
-				if (split.length >= 2) {
-					cashMovementRequestBuilder.setMinAmount(split[0]).setMaxAmount(split[1]);
-				}
-				CashMovementRequest request = cashMovementRequestBuilder.createCashMovementRequest();
-				service.app.data.setCashMovementRequest(request);
-				if (request.isSendURL()) {
-					service.broadcast(ServiceFunction.ACT_UPDATE_UI, null);
-					return;
-				}
-			}
-		}
-		if (cashMovementCancelMsgCode.contains(strMsgCode)) {
-			CancelCastMovementRequest request = service.app.data.getCancelCashMovementRequest();
-			if (request != null && request.isPending()) {
-				List<String> successfullCode = Arrays.asList("1025", "1026");
-				CancelCastMovementRequest request1 = new CancelCastMovementRequestBuilder(request)
-						.setPending(false)
-						.setSuccessful(successfullCode.contains(strMsgCode))
-						.createCancelCastMovementRequest();
-				service.app.data.setCancelCashMovementRequest(request1);
-			}
 		}
 		
 		String sMsg = "";

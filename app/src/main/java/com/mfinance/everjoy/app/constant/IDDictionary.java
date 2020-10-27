@@ -36,7 +36,7 @@ public class IDDictionary {
     public static final int TRADER_REQUEST_LOGIN_RETURN = 1;
 
     /***************** Trader Functions of IO Service Type **********************/
-    public static final int TRADER_RECEIVE_BUY_SELL_STRENGTH_PRICE_ADJUST_SETTINGS = 4;
+    public static final int TRADER_REQUEST_CHANGE_PASSWORD_RETURN = 3;
 
     /***************** Trader Functions of deal Service Type **********************/
     public static final int TRADER_REQUEST_DEAL_RETURN = 1;
@@ -94,8 +94,10 @@ public class IDDictionary {
     public static final int SERVER_LOGIN_LOGOUT_BY_SESSION_TIMEOUT = 3;
     public static final int SERVER_LOGIN_KEYEXHANGE = 5;
     public static final int SERVER_LOGIN_PRICE_AGENT = 6;
+    public static final int SERVER_LOGIN_LOGIN_SECURITY = 7;
 
     /******************* Server Functions of IO Service ************************/
+    public static final int SERVER_IO_REQUEST_CHANGE_PASSWORD = 6;
     public static final int SERVER_IO_REQUEST_EXECUTE_ORDER_HISTORY = 10;
     @Deprecated
     public static final int SERVER_IO_REQUEST_CANCEL_ORDER_OLD = 11;
@@ -103,7 +105,6 @@ public class IDDictionary {
     public static final int SERVER_IO_REPORT_ERRORS = 22;
     public static final int SERVER_IO_REQUEST_CANCEL_ORDER = 73;
     public static final int SERVER_IO_REQUEST_TRADES_LIQUIDATION = 32;
-    public static final int SERVER_IO_REQUEST_CHANGE_PASSWORD = 46;
     public static final int SERVER_IO_REQUEST_DEPOSIT_WITHDRAWAL = 47;
     public static final int SERVER_IO_REQUEST_BANK_INFORMATION = 51;
     public static final int SERVER_IO_REQUEST_COMPANY_TERMS = 63;

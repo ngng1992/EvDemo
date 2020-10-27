@@ -118,7 +118,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                             int sex = jsonObject.optInt("sex", 1);
                             String headimgurl = jsonObject.optString("headimgurl");
                             String gender = sex == 1 ? LoginBean.SEX_MALE : LoginBean.SEX_FEMALE;
-                            LoginBean loginBean = new LoginBean(openid1, nickname, gender, headimgurl);
+                            LoginBean loginBean = new LoginBean(Utils.LoginOAuthType.WECHAT, openid1, nickname, gender, headimgurl);
                             // 发送登录成功的消息到登录界面
                             EventBus.getDefault().post(loginBean);
                             finish();

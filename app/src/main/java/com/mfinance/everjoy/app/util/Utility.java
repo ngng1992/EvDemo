@@ -18,11 +18,9 @@ import org.apache.http.conn.util.InetAddressUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 
 import com.mfinance.everjoy.app.CompanySettings;
 import com.mfinance.everjoy.app.MobileTraderApplication;
@@ -32,8 +30,6 @@ import com.mfinance.everjoy.app.bo.ContractObj;
 import com.mfinance.everjoy.app.bo.OpenPositionRecord;
 import com.mfinance.everjoy.app.constant.FXConstants;
 import com.mfinance.everjoy.app.model.DataRepository;
-import com.mfinance.everjoy.app.pojo.ContractDefaultSetting;
-import com.mfinance.everjoy.app.pojo.ContractDefaultSettingBuilder;
 
 
 public class Utility
@@ -1007,48 +1003,6 @@ public class Utility
     public static JSONObject putBigDecimal(JSONObject jsonObject, String key, BigDecimal value) throws JSONException {
         return jsonObject.put(key, value.toPlainString());
     }
-
-    public static ContractDefaultSetting getContractDefaultSetting(JSONObject jsonObject, String key) throws NumberFormatException, JSONException {
-        JSONObject member = jsonObject.getJSONObject(key);
-        if (!member.has("defaultTakeProfitOrderPips")) {
-            throw new JSONException("defaultTakeProfitOrderPips missing in " + jsonObject.toString());
-        }
-        if (!member.has("defaultStopLossOrderPips")) {
-            throw new JSONException("defaultTakeProfitOrderPips missing in " + jsonObject.toString());
-        }
-        ContractDefaultSettingBuilder builder = new ContractDefaultSettingBuilder();
-        builder.setDefaultLotSize(new BigDecimal(member.getString("defaultLotSize")));
-        builder.setDefaultSlippage(member.getInt("defaultSlippage"));
-        builder.setDefaultTakeProfitOrderPips(member.isNull("defaultTakeProfitOrderPips") ? Optional.empty() : Optional.of(member.getInt("defaultTakeProfitOrderPips")));
-        builder.setDefaultStopLossOrderPips(member.isNull("defaultStopLossOrderPips") ? Optional.empty() : Optional.of(member.getInt("defaultStopLossOrderPips")));
-        return builder.createContractDefaultSetting();
-    }
-
-    public static JSONObject putContractDefaultSetting(JSONObject jsonObject, String key, ContractDefaultSetting contractDefaultSetting) throws JSONException {
-        JSONObject member = new JSONObject();
-        member.put("defaultLotSize", contractDefaultSetting.getDefaultLotSize().toPlainString());
-        member.put("defaultSlippage", contractDefaultSetting.getDefaultSlippage());
-        Optional<Integer> defaultTakeProfitOrderPips = contractDefaultSetting.getDefaultTakeProfitOrderPips();
-        if (defaultTakeProfitOrderPips.isPresent()) {
-            member.put("defaultTakeProfitOrderPips", defaultTakeProfitOrderPips.get());
-        } else {
-            member.put("defaultTakeProfitOrderPips", JSONObject.NULL);
-        }
-        Optional<Integer> defaultStopLossOrderPips = contractDefaultSetting.getDefaultStopLossOrderPips();
-        if (defaultStopLossOrderPips.isPresent()) {
-            member.put("defaultStopLossOrderPips", defaultStopLossOrderPips.get());
-        } else {
-            member.put("defaultStopLossOrderPips", JSONObject.NULL);
-        }
-        return jsonObject.put(key, member);
-    }
-
-    public static final ContractDefaultSetting EMPTY_CONTRACT_DEFAULT_SETTING = new ContractDefaultSettingBuilder()
-            .setDefaultLotSize(new BigDecimal(CompanySettings.DEFAULT_LOT_SIZE))
-            .setDefaultSlippage(CompanySettings.DefaultSlippageValue)
-            .setDefaultTakeProfitOrderPips(Optional.empty())
-            .setDefaultStopLossOrderPips(Optional.empty())
-            .createContractDefaultSetting();
 
     public static final Comparator<OpenPositionRecord> getFIFOComparator() {
         return (o1, o2) -> {

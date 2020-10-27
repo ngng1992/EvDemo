@@ -23,19 +23,6 @@ public class LogoutMessageHandler extends ServerMessageHandler {
 		if (BuildConfig.DEBUG)
 			Log.i(TAG, "[Close Connection]");
 		try {
-			// OTX FX Server do not enable these messages correctly
-			if (CompanySettings.ENABLE_FATCH_REPORT_GROUP_OTX == false) {
-				// respond to dealer
-				MessageObj requestMsg = MessageObj.getMessageObj(IDDictionary.SERVER_IO_SERVICE_TYPE, IDDictionary.SERVER_IO_TRADER_RESPONSE_DISCONNECT_ACCOUNT);
-				requestMsg.addField("toid", msgObj.getField("frname")); // toid is the Entity we are going to response to
-				requestMsg.addField("sDisconnectedAC", msgObj.getField("toid"));
-				requestMsg.addField("msgCode", "407");
-				service.connection.sendMessage(requestMsg.convertToString());
-
-				// send logout message
-				MessageObj messageObj = MessageObj.getMessageObj(IDDictionary.SERVER_LOGIN_SERVICE_TYPE, IDDictionary.SERVER_LOGIN_LOGOUT);
-				service.connection.sendFlushMessage(messageObj.convertToString(true));
-			}
 			service.connection.closeConnection();
 
 			service.app.data.clear();

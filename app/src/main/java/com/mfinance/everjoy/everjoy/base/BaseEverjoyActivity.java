@@ -1,11 +1,13 @@
 package com.mfinance.everjoy.everjoy.base;
 
 import android.app.ActivityManager;
+import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,70 +20,18 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
-import com.mfinance.everjoy.app.AnnouncementActivity;
-import com.mfinance.everjoy.app.CancelledOrderListActivity;
-import com.mfinance.everjoy.app.CashMovementActivity;
-import com.mfinance.everjoy.app.CashMovementHistoryListActivity;
-import com.mfinance.everjoy.app.ChangePasswordActivity;
-import com.mfinance.everjoy.app.ChartActivity;
 import com.mfinance.everjoy.app.CompanySettings;
-import com.mfinance.everjoy.app.ContactActivity;
-import com.mfinance.everjoy.app.ContractDetailActivity;
-import com.mfinance.everjoy.app.ContractListActivity;
-import com.mfinance.everjoy.app.ContractListGuestActivity;
-import com.mfinance.everjoy.app.ContractListSortActivity;
-import com.mfinance.everjoy.app.CustomListActivity;
-import com.mfinance.everjoy.app.DashboardActivity;
-import com.mfinance.everjoy.app.DealActivity;
-import com.mfinance.everjoy.app.DemoRegistrationActivity;
-import com.mfinance.everjoy.app.EconomicActivity;
-import com.mfinance.everjoy.app.EditOrderActivity;
-import com.mfinance.everjoy.app.ExecutedOrderListActivity;
-import com.mfinance.everjoy.app.HistoryListActivity;
-import com.mfinance.everjoy.app.IdentityCheckActivity;
-import com.mfinance.everjoy.app.LiquidateAllActivity;
-import com.mfinance.everjoy.app.LiquidationActivity;
-import com.mfinance.everjoy.app.LiquidationHistoryListActivity;
 import com.mfinance.everjoy.app.LocaleUtility;
-import com.mfinance.everjoy.app.LoginActivity;
-import com.mfinance.everjoy.app.LostPasswordActivity;
 import com.mfinance.everjoy.app.MobileTraderApplication;
-import com.mfinance.everjoy.app.NewPriceAlertActivity;
-import com.mfinance.everjoy.app.NewsActivity;
-import com.mfinance.everjoy.app.OnLineStatementActivity;
-import com.mfinance.everjoy.app.OpenPositionListActivity;
-import com.mfinance.everjoy.app.OpenPositionSummaryActivity;
-import com.mfinance.everjoy.app.OrderActivity;
-import com.mfinance.everjoy.app.PriceAlertActivity;
-import com.mfinance.everjoy.app.PriceAlertHistoryActivity;
-import com.mfinance.everjoy.app.RunningOrderListActivity;
-import com.mfinance.everjoy.app.SettingActivity;
-import com.mfinance.everjoy.app.SettingIDActivity;
-import com.mfinance.everjoy.app.TermsNConditionActivity;
-import com.mfinance.everjoy.app.TransactionListActivity;
-import com.mfinance.everjoy.app.TwoFAActivity;
-import com.mfinance.everjoy.app.WebViewActivity;
 import com.mfinance.everjoy.app.bo.ContractObj;
 import com.mfinance.everjoy.app.constant.ServiceFunction;
-import com.mfinance.everjoy.app.content.CompanyProfileActivity;
-import com.mfinance.everjoy.app.content.ContactUsActivity;
-import com.mfinance.everjoy.app.content.EconomicDataDetailActivity;
-import com.mfinance.everjoy.app.content.EconomicDataListingActivitiy;
-import com.mfinance.everjoy.app.content.HourProductDetailActivity;
-import com.mfinance.everjoy.app.content.HourProductListingActivitiy;
-import com.mfinance.everjoy.app.content.MasterDetailActivity;
-import com.mfinance.everjoy.app.content.MasterListingActivitiy;
-import com.mfinance.everjoy.app.content.NewsContentDetailActivity;
-import com.mfinance.everjoy.app.content.NewsContentListingActivitiy;
-import com.mfinance.everjoy.app.content.NewsDetailActivity;
-import com.mfinance.everjoy.app.content.NewsListingActivitiy;
-import com.mfinance.everjoy.app.content.StrategyDetailActivity;
-import com.mfinance.everjoy.app.content.StrategyListingActivitiy;
-import com.mfinance.everjoy.app.content.TermsActivity;
 import com.mfinance.everjoy.app.model.DataRepository;
 import com.mfinance.everjoy.app.service.FxMobileTraderService;
-import com.mfinance.everjoy.app.util.CommonFunction;
+import com.mfinance.everjoy.everjoy.ui.home.MainActivity;
+import com.mfinance.everjoy.everjoy.ui.mine.LoginActivity;
+import com.mfinance.everjoy.everjoy.ui.mine.ResetPwdActivity;
 import com.mfinance.everjoy.everjoy.utils.ToolsUtils;
 import com.umeng.analytics.MobclickAgent;
 
@@ -93,14 +43,14 @@ import java.util.function.Consumer;
 /**
  * 基类，初始化第三方库等
  */
-public class BaseEverjoyActivity extends HuanxinChatActivity implements ServiceConnection {
+public class BaseEverjoyActivity extends AppCompatActivity implements ServiceConnection {
 
-    private static final String TAG = BaseEverjoyActivity.class.getSimpleName();
+    protected static final String TAG = BaseEverjoyActivity.class.getSimpleName();
 
-    protected MobileTraderApplication mMobileTraderApplication;
+    protected MobileTraderApplication app;
+    protected Resources res;
     protected Consumer<Locale> changeLocale = l -> {
     };
-
 
     /**
      * Preferences
@@ -116,7 +66,8 @@ public class BaseEverjoyActivity extends HuanxinChatActivity implements ServiceC
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mMobileTraderApplication = (MobileTraderApplication) getApplication();
+        app = (MobileTraderApplication) getApplication();
+        res = this.getResources();
         if (isRegisterEventBus()) {
             EventBus.getDefault().register(this);
         }
@@ -249,27 +200,27 @@ public class BaseEverjoyActivity extends HuanxinChatActivity implements ServiceC
             Log.e(TAG, "Bind service fail", e.fillInStackTrace());
         }
         // 超时设置
-//        if (mMobileTraderApplication.bLogon) {
-//            if (mMobileTraderApplication.isTimeout()) {
+//        if (app.bLogon) {
+//            if (app.isTimeout()) {
 //                this.goTo(ServiceFunction.SRV_LOGOUT);
 //            }
 //
-//            mMobileTraderApplication.stopTimeout();
+//            app.stopTimeout();
 //            long lTimeout = getTimeout();
 //            long alTimeout = 0;
-//            if (mMobileTraderApplication.data.sessTimeoutDisconn != -1) {
-//                lTimeout = mMobileTraderApplication.data.sessTimeoutDisconn * 1000;
-//                alTimeout = mMobileTraderApplication.data.sessTimeoutAlert * 1000;
+//            if (app.data.sessTimeoutDisconn != -1) {
+//                lTimeout = app.data.sessTimeoutDisconn * 1000;
+//                alTimeout = app.data.sessTimeoutAlert * 1000;
 //            }
 //            //System.out.println(lTimeout);
 //            backgroundthread = false;
 //            if (lTimeout > 0)
-//                mMobileTraderApplication.startTimeout(lTimeout, this);
+//                app.startTimeout(lTimeout, this);
 //            if (alTimeout > 0)
-//                mMobileTraderApplication.startAlertTimeout(alTimeout, this);
+//                app.startAlertTimeout(alTimeout, this);
 //
 //        } else {
-//            mMobileTraderApplication.stopTimeout();
+//            app.stopTimeout();
 //        }
 
 //        if (CompanySettings.ENABLE_CONTENT) {
@@ -301,7 +252,7 @@ public class BaseEverjoyActivity extends HuanxinChatActivity implements ServiceC
 //                    showSystemAlertMessage();
                     break;
                 case ServiceFunction.ACT_UPDATE_UI:
-//                    fireUIUpdate();
+                    fireUIUpdate();
                     break;
                 case ServiceFunction.ACT_VIBRATE:
 //                    fireVibrate();
@@ -337,123 +288,13 @@ public class BaseEverjoyActivity extends HuanxinChatActivity implements ServiceC
                     startActivity(intent);
                     //System.out.println("-------------------------------------- finish 3");
                     break;
-                case ServiceFunction.ACT_GO_TO_DASHBOARD:
-                    // TODO 跳转首页
-                    intent = new Intent(BaseEverjoyActivity.this, DashboardActivity.class);
-                    if (CompanySettings.newinterface)
-                        intent = new Intent(BaseEverjoyActivity.this, ContractListActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    finish();
-                    break;
                 case ServiceFunction.ACT_GO_TO_PRICE: {
-                    boolean guest = msg.getData().getBoolean("guest", false);
-                    intent = new Intent(BaseEverjoyActivity.this, guest ? ContractListGuestActivity.class : ContractListActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
+//                    boolean guest = msg.getData().getBoolean("guest", false);
+//                    intent = new Intent(BaseEverjoyActivity.this, guest ? ContractListGuestActivity.class : ContractListActivity.class);
+//                    intent.putExtras(msg.getData());
+//                    startActivity(intent);
+//                    break;
                 }
-                case ServiceFunction.ACT_GO_TO_OPEN_POSITION:
-                    intent = new Intent(BaseEverjoyActivity.this, OpenPositionListActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_CONTRACT_DETAIL: {
-                    if (mMobileTraderApplication.getSelectedContract() != null) {
-                        intent = new Intent(BaseEverjoyActivity.this, ContractDetailActivity.class);
-                        intent.putExtras(msg.getData());
-                        startActivity(intent);
-                    }
-                    break;
-                }
-                case ServiceFunction.ACT_GO_TO_TRANSACTION:
-                    intent = new Intent(BaseEverjoyActivity.this, TransactionListActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_DEAL:
-                    if (mMobileTraderApplication.getSelectedContract() != null) {
-                        intent = new Intent(BaseEverjoyActivity.this, DealActivity.class);
-                        intent.putExtras(msg.getData());
-                        startActivity(intent);
-                    }
-                    break;
-                case ServiceFunction.ACT_GO_TO_LIQUIDATE:
-                    intent = new Intent(BaseEverjoyActivity.this, LiquidationActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_RUNNING_ORDER:
-                    intent = new Intent(BaseEverjoyActivity.this, RunningOrderListActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_EXECUTED_ORDER:
-                    intent = new Intent(BaseEverjoyActivity.this, ExecutedOrderListActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_CANCELLED_ORDER:
-                    intent = new Intent(BaseEverjoyActivity.this, CancelledOrderListActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_LIQUIDATION_HISTORY:
-                    intent = new Intent(BaseEverjoyActivity.this, LiquidationHistoryListActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_ORDER:
-                    if (mMobileTraderApplication.getSelectedContract() != null) {
-                        intent = new Intent(BaseEverjoyActivity.this, OrderActivity.class);
-                        intent.putExtras(msg.getData());
-                        startActivity(intent);
-                    }
-                    break;
-                case ServiceFunction.ACT_GO_TO_EDIT_ORDER:
-                    if (mMobileTraderApplication.getSelectedRunningOrder() != null) {
-                        intent = new Intent(BaseEverjoyActivity.this, EditOrderActivity.class);
-                        intent.putExtras(msg.getData());
-                        startActivity(intent);
-                    }
-                    break;
-                case ServiceFunction.ACT_GO_TO_CHART:
-                    if (mMobileTraderApplication.getSelectedContract() != null) {
-                        intent = new Intent(BaseEverjoyActivity.this, ChartActivity.class);
-                        intent.putExtras(msg.getData());
-                        startActivity(intent);
-                    }
-                    break;
-                case ServiceFunction.ACT_GO_TO_OPEN_POSITION_SUMMARY:
-                    intent = new Intent(BaseEverjoyActivity.this, OpenPositionSummaryActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_SETTING: {
-                    ContractObj defaultContract = getDefaultContract();
-                    if (defaultContract != null) {
-                        intent = new Intent(BaseEverjoyActivity.this, SettingActivity.class);
-                        intent.putExtras(msg.getData());
-                        startActivity(intent);
-                    } else if (defaultContract == null && (CompanySettings.ENABLE_CONTENT) && !mMobileTraderApplication.bLogon) {
-                        intent = new Intent(BaseEverjoyActivity.this, SettingActivity.class);
-                        intent.putExtras(msg.getData());
-                        startActivity(intent);
-                    }
-                    break;
-                }
-                case ServiceFunction.ACT_GO_TO_SETTING_ID:
-                    if (getDefaultContract() != null) {
-                        intent = new Intent(BaseEverjoyActivity.this, SettingIDActivity.class);
-                        intent.putExtras(msg.getData());
-                        startActivity(intent);
-                    }
-                    break;
-                case ServiceFunction.ACT_GO_TO_HISTORY:
-                    intent = new Intent(BaseEverjoyActivity.this, HistoryListActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
                 case ServiceFunction.ACT_VISIBLE_POP_UP:
 //                    if (dialog == null)
 //                        dialog = ProgressDialog.show(BaseEverjoyActivity.this, "", res.getString(R.string.please_wait), true);
@@ -461,24 +302,11 @@ public class BaseEverjoyActivity extends HuanxinChatActivity implements ServiceC
 //                        dialog.show();
                     break;
                 case ServiceFunction.ACT_INVISIBLE_POP_UP:
-//                    dialog.dismiss();
-//                    dialog = null;
+                    dialog.dismiss();
+                    dialog = null;
                     break;
                 case ServiceFunction.ACT_GO_TO_ANDROID_MARKET:
                     ToolsUtils.openAndroidMarket(BaseEverjoyActivity.this);
-                    break;
-                case ServiceFunction.ACT_GO_TO_ON_LINE_STATEMENT:
-                    intent = new Intent(BaseEverjoyActivity.this, OnLineStatementActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_POST_FB:
-                    //System.out.println(msg.getData().getString(ServiceFunction.FACEBOOK_MESSAGE));
-					/* -- Facebook
-					if (isPostFacebookEnable())
-						app.postMessageOnWall(msg.getData().getString(ServiceFunction.FACEBOOK_MESSAGE));
-					 */
-
                     break;
                 case ServiceFunction.ACT_SHOW_TOAST:
                     String sMsg = msg.getData().getString(ServiceFunction.MESSAGE);
@@ -487,194 +315,28 @@ public class BaseEverjoyActivity extends HuanxinChatActivity implements ServiceC
                 case ServiceFunction.ACT_UNBIND_SERVICE:
                     doUnbindService();
                     break;
-                case ServiceFunction.ACT_GO_TO_COMPANY_PROFILE:
-                    intent = new Intent(BaseEverjoyActivity.this, CompanyProfileActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_NEWS_DETAIL:
-                    intent = new Intent(BaseEverjoyActivity.this, NewsDetailActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_CONTACT_US:
-                    intent = new Intent(BaseEverjoyActivity.this, ContactUsActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_STRATEGY_DETAIL:
-                    intent = new Intent(BaseEverjoyActivity.this,
-                            StrategyDetailActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_ECONOMIC_DATA_DETAIL:
-                    intent = new Intent(BaseEverjoyActivity.this,
-                            EconomicDataDetailActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_MASTER_DETAIL:
-                    intent = new Intent(BaseEverjoyActivity.this,
-                            MasterDetailActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_NEWS_LIST:
-                    intent = new Intent(BaseEverjoyActivity.this,
-                            NewsListingActivitiy.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_DAY_PLAN_LIST:
-                    intent = new Intent(BaseEverjoyActivity.this,
-                            StrategyListingActivitiy.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_ECONOMIC_DATA_LIST:
-                    intent = new Intent(BaseEverjoyActivity.this,
-                            EconomicDataListingActivitiy.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_NEWS_CONTENT_LIST:
-                    intent = new Intent(BaseEverjoyActivity.this,
-                            NewsContentListingActivitiy.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_MASTER_LIST:
-                    intent = new Intent(BaseEverjoyActivity.this,
-                            MasterListingActivitiy.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_NEWS_CONTENT_DETAIL:
-                    intent = new Intent(BaseEverjoyActivity.this,
-                            NewsContentDetailActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
                 case ServiceFunction.ACT_FINISH_ACTIVITY:
                     finish();
                     break;
                 case ServiceFunction.ACT_SHOW_ACC_INFO:
 //                    showAccountInformation();
                     break;
-                case ServiceFunction.ACT_GO_TO_HOUR_PRODUCT:
-                    intent = new Intent(BaseEverjoyActivity.this, HourProductListingActivitiy.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_HOUR_PRODUCT_DETAIL:
-                    intent = new Intent(BaseEverjoyActivity.this, HourProductDetailActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_TERMS:
-                    intent = new Intent(BaseEverjoyActivity.this, TermsActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_CASH_MOVEMENT:
-                    intent = new Intent(BaseEverjoyActivity.this, CashMovementActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_CASH_MOVEMENT_HISTORY:
-                    intent = new Intent(BaseEverjoyActivity.this, CashMovementHistoryListActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.SRV_REPORT_ERROR:
-                    Message ReportErrorMsg = Message.obtain(null, ServiceFunction.SRV_REPORT_ERROR);
-                    ReportErrorMsg.getData().putString(ServiceFunction.MESSAGE, msg.getData().getString(ServiceFunction.MESSAGE));
-                    ReportErrorMsg.replyTo = mServiceMessengerHandler;
-
-                    try {
-                        mService.send(ReportErrorMsg);
-                    } catch (RemoteException e) {
-                        Log.e(CommonFunction.class.getSimpleName(), "Unable to sendBankInfoRequest message", e.fillInStackTrace());
-                    }
-                    break;
-                case ServiceFunction.ACT_GO_TO_DEMO_REGISTRATION:
-                    intent = new Intent(BaseEverjoyActivity.this, DemoRegistrationActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
                 case ServiceFunction.ACT_GO_TO_LOST_PASSWORD:
-                    intent = new Intent(BaseEverjoyActivity.this, LostPasswordActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_IDENTITY_CHECK:
-                    intent = new Intent(BaseEverjoyActivity.this, IdentityCheckActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_CUST_LIST:
-                    intent = new Intent(BaseEverjoyActivity.this, CustomListActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_TWO_FA:
-                    intent = new Intent(BaseEverjoyActivity.this, TwoFAActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
+//                    intent = new Intent(BaseEverjoyActivity.this, LostPasswordActivity.class);
+//                    intent.putExtras(msg.getData());
+//                    startActivity(intent);
                     break;
                 case ServiceFunction.ACT_GO_TO_CHANGE_PASSWORD:
-                    intent = new Intent(BaseEverjoyActivity.this, ChangePasswordActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                case ServiceFunction.ACT_GO_TO_CONTRACT_SORT:
-                    intent = new Intent(BaseEverjoyActivity.this, ContractListSortActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_ANNOUNCEMENT:
-                    intent = new Intent(BaseEverjoyActivity.this, AnnouncementActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_NEWS:
-                    intent = new Intent(BaseEverjoyActivity.this, NewsActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_ECONOMIC:
-                    intent = new Intent(BaseEverjoyActivity.this, EconomicActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_CONTACTUS:
-                    intent = new Intent(BaseEverjoyActivity.this, ContactActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_TERMSNCONDITION:
-                    intent = new Intent(BaseEverjoyActivity.this, TermsNConditionActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_LIQUIDATE_ALL:
-                    intent = new Intent(BaseEverjoyActivity.this, LiquidateAllActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
+//                    intent = new Intent(BaseEverjoyActivity.this, ChangePasswordActivity.class);
+//                    intent.putExtras(msg.getData());
+//                    startActivity(intent);
                 case ServiceFunction.SRV_WEB_VIEW:
-                    intent = new Intent(BaseEverjoyActivity.this, WebViewActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                case ServiceFunction.ACT_GO_TO_PRICE_ALERT:
-                    intent = new Intent(BaseEverjoyActivity.this, PriceAlertActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                case ServiceFunction.ACT_GO_TO_PRICE_ALERT_HISTORY:
-                    intent = new Intent(BaseEverjoyActivity.this, PriceAlertHistoryActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                case ServiceFunction.ACT_GO_TO_NEW_PRICE_ALERT:
-                    intent = new Intent(BaseEverjoyActivity.this, NewPriceAlertActivity.class);
+//                    intent = new Intent(BaseEverjoyActivity.this, WebViewActivity.class);
+//                    intent.putExtras(msg.getData());
+//                    startActivity(intent);
+                 case ServiceFunction.ACT_GO_TO_DEFAULT_LOGIN_PAGE:
+                    //intent = new Intent(BaseEverjoyActivity.this, MainActivity.class);
+                     intent = new Intent(BaseEverjoyActivity.this, ResetPwdActivity.class);
                     intent.putExtras(msg.getData());
                     startActivity(intent);
                     break;
@@ -701,24 +363,24 @@ public class BaseEverjoyActivity extends HuanxinChatActivity implements ServiceC
      * @return Default contract
      */
     public ContractObj getDefaultContract() {
-        String sContract = setting.getString("DEFAULT_CONTRACT", CompanySettings.getDefaultDefaultContract(mMobileTraderApplication));
+        String sContract = setting.getString("DEFAULT_CONTRACT", CompanySettings.getDefaultDefaultContract(app));
         if (sContract == null)
             return null;
         else {
-            if (mMobileTraderApplication.bLogon) {
+            if (app.bLogon) {
                 // Restrict user set non-tradable contract as default
-                ContractObj c = mMobileTraderApplication.data.getContract(sContract);
+                ContractObj c = app.data.getContract(sContract);
                 if (c == null || c.isViewable() == false || DataRepository.getInstance().getTradableContract().contains(sContract) == false) {
                     for (int i = 0; i < DataRepository.getInstance().getTradableContract().size(); i++) {
                         sContract = DataRepository.getInstance().getTradableContract().get(i);
-                        if (mMobileTraderApplication.data.getContract(sContract).isViewable())
+                        if (app.data.getContract(sContract).isViewable())
                             break;
                     }
 
                 }
             }
-            mMobileTraderApplication.setDefaultContract(sContract);
-            return mMobileTraderApplication.data.getContract(sContract);
+            app.setDefaultContract(sContract);
+            return app.data.getContract(sContract);
         }
     }
 
@@ -753,4 +415,68 @@ public class BaseEverjoyActivity extends HuanxinChatActivity implements ServiceC
             bindService(new Intent(this, FxMobileTraderService.class), this, Context.BIND_AUTO_CREATE);
         }
     }
+
+    /**
+     * Jump to other activity
+     * @param iService ref. "ServiceFunction"
+     */
+    public void goTo(int iService){
+        Message msg = Message.obtain(null, iService);
+        msg.replyTo = mServiceMessengerHandler;
+        try {
+            mService.send(msg);
+        } catch (RemoteException e) {
+            Log.e(TAG, "Unable to send login message", e.fillInStackTrace());
+        }
+
+    }
+
+    /**
+     * Jump to other activity
+     *
+     * @param iService
+     *            ref. "ServiceFunction"
+     * @param bundle
+     */
+    public void goTo(int iService, Bundle bundle) {
+        Message msg = Message.obtain(null, iService);
+        msg.replyTo = mServiceMessengerHandler;
+        msg.setData(bundle);
+        try {
+            mService.send(msg);
+        } catch (RemoteException e) {
+            Log.e(TAG, "Unable to send login message", e.fillInStackTrace());
+        }
+    }
+
+    protected Handler uiHandler = new Handler();
+
+    public void fireUIUpdate(){
+        Thread t = new Thread() {
+            public void run() {
+                if(uiHandler != null)
+                    uiHandler.post(updateUI);
+            }
+        };
+        t.start();
+    }
+
+    Runnable updateUI = new Runnable(){
+        @Override
+        public void run() {
+            try{
+                updateBaseUI();
+                updateUI();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+    };
+
+    public void updateUI() {}
+
+    protected void updateBaseUI(){}
+
+    protected static ProgressDialog dialog;
+
 }

@@ -130,7 +130,7 @@ public class QQLoginUtils {
                                     int gender_type = userJson.optInt("gender_type", 1);
                                     String figureurl_qq = userJson.optString("figureurl_qq");
                                     String gender = gender_type == 1 ? LoginBean.SEX_MALE : LoginBean.SEX_FEMALE;
-                                    LoginBean loginBean = new LoginBean(openid, nickname, gender, figureurl_qq);
+                                    LoginBean loginBean = new LoginBean(Utils.LoginOAuthType.QQ, openid, nickname, gender, figureurl_qq);
                                     mOnLoginListener.onLogin(loginBean);
                                 } else {
                                     mOnLoginListener.onError(msg);

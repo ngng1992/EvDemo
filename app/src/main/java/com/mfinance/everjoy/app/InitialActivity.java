@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -14,7 +13,6 @@ import android.os.IBinder;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -22,14 +20,17 @@ import android.widget.TextView;
 
 import com.mfinance.everjoy.BuildConfig;
 import com.mfinance.everjoy.R;
-import com.mfinance.everjoy.app.LoginActivity.OnFetchCompleteListener;
 import com.mfinance.everjoy.app.MobileTraderApplication.LoginInfo;
 import com.mfinance.everjoy.app.constant.ServiceFunction;
-import com.mfinance.everjoy.app.pojo.ConnectionStatus;
-import com.mfinance.everjoy.app.service.internal.PriceAgentConnectionProcessor;
 import com.mfinance.everjoy.app.util.AppLauncherLib;
 import com.mfinance.everjoy.app.util.Utility;
+import com.mfinance.everjoy.everjoy.base.BaseViewActivity;
+import com.mfinance.everjoy.everjoy.ui.mine.LoginActivity;
 
+import net.mfinance.commonlib.share.bean.LoginBean;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -38,16 +39,21 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.HashMap;
 
+import butterknife.BindView;
+
 /**
  * 闪屏页
  *
  * 连接服务器
  */
-public class InitialActivity extends BaseActivity {
+public class InitialActivity extends BaseViewActivity {
 
-	Button btnRetry=null;
-	ProgressBar progressBar = null;
-	TextView tvAppLauncherMsg = null;
+	@BindView(R.id.btnRetry)
+	Button btnRetry;
+	@BindView(R.id.pb_loading)
+	ProgressBar progressBar;
+	@BindView(R.id.tvAppLauncherMsg)
+	TextView tvAppLauncherMsg;
 	
 	boolean appLaucherURL1OK = false;
 	boolean appLaucherURL2OK = false;
@@ -64,35 +70,7 @@ public class InitialActivity extends BaseActivity {
 							goTo(ServiceFunction.SRV_TO_SHOW_ANDROID_MARKET_MSG);
 						} else{
 							if (isServerAvailable()) {
-								LoginActivity.asyncfetch(null,app.getContractListURL(),
-										new OnFetchCompleteListener() {
-											@Override
-											public void onSuccess(String result) {
-												CompanySettings.parseJson(app, result);
-											}}
-										);
-								if (!isAgreedDeclaration() || CompanySettings.ENABLE_Declaration_Screen_ForEach_Login == true) {
-									showDeclaration();
-								} else {
-									if(CompanySettings.ENABLE_CONTENT){
-										goTo(ServiceFunction.SRV_START_XML_TRANSFER);
-									}
-									if(CompanySettings.SHOW_DASHBOARD_BEFORE_LOGIN){
-										goTo(app.getDefaultPage());
-									} else if (CompanySettings.ENABLE_CONTENT_WEB_VIEW) {
-										Intent intent = new Intent(InitialActivity.this, ContractListGuestActivity.class);
-										intent.putExtra(ServiceFunction.REQUIRE_LOGIN, false);
-										startActivity(intent);
-										InitialActivity.this.finish();
-									} else {
-										goTo(ServiceFunction.SRV_MOVE_TO_LOGIN);
-									}
-								}
-								if(CompanySettings.ENABLE_FATCH_REPORT_GROUP_OTX == true)
-								{
-									app.loginInfoDemoServer_otx = new LoginInfo(app.loginInfoDemo.sURL, app.loginInfoDemo.sPort);
-									app.loginInfoProdServer_otx = new LoginInfo(app.loginInfoProd.sURL, app.loginInfoProd.sPort);
-								}
+								goTo(ServiceFunction.SRV_MOVE_TO_LOGIN);
 							} else
 								inVisiableTheProgressBar(Boolean.TRUE);
 						}
@@ -101,11 +79,6 @@ public class InitialActivity extends BaseActivity {
 					}
 				}else{
 					inVisiableTheProgressBar(Boolean.FALSE);
-					if(CompanySettings.ENABLE_FATCH_REPORT_GROUP_OTX == true)
-					{
-						app.loginInfoDemoServer_otx = new LoginInfo(CompanySettings.loginInfoTest.sURL,CompanySettings.loginInfoTest.sPort);
-						app.loginInfoProdServer_otx = new LoginInfo(CompanySettings.loginInfoTest.sURL,CompanySettings.loginInfoTest.sPort);
-					}
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -194,17 +167,6 @@ public class InitialActivity extends BaseActivity {
 		return bOK;
 			
 	}
-	
-	@Override
-	public void bindEvent() {
-		findViewById(R.id.btnRetry).setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				(new Thread(moveTo)).start();
-			}			
-		});	
-		
-	}
 
 	@Override
 	public void handleByChild(Message msg) {
@@ -225,63 +187,45 @@ public class InitialActivity extends BaseActivity {
 	}
 
 	@Override
-	public boolean isTopBarExist() {
-		// TODO Auto-generated method stub
-		return false;
+	protected boolean isRemoveAppBar() {
+		return true;
 	}
 
 	@Override
-	public boolean isBottonBarExist() {
-		// TODO Auto-generated method stub
-		return false;
+	protected boolean isFullStatusByView() {
+		return true;
 	}
 
 	@Override
-	public void loadLayout() {
-		setContentView(R.layout.v_initial);
+	protected boolean isRegisterEventBus() {
+		return true;
+	}
+
+	@Override
+	protected int setLayoutResId() {
+		return R.layout.v_initial;
+	}
+
+	@Override
+	public void initView(View currentView) {
 		if (CompanySettings.newinterface == true) {
 			getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
 					WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 			if (CompanySettings.blackNotificationBarText)
 			getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 		}
-		progressBar = (ProgressBar) findViewById(R.id.pb_loading);
+		//progressBar = (ProgressBar) findViewById(R.id.pb_loading);
 		progressBar.setVisibility(View.INVISIBLE);	
-		btnRetry = (Button) findViewById(R.id.btnRetry);
+		//btnRetry = (Button) findViewById(R.id.btnRetry);
 		btnRetry.setVisibility(View.INVISIBLE);
 		
-		tvAppLauncherMsg = (TextView) findViewById(R.id.tvAppLauncherMsg);
+		//tvAppLauncherMsg = (TextView) findViewById(R.id.tvAppLauncherMsg);
 		tvAppLauncherMsg.setVisibility(View.INVISIBLE);
 	}
 
-	@Override
-	public void updateUI() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean showLogout() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean showTopNav() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean showConnected() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean showPlatformType() {
-		// TODO Auto-generated method stub
-		return false;
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	public void onMessageEvent(LoginBean loginBean) {
+		// 微信登录
 	}
 
 	public boolean isNetworkAvailable() {
@@ -876,14 +820,14 @@ public class InitialActivity extends BaseActivity {
         }
         return false;
 	}
-	
+
 	@Override
 	public void onServiceConnected(ComponentName name, IBinder service) {
 		super.onServiceConnected(name, service);
-		getDefaultRefreshGeneralInfo();
-		(new Thread(moveTo)).start();	
+		//getDefaultRefreshGeneralInfo();
+		(new Thread(moveTo)).start();
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		//System.out.println("------------------------------"+app);
@@ -905,15 +849,10 @@ public class InitialActivity extends BaseActivity {
 
 	}
 
-	@Override
-	public boolean isInitialActivity(){
-		return true;
-	}
-
-	public void confirmBtn(View v) {
-		setAgreedDeclaration();
-		goTo(ServiceFunction.SRV_MOVE_TO_LOGIN);
-	}
+//	@Override
+//	public boolean isInitialActivity(){
+//		return true;
+//	}
 	
 	public void cancelBtn(View v) {
 		finish();

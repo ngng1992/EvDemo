@@ -21,11 +21,8 @@ import android.util.Log;
 
 import com.mfinance.everjoy.BuildConfig;
 import com.mfinance.everjoy.app.CompanySettings;
-import com.mfinance.everjoy.app.DashboardItem;
-import com.mfinance.everjoy.app.DashboardItemRespository;
 import com.mfinance.everjoy.app.LocaleContextWrapper;
 import com.mfinance.everjoy.app.LocaleUtility;
-import com.mfinance.everjoy.app.LoginActivity;
 import com.mfinance.everjoy.app.MobileTraderApplication;
 import com.mfinance.everjoy.app.bo.BalanceRecord;
 import com.mfinance.everjoy.app.bo.ContractObj;
@@ -37,124 +34,31 @@ import com.mfinance.everjoy.app.constant.IDDictionary;
 import com.mfinance.everjoy.app.constant.ServiceFunction;
 import com.mfinance.everjoy.app.db.TransactionLogHelper;
 import com.mfinance.everjoy.app.model.DataRepository;
-import com.mfinance.everjoy.app.pojo.ContractDefaultSetting;
-import com.mfinance.everjoy.app.service.external.BalanceUpdateMessageHandler;
-import com.mfinance.everjoy.app.service.external.BankInfoMessageHandler;
-import com.mfinance.everjoy.app.service.external.BuySellStrengthMessageHandler;
-import com.mfinance.everjoy.app.service.external.CancelledOrderMessageHandler;
-import com.mfinance.everjoy.app.service.external.CashMovementHistoryMessageHandler;
-import com.mfinance.everjoy.app.service.external.CompanyInfoMessageHandler;
-import com.mfinance.everjoy.app.service.external.ContractHighLowUpdateMessageHandler;
-import com.mfinance.everjoy.app.service.external.ContractSpreadUpdateMessageHandler;
-import com.mfinance.everjoy.app.service.external.ContractUpdateMessageHandler;
-import com.mfinance.everjoy.app.service.external.ExecutedOrderMessageHandler;
 import com.mfinance.everjoy.app.service.external.HeartBeatMessageHandler;
-import com.mfinance.everjoy.app.service.external.LiquidationHistoryMessageHandler;
-import com.mfinance.everjoy.app.service.external.LiquidationMessageHandler;
 import com.mfinance.everjoy.app.service.external.LoginMessageHandler;
-import com.mfinance.everjoy.app.service.external.MarginMessageHandler;
-import com.mfinance.everjoy.app.service.external.NewsMessageHandler;
-import com.mfinance.everjoy.app.service.external.OpenPositionMessageHandler;
 import com.mfinance.everjoy.app.service.external.PriceAgentContractUpdateMessageHandler;
 import com.mfinance.everjoy.app.service.external.PriceAgentPushNotificationHandler;
-import com.mfinance.everjoy.app.service.external.PriceAlertReceiveMessageHandler;
-import com.mfinance.everjoy.app.service.external.ReportGroupContractSettingUpdateMessageHandler;
-import com.mfinance.everjoy.app.service.external.RunningOrderMessageHandler;
+import com.mfinance.everjoy.app.service.external.ResetPasswordMessageHandler;
 import com.mfinance.everjoy.app.service.external.ServerMessageHandler;
-import com.mfinance.everjoy.app.service.external.SystemAlertMessageHandler;
 import com.mfinance.everjoy.app.service.external.SystemMessageHandler;
-import com.mfinance.everjoy.app.service.external.TransactionMessageHandler;
-import com.mfinance.everjoy.app.service.external.TransactionResultMessageHandler;
-import com.mfinance.everjoy.app.service.external.TransactionTakupMessageHandler;
-import com.mfinance.everjoy.app.service.internal.BankInfoRequestProcessor;
-import com.mfinance.everjoy.app.service.internal.CancelOrderRequestProcessor;
-import com.mfinance.everjoy.app.service.internal.CancelledOrderHistoryRequestProcessor;
-import com.mfinance.everjoy.app.service.internal.CashMovementHistoryRequestProcessor;
-import com.mfinance.everjoy.app.service.internal.CashMovementRequestProcessor;
 import com.mfinance.everjoy.app.service.internal.ChangePasswordRequestProcessor;
-import com.mfinance.everjoy.app.service.internal.CompanyInfoRequestProcessor;
-import com.mfinance.everjoy.app.service.internal.DealRequestProcessor;
 import com.mfinance.everjoy.app.service.internal.DisconnectProcessor;
 import com.mfinance.everjoy.app.service.internal.EchoProcessor;
-import com.mfinance.everjoy.app.service.internal.EditOrderRequestProcessor;
-import com.mfinance.everjoy.app.service.internal.ExecutedOrderHistoryRequestProcessor;
 import com.mfinance.everjoy.app.service.internal.FinishActivityProcessor;
-import com.mfinance.everjoy.app.service.internal.LiquidateAllProcessor;
-import com.mfinance.everjoy.app.service.internal.LiquidationHistoryRequestProcessor;
-import com.mfinance.everjoy.app.service.internal.LiquidationRequestProcessor;
 import com.mfinance.everjoy.app.service.internal.LoginProcessor;
 import com.mfinance.everjoy.app.service.internal.LogoutProcessor;
 import com.mfinance.everjoy.app.service.internal.MessageProcessor;
 import com.mfinance.everjoy.app.service.internal.MoveToAndroidMarketProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToAnnouncementProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToCancelledOrderDetailProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToCancelledOrderProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToCashMovementHistoryProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToCashMovementProcessor;
 import com.mfinance.everjoy.app.service.internal.MoveToChangePasswordProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToChartProcessor;
 import com.mfinance.everjoy.app.service.internal.MoveToCompanyProfileActivityHandler;
-import com.mfinance.everjoy.app.service.internal.MoveToContactUsActivityHandler;
-import com.mfinance.everjoy.app.service.internal.MoveToContactUsProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToContractDetailProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToContractSortProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToCustListProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToDashboardProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToDealProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToDemoRegistrationProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToEconomicDataDetailActivityHandler;
-import com.mfinance.everjoy.app.service.internal.MoveToEconomicDataListingActivityHandler;
-import com.mfinance.everjoy.app.service.internal.MoveToEconomicProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToEditOrderProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToExecutedOrderDetailProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToExecutedOrderProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToHistoryProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToHourProductActivityHandler;
-import com.mfinance.everjoy.app.service.internal.MoveToHourProductDetailActivityHandler;
-import com.mfinance.everjoy.app.service.internal.MoveToIdentityCheckProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToLiquidationDetailProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToLiquidationHistoryProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToLiquidationProcessor;
+import com.mfinance.everjoy.app.service.internal.MoveToDefaultLoginPageProcessor;
 import com.mfinance.everjoy.app.service.internal.MoveToLoginActivityProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToLostPasswordProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToMasterDetailActivityHandler;
-import com.mfinance.everjoy.app.service.internal.MoveToMasterListingActivityHandler;
-import com.mfinance.everjoy.app.service.internal.MoveToNewPriceAlertProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToNewsContentDetailActivityHandler;
-import com.mfinance.everjoy.app.service.internal.MoveToNewsContentListingActivityHandler;
-import com.mfinance.everjoy.app.service.internal.MoveToNewsDetailActivityHandler;
-import com.mfinance.everjoy.app.service.internal.MoveToNewsListingActivityHandler;
-import com.mfinance.everjoy.app.service.internal.MoveToNewsProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToOnLineStatementProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToOpenPositionDetailProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToOpenPositionProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToOpenPositionSummaryProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToOrderProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToPriceAlertHistoryProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToPriceAlertProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToPriceProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToRunningOrderProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToSettingIDProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToSettingProcessor;
 import com.mfinance.everjoy.app.service.internal.MoveToShowGoToAndroidMarketMessageProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToStrategyDetailActivityHandler;
-import com.mfinance.everjoy.app.service.internal.MoveToStrategyListingActivityHandler;
-import com.mfinance.everjoy.app.service.internal.MoveToTermsActivityHandler;
-import com.mfinance.everjoy.app.service.internal.MoveToTermsNConditionProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToTransactionProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToTransactionStatusDetailProcessor;
-import com.mfinance.everjoy.app.service.internal.MoveToTwoFAProcessor;
-import com.mfinance.everjoy.app.service.internal.OrderRequestProcessor;
 import com.mfinance.everjoy.app.service.internal.PriceAgentConnectionProcessor;
-import com.mfinance.everjoy.app.service.internal.PriceAlertRequestProcessor;
-import com.mfinance.everjoy.app.service.internal.RefreshXMLTransferHandler;
-import com.mfinance.everjoy.app.service.internal.ReportErrorProcessor;
-import com.mfinance.everjoy.app.service.internal.SendDealFrameOpenCloseProcessor;
+import com.mfinance.everjoy.app.service.internal.ResetPasswordRequestProcessor;
 import com.mfinance.everjoy.app.service.internal.ServiceCloseProcessor;
 import com.mfinance.everjoy.app.service.internal.ServiceRegisterProcessor;
 import com.mfinance.everjoy.app.service.internal.ServiceUnregisterProcessor;
-import com.mfinance.everjoy.app.service.internal.ShowAccountInformationHandler;
-import com.mfinance.everjoy.app.service.internal.StartXMLTransferHandler;
 import com.mfinance.everjoy.app.service.internal.ToastMessageProcessor;
 import com.mfinance.everjoy.app.util.MainThreadExecutor;
 import com.mfinance.everjoy.app.util.MessageMapping;
@@ -276,65 +180,6 @@ public class FxMobileTraderService extends Service implements ConnectionStatusLi
     };
 
     final private SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener = (preferences, key) -> {
-        if (key.equals("DEFAULT_CONTRACT_SETTING")) {
-            final String accountName;
-            if (CompanySettings.ENABLE_CONTRACT_LEVEL_SETTING) {
-                accountName = app.bLogon ? app.data.getStrUser() : "";
-            } else {
-                accountName = "";
-            }
-
-            JSONObject o;
-            HashMap<String, ContractDefaultSetting> contractDefaultSettingMap = new HashMap<>();
-            try {
-                o = new JSONObject(preferences.getString("DEFAULT_CONTRACT_SETTING", "{}"));
-            } catch (Exception ex) {
-                o = new JSONObject();
-            }
-            JSONObject userObject;
-            try {
-                userObject = o.getJSONObject(accountName);
-            } catch (Exception ex) {
-                userObject = new JSONObject();
-            }
-
-            Iterator<String> keys = userObject.keys();
-            while (keys.hasNext()) {
-                String key1 = keys.next();
-                try {
-                    ContractDefaultSetting contractDefaultSetting = Utility.getContractDefaultSetting(userObject, key1);
-                    contractDefaultSettingMap.put(key1, contractDefaultSetting);
-                } catch (Exception ex) {
-
-                }
-            }
-            app.data.setContractDefaultSettingMap(contractDefaultSettingMap);
-            broadcast(ServiceFunction.ACT_UPDATE_UI, null);
-        }
-        if (key.equals("CONTRACT_SEQUENCE_SORT")) {
-            String accountName = app.bLogon ? app.data.getStrUser() : "";
-            JSONObject o;
-            try {
-                o = new JSONObject(preferences.getString("CONTRACT_SEQUENCE_SORT", "{}"));
-            } catch (Exception ex) {
-                o = new JSONObject();
-            }
-            JSONArray userArray;
-            try {
-                userArray = o.getJSONArray(accountName);
-            } catch (Exception ex) {
-                userArray = new JSONArray();
-            }
-            List<String> t = new ArrayList<>();
-            for (int i = 0; i < userArray.length(); i++) {
-                try {
-                    t.add(userArray.getString(i));
-                } catch (Exception ignored) {
-
-                }
-            }
-            app.data.setContractSequenceSort(t);
-        }
         if (key.equals("LANGUAGE")) {
             Locale locale = LocaleUtility.getLanguage(preferences);
             changeLocale.accept(locale);
@@ -381,137 +226,33 @@ public class FxMobileTraderService extends Service implements ConnectionStatusLi
         hmProcessor.put(ServiceFunction.SRV_UNREGISTER_ACTIVITY, new ServiceUnregisterProcessor());
         hmProcessor.put(ServiceFunction.SRV_LOGIN, new LoginProcessor());
         hmProcessor.put(ServiceFunction.SRV_LOGOUT, new LogoutProcessor());
-        hmProcessor.put(ServiceFunction.SRV_DASHBOARD, new MoveToDashboardProcessor());
-        hmProcessor.put(ServiceFunction.SRV_PRICE, new MoveToPriceProcessor());
-        hmProcessor.put(ServiceFunction.SRV_OPEN_POSITION, new MoveToOpenPositionProcessor());
-        hmProcessor.put(ServiceFunction.SRV_CONTRACT_DETAIL, new MoveToContractDetailProcessor());
         hmProcessor.put(ServiceFunction.SRV_CLOSE_SERVCIE, new ServiceCloseProcessor());
-        hmProcessor.put(ServiceFunction.SRV_TRANSACTION, new MoveToTransactionProcessor());
-        hmProcessor.put(ServiceFunction.SRV_SEND_DEAL_REQUEST, new DealRequestProcessor());
-        hmProcessor.put(ServiceFunction.SRV_SEND_LIQUIDATION_REQUEST, new LiquidationRequestProcessor());
-        hmProcessor.put(ServiceFunction.SRV_DEAL, new MoveToDealProcessor());
-        hmProcessor.put(ServiceFunction.SRV_LIQUIDATE, new MoveToLiquidationProcessor());
-        hmProcessor.put(ServiceFunction.SRV_RUNNING_ORDER, new MoveToRunningOrderProcessor());
-        hmProcessor.put(ServiceFunction.SRV_ORDER, new MoveToOrderProcessor());
-        hmProcessor.put(ServiceFunction.SRV_SEND_ADD_ORDER_REQUEST, new OrderRequestProcessor());
-        hmProcessor.put(ServiceFunction.SRV_SEND_CANCEL_ORDER_REQUEST, new CancelOrderRequestProcessor());
-        hmProcessor.put(ServiceFunction.SRV_EDIT_ORDER, new MoveToEditOrderProcessor());
-        hmProcessor.put(ServiceFunction.SRV_SEND_EDIT_ORDER_REQUEST, new EditOrderRequestProcessor());
-        hmProcessor.put(ServiceFunction.SRV_EXECUTED_ORDER, new MoveToExecutedOrderProcessor());
-        hmProcessor.put(ServiceFunction.SRV_SEND_EXECUTED_ORDER_HISTORY_REQUEST, new ExecutedOrderHistoryRequestProcessor());
-        hmProcessor.put(ServiceFunction.SRV_CANCELLED_ORDER, new MoveToCancelledOrderProcessor());
-        hmProcessor.put(ServiceFunction.SRV_SEND_CANCELLED_ORDER_HISTORY_REQUEST, new CancelledOrderHistoryRequestProcessor());
-        hmProcessor.put(ServiceFunction.SRV_LIQUIDATION_HISTORY, new MoveToLiquidationHistoryProcessor());
-        hmProcessor.put(ServiceFunction.SRV_SEND_LIQUIDATION_HISTORY_REQUEST, new LiquidationHistoryRequestProcessor());
-        hmProcessor.put(ServiceFunction.SRV_CHART, new MoveToChartProcessor());
-        hmProcessor.put(ServiceFunction.SRV_OPEN_POSITION_SUMMARY, new MoveToOpenPositionSummaryProcessor());
-        hmProcessor.put(ServiceFunction.SRV_SETTING, new MoveToSettingProcessor());
-        hmProcessor.put(ServiceFunction.SRV_SETTING_ID, new MoveToSettingIDProcessor());
-        hmProcessor.put(ServiceFunction.SRV_HISTORY, new MoveToHistoryProcessor());
-        hmProcessor.put(ServiceFunction.SRV_OPEN_POSITION_DETAIL, new MoveToOpenPositionDetailProcessor());
-        hmProcessor.put(ServiceFunction.SRV_TRANSACTION_STATUS_DETAIL, new MoveToTransactionStatusDetailProcessor());
-        hmProcessor.put(ServiceFunction.SRV_EXECUTED_ORDER_DETAIL, new MoveToExecutedOrderDetailProcessor());
-        hmProcessor.put(ServiceFunction.SRV_CANCELLED_ORDER_DETAIL, new MoveToCancelledOrderDetailProcessor());
-        hmProcessor.put(ServiceFunction.SRV_LIQUIDATE_DETAIL, new MoveToLiquidationDetailProcessor());
         hmProcessor.put(ServiceFunction.SRV_ANDROID_MARKET, new MoveToAndroidMarketProcessor());
         hmProcessor.put(ServiceFunction.SRV_DISCONNECT, new DisconnectProcessor());
-        hmProcessor.put(ServiceFunction.SRV_ON_LINE_STATEMENT, new MoveToOnLineStatementProcessor());
         hmProcessor.put(ServiceFunction.SRV_SHOW_TOAST, new ToastMessageProcessor());
         hmProcessor.put(ServiceFunction.SRV_MOVE_TO_LOGIN, new MoveToLoginActivityProcessor());
         hmProcessor.put(ServiceFunction.SRV_TO_SHOW_ANDROID_MARKET_MSG, new MoveToShowGoToAndroidMarketMessageProcessor());
-        hmProcessor.put(ServiceFunction.SRV_START_XML_TRANSFER, new StartXMLTransferHandler());
-        hmProcessor.put(ServiceFunction.SRV_RESTART_GENERAL_XML_TIMER, new RefreshXMLTransferHandler());
         hmProcessor.put(ServiceFunction.SRV_MOVE_TO_COMPANY_PROFILE, new MoveToCompanyProfileActivityHandler());
-        hmProcessor.put(ServiceFunction.SRV_MOVE_TO_NEWS_LIST, new MoveToNewsListingActivityHandler());
-        hmProcessor.put(ServiceFunction.SRV_MOVE_TO_STRATEGY_LIST, new MoveToStrategyListingActivityHandler());
-        hmProcessor.put(ServiceFunction.SRV_MOVE_TO_ECONOMIC_DATA_LIST, new MoveToEconomicDataListingActivityHandler());
-        hmProcessor.put(ServiceFunction.SRV_MOVE_TO_NEWS_CONTENT_LIST, new MoveToNewsContentListingActivityHandler());
-        hmProcessor.put(ServiceFunction.SRV_MOVE_TO_MASTER_LIST, new MoveToMasterListingActivityHandler());
-        hmProcessor.put(ServiceFunction.SRV_MOVE_TO_NEWS_CONTENT_DETAIL, new MoveToNewsContentDetailActivityHandler());
-        hmProcessor.put(ServiceFunction.SRV_MOVE_TO_STRATEGY_DETAIL, new MoveToStrategyDetailActivityHandler());
-        hmProcessor.put(ServiceFunction.SRV_MOVE_TO_ECONOMIC_DATA_DETAIL, new MoveToEconomicDataDetailActivityHandler());
-        hmProcessor.put(ServiceFunction.SRV_MOVE_TO_MASTER_DETAIL, new MoveToMasterDetailActivityHandler());
-        hmProcessor.put(ServiceFunction.SRV_MOVE_TO_CONTACT_US, new MoveToContactUsActivityHandler());
-        hmProcessor.put(ServiceFunction.SRV_MOVE_TO_NEWS_DETAIL, new MoveToNewsDetailActivityHandler());
         hmProcessor.put(ServiceFunction.SRV_FINISH_ACTIVITY, new  FinishActivityProcessor());
-        hmProcessor.put(ServiceFunction.SRV_MOVE_TO_HOUR_PRODUCT, new MoveToHourProductActivityHandler());
-        hmProcessor.put(ServiceFunction.SRV_MOVE_TO_HOUR_PRODUCT_DETAIL, new MoveToHourProductDetailActivityHandler());
-        hmProcessor.put(ServiceFunction.SRV_MOVE_TO_TERMS, new MoveToTermsActivityHandler());
-        hmProcessor.put(ServiceFunction.SRV_SHOW_ACC_INFO, new ShowAccountInformationHandler());
-        hmProcessor.put(ServiceFunction.SRV_CASH_MOVEMENT, new MoveToCashMovementProcessor());
-        hmProcessor.put(ServiceFunction.SRV_CASH_MOVEMENT_HISTORY, new MoveToCashMovementHistoryProcessor());
-        hmProcessor.put(ServiceFunction.SRV_SEND_CASH_MOVEMENT_HISTORY_REQUEST, new CashMovementHistoryRequestProcessor());
-        hmProcessor.put(ServiceFunction.SRV_SEND_CASH_MOVEMENT_REQUEST, new CashMovementRequestProcessor());
-        hmProcessor.put(ServiceFunction.SRV_SEND_BANK_INFO_REQUEST, new BankInfoRequestProcessor());
-        hmProcessor.put(ServiceFunction.SRV_REPORT_ERROR, new ReportErrorProcessor());
-        hmProcessor.put(ServiceFunction.SRV_DEAL_INPUT_FRAME_OPEN_CLOSE, new SendDealFrameOpenCloseProcessor());
-        hmProcessor.put(ServiceFunction.SRV_MOVE_TO_DEMO_REGISTRATION, new MoveToDemoRegistrationProcessor());
-        hmProcessor.put(ServiceFunction.SRV_MOVE_TO_LOST_PASSWORD, new MoveToLostPasswordProcessor());
-        hmProcessor.put(ServiceFunction.SRV_MOVE_TO_IDENTITY_CHECK, new MoveToIdentityCheckProcessor());
-        hmProcessor.put(ServiceFunction.SRV_SEND_COMPANY_INFO_REQUEST, new CompanyInfoRequestProcessor());
-        hmProcessor.put(ServiceFunction.SRV_CUST_LIST, new MoveToCustListProcessor());
-        hmProcessor.put(ServiceFunction.SRV_TWO_FA, new MoveToTwoFAProcessor());
         hmProcessor.put(ServiceFunction.SRV_CHANGE_PASSWORD, new MoveToChangePasswordProcessor());
         hmProcessor.put(ServiceFunction.SRV_SEND_CHANGE_PASSWORD_REQUEST, new ChangePasswordRequestProcessor());
-        hmProcessor.put(ServiceFunction.SRV_CONTRACT_SORT, new MoveToContractSortProcessor());
-        hmProcessor.put(ServiceFunction.SRV_ANNOUNCEMENT, new MoveToAnnouncementProcessor());
-        hmProcessor.put(ServiceFunction.SRV_NEWS, new MoveToNewsProcessor());
-        hmProcessor.put(ServiceFunction.SRV_ECONOMIC, new MoveToEconomicProcessor());
-        hmProcessor.put(ServiceFunction.SRV_CONTACTUS, new MoveToContactUsProcessor());
-        hmProcessor.put(ServiceFunction.SRV_TERMSNCONDITION, new MoveToTermsNConditionProcessor());
-        hmProcessor.put(ServiceFunction.SRV_LIQUIDATE_ALL, new LiquidateAllProcessor());
         hmProcessor.put(ServiceFunction.SRV_WEB_VIEW, new EchoProcessor());
         hmProcessor.put(ServiceFunction.SRV_GUEST_PRICE_AGENT, new PriceAgentConnectionProcessor(new MainThreadExecutor(), true));
-        hmProcessor.put(ServiceFunction.SRV_PRICE_ALERT, new MoveToPriceAlertProcessor());
-        hmProcessor.put(ServiceFunction.SRV_PRICE_ALERT_HISTORY, new MoveToPriceAlertHistoryProcessor());
-        hmProcessor.put(ServiceFunction.SRV_PRICE_ALERT_UPDATE, new PriceAlertRequestProcessor());
-        hmProcessor.put(ServiceFunction.SRV_NEW_PRICE_ALERT, new MoveToNewPriceAlertProcessor());
+        hmProcessor.put(ServiceFunction.SRV_RESET_PASSWORD, new ResetPasswordRequestProcessor());
+
+        hmProcessor.put(ServiceFunction.SRV_DEFAULT_LOGIN_PAGE, new MoveToDefaultLoginPageProcessor());
 
         hmServerMessageHandler.put(IDDictionary.TRADER_SYSTEM_TYPE + "|" + IDDictionary.TRADER_SHOW_SYSTEM_MSG, new SystemMessageHandler(this));
-        hmServerMessageHandler.put(IDDictionary.TRADER_SYSTEM_TYPE + "|" + IDDictionary.TRADER_SHOW_MARGIN_MSG, new MarginMessageHandler(this));
 //		hmServerMessageHandler.put(IDDictionary.TRADER_SYSTEM_TYPE +"|"+IDDictionary.TRADER_DISCONNECT_ACCOUNT, new LogoutMessageHandler(this));
         hmServerMessageHandler.put(IDDictionary.TRADER_LOGIN_SERVICE_TYPE + "|" + IDDictionary.TRADER_REQUEST_LOGIN_RETURN, new LoginMessageHandler(this));
-        hmServerMessageHandler.put(IDDictionary.TRADER_IO_SERVICE_TYPE + "|" + IDDictionary.TRADER_RECEIVE_BUY_SELL_STRENGTH_PRICE_ADJUST_SETTINGS, new BuySellStrengthMessageHandler(this));
-
-        hmServerMessageHandler.put(IDDictionary.TRADER_LIVE_PRICE_TYPE + "|" + IDDictionary.TRADER_UPDATE_LIVE_PRICE, new ContractUpdateMessageHandler(this));
-        hmServerMessageHandler.put(IDDictionary.TRADER_LIVE_PRICE_TYPE + "|" + IDDictionary.TRADER_UPDATE_LIVE_PRICE_WITH_DEPTH, new ContractUpdateMessageHandler(this));
-        hmServerMessageHandler.put(IDDictionary.TRADER_LIVE_PRICE_TYPE + "|" + IDDictionary.TRADER_UPDATE_PRICE_SPREAD, new ContractSpreadUpdateMessageHandler(this));
-        if (!CompanySettings.ENABLE_FATCH_REPORT_GROUP_OTX)
-            hmServerMessageHandler.put(IDDictionary.TRADER_LIVE_PRICE_TYPE + "|" + IDDictionary.TRADER_UPDATE_STREAM_PRICE, new ContractUpdateMessageHandler(this));
-        else
-            hmServerMessageHandler.put(IDDictionary.TRADER_LIVE_PRICE_TYPE + "|" + IDDictionary.TRADER_UPDATE_REPORT_GROUP_CONTRACT_SETTING, new ReportGroupContractSettingUpdateMessageHandler(this));
-        hmServerMessageHandler.put(IDDictionary.TRADER_LIVE_PRICE_TYPE + "|" + IDDictionary.TRADER_UPDATE_HIGH_LOW, new ContractHighLowUpdateMessageHandler(this));
-        hmServerMessageHandler.put(IDDictionary.TRADER_ACCOUNT_INFO_TYPE + "|" + IDDictionary.TRADER_UPDATE_ACCOUNT_INFO, new BalanceUpdateMessageHandler(this));
-        hmServerMessageHandler.put(IDDictionary.TRADER_HISTORY_LIST_TYPE + "|" + IDDictionary.TRADER_TRADES_OPEN_DEAL, new OpenPositionMessageHandler(this));
-        hmServerMessageHandler.put(IDDictionary.TRADER_HISTORY_LIST_TYPE + "|" + IDDictionary.TRADER_WORKING_ORDER_HISTORY, new RunningOrderMessageHandler(this));
-        hmServerMessageHandler.put(IDDictionary.TRADER_HISTORY_LIST_TYPE + "|" + IDDictionary.TRADER_EXECUTE_ORDER_HISTORY, new ExecutedOrderMessageHandler(this));
-        hmServerMessageHandler.put(IDDictionary.TRADER_HISTORY_LIST_TYPE + "|" + IDDictionary.TRADER_CANCEL_ORDER_HISTORY, new CancelledOrderMessageHandler(this));
-        hmServerMessageHandler.put(IDDictionary.TRADER_HISTORY_LIST_TYPE + "|" + IDDictionary.TRADER_TRADES_LIQUIDATION, new LiquidationHistoryMessageHandler(this));
-
-        hmServerMessageHandler.put(IDDictionary.TRADER_DEAL_SERVICE_TYPE + "|" + IDDictionary.TRADER_REQUEST_DEAL_RETURN, new TransactionMessageHandler(this));
         hmServerMessageHandler.put(IDDictionary.TRADER_ORDER_SERVICE_TYPE + "|" + IDDictionary.TRADER_REQUEST_ORDER_RETURN, hmServerMessageHandler.get(IDDictionary.TRADER_DEAL_SERVICE_TYPE + "|" + IDDictionary.TRADER_REQUEST_DEAL_RETURN));
-
-        hmServerMessageHandler.put(IDDictionary.TRADER_DEAL_SERVICE_TYPE + "|" + IDDictionary.TRADER_RECEIVE_DEALER_ESTABLISH_DEAL, new TransactionTakupMessageHandler(this));
         hmServerMessageHandler.put(IDDictionary.TRADER_ORDER_SERVICE_TYPE + "|" + IDDictionary.TRADER_RECEIVE_DEALER_ESTABLISH_ORDER, hmServerMessageHandler.get(IDDictionary.TRADER_DEAL_SERVICE_TYPE + "|" + IDDictionary.TRADER_RECEIVE_DEALER_ESTABLISH_DEAL));
-
-        hmServerMessageHandler.put(IDDictionary.TRADER_DEAL_SERVICE_TYPE + "|" + IDDictionary.TRADER_RECEIVE_DEAL_MSG, new TransactionResultMessageHandler(this));
         hmServerMessageHandler.put(IDDictionary.TRADER_ORDER_SERVICE_TYPE + "|" + IDDictionary.TRADER_RECEIVE_ORDER_MSG, hmServerMessageHandler.get(IDDictionary.TRADER_DEAL_SERVICE_TYPE + "|" + IDDictionary.TRADER_RECEIVE_DEAL_MSG));
 
-        hmServerMessageHandler.put(IDDictionary.TRADER_WITHDRAWAL_LIST_TYPE + "|" + IDDictionary.TRADER_WITHDRAWAL_HISTORY, new CashMovementHistoryMessageHandler(this));
-        hmServerMessageHandler.put(IDDictionary.TRADER_BANK_INFORMATION_TYPE + "|" + IDDictionary.TRADER_BANK_INFORMATION, new BankInfoMessageHandler(this));
-        hmServerMessageHandler.put(IDDictionary.TRADER_COMPANY_INFORMATION_TYPE + "|" + IDDictionary.TRADER_COMPANY_INFORMATION, new CompanyInfoMessageHandler(this));
-
         hmServerMessageHandler.put(IDDictionary.TRADER_LIVE_PRICE_TYPE + "|" + IDDictionary.TRADER_UPDATE_LIVE_PRICE_WITH_PRICE_AGENT_CONNECTION, new PriceAgentContractUpdateMessageHandler(this));
-        hmServerMessageHandler.put(IDDictionary.TRADER_SYSTEM_TYPE + "|" + IDDictionary.TRADER_SHOW_ALERT_MSG, new SystemAlertMessageHandler(this));
-        hmServerMessageHandler.put(IDDictionary.TRADER_DEAL_SERVICE_TYPE + "|" + IDDictionary.TRADER_RECEIVE_MULTIPLE_LIQUIDATE_RETURN, new LiquidationMessageHandler(this));
-        hmServerMessageHandler.put(IDDictionary.TRADER_NEWS_LIST_TYPE + "|" + IDDictionary.TRADER_NEWS_HISTORY, new NewsMessageHandler(this));
-
-        hmServerMessageHandler.put(IDDictionary.TRADER_PRICE_ALERT_TYPE + "|" + IDDictionary.TRADER_RECEIVE_PRICE_ALERTS, new PriceAlertReceiveMessageHandler(this));
-        hmServerMessageHandler.put(IDDictionary.TRADER_PRICE_ALERT_TYPE + "|" + IDDictionary.TRADER_UPDATE_PRICE_ALERTS, new PriceAlertReceiveMessageHandler(this));
-        hmServerMessageHandler.put(IDDictionary.TRADER_PRICE_ALERT_TYPE + "|" + IDDictionary.TRADER_REMOVE_PRICE_ALERTS, new PriceAlertReceiveMessageHandler(this));
-        hmServerMessageHandler.put(IDDictionary.TRADER_PRICE_ALERT_TYPE + "|" + IDDictionary.TRADER_ALERT_PRICE_ALERTS, new PriceAlertReceiveMessageHandler(this));
 
         hmServerMessageHandler.put(IDDictionary.TRADER_PRICE_ALERT_TYPE + "|" + IDDictionary.TRADER_PUSH_PRICE_ALERTS, new PriceAgentPushNotificationHandler(this));
+        hmServerMessageHandler.put(IDDictionary.TRADER_IO_SERVICE_TYPE + "|" + IDDictionary.TRADER_REQUEST_CHANGE_PASSWORD_RETURN, new ResetPasswordMessageHandler(this));
 
         hmServerMessageHandler.put("9|0", new HeartBeatMessageHandler(this));
 
@@ -1087,15 +828,12 @@ public class FxMobileTraderService extends Service implements ConnectionStatusLi
      */
     public void startConnection(String strURL, int iPort) throws Exception {
         startResponseHandler();
-        if (!CompanySettings.ENABLE_FATCH_REPORT_GROUP_OTX) {
-            // Previous connection close, do not need to notify upward!
-            if (connection != null) {
-                connection.connectionStatusListener = null;
-                connection.closeConnection();
-            }
-            connection = new ServerConnection(strURL, iPort, responseHandler, lbqMessage, this);
-        } else
-            connection = new OTXServerConnection(strURL, iPort, responseHandler, lbqMessage, this);
+        // Previous connection close, do not need to notify upward!
+        if (connection != null) {
+            connection.connectionStatusListener = null;
+            connection.closeConnection();
+        }
+        connection = new ServerConnection(strURL, iPort, responseHandler, lbqMessage, this);
     }
 
     /**
@@ -1120,10 +858,11 @@ public class FxMobileTraderService extends Service implements ConnectionStatusLi
             app.isLoading = false;
             Message msg = Message.obtain(handler, ServiceFunction.SRV_DISCONNECT);
             handler.handleMessage(msg);
-        } else {
-            if (!CompanySettings.SHOW_DASHBOARD_BEFORE_LOGIN)
-                broadcast(ServiceFunction.ACT_GO_TO_LOGIN, null);
         }
+//        else {
+//            if (!CompanySettings.SHOW_DASHBOARD_BEFORE_LOGIN)
+//                broadcast(ServiceFunction.ACT_GO_TO_LOGIN, null);
+//        }
     }
 
     @Override
@@ -1339,29 +1078,29 @@ public class FxMobileTraderService extends Service implements ConnectionStatusLi
         }
 
         XMLTimerTask xmlTask = new XMLTimerTask(false);
-        for (ArrayList<DashboardItem> dal : DashboardItemRespository.alItem) {
-            for (DashboardItem item : dal) {
-                if (item.iService == ServiceFunction.SRV_MOVE_TO_NEWS_CONTENT_LIST)
-                    xmlTask.addDAO(newsContentDAO);
-                if (item.iService == ServiceFunction.SRV_MOVE_TO_COMPANY_PROFILE)
-                    xmlTask.addDAO(companyProfileDAO);
-                if (item.iService == ServiceFunction.SRV_MOVE_TO_ECONOMIC_DATA_LIST)
-                    xmlTask.addDAO(ecoDataDAO);
-                if (item.iService == ServiceFunction.SRV_MOVE_TO_STRATEGY_LIST)
-                    xmlTask.addDAO(strategyAO);
-                if (item.iService == ServiceFunction.SRV_MOVE_TO_MASTER_LIST)
-                    xmlTask.addDAO(masterDAO);
-                if (item.iService == ServiceFunction.SRV_MOVE_TO_CONTACT_US)
-                    xmlTask.addDAO(contactUsDao);
-                if (item.iService == ServiceFunction.SRV_MOVE_TO_TERMS)
-                    xmlTask.addDAO(otherDAO);
-                if (item.iService == ServiceFunction.SRV_MOVE_TO_NEWS_LIST)
-                    xmlTask.addDAO(newsDAO);
-                if (item.iService == ServiceFunction.SRV_MOVE_TO_HOUR_PRODUCT)
-                    xmlTask.addDAO(hourProductDao);
-
-            }
-        }
+//        for (ArrayList<DashboardItem> dal : DashboardItemRespository.alItem) {
+//            for (DashboardItem item : dal) {
+//                if (item.iService == ServiceFunction.SRV_MOVE_TO_NEWS_CONTENT_LIST)
+//                    xmlTask.addDAO(newsContentDAO);
+//                if (item.iService == ServiceFunction.SRV_MOVE_TO_COMPANY_PROFILE)
+//                    xmlTask.addDAO(companyProfileDAO);
+//                if (item.iService == ServiceFunction.SRV_MOVE_TO_ECONOMIC_DATA_LIST)
+//                    xmlTask.addDAO(ecoDataDAO);
+//                if (item.iService == ServiceFunction.SRV_MOVE_TO_STRATEGY_LIST)
+//                    xmlTask.addDAO(strategyAO);
+//                if (item.iService == ServiceFunction.SRV_MOVE_TO_MASTER_LIST)
+//                    xmlTask.addDAO(masterDAO);
+//                if (item.iService == ServiceFunction.SRV_MOVE_TO_CONTACT_US)
+//                    xmlTask.addDAO(contactUsDao);
+//                if (item.iService == ServiceFunction.SRV_MOVE_TO_TERMS)
+//                    xmlTask.addDAO(otherDAO);
+//                if (item.iService == ServiceFunction.SRV_MOVE_TO_NEWS_LIST)
+//                    xmlTask.addDAO(newsDAO);
+//                if (item.iService == ServiceFunction.SRV_MOVE_TO_HOUR_PRODUCT)
+//                    xmlTask.addDAO(hourProductDao);
+//
+//            }
+//        }
 
         xmlTimer = new Timer();
         xmlTimer.schedule(xmlTask, 60 * 1000, app.getDefaultRefreshGeneralInfo() * 60 * 1000);
@@ -1423,28 +1162,28 @@ public class FxMobileTraderService extends Service implements ConnectionStatusLi
         }
 
         XMLTimerTask xmlTask = new XMLTimerTask(false);
-        for (ArrayList<DashboardItem> dal : DashboardItemRespository.alItem) {
-            for (DashboardItem item : dal) {
-                if (item.iService == ServiceFunction.SRV_MOVE_TO_NEWS_CONTENT_LIST)
-                    xmlTask.addDAO(newsContentDAO);
-                if (item.iService == ServiceFunction.SRV_MOVE_TO_COMPANY_PROFILE)
-                    xmlTask.addDAO(companyProfileDAO);
-                if (item.iService == ServiceFunction.SRV_MOVE_TO_ECONOMIC_DATA_LIST)
-                    xmlTask.addDAO(ecoDataDAO);
-                if (item.iService == ServiceFunction.SRV_MOVE_TO_STRATEGY_LIST)
-                    xmlTask.addDAO(strategyAO);
-                if (item.iService == ServiceFunction.SRV_MOVE_TO_MASTER_LIST && CompanySettings.ENABLE_WEBVIEW_MASTER == false)
-                    xmlTask.addDAO(masterDAO);
-                if (item.iService == ServiceFunction.SRV_MOVE_TO_CONTACT_US && CompanySettings.ENABLE_WEBVIEW_CONTACT_US == false)
-                    xmlTask.addDAO(contactUsDao);
-                if (item.iService == ServiceFunction.SRV_MOVE_TO_TERMS)
-                    xmlTask.addDAO(otherDAO);
-                if (item.iService == ServiceFunction.SRV_MOVE_TO_NEWS_LIST)
-                    xmlTask.addDAO(newsDAO);
-                if (item.iService == ServiceFunction.SRV_MOVE_TO_HOUR_PRODUCT)
-                    xmlTask.addDAO(hourProductDao);
-            }
-        }
+//        for (ArrayList<DashboardItem> dal : DashboardItemRespository.alItem) {
+//            for (DashboardItem item : dal) {
+//                if (item.iService == ServiceFunction.SRV_MOVE_TO_NEWS_CONTENT_LIST)
+//                    xmlTask.addDAO(newsContentDAO);
+//                if (item.iService == ServiceFunction.SRV_MOVE_TO_COMPANY_PROFILE)
+//                    xmlTask.addDAO(companyProfileDAO);
+//                if (item.iService == ServiceFunction.SRV_MOVE_TO_ECONOMIC_DATA_LIST)
+//                    xmlTask.addDAO(ecoDataDAO);
+//                if (item.iService == ServiceFunction.SRV_MOVE_TO_STRATEGY_LIST)
+//                    xmlTask.addDAO(strategyAO);
+//                if (item.iService == ServiceFunction.SRV_MOVE_TO_MASTER_LIST && CompanySettings.ENABLE_WEBVIEW_MASTER == false)
+//                    xmlTask.addDAO(masterDAO);
+//                if (item.iService == ServiceFunction.SRV_MOVE_TO_CONTACT_US && CompanySettings.ENABLE_WEBVIEW_CONTACT_US == false)
+//                    xmlTask.addDAO(contactUsDao);
+//                if (item.iService == ServiceFunction.SRV_MOVE_TO_TERMS)
+//                    xmlTask.addDAO(otherDAO);
+//                if (item.iService == ServiceFunction.SRV_MOVE_TO_NEWS_LIST)
+//                    xmlTask.addDAO(newsDAO);
+//                if (item.iService == ServiceFunction.SRV_MOVE_TO_HOUR_PRODUCT)
+//                    xmlTask.addDAO(hourProductDao);
+//            }
+//        }
 
 
         if (CompanySettings.ENABLE_CONTENT && CompanySettings.newinterface) {

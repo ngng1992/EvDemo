@@ -22,7 +22,7 @@ public class LoginUtils {
         WechatUtils.initWechat(activity);
         QQLoginUtils.initQQ(activity);
         FacebookLoginUtils.initFB();
-        SinaLoginUtils.initSina(activity);
+        //SinaLoginUtils.initSina(activity);
     }
 
     public static void startLogin(Activity activity, Platform sharePlat, final OnLoginListener onLoginListener) {

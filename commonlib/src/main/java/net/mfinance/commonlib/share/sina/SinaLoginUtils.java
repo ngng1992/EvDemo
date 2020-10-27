@@ -69,7 +69,7 @@ public class SinaLoginUtils {
                                                 if (gender.equals("n")) {
                                                     gender = LoginBean.SEX_MALE;
                                                 }
-                                                LoginBean loginBean = new LoginBean(uid,
+                                                LoginBean loginBean = new LoginBean(Utils.LoginOAuthType.SINA, uid,
                                                         screen_name, gender.toUpperCase(), avatar_large);
                                                 onLoginListener.onLogin(loginBean);
                                             } catch (JSONException e) {
