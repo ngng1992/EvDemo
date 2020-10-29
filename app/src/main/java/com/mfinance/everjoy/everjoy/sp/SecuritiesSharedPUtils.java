@@ -20,7 +20,7 @@ public class SecuritiesSharedPUtils {
     /**
      * 调用保存方法时，必须先调用init
      */
-    public static SPUtils newInstance() {
+    public static SPUtils getSPUtils() {
         if (SPUTILS == null) {
             SPUTILS = SPUtils.getInstance("sp_securities");
         }

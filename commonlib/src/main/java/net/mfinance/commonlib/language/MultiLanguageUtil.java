@@ -68,7 +68,7 @@ public class MultiLanguageUtil {
     }
 
     /**
-     * 如果不是英文、简体中文、繁体中文，默认返回简体中文
+     * 如果不是英文、简体中文、繁体中文，默认返回英文
      */
     private Locale getLanguageLocale() {
         int languageType = CommSharedUtil.getInstance(mContext).getInt(MultiLanguageUtil.SAVE_LANGUAGE, LanguageType.LANGUAGE_FOLLOW_SYSTEM);
@@ -82,12 +82,13 @@ public class MultiLanguageUtil {
             return Locale.TRADITIONAL_CHINESE;
         }
         getSystemLanguage(getSysLocale());
-        Log.e(TAG, "getLanguageLocale" + languageType + languageType);
-        return Locale.SIMPLIFIED_CHINESE;
+        Log.e(TAG, "getLanguageLocale = " + languageType);
+        return Locale.ENGLISH;
     }
 
     private String getSystemLanguage(Locale locale) {
-        return locale.getLanguage() + "btn_pause" + locale.getCountry();
+//        return locale.getLanguage() + "btn_pause" + locale.getCountry();
+        return locale.getLanguage() + locale.getCountry();
 
     }
 

@@ -8,9 +8,22 @@ public class BaseBean {
     /**
      * 以下是成功时，返回的信息
      * 设置默认值，0成功
+     *
+     * Status: 0 - OK, -1 - Internal Error, -2 - OTP not requested, -3 - OTP incorrect
      */
     private int code;
     private String message;
+
+    // 接收其余数据
+    private String data;
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
 
     public int getCode() {
         return code;

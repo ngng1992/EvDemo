@@ -1,3 +1,22 @@
+
+文档地址
+
+    http://ejconfluence.m-finance.net/display/EJ/Web+Services
+    
+    https://srcsvn.m-finance.net/svn/mF/_CustomerImage/Everjoy/desktop-preview
+    
+    http://ejconfluence.m-finance.net/pages/viewpage.action?pageId=1048588
+
+Weibo
+App Key：1736060757
+App Secret：bf264786dc4d9d1ef1d32fb1fc0c3992
+
+Twitter
+API key: 1TD1MKyHcf6sUbg4201vzZzrZ
+API key secret: ymqYcbmFvzhLPvI9wyowsdPAiohkFaCYVwfA17LWdsL6glPUfL
+Bearer token: AAAAAAAAAAAAAAAAAAAAAM%2BpJAEAAAAA7lXNhs9Zxdp%2F2utZR9KCtBg6XUw%3DKg6vU4izHukatq3ULDOZbGEtns8sN1w
+
+
 companySetting loginInfoTest 換成"202.155.229.105", 15100
 jimmy.xiao@m-finance.net mF123456
 
@@ -52,7 +71,8 @@ everjoy.android.test
 mF123456
 
 Android and iOS:
-<https://srcsvn.m-finance.net/svn/mF/_CustomerImage/Everjoy/mobile>
+
+    https://srcsvn.m-finance.net/svn/mF/_CustomerImage/Everjoy/mobile
 
 ## 第三方平台
 
@@ -86,15 +106,6 @@ Instagram
       密码：hkfinance
 
         AppID：wx12cc7dcb43d518c2
-
-
-SVN项目地址：
-
-    svn：http://zhaochegou.com/svn/repos/car_android/trunk/CCar
-    
-    账号：
-        jimmy
-        OAjCCjim12966
 
 ## 第三方库
 

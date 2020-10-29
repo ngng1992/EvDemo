@@ -286,6 +286,20 @@
         </activity>
 
         <activity
+            android:name=".everjoy.ui.mine.securities.DepositFundsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+
+        <activity
+            android:name=".everjoy.ui.mine.securities.FundsModeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+
+        <activity
             android:name=".everjoy.ui.mine.securities.ChequeDeopsitActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">

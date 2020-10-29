@@ -120,7 +120,7 @@ public class NewAddBankActivity extends BaseViewActivity {
                 showCamera();
                 break;
             case R.id.tv_start:
-                ToastUtils.showToast(this, "添加银行卡");
+                startActivity(new Intent(this, DepositFundsActivity.class));
                 break;
             default:
                 break;

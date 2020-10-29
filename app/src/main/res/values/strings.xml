@@ -738,6 +738,7 @@
     <string name="arsp_input_pwd">请输入密码</string>
     <string name="arsp_define_pwd">确认密码</string>
     <string name="arsp_input_define_pwd">请输入确认密码</string>
+    <string name="arsp_new_define_pwd">登陆密码与确认登陆密码必须相同</string>
 
     <string name="aua_agreement_title">大圣取金用户协议</string>
     <string name="aua_agreement_user">尊敬的用户：</string>
@@ -993,6 +994,21 @@
     <string name="anab_bank_username">账户姓名</string>
     <string name="anab_input_bank_username">请输入账户姓名</string>
     <string name="anab_bank_type">账户类型</string>
+
+    <string name="adf_title">存入资金</string>
+    <string name="adf_title_desc">选择需要存入的币种</string>
+    <string name="adf_hkd">存入港币</string>
+    <string name="adf_usd">存入美元</string>
+    <string name="adf_cny">存入离岸人民币</string>
+
+    <string name="afm_title">存入方式</string>
+    <string name="afm_bank">存入银行</string>
+
+
+    <string name="toast_server_unusual">连接异常</string>
+    <string name="toast_net_unusual">网络异常</string>
+
+
 
 
 

@@ -24,7 +24,7 @@ import com.mfinance.everjoy.app.CompanySettings;
 import com.mfinance.everjoy.app.MobileTraderApplication;
 import com.mfinance.everjoy.app.util.AppLauncherLib;
 import com.mfinance.everjoy.app.util.Utility;
-import com.mfinance.everjoy.everjoy.config.Contants;
+import com.mfinance.everjoy.everjoy.config.Constants;
 
 import net.mfinance.commonlib.toast.ToastUtils;
 
@@ -223,8 +223,8 @@ public class ToolsUtils {
         if (CompanySettings.FOR_TEST && !CompanySettings.CHECK_APPLAUNCHER_IN_TEST)
             return true;
 
-        boolean appLaucherURL1OK = isServerAvailable(Contants.APP_LAUNCHER_URL_DOMAIN_1, 2083);
-        boolean appLaucherURL2OK = isServerAvailable(Contants.APP_LAUNCHER_URL_DOMAIN_2, 2083);
+        boolean appLaucherURL1OK = isServerAvailable(Constants.APP_LAUNCHER_URL_DOMAIN_1, 2083);
+        boolean appLaucherURL2OK = isServerAvailable(Constants.APP_LAUNCHER_URL_DOMAIN_2, 2083);
 
         String result_demo = "";
         String result_prod = "";
@@ -749,7 +749,7 @@ public class ToolsUtils {
      * <p>
      * 参考：https://www.jianshu.com/p/3222ac7921cc
      */
-    private static boolean verfiPwd(String pwd) {
+    public static boolean verfiPwd(String pwd) {
         String reg = "/(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[\\W_]).{8,16}/";
         return RegexUtils.isMatch(reg, pwd);
     }

@@ -2,20 +2,18 @@ package com.mfinance.everjoy.everjoy.ui.mine;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.mfinance.everjoy.R;
 import com.mfinance.everjoy.everjoy.base.BaseViewActivity;
-import com.mfinance.everjoy.everjoy.config.Contants;
+import com.mfinance.everjoy.everjoy.config.Constants;
 import com.mfinance.everjoy.everjoy.sp.UserSharedPUtils;
 import com.mfinance.everjoy.everjoy.ui.home.MainActivity;
 
 import net.mfinance.commonlib.timer.CountDownHelper;
 import net.mfinance.commonlib.timer.OnTimerCallBack;
-import net.mfinance.commonlib.toast.ToastUtils;
 import net.mfinance.commonlib.view.StringTextView;
 import net.mfinance.commonlib.view.VerificationCodeInput;
 
@@ -42,14 +40,14 @@ public class LoginVerificationActivity extends BaseViewActivity {
      */
     public static void startLoginVerificationActivity(Activity activity, String email) {
         Intent intent = new Intent(activity, LoginVerificationActivity.class);
-        intent.putExtra(Contants.EMAIL, email);
+        intent.putExtra(Constants.EMAIL, email);
         activity.startActivity(intent);
     }
 
     public static void startLoginVerificationActivityWithForgetPwd(Activity activity, String email, boolean isForgetPwd) {
         Intent intent = new Intent(activity, LoginVerificationActivity.class);
-        intent.putExtra(Contants.EMAIL, email);
-        intent.putExtra(Contants.IS_FORGET_PWD, isForgetPwd);
+        intent.putExtra(Constants.EMAIL, email);
+        intent.putExtra(Constants.IS_FORGET_PWD, isForgetPwd);
         activity.startActivity(intent);
     }
 
@@ -83,8 +81,8 @@ public class LoginVerificationActivity extends BaseViewActivity {
     @Override
     protected void initView(View currentView) {
         Intent intent = getIntent();
-        email = intent.getStringExtra(Contants.EMAIL);
-        isForgetPwd = intent.getBooleanExtra(Contants.IS_FORGET_PWD, false);
+        email = intent.getStringExtra(Constants.EMAIL);
+        isForgetPwd = intent.getBooleanExtra(Constants.IS_FORGET_PWD, false);
         if (isForgetPwd) {
             tvSubmit.setText(R.string.str_submit);
         }

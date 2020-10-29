@@ -247,7 +247,7 @@ public class SecuritiesAccountContactActivity extends BaseViewActivity {
             case R.id.tv_next:
                 // 非香港人一律录制2s视频，是香港人只需拍摄证件
 //                RecordVideoActivity.startRecordVideoActivity(this, Contents.CARD_CH_TYPE);
-                UploadCardActivity.startUploadCardActivity(this, Contents.CARD_HK_TYPE);
+                UploadCardActivity.startUploadCardActivity(this, Contents.CARD_CH_TYPE);
                 break;
             default:
                 break;

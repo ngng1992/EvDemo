@@ -10,7 +10,11 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.RegexUtils;
 import com.mfinance.everjoy.R;
-import com.mfinance.everjoy.everjoy.base.BaseViewActivity;
+import com.mfinance.everjoy.everjoy.bean.base.BaseBean;
+import com.mfinance.everjoy.everjoy.ui.mvp.base.BaseMvpViewActivity;
+import com.mfinance.everjoy.everjoy.ui.mvp.presenter.EmailRegisterPresenter;
+import com.mfinance.everjoy.everjoy.ui.mvp.view.EmailRegisterView;
+import com.mfinance.everjoy.everjoy.utils.ToolsUtils;
 
 import net.mfinance.commonlib.timer.CountDownHelper;
 import net.mfinance.commonlib.timer.OnTimerCallBack;
@@ -22,7 +26,8 @@ import butterknife.OnClick;
 /**
  * 邮箱注册
  */
-public class EmailRegisterActivity extends BaseViewActivity {
+public class EmailRegisterActivity extends BaseMvpViewActivity<EmailRegisterView, EmailRegisterPresenter>
+        implements EmailRegisterView {
 
 
     @BindView(R.id.et_email)
@@ -107,28 +112,28 @@ public class EmailRegisterActivity extends BaseViewActivity {
     }
 
     private void registerAccount() {
-//        String email = etEmail.getText().toString();
-//        if (TextUtils.isEmpty(email)) {
-//            ToastUtils.showToast(this, R.string.toast_input_email);
-//            return;
-//        }
-//
-//        if (!RegexUtils.isEmail(email)) {
-//            ToastUtils.showToast(this, R.string.str_email_rule_error);
-//            return;
-//        }
-//
-//        String code = etCode.getText().toString();
-//        if (TextUtils.isEmpty(code)) {
-//            ToastUtils.showToast(this, R.string.toast_input_code);
-//            return;
-//        }
+        String email = etEmail.getText().toString();
+        if (TextUtils.isEmpty(email)) {
+            ToastUtils.showToast(this, R.string.toast_input_email);
+            return;
+        }
 
-        // TODO 校验验证码，注册成功后设置密码
-        startActivity(new Intent(this, RegisterSetPwdActivity.class));
+        if (!RegexUtils.isEmail(email)) {
+            ToastUtils.showToast(this, R.string.str_email_rule_error);
+            return;
+        }
+
+        String code = etCode.getText().toString();
+        if (TextUtils.isEmpty(code)) {
+            ToastUtils.showToast(this, R.string.toast_input_code);
+            return;
+        }
+        mPresenter.requestEmailCheckCode(email, code);
     }
 
-
+    /**
+     * 获取验证码
+     */
     private void getCode() {
         String email = etEmail.getText().toString();
         if (TextUtils.isEmpty(email)) {
@@ -139,8 +144,24 @@ public class EmailRegisterActivity extends BaseViewActivity {
             ToastUtils.showToast(this, R.string.str_email_rule_error);
             return;
         }
+        mPresenter.requestEmailCode(email);
+    }
 
-        // TODO 获取验证码后计时
+    @Override
+    protected EmailRegisterPresenter createPresenter() {
+        return new EmailRegisterPresenter(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (countDownHelper != null) {
+            countDownHelper.stopTimer();
+        }
+    }
+
+    @Override
+    public void onShowData(BaseBean data) {
         startTimer();
     }
 
@@ -165,12 +186,28 @@ public class EmailRegisterActivity extends BaseViewActivity {
         countDownHelper.startTimer();
     }
 
+    @Override
+    public void onShowError(String msg) {
+        ToastUtils.showToast(this, msg);
+    }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (countDownHelper != null) {
-            countDownHelper.stopTimer();
-        }
+    public void onShowLoading() {
+        showLoading();
+    }
+
+    @Override
+    public void onHideLoading() {
+        hideLoading();
+    }
+
+    @Override
+    public void onShowEmailCheckCode(BaseBean baseBean) {
+        startActivity(new Intent(this, RegisterSetPwdActivity.class));
+    }
+
+    @Override
+    public void onShowEmailCheckCodeError(String msg) {
+        ToastUtils.showToast(this, R.string.toast_code_error);
     }
 }

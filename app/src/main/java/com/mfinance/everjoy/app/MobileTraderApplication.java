@@ -27,8 +27,8 @@ import com.mfinance.everjoy.app.model.DataRepository;
 import com.mfinance.everjoy.app.util.ConnectionSelector;
 import com.mfinance.everjoy.app.util.PRNGFixes;
 import com.mfinance.everjoy.everjoy.network.okgo.OkGoInit;
-import com.mfinance.everjoy.everjoy.sp.AppSharedPUtils;
 import com.mfinance.everjoy.everjoy.sp.UserSharedPUtils;
+import com.mfinance.everjoy.everjoy.utils.LanguageSettingUtil;
 import com.mfinance.everjoy.hungkee.xml.Economicdata;
 import com.mfinance.everjoy.hungkee.xml.Hourproduct;
 import com.mfinance.everjoy.hungkee.xml.Master;
@@ -458,7 +458,7 @@ public class MobileTraderApplication extends Application {
         Utils.init(this);
         // sp
         UserSharedPUtils.init();
-        AppSharedPUtils.init();
+        LanguageSettingUtil.init(this);
     }
 
     /**
