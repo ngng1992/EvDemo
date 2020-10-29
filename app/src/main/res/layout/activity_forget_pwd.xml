@@ -52,18 +52,37 @@
 
 
     <EditText
+        android:id="@+id/et_acc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_tips"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_marginRight="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_16"
+        android:background="@null"
+        android:hint="@string/toast_input_acc"
+        android:inputType="textEmailAddress"
+        android:paddingBottom="@dimen/dp_8"
+        android:paddingTop="@dimen/dp_8"
+        android:textColor="@color/gray1e"
+        android:textColorHint="@color/gray99"
+        android:textSize="@dimen/sp_16">
+
+    </EditText>
+
+    <EditText
         android:id="@+id/et_email"
         android:layout_width="match_parent"
-        android:layout_below="@+id/tv_tips"
         android:layout_height="wrap_content"
+        android:layout_below="@id/et_acc"
         android:layout_marginLeft="@dimen/dp_16"
-        android:layout_marginTop="@dimen/dp_16"
         android:layout_marginRight="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_16"
         android:background="@null"
         android:hint="@string/toast_input_email"
         android:inputType="textEmailAddress"
-        android:paddingTop="@dimen/dp_8"
         android:paddingBottom="@dimen/dp_8"
+        android:paddingTop="@dimen/dp_8"
         android:textColor="@color/gray1e"
         android:textColorHint="@color/gray99"
         android:textSize="@dimen/sp_16">

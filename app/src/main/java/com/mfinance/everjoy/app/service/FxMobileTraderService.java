@@ -48,6 +48,7 @@ import com.mfinance.everjoy.app.service.internal.ChangePasswordRequestProcessor;
 import com.mfinance.everjoy.app.service.internal.DisconnectProcessor;
 import com.mfinance.everjoy.app.service.internal.EchoProcessor;
 import com.mfinance.everjoy.app.service.internal.FinishActivityProcessor;
+import com.mfinance.everjoy.app.service.internal.ForgotPasswordOTPRequestProcessor;
 import com.mfinance.everjoy.app.service.internal.LoginProcessor;
 import com.mfinance.everjoy.app.service.internal.LogoutProcessor;
 import com.mfinance.everjoy.app.service.internal.LogoutSecurityProcessor;
@@ -56,6 +57,7 @@ import com.mfinance.everjoy.app.service.internal.MoveToAndroidMarketProcessor;
 import com.mfinance.everjoy.app.service.internal.MoveToChangePasswordProcessor;
 import com.mfinance.everjoy.app.service.internal.MoveToCompanyProfileActivityHandler;
 import com.mfinance.everjoy.app.service.internal.MoveToDefaultLoginPageProcessor;
+import com.mfinance.everjoy.app.service.internal.MoveToForgotPasswordOTPActivityProcessor;
 import com.mfinance.everjoy.app.service.internal.MoveToLoginActivityProcessor;
 import com.mfinance.everjoy.app.service.internal.MoveToMainPageActivityProcessor;
 import com.mfinance.everjoy.app.service.internal.MoveToShowGoToAndroidMarketMessageProcessor;
@@ -82,16 +84,12 @@ import com.mfinance.everjoy.hungkee.xml.dao.OtherDao;
 import com.mfinance.everjoy.hungkee.xml.dao.RealTimePriceDao;
 import com.mfinance.everjoy.hungkee.xml.dao.StrategyDao;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.Timer;
@@ -247,6 +245,8 @@ public class FxMobileTraderService extends Service implements ConnectionStatusLi
         hmProcessor.put(ServiceFunction.SRV_MOVE_TO_MAIN_PAGE, new MoveToMainPageActivityProcessor());
         hmProcessor.put(ServiceFunction.SRV_DEFAULT_LOGIN_PAGE, new MoveToDefaultLoginPageProcessor());
         hmProcessor.put(ServiceFunction.SRV_LOGOUT_SECURITY, new LogoutSecurityProcessor());
+        hmProcessor.put(ServiceFunction.SRV_MOVE_TO_FORGOT_PASSWORD_OTP, new MoveToForgotPasswordOTPActivityProcessor());
+        hmProcessor.put(ServiceFunction.SRV_SEND_CHANGE_PASSWORD_OTP_REQUEST, new ForgotPasswordOTPRequestProcessor());
 
         hmServerMessageHandler.put(IDDictionary.TRADER_SYSTEM_TYPE + "|" + IDDictionary.TRADER_SHOW_SYSTEM_MSG, new SystemMessageHandler(this));
 //		hmServerMessageHandler.put(IDDictionary.TRADER_SYSTEM_TYPE +"|"+IDDictionary.TRADER_DISCONNECT_ACCOUNT, new LogoutMessageHandler(this));

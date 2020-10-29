@@ -207,8 +207,8 @@ public class LoginSecurityActivity extends BaseViewActivity {
         tvTitle.setText("Lv3");
         v_social_login.setVisibility(View.GONE);
 
-        etEmail.setText("TEST02");
-        etPwd.setText("hiswghskjdi");
+        etEmail.setText("");
+        etPwd.setText("");
     }
 
     @SuppressLint("InflateParams")
@@ -317,7 +317,11 @@ public class LoginSecurityActivity extends BaseViewActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_forget_pwd:
-                startActivity(new Intent(this, ForgetPwdActivity.class));
+                Bundle data = new Bundle();
+                data.putString(ServiceFunction.FORGETPASSWORD_TYPE, "3"); //Reset login type level "2"/"3"
+                Intent intent = new Intent(this, ForgetPwdActivity.class);
+                intent.putExtras(data);
+                startActivity(intent);
                 break;
             case R.id.tv_login:
                 View view1 = getCurrentFocus();

@@ -61,7 +61,7 @@ public class ResetPwdActivity extends BaseViewActivity {
     @Override
     protected void initView(View currentView) {
         Intent intent = getIntent();
-        type = intent.getStringExtra(ServiceFunction.RESET_PASSWORD_TYPE);
+        type = intent.getStringExtra(ServiceFunction.RESETPASSWORD_TYPE);
         // 在线咨询
         String verifMsg = getString(R.string.sec_acc_ui_contact);
         String target = verifMsg.substring(verifMsg.length() - 4);

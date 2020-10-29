@@ -133,7 +133,8 @@ public class LoginVerificationActivity extends BaseViewActivity {
 
                 // TODO 验证成功
                 if (isForgetPwd) {
-                    startActivity(new Intent(this, ResetPwdActivity.class));
+                    Runnable r = new moveToOTPResetPassword(code);
+                    (new Thread(r)).start();
                 }else {
 //                    // 首次登录，询问是否启用指纹识别
 //                    boolean loginFirstByEmail = UserSharedPUtils.isLoginFirstByEmail(email);
@@ -195,6 +196,42 @@ public class LoginVerificationActivity extends BaseViewActivity {
         }
     }
 
+    public class moveToOTPResetPassword implements Runnable {
+        private String otp;
+
+        public moveToOTPResetPassword() {
+        }
+
+        public moveToOTPResetPassword(String otp) {
+            this.otp = otp;
+        }
+
+        public void run() {
+            try {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (dialog == null)
+                            dialog = ProgressDialog.show(LoginVerificationActivity.this, "", res.getString(R.string.please_wait), true);
+                    }
+                });
+
+                DataRepository.getInstance().clear();
+                if (ToolsUtils.checkNetwork(app)) {
+                    Thread thread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            reset(prefix + "-" + otp);
+                        }
+                    });
+                    thread.start();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public class moveToOTPLogin implements Runnable {
         private String otp;
 
@@ -237,6 +274,19 @@ public class LoginVerificationActivity extends BaseViewActivity {
 
         loginMsg.getData().putString(ServiceFunction.LOGIN_LEVEL, "3.1");
         loginMsg.getData().putString(ServiceFunction.LOGIN_SEC_OTP, strOTP);
+        try {
+            mService.send(loginMsg);
+        } catch (RemoteException e) {
+            Log.e("login", "Unable to send login message", e.fillInStackTrace());
+        }
+    }
+
+    public void reset(String strOTP) {
+        Message loginMsg = Message.obtain(null, ServiceFunction.SRV_SEND_CHANGE_PASSWORD_OTP_REQUEST);
+        loginMsg.replyTo = mServiceMessengerHandler;
+
+        loginMsg.getData().putString(ServiceFunction.FORGETPASSWORD_EMAIL, email);
+        loginMsg.getData().putString(ServiceFunction.FORGETPASSWORD_OTP, strOTP);
         try {
             mService.send(loginMsg);
         } catch (RemoteException e) {

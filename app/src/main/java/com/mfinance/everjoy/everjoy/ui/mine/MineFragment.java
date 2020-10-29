@@ -97,16 +97,21 @@ public class MineFragment extends BaseViewFragment {
 
     @OnClick({R.id.iv_setting, R.id.tv_login, R.id.tv_register, R.id.tv_reset, R.id.tv_logout})
     public void onViewClicked(View view) {
+        String type = "1";
+        if (iApp.bLogon && !iApp.bSecurityLogon)
+            type = "2";
+        else if (iApp.bLogon && iApp.bSecurityLogon)
+            type = "3";
         switch (view.getId()) {
             case R.id.iv_setting:
                 Intent intent = new Intent(getContext(), ContactActivity.class);
                 startActivity(intent);
                 break;
             case R.id.tv_login:
-                if(!iApp.bLogon) { // Move to level 2 login
+                if(type.equals("1")) { // Move to level 2 login
                     intent = new Intent(getContext(), LoginActivity.class);
                     startActivity(intent);
-                }else if (iApp.bLogon && !iApp.bSecurityLogon) { //Move to level 3 login
+                }else if (type.equals("2")) { //Move to level 3 login
                     intent = new Intent(getContext(), LoginSecurityActivity.class);
                     startActivity(intent);
                 }
@@ -114,21 +119,15 @@ public class MineFragment extends BaseViewFragment {
             case R.id.tv_register:
                 break;
             case R.id.tv_logout:
-                if (iApp.bLogon && iApp.bSecurityLogon) { //Logout
+                if (type.equals("2"))
                     logout();
-                }
+                if (type.equals("3"))
+                    logoutSecurity();
                 break;
             case R.id.tv_reset:
-                String type = "";
-                if(iApp.bLogon && !iApp.bSecurityLogon) { // Move to level 2 Reset
-                    type = "2";
-                }else if (iApp.bLogon && iApp.bSecurityLogon) { //Move to level 3 Reset
-                    type = "3";
-                }
-
                 if (!type.isEmpty()) {
                     Bundle data = new Bundle();
-                    data.putString(ServiceFunction.RESET_PASSWORD_TYPE, type); //Reset login type level "2"/"3"
+                    data.putString(ServiceFunction.RESETPASSWORD_TYPE, type); //Reset login type level "2"/"3"
                     intent = new Intent(getContext(), ResetPwdActivity.class);
                     intent.putExtras(data);
                     startActivity(intent);
@@ -140,6 +139,16 @@ public class MineFragment extends BaseViewFragment {
     }
 
     public void logout() {
+        Message loginMsg = Message.obtain(null, ServiceFunction.SRV_LOGOUT);
+        loginMsg.replyTo = iServiceMessage;
+        try {
+            iService.send(loginMsg);
+        } catch (RemoteException e) {
+            Log.e("login", "Unable to send logout message", e.fillInStackTrace());
+        }
+    }
+
+    public void logoutSecurity() {
         Message loginMsg = Message.obtain(null, ServiceFunction.SRV_LOGOUT_SECURITY);
         loginMsg.replyTo = iServiceMessage;
         try {

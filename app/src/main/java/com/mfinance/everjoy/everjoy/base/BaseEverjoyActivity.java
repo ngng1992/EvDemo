@@ -393,6 +393,12 @@ public class BaseEverjoyActivity extends AppCompatActivity implements ServiceCon
                     app.setLoginID(null);
                     break;
 
+                case ServiceFunction.ACT_GO_TO_FORGOT_PASSWORD_OTP_PAGE:
+                    intent = new Intent(BaseEverjoyActivity.this, LoginVerificationActivity.class);
+                    intent.putExtras(msg.getData());
+                    startActivity(intent);
+                    break;
+
                 default:
                     handleByChild(msg);
                     break;

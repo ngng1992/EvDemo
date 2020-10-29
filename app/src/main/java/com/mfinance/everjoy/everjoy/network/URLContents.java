@@ -14,5 +14,6 @@ public class URLContents {
      * 邮箱注册
      */
     public static final String REGISTER = BASE_URL + "register";
-
+    public static final String FORGOTPASSWORD = BASE_URL + "forgotpassword";
+    public static final String FORGOTSECPASSWORD = BASE_URL + "forgotsecuritypassword";
 }

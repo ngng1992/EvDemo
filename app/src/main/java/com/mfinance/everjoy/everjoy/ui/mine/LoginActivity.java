@@ -378,7 +378,11 @@ public class LoginActivity extends BaseViewActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_forget_pwd:
-                startActivity(new Intent(this, ForgetPwdActivity.class));
+                Bundle data = new Bundle();
+                data.putString(ServiceFunction.FORGETPASSWORD_TYPE, "2"); //Reset login type level "2"/"3"
+                Intent intent = new Intent(this, ForgetPwdActivity.class);
+                intent.putExtras(data);
+                startActivity(intent);
                 break;
             case R.id.tv_login:
                 View view1 = getCurrentFocus();

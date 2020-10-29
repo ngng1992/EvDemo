@@ -31,7 +31,7 @@ public class LoginSecurityOTPMessageHandler extends ServerMessageHandler {
 				//firstLogin = "1";
 				if (firstLogin != null){
 					Bundle data = new Bundle();
-					data.putString(ServiceFunction.RESET_PASSWORD_TYPE, "3"); //Reset login type level "2"/"3"
+					data.putString(ServiceFunction.RESETPASSWORD_TYPE, "3"); //Reset login type level "2"/"3"
 					service.broadcast(ServiceFunction.ACT_GO_TO_CHANGE_PASSWORD, data);
 				}
 				else {

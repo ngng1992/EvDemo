@@ -937,6 +937,7 @@
     <string name="str_forget_pwd2">忘记密码</string>
     <string name="str_quick_login">快速登入</string>
     <string name="toast_input_email">请输入您的邮箱账号</string>
+    <string name="toast_input_acc">请输入您的ID</string>
     <string name="toast_input_login_pwd">请输入您的登录密码</string>
     <string name="toast_email_error">邮箱格式不正确</string>
     <string name="toast_input_pwd">请输入密码</string>
