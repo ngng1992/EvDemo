@@ -1,9 +1,11 @@
 package com.mfinance.everjoy.everjoy.base;
 
 import android.app.ActivityManager;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
@@ -31,6 +33,7 @@ import com.mfinance.everjoy.app.model.DataRepository;
 import com.mfinance.everjoy.app.service.FxMobileTraderService;
 import com.mfinance.everjoy.everjoy.ui.home.MainActivity;
 import com.mfinance.everjoy.everjoy.ui.mine.LoginActivity;
+import com.mfinance.everjoy.everjoy.ui.mine.LoginVerificationActivity;
 import com.mfinance.everjoy.everjoy.ui.mine.ResetPwdActivity;
 import com.mfinance.everjoy.everjoy.utils.ToolsUtils;
 import com.umeng.analytics.MobclickAgent;
@@ -288,6 +291,13 @@ public class BaseEverjoyActivity extends AppCompatActivity implements ServiceCon
                     startActivity(intent);
                     //System.out.println("-------------------------------------- finish 3");
                     break;
+                case ServiceFunction.ACT_GO_TO_OTP_LOGIN_PAGE:
+                    BaseEverjoyActivity.this.finish();
+                    intent = new Intent(BaseEverjoyActivity.this, LoginVerificationActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtras(msg.getData());
+                    startActivity(intent);
+                    break;
                 case ServiceFunction.ACT_GO_TO_PRICE: {
 //                    boolean guest = msg.getData().getBoolean("guest", false);
 //                    intent = new Intent(BaseEverjoyActivity.this, guest ? ContractListGuestActivity.class : ContractListActivity.class);
@@ -312,10 +322,39 @@ public class BaseEverjoyActivity extends AppCompatActivity implements ServiceCon
                     String sMsg = msg.getData().getString(ServiceFunction.MESSAGE);
                     Toast.makeText(BaseEverjoyActivity.this.getBaseContext(), sMsg, Toast.LENGTH_LONG).show();
                     break;
+                case ServiceFunction.ACT_SHOW_DIALOG:
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String sFinish = msg.getData().getString(ServiceFunction.FINISH, "");
+                            String sDialogMsg = msg.getData().getString(ServiceFunction.MESSAGE);
+                            String sDialogTitle = msg.getData().getString(ServiceFunction.TITLE);
+                            AlertDialog.Builder builder1 = new AlertDialog.Builder(BaseEverjoyActivity.this);
+                            builder1.setTitle(sDialogTitle);
+                            builder1.setMessage(sDialogMsg);
+
+                            builder1.setPositiveButton(
+                                    "Yes",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            if (sFinish.isEmpty())
+                                                dialog.cancel();
+                                            else {
+
+                                            }
+                                        }
+                                    });
+
+                            AlertDialog alert11 = builder1.create();
+                            alert11.show();
+                        }
+                    });
+                    break;
                 case ServiceFunction.ACT_UNBIND_SERVICE:
                     doUnbindService();
                     break;
                 case ServiceFunction.ACT_FINISH_ACTIVITY:
+                    // TODO 登录成功？
                     finish();
                     break;
                 case ServiceFunction.ACT_SHOW_ACC_INFO:
@@ -327,19 +366,33 @@ public class BaseEverjoyActivity extends AppCompatActivity implements ServiceCon
 //                    startActivity(intent);
                     break;
                 case ServiceFunction.ACT_GO_TO_CHANGE_PASSWORD:
-//                    intent = new Intent(BaseEverjoyActivity.this, ChangePasswordActivity.class);
-//                    intent.putExtras(msg.getData());
-//                    startActivity(intent);
+                    intent = new Intent(BaseEverjoyActivity.this, ResetPwdActivity.class);
+                    intent.putExtras(msg.getData());
+                    startActivity(intent);
+                    break;
                 case ServiceFunction.SRV_WEB_VIEW:
 //                    intent = new Intent(BaseEverjoyActivity.this, WebViewActivity.class);
 //                    intent.putExtras(msg.getData());
 //                    startActivity(intent);
+                    break;
                  case ServiceFunction.ACT_GO_TO_DEFAULT_LOGIN_PAGE:
                     //intent = new Intent(BaseEverjoyActivity.this, MainActivity.class);
-                     intent = new Intent(BaseEverjoyActivity.this, ResetPwdActivity.class);
+                     intent = new Intent(BaseEverjoyActivity.this, MainActivity.class);
                     intent.putExtras(msg.getData());
                     startActivity(intent);
                     break;
+
+                case ServiceFunction.ACT_GO_TO_MAIN_PAGE:
+                    intent = new Intent(BaseEverjoyActivity.this, MainActivity.class);
+                    intent.putExtras(msg.getData());
+                    startActivity(intent);
+                    break;
+
+                case ServiceFunction.ACT_DISCONNECT_DUPLICATE:
+                    app.setPasswordToken(null);
+                    app.setLoginID(null);
+                    break;
+
                 default:
                     handleByChild(msg);
                     break;
@@ -354,34 +407,6 @@ public class BaseEverjoyActivity extends AppCompatActivity implements ServiceCon
      */
     public void handleByChild(Message msg) {
 
-    }
-
-
-    /**
-     * Get default Contract
-     *
-     * @return Default contract
-     */
-    public ContractObj getDefaultContract() {
-        String sContract = setting.getString("DEFAULT_CONTRACT", CompanySettings.getDefaultDefaultContract(app));
-        if (sContract == null)
-            return null;
-        else {
-            if (app.bLogon) {
-                // Restrict user set non-tradable contract as default
-                ContractObj c = app.data.getContract(sContract);
-                if (c == null || c.isViewable() == false || DataRepository.getInstance().getTradableContract().contains(sContract) == false) {
-                    for (int i = 0; i < DataRepository.getInstance().getTradableContract().size(); i++) {
-                        sContract = DataRepository.getInstance().getTradableContract().get(i);
-                        if (app.data.getContract(sContract).isViewable())
-                            break;
-                    }
-
-                }
-            }
-            app.setDefaultContract(sContract);
-            return app.data.getContract(sContract);
-        }
     }
 
     private boolean mBound;

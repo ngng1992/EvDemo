@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteff">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/bg_signup">
+
+    </ImageView>
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_24">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_16"
+            android:src="@drawable/ic_gray33_left_back11">
+
+        </ImageView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/sec_acc_ui_title"
+            android:textColor="@color/gray1e"
+            android:textSize="@dimen/sp_18">
+
+        </TextView>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_od_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_40"
+        android:src="@mipmap/img_arrange">
+
+    </ImageView>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_od_img"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_16"
+        android:text="@string/aaw_title"
+        android:textColor="@color/gray1e"
+        android:textSize="@dimen/sp_16">
+
+    </TextView>
+
+    <ScrollView
+        android:id="@+id/sc_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tv_start"
+        android:layout_below="@+id/tv_title"
+        android:layout_marginTop="@dimen/dp_20">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_16"
+                android:layout_marginRight="@dimen/dp_16"
+                android:text="@string/aaw_tips"
+                android:textColor="@color/gray68"
+                android:textSize="@dimen/sp_12">
+
+            </TextView>
+
+            <com.mfinance.everjoy.everjoy.view.AccountEditorInfoView
+                android:id="@+id/ll_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_16"
+                app:isEditor="true"
+                app:isVisibilityGoto="false"
+                app:txtLeft="@string/aaw_name"
+                app:txtRightHint="@string/aaw_input_name">
+
+            </com.mfinance.everjoy.everjoy.view.AccountEditorInfoView>
+
+
+            <com.mfinance.everjoy.everjoy.view.AccountEditorInfoView
+                android:id="@+id/ll_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:isEditor="true"
+                app:isVisibilityGoto="false"
+                app:txtLeft="@string/ui_email"
+                app:txtRightHint="@string/ui_input_email">
+
+            </com.mfinance.everjoy.everjoy.view.AccountEditorInfoView>
+
+
+            <com.mfinance.everjoy.everjoy.view.AccountEditorInfoView
+                android:id="@+id/ll_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:isEditor="true"
+                app:isVisibilityGoto="false"
+                app:txtLeft="@string/ui_phone"
+                app:txtRightHint="@string/ui_input_phone">
+
+            </com.mfinance.everjoy.everjoy.view.AccountEditorInfoView>
+
+            <com.mfinance.everjoy.everjoy.view.AccountEditorInfoView
+                android:id="@+id/ll_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:isEditor="false"
+                app:isVisibilityGoto="true"
+                app:txtLeft="@string/aaw_date"
+                app:txtRightHint="@string/sec_acc_ui_select">
+
+            </com.mfinance.everjoy.everjoy.view.AccountEditorInfoView>
+
+            <com.mfinance.everjoy.everjoy.view.AccountEditorInfoView
+                android:id="@+id/ll_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:isEditor="false"
+                app:isVisibilityGoto="true"
+                app:txtLeft="@string/aaw_time"
+                app:txtRightHint="@string/sec_acc_ui_select">
+
+            </com.mfinance.everjoy.everjoy.view.AccountEditorInfoView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+    <TextView
+        android:id="@+id/tv_start"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_44"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_16"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:background="@drawable/bg_yellowd2_corner24"
+        android:gravity="center"
+        android:text="@string/login_ui_know"
+        android:textColor="@color/whiteff"
+        android:textSize="@dimen/sp_16">
+
+    </TextView>
+
+</RelativeLayout>

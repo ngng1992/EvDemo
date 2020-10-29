@@ -1,5 +1,7 @@
 package com.mfinance.everjoy.everjoy.network.okhttp;
 
+import android.graphics.Bitmap;
+
 public abstract class OnHttpCompleteListener {
 
     public void onStart(){}
@@ -9,4 +11,6 @@ public abstract class OnHttpCompleteListener {
     public void onError(String msg){}
 
     public void onFinish(){}
+
+    public void onBitmap(Bitmap bitmap){};
 }

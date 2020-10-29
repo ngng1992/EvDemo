@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/whiteff"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/dp_16"
+            android:text="@string/ard_open_tips"
+            android:textColor="@color/gray1e"
+            android:textSize="@dimen/sp_16">
+
+        </TextView>
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/dp_16"
+            android:src="@mipmap/btn_close">
+
+        </ImageView>
+
+    </RelativeLayout>
+
+    <View
+        style="@style/ViewLine">
+
+    </View>
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/dp_50"
+        android:layout_marginTop="@dimen/dp_30"
+        android:layout_marginRight="@dimen/dp_50"
+        android:layout_marginBottom="@dimen/dp_16"
+        android:background="@drawable/bg_gray68_frame_corner4"
+        android:gravity="center"
+        android:paddingTop="@dimen/dp_14"
+        android:paddingBottom="@dimen/dp_14"
+        android:text="avc a112"
+        android:textColor="@color/gray1e"
+        android:textSize="@dimen/sp_16">
+
+    </TextView>
+
+    <CheckBox
+        android:id="@+id/cbx_desc1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_marginBottom="@dimen/dp_16"
+        android:background="@android:color/transparent"
+        android:button="@null"
+        android:checked="true"
+        android:drawableLeft="@drawable/selector_cbx_yellow"
+        android:drawablePadding="@dimen/dp_8"
+        android:gravity="center_vertical"
+        android:lineSpacingMultiplier="1.2"
+        android:paddingLeft="@dimen/dp_16"
+        android:paddingTop="@dimen/dp_6"
+        android:paddingRight="@dimen/dp_16"
+        android:paddingBottom="@dimen/dp_6"
+        android:text="@string/ard_cbx_1"
+        android:textColor="@color/gray68"
+        android:textSize="@dimen/sp_14">
+
+    </CheckBox>
+
+    <CheckBox
+        android:id="@+id/cbx_desc2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:background="@android:color/transparent"
+        android:button="@null"
+        android:checked="true"
+        android:drawableLeft="@drawable/selector_cbx_yellow"
+        android:drawablePadding="@dimen/dp_8"
+        android:gravity="center_vertical"
+        android:lineSpacingMultiplier="1.2"
+        android:paddingLeft="@dimen/dp_16"
+        android:paddingTop="@dimen/dp_6"
+        android:paddingRight="@dimen/dp_16"
+        android:paddingBottom="@dimen/dp_6"
+        android:text="@string/ard_cbx_2"
+        android:textColor="@color/gray68"
+        android:textSize="@dimen/sp_14">
+
+    </CheckBox>
+
+    <TextView
+        android:id="@+id/tv_open"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_44"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_24"
+        android:layout_marginBottom="@dimen/dp_24"
+        android:layout_marginRight="@dimen/dp_16"
+        android:background="@drawable/bg_yellowd2_corner24"
+        android:gravity="center"
+        android:text="@string/str_open_account"
+        android:textColor="@color/whiteff"
+        android:textSize="@dimen/sp_16">
+
+    </TextView>
+
+</LinearLayout>

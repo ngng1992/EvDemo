@@ -28,6 +28,7 @@
         <attr name="lineUnSelectAlpha" format="float" />
         <attr name="lineUnSelectBgColor" format="dimension" />
         <attr name="lineSelectBgColor" format="dimension" />
+        <attr name="selectIndex" format="integer" />
     </declare-styleable>
 
 </resources>

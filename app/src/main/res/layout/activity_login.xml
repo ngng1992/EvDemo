@@ -176,31 +176,13 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/v_social_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="@dimen/dp_16"
         android:layout_marginBottom="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_16"
         android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/str_social_login"
-            android:textColor="@color/gray68"
-            android:textSize="@dimen/sp_14">
-
-        </TextView>
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/vp_social_login"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_50"
-            android:layout_marginTop="@dimen/dp_16"
-            android:layout_marginBottom="@dimen/dp_16">
-
-        </androidx.viewpager.widget.ViewPager>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -228,6 +210,25 @@
             </View>
 
         </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/str_social_login"
+            android:textColor="@color/gray68"
+            android:textSize="@dimen/sp_14">
+
+        </TextView>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/vp_social_login"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_marginBottom="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_16">
+
+        </androidx.viewpager.widget.ViewPager>
 
     </LinearLayout>
 

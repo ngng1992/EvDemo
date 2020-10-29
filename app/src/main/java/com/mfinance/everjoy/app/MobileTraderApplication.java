@@ -13,9 +13,10 @@ import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import androidx.multidex.MultiDex;
+
 import com.blankj.utilcode.util.Utils;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import com.lzy.okgo.OkGo;
 import com.mfinance.everjoy.BuildConfig;
 import com.mfinance.everjoy.app.bo.ContractObj;
 import com.mfinance.everjoy.app.bo.LiquidationRecord;
@@ -26,8 +27,8 @@ import com.mfinance.everjoy.app.model.DataRepository;
 import com.mfinance.everjoy.app.util.ConnectionSelector;
 import com.mfinance.everjoy.app.util.PRNGFixes;
 import com.mfinance.everjoy.everjoy.network.okgo.OkGoInit;
-import com.mfinance.everjoy.everjoy.sp.AppSharedPUtils;
 import com.mfinance.everjoy.everjoy.sp.UserSharedPUtils;
+import com.mfinance.everjoy.everjoy.utils.LanguageSettingUtil;
 import com.mfinance.everjoy.hungkee.xml.Economicdata;
 import com.mfinance.everjoy.hungkee.xml.Hourproduct;
 import com.mfinance.everjoy.hungkee.xml.Master;
@@ -54,8 +55,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
-
-import androidx.multidex.MultiDex;
 
 /* -- Facebook
 import com.facebook.android.AsyncFacebookRunner;
@@ -459,7 +458,7 @@ public class MobileTraderApplication extends Application {
         Utils.init(this);
         // sp
         UserSharedPUtils.init();
-        AppSharedPUtils.init();
+        LanguageSettingUtil.init(this);
     }
 
     /**
@@ -550,7 +549,7 @@ public class MobileTraderApplication extends Application {
         super.attachBaseContext(localeContextWrapper);
 
         // 分包工具
-		MultiDex.install(this);
+        MultiDex.install(this);
     }
 
     /**
@@ -792,19 +791,6 @@ public class MobileTraderApplication extends Application {
         SharedPreferences setting = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         return setting.getString("OPEN_ID", "null");
     }
-
-    public void setPassword(String password) {
-        SharedPreferences setting = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        SharedPreferences.Editor editor = setting.edit();
-        editor.putString("PASSWORD", password);
-        editor.commit();
-    }
-
-    public String getPassword() {
-        SharedPreferences setting = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        return setting.getString("PASSWORD", "null");
-    }
-
 
     public void setDefaultPage(String sSeq) {
         if (sSeq != null) {

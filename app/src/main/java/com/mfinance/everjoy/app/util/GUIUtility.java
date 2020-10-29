@@ -223,8 +223,8 @@ public class GUIUtility {
 			StringBuilder sb = new StringBuilder();			
 			String sChartURL = "http://202.76.10.175:8080/chart/";
 			
-			sb.append(sChartURL).append(strCur).append("_")
-				.append(GUIUtility.chartPeriods[iPeriod]).append("_")
+			sb.append(sChartURL).append(strCur).append("btn_pause")
+				.append(GUIUtility.chartPeriods[iPeriod]).append("btn_pause")
 				.append(GUIUtility.chartTypes[iType]).append(".png");
 			 		
 			return sb.toString();

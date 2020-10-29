@@ -238,6 +238,7 @@
     <string name="msg_383">密碼不符/找不到用戶</string>
     <string name="msg_393">密碼不符/找不到用戶</string>
     <string name="msg_8001">重覆登入</string>
+    <string name="msg_8003">重覆登入</string>
     <string name="msg_310">請先登入</string>
     <string name="msg_311">錯誤交易日</string>
     <string name="msg_312">帳戶已鎖定，請聯絡客戶服務部。</string>

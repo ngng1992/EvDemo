@@ -9,22 +9,18 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.Nullable;
+
+import com.mfinance.everjoy.R;
 import com.mfinance.everjoy.app.CompanySettings;
 import com.mfinance.everjoy.app.InitialActivity;
-import com.mfinance.everjoy.app.MobileTraderApplication;
-import com.mfinance.everjoy.R;
 import com.mfinance.everjoy.everjoy.base.BaseEverjoyActivity;
 import com.mfinance.everjoy.everjoy.network.okhttp.OkHttpUtils;
 import com.mfinance.everjoy.everjoy.network.okhttp.OnHttpCompleteListener;
 import com.mfinance.everjoy.everjoy.ui.home.MainActivity;
-import com.mfinance.everjoy.everjoy.ui.mine.LoginActivity;
-import com.mfinance.everjoy.everjoy.ui.mine.RegisterActivity;
-import com.mfinance.everjoy.everjoy.ui.mine.securities.SecuritiesAccountActivity;
 import com.mfinance.everjoy.everjoy.utils.ToolsUtils;
 
 import net.mfinance.commonlib.permission.PermissionController;
-
-import androidx.annotation.Nullable;
 
 /**
  * 闪屏页

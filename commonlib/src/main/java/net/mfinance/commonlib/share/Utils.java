@@ -97,4 +97,13 @@ public class Utils {
         return "";
     }
 
+    /**
+     * INSTAGRAM
+     */
+    public static final String INSTAGRAM_OAUTH_AUTHORIZE = "https://api.instagram.com/oauth/authorize";
+    public static final String INSTAGRAM_OAUTH_ACCESS_TOKEN = "https://api.instagram.com/oauth/access_token";
+    public static final String INSTAGRAM_OAUTH_ME = "https://graph.instagram.com/me";
+    public static final String INSTAGRAM_APP_ID = "3019715511588677";
+    public static final String INSTAGRAM_APP_SECRET = "a1d9a65e800c93225e14e1dcf2bb43cf";
+    public static final String INSTAGRAM_APP_REDIRECT_URL = "https://www.m-finance.com/web/tc/";
 }

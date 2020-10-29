@@ -57,7 +57,7 @@
         android:layout_above="@+id/ll_next"
         android:layout_below="@+id/ll_account_step"
         android:layout_marginTop="@dimen/dp_16"
-        android:background="@drawable/bg_whiteff_corner24"
+        android:background="@drawable/bg_whiteff_top_corner24"
         android:orientation="vertical">
 
         <TextView

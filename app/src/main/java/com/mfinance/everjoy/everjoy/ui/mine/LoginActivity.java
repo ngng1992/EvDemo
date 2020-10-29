@@ -4,15 +4,10 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.os.Bundle;
 import android.os.Message;
 import android.os.RemoteException;
 import android.text.TextUtils;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,27 +24,22 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.blankj.utilcode.util.RegexUtils;
-import com.mfinance.everjoy.BuildConfig;
-import com.mfinance.everjoy.app.CompanySettings;
 import com.mfinance.everjoy.R;
-import com.mfinance.everjoy.app.constant.FXConstants;
+import com.mfinance.everjoy.app.CompanySettings;
 import com.mfinance.everjoy.app.constant.Protocol;
 import com.mfinance.everjoy.app.constant.ServiceFunction;
 import com.mfinance.everjoy.app.model.DataRepository;
 import com.mfinance.everjoy.app.model.LoginProgress;
 import com.mfinance.everjoy.app.pojo.ConnectionStatus;
 import com.mfinance.everjoy.app.service.internal.PriceAgentConnectionProcessor;
-import com.mfinance.everjoy.app.util.CommonFunction;
-import com.mfinance.everjoy.app.util.MessageObj;
-import com.mfinance.everjoy.app.util.Utility;
-import com.mfinance.everjoy.everjoy.base.BaseEverjoyActivity;
-import com.mfinance.everjoy.wxapi.WXEntryActivity;
 import com.mfinance.everjoy.everjoy.base.BaseViewActivity;
 import com.mfinance.everjoy.everjoy.dialog.PwdErrorDialog;
-import com.mfinance.everjoy.everjoy.dialog.impl.OnClickDialogOrFragmentViewListener;
+import com.mfinance.everjoy.everjoy.dialog.PwdErrorFiveDialog;
 import com.mfinance.everjoy.everjoy.sp.UserSharedPUtils;
 import com.mfinance.everjoy.everjoy.ui.home.MainActivity;
+import com.mfinance.everjoy.everjoy.utils.FingerprintUtils;
 import com.mfinance.everjoy.everjoy.utils.ToolsUtils;
+import com.mfinance.everjoy.wxapi.WXEntryActivity;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 
 import net.mfinance.commonlib.share.LoginUtils;
@@ -66,18 +56,14 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.stream.Collectors;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -86,13 +72,15 @@ import butterknife.OnClick;
  * 登录
  */
 public class LoginActivity extends BaseViewActivity {
+
     Timer loginTimer;
     boolean tokenLogin = false;
-    boolean securityLogin = false;
+
     public static void loginActivity(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
         context.startActivity(intent);
     }
+
     @BindView(R.id.et_email)
     EditText etEmail;
     @BindView(R.id.et_pwd)
@@ -107,6 +95,8 @@ public class LoginActivity extends BaseViewActivity {
     View vpageSocialOne;
     @BindView(R.id.vpage_social_two)
     View vpageSocialTwo;
+    @BindView(R.id.tv_fingerprint_login)
+    TextView tv_fingerprint_login;
 
     @BindView(R.id.tvTitle)
     TextView tvTitle;
@@ -137,8 +127,8 @@ public class LoginActivity extends BaseViewActivity {
                         public void run() {
                             dialog.dismiss();
                             dialog = null;
-                            Toast.makeText(app, R.string.msg_306,
-                                    Toast.LENGTH_SHORT).show();
+                            // 登录失败
+                            showPwdError();
                         }
                     });
                 }
@@ -209,12 +199,10 @@ public class LoginActivity extends BaseViewActivity {
         tvLogin.setText(login);
         setViewPagerView();
 
-        if (app.bLogon){
-            securityLogin = true;
-            tvTitle.setText("LV3");
-        }
+        boolean checkFingerprint = FingerprintUtils.checkFingerprint(this);
+        tv_fingerprint_login.setVisibility(checkFingerprint ? View.VISIBLE : View.GONE);
 
-        if (!securityLogin && app.getPasswordToken() != null && app.getLoginID() != null){
+        if (app.getPasswordToken() != null && app.getLoginID() != null) {
             tokenLogin = true;
             LoginProgress.reset();
             if (loginTimer != null) {
@@ -226,8 +214,7 @@ public class LoginActivity extends BaseViewActivity {
             if (app.getLoginType() == -1) {
                 Runnable r = new moveToLogin();
                 (new Thread(r)).start();
-            }
-            else {
+            } else {
                 Runnable r = new moveToLogin(app.getLoginType(), app.getLoginID(), app.getOpenID());
                 (new Thread(r)).start();
             }
@@ -400,42 +387,39 @@ public class LoginActivity extends BaseViewActivity {
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
 
-                if (!securityLogin) {
-                    String email = etEmail.getText().toString();
-                    if (TextUtils.isEmpty(email)) {
-                        ToastUtils.showToast(this, R.string.toast_input_email);
-                        return;
-                    }
-                    if (!RegexUtils.isEmail(email)) {
-                        ToastUtils.showToast(this, R.string.toast_email_error);
-                        return;
-                    }
-                    String pwd = etPwd.getText().toString();
-                    if (TextUtils.isEmpty(pwd)) {
-                        ToastUtils.showToast(this, R.string.toast_input_login_pwd);
-                        return;
-                    }
+                String email = etEmail.getText().toString();
+                if (TextUtils.isEmpty(email)) {
+                    ToastUtils.showToast(this, R.string.toast_input_email);
+                    return;
+                }
+                if (!RegexUtils.isEmail(email)) {
+                    ToastUtils.showToast(this, R.string.toast_email_error);
+                    return;
+                }
+                String pwd = etPwd.getText().toString();
+                if (TextUtils.isEmpty(pwd)) {
+                    ToastUtils.showToast(this, R.string.toast_input_login_pwd);
+                    return;
+                }
 
-                    LoginProgress.reset();
-                    tokenLogin = false;
-                    app.setPasswordToken(null);
-                    if (loginTimer != null) {
-                        loginTimer.cancel();
-                    }
-                    loginTimer = new Timer();
-                    loginTimer.schedule(new Task(), 600 * 1000);
-                    Runnable r = new moveToLogin();
-                    (new Thread(r)).start();
+                LoginProgress.reset();
+                tokenLogin = false;
+                app.setPasswordToken(null);
+                if (loginTimer != null) {
+                    loginTimer.cancel();
                 }
-                else {
-                    login(-1, etEmail.getText().toString(), etPwd.getText().toString());
-                }
+                loginTimer = new Timer();
+                loginTimer.schedule(new Task(), 600 * 1000);
+                Runnable r = new moveToLogin();
+                (new Thread(r)).start();
+
+                //login();
                 break;
             case R.id.tv_fingerprint_login:
                 // 指纹登录
                 break;
             case R.id.tv_new_register:
-                startActivity(new Intent(this, RegisterActivity.class));
+                startActivity(new Intent(this, EmailRegisterActivity.class));
                 break;
             default:
                 break;
@@ -443,31 +427,60 @@ public class LoginActivity extends BaseViewActivity {
     }
 
     /**
+     * 邮箱登录
+     */
+    private void login() {
+//        String email = etEmail.getText().toString();
+//        if (TextUtils.isEmpty(email)) {
+//            ToastUtils.showToast(this, R.string.toast_input_email);
+//            return;
+//        }
+//        if (!RegexUtils.isEmail(email)) {
+//            ToastUtils.showToast(this, R.string.toast_email_error);
+//            return;
+//        }
+//        String pwd = etPwd.getText().toString();
+//        if (TextUtils.isEmpty(pwd)) {
+//            ToastUtils.showToast(this, R.string.toast_input_login_pwd);
+//            return;
+//        }
+        // 登录成功后，判断是否是首次登入，首次需要验证码验证
+        showLoginForActivity();
+    }
+
+
+    /**
      * 显示密码输入错误次数提示
      */
     private void showPwdError() {
-//        if (pwdErrorCount == 5) {
-            PwdErrorDialog pwdErrorDialog = new PwdErrorDialog(this);
+        if (pwdErrorCount == 5) {
+            PwdErrorFiveDialog pwdErrorFiveDialog = new PwdErrorFiveDialog(this);
+            pwdErrorFiveDialog.show();
+            return;
+        }
+        pwdErrorCount--;
+        if (pwdErrorCount >= 3) {
+            PwdErrorDialog pwdErrorDialog = new PwdErrorDialog(this, 5 - pwdErrorCount);
             pwdErrorDialog.show();
-//            return;
-//        }
-//        pwdErrorCount--;
+        } else {
+            ToastUtils.showToast(this, R.string.msg_306);
+        }
     }
 
     /**
      * 是否是首次登录
      * 首次登录则跳转至第二重验证，否则跳转至首页
      */
-    private void showLoginForActivity(boolean isFirst) {
+    private void showLoginForActivity() {
         String email = etEmail.getText().toString();
         boolean loginFirstByEmail = UserSharedPUtils.isLoginFirstByEmail(email);
         if (loginFirstByEmail) {
             // 验证邮箱成功后，设置sp为false
-            LoginVerificationActivity.startLoginVerificationActivity(LoginActivity.this, email);
+            LoginVerificationActivity.startLoginVerificationActivity(LoginActivity.this, "1693538112@qq.com");
         } else {
             MainActivity.startMainActivity2(this);
+            finish();
         }
-        finish();
     }
 
     public class moveToLogin implements Runnable {
@@ -530,8 +543,7 @@ public class LoginActivity extends BaseViewActivity {
                                     login(oType, app.getLoginID(), "");
                                 else
                                     login(oType, email, pwd);
-                            }
-                            else {
+                            } else {
                                 login(oType, userName, openID);
                             }
                         }
@@ -542,7 +554,7 @@ public class LoginActivity extends BaseViewActivity {
                 e.printStackTrace();
             }
         }
-    };
+    }
 
     public void login(int oType, String strID, String strPassword) {
 
@@ -551,21 +563,15 @@ public class LoginActivity extends BaseViewActivity {
 
         loginMsg.getData().putString(ServiceFunction.LOGIN_TYPE, Integer.toString(oType));
 
-        if (!securityLogin) {
-            loginMsg.getData().putString(ServiceFunction.LOGIN_LEVEL, "2");
-            if (oType == -1) {
-                loginMsg.getData().putString(ServiceFunction.LOGIN_EMAIL, strID);
-                loginMsg.getData().putString(ServiceFunction.LOGIN_PASSWORD, strPassword);
-                loginMsg.getData().putString(ServiceFunction.LOGIN_PASSWORDTOKEN, app.getPasswordToken());
-            } else {
-                loginMsg.getData().putString(ServiceFunction.LOGIN_OTYPE, Integer.toString(oType));
-                loginMsg.getData().putString(ServiceFunction.LOGIN_USERNAME, strID);
-                loginMsg.getData().putString(ServiceFunction.LOGIN_OPENID, strPassword);
-            }
-        }else {
-            loginMsg.getData().putString(ServiceFunction.LOGIN_LEVEL, "3");
-            loginMsg.getData().putString(ServiceFunction.LOGIN_USERNAME, strID);
+        loginMsg.getData().putString(ServiceFunction.LOGIN_LEVEL, "2");
+        if (oType == -1) {
+            loginMsg.getData().putString(ServiceFunction.LOGIN_EMAIL, strID);
             loginMsg.getData().putString(ServiceFunction.LOGIN_PASSWORD, strPassword);
+            loginMsg.getData().putString(ServiceFunction.LOGIN_PASSWORDTOKEN, app.getPasswordToken());
+        } else {
+            loginMsg.getData().putString(ServiceFunction.LOGIN_OTYPE, Integer.toString(oType));
+            loginMsg.getData().putString(ServiceFunction.LOGIN_USERNAME, strID);
+            loginMsg.getData().putString(ServiceFunction.LOGIN_OPENID, strPassword);
         }
 
         loginMsg.getData().putInt(ServiceFunction.LOGIN_CONN_INDEX, -1);
@@ -601,11 +607,12 @@ public class LoginActivity extends BaseViewActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        LoginUtils.release();
+        LoginUtils.release();
     }
 
     @Override
-    public void updateUI() {}
+    public void updateUI() {
+    }
 
     @Override
     protected void onPause() {

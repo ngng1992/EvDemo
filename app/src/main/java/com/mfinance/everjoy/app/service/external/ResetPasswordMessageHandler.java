@@ -20,7 +20,21 @@ public class ResetPasswordMessageHandler extends ServerMessageHandler {
 	public void handleMessage(MessageObj msgObj) {
 		//Log.i(TAG, msgObj.convertToString());
 		Log.e("Reset Password", "msg:" + msgObj.convertToString());
-
+		if("success".equals(msgObj.getField(Protocol.ResetPasswordResponse.STATUS))) {
+			String strToastMsg = MessageMapping.getStringById(service.getRes(), "resetpassword_success", service.app.locale);
+			Bundle data = new Bundle();
+			data.putString(ServiceFunction.TITLE, strToastMsg);
+			data.putString(ServiceFunction.MESSAGE, strToastMsg);
+			data.putString(ServiceFunction.FINISH, "1");
+			service.broadcast(ServiceFunction.ACT_SHOW_DIALOG, null);
+		} else {
+			String strToastMsg = MessageMapping.getStringById(service.getRes(), "resetpassword_fail", service.app.locale);
+			Bundle data = new Bundle();
+			data.putString(ServiceFunction.TITLE, strToastMsg);
+			data.putString(ServiceFunction.MESSAGE, strToastMsg);
+			data.putString(ServiceFunction.FINISH, "1");
+			service.broadcast(ServiceFunction.ACT_SHOW_DIALOG, null);
+		}
 	}
 
 	@Override

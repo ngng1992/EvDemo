@@ -3,7 +3,6 @@ package com.mfinance.everjoy.everjoy.ui.mine.securities;
 import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.RegexUtils;
@@ -11,6 +10,8 @@ import com.mfinance.everjoy.R;
 import com.mfinance.everjoy.everjoy.base.BaseViewActivity;
 import com.mfinance.everjoy.everjoy.dialog.SelectBirthplaceDialog;
 import com.mfinance.everjoy.everjoy.dialog.impl.OnClickDialogOrFragmentViewListener;
+import com.mfinance.everjoy.everjoy.ui.mine.ContactActivity;
+import com.mfinance.everjoy.everjoy.utils.Contents;
 import com.mfinance.everjoy.everjoy.view.AccountEditorInfoView;
 import com.mfinance.everjoy.everjoy.view.AccountStepView;
 
@@ -19,16 +20,18 @@ import net.mfinance.commonlib.view.StringTextView;
 import java.util.Arrays;
 import java.util.List;
 
+import butterknife.BindArray;
 import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * 开通大圣证券账户-填写联系方式
+ * 开通大圣证券账户-填写联系方式/学历
  */
 public class SecuritiesAccountContactActivity extends BaseViewActivity {
 
-    @BindView(R.id.iv_back)
-    ImageView ivBack;
+    @BindArray(R.array.array_edu)
+    String[] array_edu;
+
     @BindView(R.id.ll_account_step)
     AccountStepView llAccountStep;
     @BindView(R.id.et_email)
@@ -124,7 +127,13 @@ public class SecuritiesAccountContactActivity extends BaseViewActivity {
                 .setTextSize(1f)
                 .setTargetText(target)
                 .setUnderline(false)
-                .setClick(false)
+                .setClick(true)
+                .setOnClickSpannableStringListener(new StringTextView.OnClickSpannableStringListener() {
+                    @Override
+                    public void onClickSpannableString(View view) {
+                        startActivity(new Intent(SecuritiesAccountContactActivity.this, ContactActivity.class));
+                    }
+                })
                 .create();
     }
 
@@ -210,42 +219,59 @@ public class SecuritiesAccountContactActivity extends BaseViewActivity {
      * 选择教育程度
      */
     private void showEdu() {
-        List<String> nikenameList = Arrays.asList(getResources().getStringArray(R.array.array_edu));
-        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this, eduType, nikenameList);
+        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this, eduType, Arrays.asList(array_edu));
         dialog.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
                 eduType = object == null ? 0 : (int) object;
-                String content = nikenameList.get(eduType);
+                String content = array_edu[eduType];
                 ll_editor_edu.setEditorContent(content);
             }
         });
         dialog.show();
     }
 
-    @OnClick({R.id.tv_address_compare, R.id.tv_prev, R.id.tv_next})
+    @OnClick({R.id.iv_back, R.id.tv_address_compare, R.id.tv_prev, R.id.tv_next})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.iv_back:
+                onBackPressed();
+                break;
             case R.id.tv_address_compare:
                 String houseEditorContent = ll_editor_house.getEditorContent();
                 et_address_content.setText(houseEditorContent);
                 break;
             case R.id.tv_prev:
-                startActivity(new Intent(this, SecuritiesAccountActivity.class));
+                onBackPressed();
                 break;
-                case R.id.tv_next:
-                startActivity(new Intent(this, SecuritiesAccountActivity.class));
+            case R.id.tv_next:
+                // 非香港人一律录制2s视频，是香港人只需拍摄证件
+//                RecordVideoActivity.startRecordVideoActivity(this, Contents.CARD_CH_TYPE);
+                UploadCardActivity.startUploadCardActivity(this, Contents.CARD_CH_TYPE);
                 break;
             default:
                 break;
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+
+    /**
+     * 保存到本地
+     */
+    private void saveToSP() {
 
     }
 
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        saveToSP();
+        finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
 }

@@ -31,7 +31,10 @@ public class ServiceFunction {
     public final static int SRV_CHANGE_PASSWORD = 12;
     public final static int SRV_SEND_CHANGE_PASSWORD_REQUEST = 13;
     public final static int SRV_DEFAULT_LOGIN_PAGE = 14;
-    public final static int SRV_RESET_PASSWORD = 13;
+    public final static int SRV_RESET_PASSWORD = 15;
+    public final static int SRV_MOVE_TO_MAIN_PAGE = 16;
+    public final static int SRV_LOGIN_SECURITY = 17;
+    public final static int SRV_LOGOUT_SECURITY = 18;
 
     public final static int ACT_UPDATE_UI = 0;
     public final static int ACT_GO_TO_DASHBOARD = 1;
@@ -52,6 +55,10 @@ public class ServiceFunction {
     public final static int ACT_GO_TO_CHANGE_PASSWORD = 16;
     public final static int ACT_SYSTEM_ALERT_MESSAGE = 17;
     public final static int ACT_GO_TO_DEFAULT_LOGIN_PAGE = 18;
+    public final static int ACT_GO_TO_MAIN_PAGE = 19;
+    public final static int ACT_DISCONNECT_DUPLICATE = 20;
+    public final static int ACT_GO_TO_OTP_LOGIN_PAGE = 21;
+    public final static int ACT_SHOW_DIALOG = 22;
 
     public final static int ACT_TRADER_RECEIVE_MULTIPLE_LIQUIDATE_RETURN = 10075;
     public final static int SRV_WEB_VIEW = 10076;
@@ -78,10 +85,19 @@ public class ServiceFunction {
     public final static String LOGIN_OTYPE = "otype";
     public final static String LOGIN_OPENID = "open_id";
     public final static String LOGIN_USERNAME = "username";
+    public final static String LOGIN_SEC_PREFIX = "prefix";
+    public final static String LOGIN_SEC_EMAIL = "email";
+    public final static String LOGIN_SEC_OTP = "otp";
 
+    public final static String RESETPASSWORD_TYPE = "type";
+    public final static String RESETPASSWORD_OLDPASSWORD = "oldpwd";
     public final static String RESETPASSWORD_NEWPASSWORD = "newpwd";
 
+    public final static String RESET_PASSWORD_TYPE = "type";
+
+    public final static String FINISH = "FINISH";
     public final static String MESSAGE = "MESSAGE";
+    public final static String TITLE = "TITLE";
 }
 
 

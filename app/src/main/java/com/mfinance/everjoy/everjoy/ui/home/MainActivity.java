@@ -188,7 +188,7 @@ public class MainActivity extends BaseViewActivity {
                 break;
             case R.id.tv_nav_mine:
                 if (mineFragment == null) {
-                    mineFragment = MineFragment.newInstance("", "");
+                    mineFragment = MineFragment.newInstance(app, mService, mServiceMessengerHandler, "", "");
                 }
                 showFragment(mineFragment);
                 tvNavMain.setSelected(false);

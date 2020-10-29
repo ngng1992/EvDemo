@@ -238,6 +238,7 @@
     <string name="msg_383">密码不符/找不到用户</string>
     <string name="msg_393">密码不符/找不到用户</string>
     <string name="msg_8001">重覆登入</string>
+    <string name="msg_8003">重覆登入</string>
     <string name="msg_310">请先登入</string>
     <string name="msg_311">错误交易日</string>
     <string name="msg_312">帐户已锁定，请联络客户服务部。</string>
