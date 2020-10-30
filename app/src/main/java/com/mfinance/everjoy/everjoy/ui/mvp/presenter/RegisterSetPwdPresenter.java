@@ -16,11 +16,13 @@ public class RegisterSetPwdPresenter extends BaseMvpPresenter<BaseMvpView<BaseBe
         this.baseMvpView = baseMvpView;
     }
 
-    public void requestRegisterSetPwd(String email, String password) {
+    public void requestRegisterSetPwd(String email, String password, String otp) {
         OkGo.<String>get(URLContents.REGISTER)
                 .tag(mTAG)
+                .params("type", 3)
                 .params("email", email)
                 .params("password", password)
+                .params("otp", otp)
                 .execute(new OkGoBodyToStringCallBack() {
 
                     @Override
@@ -38,7 +40,7 @@ public class RegisterSetPwdPresenter extends BaseMvpPresenter<BaseMvpView<BaseBe
                     @Override
                     public void onFail(BaseBean baseBean) {
                         super.onFail(baseBean);
-                        baseMvpView.onShowError(baseBean.getMessage());
+                        baseMvpView.onShowError(String.valueOf(baseBean.getCode()));
                     }
 
                     @Override

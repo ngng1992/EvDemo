@@ -1,4 +1,25 @@
 
+服务器
+
+External IP: 202.155.229.105:24387
+Username: MFHKW005\szdev
+Password: s!9nF#SAVMz
+
+
+ftp
+
+szftp.mfcloud.net:24388
+szdev
+3Ra@pUCDrTz$
+
+
+测试邮箱
+
+https://webmail.tradingsky.net/
+mfdev
+mF34266223ok
+
+
 文档地址
 
     http://ejconfluence.m-finance.net/display/EJ/Web+Services
@@ -15,6 +36,7 @@ Twitter
 API key: 1TD1MKyHcf6sUbg4201vzZzrZ
 API key secret: ymqYcbmFvzhLPvI9wyowsdPAiohkFaCYVwfA17LWdsL6glPUfL
 Bearer token: AAAAAAAAAAAAAAAAAAAAAM%2BpJAEAAAAA7lXNhs9Zxdp%2F2utZR9KCtBg6XUw%3DKg6vU4izHukatq3ULDOZbGEtns8sN1w
+
 
 
 companySetting loginInfoTest 換成"202.155.229.105", 15100

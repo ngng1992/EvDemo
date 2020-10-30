@@ -14,7 +14,6 @@ import com.mfinance.everjoy.everjoy.bean.base.BaseBean;
 import com.mfinance.everjoy.everjoy.ui.mvp.base.BaseMvpViewActivity;
 import com.mfinance.everjoy.everjoy.ui.mvp.presenter.EmailRegisterPresenter;
 import com.mfinance.everjoy.everjoy.ui.mvp.view.EmailRegisterView;
-import com.mfinance.everjoy.everjoy.utils.ToolsUtils;
 
 import net.mfinance.commonlib.timer.CountDownHelper;
 import net.mfinance.commonlib.timer.OnTimerCallBack;
@@ -117,19 +116,24 @@ public class EmailRegisterActivity extends BaseMvpViewActivity<EmailRegisterView
             ToastUtils.showToast(this, R.string.toast_input_email);
             return;
         }
-
         if (!RegexUtils.isEmail(email)) {
             ToastUtils.showToast(this, R.string.str_email_rule_error);
             return;
         }
-
         String code = etCode.getText().toString();
         if (TextUtils.isEmpty(code)) {
             ToastUtils.showToast(this, R.string.toast_input_code);
             return;
         }
-        mPresenter.requestEmailCheckCode(email, code);
+        if (baseBean == null) {
+            ToastUtils.showToast(this, R.string.toast_pls_get_code);
+            return;
+        }
+        scode = baseBean.getMessage() + "-" + code;
+        mPresenter.requestEmailCheckCode(email, scode);
     }
+
+    private String scode;
 
     /**
      * 获取验证码
@@ -160,8 +164,11 @@ public class EmailRegisterActivity extends BaseMvpViewActivity<EmailRegisterView
         }
     }
 
+    private BaseBean baseBean;
+
     @Override
     public void onShowData(BaseBean data) {
+        baseBean = data;
         startTimer();
     }
 
@@ -202,12 +209,26 @@ public class EmailRegisterActivity extends BaseMvpViewActivity<EmailRegisterView
     }
 
     @Override
-    public void onShowEmailCheckCode(BaseBean baseBean) {
-        startActivity(new Intent(this, RegisterSetPwdActivity.class));
+    public void onShowEmailCodeError(BaseBean baseBean) {
+        ToastUtils.showToast(this, R.string.toast_email);
     }
 
     @Override
-    public void onShowEmailCheckCodeError(String msg) {
-        ToastUtils.showToast(this, R.string.toast_code_error);
+    public void onShowEmailCheckCode(BaseBean baseBean) {
+        String email = etEmail.getText().toString();
+        RegisterSetPwdActivity.startRegisterSetPwdActivity(this, email, scode);
+    }
+
+    @Override
+    public void onShowEmailCheckCodeError(BaseBean baseBean) {
+        //  0 - OK, -1 - Internal Error, -2 - OTP not requested, -3 - OTP incorrec
+        int code = baseBean.getCode();
+        if (code == -3) {
+            ToastUtils.showToast(this, R.string.toast_code_error);
+        } else if (code == -2) {
+            ToastUtils.showToast(this, R.string.toast_pls_get_code);
+        } else {
+            ToastUtils.showToast(this, baseBean.getMessage());
+        }
     }
 }

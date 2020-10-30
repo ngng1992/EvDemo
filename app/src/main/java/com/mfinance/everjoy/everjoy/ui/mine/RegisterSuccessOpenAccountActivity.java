@@ -11,6 +11,7 @@ import com.mfinance.everjoy.everjoy.dialog.OpenAccountFileDialog;
 import com.mfinance.everjoy.everjoy.ui.home.MainActivity;
 import com.mfinance.everjoy.everjoy.ui.mine.securities.SecuritiesAccountActivity;
 
+import net.mfinance.commonlib.toast.ToastUtils;
 import net.mfinance.commonlib.view.StringTextView;
 
 import butterknife.BindView;
@@ -85,6 +86,18 @@ public class RegisterSuccessOpenAccountActivity extends BaseViewActivity {
                 finish();
                 break;
             case R.id.tv_open_account:
+                boolean checked1 = cbxDesc1.isChecked();
+                boolean checked2 = cbxDesc2.isChecked();
+                boolean checked3 = cbxDesc3.isChecked();
+                boolean checked4 = cbxDesc4.isChecked();
+                boolean checked5 = cbxDesc5.isChecked();
+                boolean checked6 = cbxDesc6.isChecked();
+                boolean checked7 = cbxDesc7.isChecked();
+                boolean checked8 = cbxDesc8.isChecked();
+                if (!checked1 || !checked2 || !checked3 || !checked4 || !checked5 || !checked6 || !checked7 || !checked8) {
+                    ToastUtils.showToast(this, R.string.str_checked);
+                    return;
+                }
                 startActivity(new Intent(this, SecuritiesAccountActivity.class));
                 break;
             case R.id.tv_jump:

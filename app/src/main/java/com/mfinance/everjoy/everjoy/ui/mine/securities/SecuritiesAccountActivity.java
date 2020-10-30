@@ -1,6 +1,7 @@
 package com.mfinance.everjoy.everjoy.ui.mine.securities;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import com.mfinance.everjoy.everjoy.base.BaseViewActivity;
 import com.mfinance.everjoy.everjoy.dialog.SelectBirthdayDialog;
 import com.mfinance.everjoy.everjoy.dialog.SelectBirthplaceDialog;
 import com.mfinance.everjoy.everjoy.dialog.impl.OnClickDialogOrFragmentViewListener;
+import com.mfinance.everjoy.everjoy.sp.SecuritiesSharedPUtils;
 import com.mfinance.everjoy.everjoy.ui.mine.ContactActivity;
 import com.mfinance.everjoy.everjoy.utils.CardIdUtils;
 import com.mfinance.everjoy.everjoy.utils.DateFormatUtils;
@@ -25,6 +27,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
+import butterknife.BindArray;
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -33,32 +36,43 @@ import butterknife.OnClick;
  */
 public class SecuritiesAccountActivity extends BaseViewActivity {
 
+    @BindArray(R.array.persNameTitle)
+    String[] persNameTitle;
+    @BindArray(R.array.country_area)
+    String[] country_area;
+    @BindArray(R.array.persMaritalStatus)
+    String[] persMaritalStatus;
+    @BindArray(R.array.persGender)
+    String[] persGender;
+    @BindArray(R.array.persIdType)
+    String[] persIdType;
+
     @BindView(R.id.iv_back)
     ImageView ivBack;
     @BindView(R.id.ll_account_step)
     AccountStepView llAccountStep;
-    @BindView(R.id.ll_editor_nikename)
-    AccountEditorInfoView ll_editor_nikename;
-    @BindView(R.id.ll_editor_ch_name)
-    AccountEditorInfoView ll_editor_ch_name;
-    @BindView(R.id.ll_editor_eg_name)
-    AccountEditorInfoView ll_editor_eg_name;
-    @BindView(R.id.ll_editor_birthplace)
-    AccountEditorInfoView ll_editor_birthplace;
-    @BindView(R.id.ll_editor_birthday)
-    AccountEditorInfoView ll_editor_birthday;
-    @BindView(R.id.ll_editor_marriage)
-    AccountEditorInfoView ll_editor_marriage;
-    @BindView(R.id.ll_editor_sex)
-    AccountEditorInfoView ll_editor_sex;
-    @BindView(R.id.ll_editor_country)
-    AccountEditorInfoView ll_editor_country;
-    @BindView(R.id.ll_editor_cardtype)
-    AccountEditorInfoView ll_editor_cardtype;
-    @BindView(R.id.ll_editor_cardid)
-    AccountEditorInfoView ll_editor_cardid;
-    @BindView(R.id.ll_editor_bank_account_area)
-    AccountEditorInfoView ll_editor_bank_account_area;
+    @BindView(R.id.ll_persNameTitle)
+    AccountEditorInfoView ll_persNameTitle;
+    @BindView(R.id.ll_persNameChinese)
+    AccountEditorInfoView ll_persNameChinese;
+    @BindView(R.id.ll_persNameEnglish)
+    AccountEditorInfoView ll_persNameEnglish;
+    @BindView(R.id.ll_persBirthRegion)
+    AccountEditorInfoView ll_persBirthRegion;
+    @BindView(R.id.ll_persBirthDate)
+    AccountEditorInfoView ll_persBirthDate;
+    @BindView(R.id.ll_persMaritalStatus)
+    AccountEditorInfoView ll_persMaritalStatus;
+    @BindView(R.id.ll_persGender)
+    AccountEditorInfoView ll_persGender;
+    @BindView(R.id.ll_persNationality)
+    AccountEditorInfoView ll_persNationality;
+    @BindView(R.id.ll_persIdType)
+    AccountEditorInfoView ll_persIdType;
+    @BindView(R.id.ll_persIdNo)
+    AccountEditorInfoView ll_persIdNo;
+    @BindView(R.id.ll_persBandAccRegion)
+    AccountEditorInfoView ll_persBandAccRegion;
     @BindView(R.id.tv_recognition)
     TextView tvRecognition;
     @BindView(R.id.tv_next)
@@ -81,66 +95,164 @@ public class SecuritiesAccountActivity extends BaseViewActivity {
         return R.layout.activity_securities_account;
     }
 
+    /**
+     * 保存到本地
+     */
+    private void saveToSP() {
+        if (persNameTitleIndex != -1) {
+            SecuritiesSharedPUtils.setPersNameTitle(persNameTitleIndex);
+        }
+
+        String persNameChinese = ll_persNameChinese.getEditorContent();
+        SecuritiesSharedPUtils.setPersNameChinese(persNameChinese);
+
+        String persNameEnglish = ll_persNameEnglish.getEditorContent();
+        SecuritiesSharedPUtils.setPersNameEnglish(persNameEnglish);
+
+        if (persBirthRegionIndex != -1) {
+            SecuritiesSharedPUtils.setPersBirthRegion(persBirthRegionIndex);
+        }
+
+        if (selectDate != null) {
+            long timeInMillis = selectDate.getTimeInMillis();
+            SecuritiesSharedPUtils.setPersBirthDate(timeInMillis);
+        }
+
+        if (persMaritalStatusIndex != -1) {
+            SecuritiesSharedPUtils.setPersMaritalStatus(persMaritalStatusIndex);
+        }
+
+        if (persGenderIndex != -1) {
+            SecuritiesSharedPUtils.setPersGender(persGenderIndex);
+        }
+
+        if (persNationalityIndex != -1) {
+            SecuritiesSharedPUtils.setPersNationality(persNationalityIndex);
+        }
+
+        if (persIdTypeIndex != -1) {
+            SecuritiesSharedPUtils.setPersIdType(persIdTypeIndex);
+        }
+
+        String persIdNoEditorContent = ll_persIdNo.getEditorContent();
+        SecuritiesSharedPUtils.setPersIdNo(persIdNoEditorContent);
+
+        if (persBandAccRegionIndex != -1) {
+            SecuritiesSharedPUtils.setPersBandAccRegion(persBandAccRegionIndex);
+        }
+    }
+
     @Override
     protected void initView(View currentView) {
-        ll_editor_nikename.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
+        persNameTitleIndex = SecuritiesSharedPUtils.getPersNameTitle();
+        if (persNameTitleIndex != -1) {
+            ll_persNameTitle.setEditorContent(persNameTitle[persNameTitleIndex]);
+        }
+        ll_persNameTitle.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
                 showNikenameType();
             }
         });
-        // 获取中文姓名
-        String chName = ll_editor_ch_name.getEditorContent();
-        String egName = ll_editor_eg_name.getEditorContent();
+
+        String persNameChinese = SecuritiesSharedPUtils.getPersNameChinese();
+        if (!TextUtils.isEmpty(persNameChinese)) {
+            ll_persNameChinese.setEditorContent(persNameChinese);
+        }
+
+        String persNameEnglish = SecuritiesSharedPUtils.getPersNameEnglish();
+        if (!TextUtils.isEmpty(persNameEnglish)) {
+            ll_persNameEnglish.setEditorContent(persNameEnglish);
+        }
 
         // 选择出生地区，默认香港
-        List<String> birthplaceList = Arrays.asList(getResources().getStringArray(R.array.country_area));
-        ll_editor_birthplace.setEditorContent(birthplaceList.get(3));
-        ll_editor_birthplace.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
+        persBirthRegionIndex = SecuritiesSharedPUtils.getPersBirthRegion();
+        ll_persBirthRegion.setEditorContent(country_area[persBirthRegionIndex]);
+        ll_persBirthRegion.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
-                showBirthplace(birthplaceList);
+                showBirthplace();
             }
         });
-        // 选择出生日期
-        ll_editor_birthday.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
+
+        // 选择出生日期,yyyy-mm-dd
+        long persBirthDate = SecuritiesSharedPUtils.getPersBirthDate();
+        if (persBirthDate != 0) {
+            selectDate.setTimeInMillis(persBirthDate);
+            String millis2String = TimeUtils.millis2String(persBirthDate, DateFormatUtils.DATE_FORMAT3);
+            ll_persBirthDate.setEditorContent(millis2String);
+        }
+        ll_persBirthDate.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
                 showBirthday();
             }
         });
+
         // 婚姻
-        ll_editor_marriage.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
+        persMaritalStatusIndex = SecuritiesSharedPUtils.getPersMaritalStatus();
+        if (persMaritalStatusIndex != -1) {
+            String marriageType = persMaritalStatus[persMaritalStatusIndex];
+            ll_persMaritalStatus.setEditorContent(marriageType);
+        }
+        ll_persMaritalStatus.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
                 showMarriage();
             }
         });
+
         // 性别
-        ll_editor_sex.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
+        persGenderIndex = SecuritiesSharedPUtils.getPersGender();
+        if (persGenderIndex != -1) {
+            String marriageType = persGender[persGenderIndex];
+            ll_persGender.setEditorContent(marriageType);
+        }
+        ll_persGender.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
                 showSex();
             }
         });
+
         // 国籍地区
-        ll_editor_country.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
+        persNationalityIndex = SecuritiesSharedPUtils.getPersGender();
+        if (persNationalityIndex != -1) {
+            String marriageType = country_area[persNationalityIndex];
+            ll_persNationality.setEditorContent(marriageType);
+        }
+        ll_persNationality.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
-                showCountry(birthplaceList);
+                showCountry();
             }
         });
-        // 国籍地区
-        ll_editor_cardtype.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
+
+        // 证件类型
+        persIdTypeIndex = SecuritiesSharedPUtils.getPersIdType();
+        if (persIdTypeIndex != -1) {
+            String name = persIdType[persIdTypeIndex];
+            ll_persIdType.setEditorContent(name);
+        }
+        ll_persIdType.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
                 showCardtype();
             }
         });
         // 证件号码
-        String cardid = ll_editor_cardid.getEditorContent();
+        String persIdNo = SecuritiesSharedPUtils.getPersIdNo();
+        if (!TextUtils.isEmpty(persIdNo)) {
+            ll_persIdNo.setEditorContent(persIdNo);
+        }
+
         // 银行账户所属地区
-        ll_editor_bank_account_area.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
+        persBandAccRegionIndex = SecuritiesSharedPUtils.getPersBandAccRegion();
+        if (persBandAccRegionIndex != -1) {
+            String name = country_area[persBandAccRegionIndex];
+            ll_persBandAccRegion.setEditorContent(name);
+        }
+        ll_persBandAccRegion.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
                 showBankAccountArea();
@@ -167,62 +279,48 @@ public class SecuritiesAccountActivity extends BaseViewActivity {
     }
 
 
-    private int selectBankAccountArea = 0;
+    private int persBandAccRegionIndex = 0;
 
     /**
      * 银行账户所属地区
      */
     private void showBankAccountArea() {
-        List<String> list = Arrays.asList(getResources().getStringArray(R.array.bank_account_area_type));
-        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this, selectBankAccountArea, list);
+        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this, persBandAccRegionIndex, Arrays.asList(country_area));
         dialog.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
-                selectBankAccountArea = object == null ? 3 : (int) object;
-                String type = list.get(selectBankAccountArea);
-                ll_editor_bank_account_area.setEditorContent(type);
+                persBandAccRegionIndex = object == null ? 3 : (int) object;
+                String type = country_area[persBandAccRegionIndex];
+                ll_persBandAccRegion.setEditorContent(type);
             }
         });
         dialog.show();
     }
 
     /**
-     * 校验身份证格式
-     */
-    private void regexCardId() {
-        // 护照不校验
-        if (selectCardType == 0) {
-            boolean isCard = CardIdUtils.validateHKCard("香港身份证");
-        } else if (selectCardType == 1) {
-            boolean isCard = RegexUtils.isIDCard18("大陆身份证");
-        }
-    }
-
-    /**
      * 证件类型
      */
-    private int selectCardType = 0;
+    private int persIdTypeIndex = -1;
 
     /**
      * 选择证件类型
      */
     private void showCardtype() {
         // 根据选择国籍地区选择不同类型
-        if (selectMineCountry == 3) {
-            selectCardType = 0;
-        } else if (selectMineCountry == 0) {
-            selectCardType = 1;
+        if (persNationalityIndex == 3) {
+            persIdTypeIndex = 0;
+        } else if (persNationalityIndex == 0) {
+            persIdTypeIndex = 1;
         } else {
-            selectCardType = 2;
+            persIdTypeIndex = 2;
         }
-        List<String> list = Arrays.asList(getResources().getStringArray(R.array.card_type));
-        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this, selectCardType, list);
+        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this, persIdTypeIndex, Arrays.asList(persIdType));
         dialog.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
-                selectCardType = object == null ? 0 : (int) object;
-                String type = list.get(selectCardType);
-                ll_editor_cardtype.setEditorContent(type);
+                persIdTypeIndex = object == null ? 0 : (int) object;
+                String type = persIdType[persIdTypeIndex];
+                ll_persIdType.setEditorContent(type);
             }
         });
         dialog.show();
@@ -231,68 +329,66 @@ public class SecuritiesAccountActivity extends BaseViewActivity {
     /**
      * 默认第3个
      */
-    private int selectMineCountry = 3;
+    private int persNationalityIndex = 3;
 
     /**
      * 选择国籍地区
      */
-    private void showCountry(List<String> birthplaceList) {
-        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this, selectMineCountry, birthplaceList);
+    private void showCountry() {
+        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this, persNationalityIndex, Arrays.asList(country_area));
         dialog.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
-                selectMineCountry = object == null ? 3 : (int) object;
-                String type = birthplaceList.get(selectMineCountry);
-                ll_editor_country.setEditorContent(type);
+                persNationalityIndex = object == null ? 3 : (int) object;
+                String type = country_area[persNationalityIndex];
+                ll_persNationality.setEditorContent(type);
 
                 // 根据选择国籍地区选择不同类型
-                if (selectMineCountry == 3) {
-                    selectCardType = 0;
-                } else if (selectMineCountry == 0) {
-                    selectCardType = 1;
+                if (persNationalityIndex == 3) {
+                    persIdTypeIndex = 0;
+                } else if (persNationalityIndex == 0) {
+                    persIdTypeIndex = 1;
                 } else {
-                    selectCardType = 2;
+                    persIdTypeIndex = 2;
                 }
-                ll_editor_cardtype.setEditorContent(
-                        Arrays.asList(getResources().getStringArray(R.array.card_type)).get(selectCardType));
+                ll_persIdType.setEditorContent(persIdType[persIdTypeIndex]);
             }
         });
         dialog.show();
     }
 
-    private int selectSex = 0;
+    private int persGenderIndex = -1;
 
     /**
      * 选择性别
      */
     private void showSex() {
-        List<String> sexList = Arrays.asList(getResources().getStringArray(R.array.sex_type));
-        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this, selectSex, sexList);
+        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this, persGenderIndex, Arrays.asList(persGender));
         dialog.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
-                selectSex = object == null ? 0 : (int) object;
-                String type = sexList.get(selectSex);
-                ll_editor_sex.setEditorContent(type);
+                persGenderIndex = object == null ? 0 : (int) object;
+                String type = persGender[persGenderIndex];
+                ll_persGender.setEditorContent(type);
             }
         });
         dialog.show();
     }
 
-    private int selectMarriage = 0;
+    private int persMaritalStatusIndex = -1;
 
     /**
      * 选择婚姻
      */
     private void showMarriage() {
-        List<String> marriageList = Arrays.asList(getResources().getStringArray(R.array.marriage_type));
-        SelectBirthplaceDialog selectBirthplaceDialog = new SelectBirthplaceDialog(this, selectMarriage, marriageList);
+        SelectBirthplaceDialog selectBirthplaceDialog = new SelectBirthplaceDialog(this,
+                persMaritalStatusIndex, Arrays.asList(persMaritalStatus));
         selectBirthplaceDialog.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
-                selectMarriage = object == null ? 0 : (int) object;
-                String marriageType = marriageList.get(selectMarriage);
-                ll_editor_marriage.setEditorContent(marriageType);
+                persMaritalStatusIndex = object == null ? 0 : (int) object;
+                String marriageType = persMaritalStatus[persMaritalStatusIndex];
+                ll_persMaritalStatus.setEditorContent(marriageType);
             }
         });
         selectBirthplaceDialog.show();
@@ -320,7 +416,7 @@ public class SecuritiesAccountActivity extends BaseViewActivity {
                     return;
                 }
                 String millis2String = TimeUtils.millis2String(timeInMillis, DateFormatUtils.getDateFormat3());
-                ll_editor_birthday.setEditorContent(millis2String);
+                ll_persBirthDate.setEditorContent(millis2String);
             }
         });
         selectBirthdayDialog.show();
@@ -329,38 +425,37 @@ public class SecuritiesAccountActivity extends BaseViewActivity {
     /**
      * 默认第3个
      */
-    private int selectBirthplace = 3;
+    private int persBirthRegionIndex = 3;
 
     /**
      * 选择出生地区
      */
-    private void showBirthplace(List<String> birthplaceList) {
-        SelectBirthplaceDialog selectBirthplaceDialog = new SelectBirthplaceDialog(this, selectBirthplace, birthplaceList);
+    private void showBirthplace() {
+        SelectBirthplaceDialog selectBirthplaceDialog = new SelectBirthplaceDialog(this, persBirthRegionIndex, Arrays.asList(country_area));
         selectBirthplaceDialog.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
-                selectBirthplace = object == null ? 3 : (int) object;
-                String birthplace = birthplaceList.get(selectBirthplace);
-                ll_editor_birthplace.setEditorContent(birthplace);
+                persBirthRegionIndex = object == null ? 3 : (int) object;
+                String birthplace = country_area[persBirthRegionIndex];
+                ll_persBirthRegion.setEditorContent(birthplace);
             }
         });
         selectBirthplaceDialog.show();
     }
 
-    private int nikenameType = 0;
+    private int persNameTitleIndex = -1;
 
     /**
      * 选择称谓
      */
     private void showNikenameType() {
-        List<String> nikenameList = Arrays.asList(getResources().getStringArray(R.array.nikename_type));
-        SelectBirthplaceDialog selectBirthplaceDialog = new SelectBirthplaceDialog(this, nikenameType, nikenameList);
+        SelectBirthplaceDialog selectBirthplaceDialog = new SelectBirthplaceDialog(this, persNameTitleIndex, Arrays.asList(persNameTitle));
         selectBirthplaceDialog.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
-                nikenameType = object == null ? 0 : (int) object;
-                String nameType = nikenameList.get(nikenameType);
-                ll_editor_nikename.setEditorContent(nameType);
+                persNameTitleIndex = object == null ? 0 : (int) object;
+                String persName = persNameTitle[persNameTitleIndex];
+                ll_persNameTitle.setEditorContent(persName);
             }
         });
         selectBirthplaceDialog.show();
@@ -378,14 +473,65 @@ public class SecuritiesAccountActivity extends BaseViewActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
-                saveToSP();
-                finish();
+                onBackPressed();
                 break;
             case R.id.tv_recognition:
                 RecognitionActivity.startActivityResult(this);
                 break;
             case R.id.tv_next:
-                // 填写联系方式
+                // 必填
+                String persNameTitleEditorContent = ll_persNameTitle.getEditorContent();
+                if (TextUtils.isEmpty(persNameTitleEditorContent)) {
+                    ToastUtils.showToast(this, ll_persNameTitle.getLeftAndHintContentForTip());
+                    return;
+                }
+                String editorContent = ll_persNameChinese.getEditorContent();
+                String persNameEnglishEditorContent = ll_persNameEnglish.getEditorContent();
+                if (TextUtils.isEmpty(persNameEnglishEditorContent)) {
+                    ToastUtils.showToast(this, ll_persNameEnglish.getHintContentForTip());
+                    return;
+                }
+                String persBirthRegionEditorContent = ll_persBirthRegion.getEditorContent();
+                if (TextUtils.isEmpty(persBirthRegionEditorContent)) {
+                    ToastUtils.showToast(this, ll_persBirthRegion.getLeftAndHintContentForTip());
+                    return;
+                }
+                String persBirthDateEditorContent = ll_persBirthDate.getEditorContent();
+                if (TextUtils.isEmpty(persBirthDateEditorContent)) {
+                    ToastUtils.showToast(this, ll_persBirthDate.getLeftAndHintContentForTip());
+                    return;
+                }
+                String persMaritalStatusEditorContent = ll_persMaritalStatus.getEditorContent();
+                if (TextUtils.isEmpty(persMaritalStatusEditorContent)) {
+                    ToastUtils.showToast(this, ll_persMaritalStatus.getLeftAndHintContentForTip());
+                    return;
+                }
+                String persGenderEditorContent = ll_persGender.getEditorContent();
+                if (TextUtils.isEmpty(persGenderEditorContent)) {
+                    ToastUtils.showToast(this, ll_persGender.getLeftAndHintContentForTip());
+                    return;
+                }
+                String persNationalityEditorContent = ll_persNationality.getEditorContent();
+                if (TextUtils.isEmpty(persNationalityEditorContent)) {
+                    ToastUtils.showToast(this, ll_persNationality.getLeftAndHintContentForTip());
+                    return;
+                }
+                String persIdTypeEditorContent = ll_persIdType.getEditorContent();
+                if (TextUtils.isEmpty(persIdTypeEditorContent)) {
+                    ToastUtils.showToast(this, ll_persIdType.getLeftAndHintContentForTip());
+                    return;
+                }
+                String persIdNoEditorContent = ll_persIdNo.getEditorContent();
+                if (TextUtils.isEmpty(persIdNoEditorContent)) {
+                    ToastUtils.showToast(this, ll_persIdNo.getHintContentForTip());
+                    return;
+                }
+                String persBandAccRegionEditorContent = ll_persBandAccRegion.getEditorContent();
+                if (TextUtils.isEmpty(persBandAccRegionEditorContent)) {
+                    ToastUtils.showToast(this, ll_persBandAccRegion.getLeftAndHintContentForTip());
+                    return;
+                }
+                // 把资料保存到本地
                 saveToSP();
                 startActivity(new Intent(this, SecuritiesAccountContactActivity.class));
                 break;
@@ -394,12 +540,6 @@ public class SecuritiesAccountActivity extends BaseViewActivity {
         }
     }
 
-    /**
-     * 保存到本地
-     */
-    private void saveToSP() {
-
-    }
 
     @Override
     public void onBackPressed() {

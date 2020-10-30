@@ -19,11 +19,11 @@ public class LanguageSettingUtil {
     /**
      * 简体
      */
-    public static final String SIMPLIFIED_CHINESE = "ZH-CN";
+    public static final String SIMPLIFIED_CHINESE = "ZH_CN";
     /**
      * 繁体
      */
-    public static final String TRADITIONAL_CHINESE = "ZH-TW";
+    public static final String TRADITIONAL_CHINESE = "ZH_TW";
     /**
      * 英语
      */

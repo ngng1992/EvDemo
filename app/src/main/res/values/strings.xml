@@ -753,6 +753,8 @@
     <string name="verif_ui_resend_code_second">%1$ds后重发验证码</string>
     <string name="verif_ui_resend_code">重发验证码</string>
     <string name="toast_input_code">请输入您的验证码</string>
+    <string name="toast_input_digits">ABCDEFGHIJKLMNOPGRSTUVWXYZabcdefghijklmnopgrstuvwxyz0123456789-</string>
+    <string name="toast_pls_get_code">请重新获取验证码</string>
 
     <string name="sec_acc_ui_title">开通大圣证券账户</string>
     <string name="sec_acc_ui_edit_info">编辑资料</string>
@@ -768,7 +770,7 @@
     <string name="sec_acc_ui_chinese_name">中文姓名</string>
     <string name="sec_acc_ui_input_chinese_name">请输入中文姓名</string>
     <string name="sec_acc_ui_eg_name">英文姓名</string>
-    <string name="sec_acc_ui_input_eg_name">（非必填）请输入英文姓名</string>
+    <string name="sec_acc_ui_input_eg_name">请输入英文姓名</string>
     <string name="sec_acc_ui_birthplace">出生地区</string>
     <string name="sec_acc_ui_hk">中国香港</string>
     <string name="sec_acc_ui_birthday">出生日期</string>
@@ -922,6 +924,7 @@
     <string name="str_not_other_account">本人或与其「有关的账户」没有於悦有证券有限公司或悦有集团(下称“悦有”)操作/持有其他账户</string>
     <string name="str_not_government">不是任何国家/地方之政界人士/政党领袖/政府高级官员: 并同上述人土没有任何联系</string>
     <string name="str_not_bankruptcy">本人未在过去7年中曾经破产或递送破产申请</string>
+    <string name="str_checked">请勾选</string>
     <string name="str_open_account">立即开通</string>
     <string name="str_jump">跳过，去首页>></string>
 
@@ -945,6 +948,7 @@
     <string name="str_resend_code_second">(于%1$d秒后可重新发送)</string>
     <string name="str_send_code_email">我们将验证码发送到您登记的电邮</string>
     <string name="toast_code_error">错误验证码</string>
+    <string name="toast_email">该邮箱已被注册</string>
     <string name="str_reset_pwd">重置密码</string>
     <string name="str_newpwd">新密码</string>
     <string name="str_define_newpwd">确认新密码</string>

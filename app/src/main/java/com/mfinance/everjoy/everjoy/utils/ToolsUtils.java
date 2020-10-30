@@ -745,13 +745,16 @@ public class ToolsUtils {
      * 包含至少一个数字
      * 包含至少一个大写英文
      * 包含至少一个小写英文
-     * 包含至少一个字符
+     * 包含至少一个特殊字符
+     * 不包含空格符
      * <p>
-     * 参考：https://www.jianshu.com/p/3222ac7921cc
      */
     public static boolean verfiPwd(String pwd) {
-        String reg = "/(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[\\W_]).{8,16}/";
-        return RegexUtils.isMatch(reg, pwd);
+        if (pwd.contains(" ")) {
+            return false;
+        }
+        String reg = "(?=.*?[A-Z])(?=(.*[az]){1,})(?=(.*[\\d]){1,})(?=(.*[\\W]){1,})(?!.*\\s).{8,16}$";
+        return RegexUtils.isMatch(reg, pwd.trim());
     }
 
 

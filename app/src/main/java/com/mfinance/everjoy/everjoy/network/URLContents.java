@@ -15,4 +15,9 @@ public class URLContents {
      */
     public static final String REGISTER = BASE_URL + "register";
 
+    /**
+     * 开通证券账户
+     */
+    public static final String REGISTER_SECURITY_ACCOUNT = BASE_URL + "registersecurityaccount";
+
 }

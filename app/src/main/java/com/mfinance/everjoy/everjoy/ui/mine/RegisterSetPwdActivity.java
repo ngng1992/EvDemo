@@ -29,9 +29,10 @@ import butterknife.OnClick;
 public class RegisterSetPwdActivity extends BaseMvpViewActivity<BaseMvpView<BaseBean>, RegisterSetPwdPresenter>
         implements BaseMvpView<BaseBean> {
 
-    public static void start(Activity activity, String email) {
+    public static void startRegisterSetPwdActivity(Activity activity, String email, String otp) {
         Intent intent = new Intent(activity, RegisterSetPwdActivity.class);
         intent.putExtra(Constants.EMAIL, email);
+        intent.putExtra(Constants.OTP, otp);
         activity.startActivity(intent);
     }
 
@@ -51,6 +52,7 @@ public class RegisterSetPwdActivity extends BaseMvpViewActivity<BaseMvpView<Base
     TextView tvUserAgreement;
 
     private String email;
+    private String otp;
 
     @Override
     protected boolean isRemoveAppBar() {
@@ -71,6 +73,7 @@ public class RegisterSetPwdActivity extends BaseMvpViewActivity<BaseMvpView<Base
     protected void initView(View currentView) {
         Intent intent = getIntent();
         email = intent.getStringExtra(Constants.EMAIL);
+        otp = intent.getStringExtra(Constants.OTP);
     }
 
     @OnClick({R.id.iv_back, R.id.iv_show_newpwd, R.id.iv_show_define_pwd, R.id.tv_register,
@@ -119,7 +122,7 @@ public class RegisterSetPwdActivity extends BaseMvpViewActivity<BaseMvpView<Base
                     ToastUtils.showToast(this, R.string.arsp_new_define_pwd);
                     return;
                 }
-                mPresenter.requestRegisterSetPwd(email, newpwd);
+                mPresenter.requestRegisterSetPwd(email, newpwd, otp);
                 break;
             case R.id.tv_go_login:
                 LoginActivity.loginActivity(this);
@@ -144,7 +147,12 @@ public class RegisterSetPwdActivity extends BaseMvpViewActivity<BaseMvpView<Base
 
     @Override
     public void onShowError(String msg) {
-        showLoading(msg);
+        // Status: 0 - OK, -1 - Internal Error, -2 - OTP not vertified
+        if (msg.equals("-2")) {
+            ToastUtils.showToast(this, R.string.toast_code_error);
+        }else {
+            ToastUtils.showToast(this, msg);
+        }
     }
 
     @Override

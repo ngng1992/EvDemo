@@ -5,6 +5,8 @@ import com.mfinance.everjoy.everjoy.ui.mvp.base.BaseMvpView;
 
 public interface EmailRegisterView extends BaseMvpView<BaseBean> {
 
+    void onShowEmailCodeError(BaseBean baseBean);
+
     void onShowEmailCheckCode(BaseBean baseBean);
-    void onShowEmailCheckCodeError(String msg);
+    void onShowEmailCheckCodeError(BaseBean baseBean);
 }

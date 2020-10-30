@@ -40,7 +40,12 @@ public class EmailRegisterPresenter extends BaseMvpPresenter<EmailRegisterView> 
                     @Override
                     public void onFail(BaseBean baseBean) {
                         super.onFail(baseBean);
-                        emailRegisterView.onShowError(baseBean.getMessage());
+                        // 0 - OK, -1 - Internal Error, -2 - Email already registered
+                        if (baseBean.getCode() == -2) {
+                            emailRegisterView.onShowEmailCodeError(baseBean);
+                        }else {
+                            emailRegisterView.onShowError(baseBean.getMessage());
+                        }
                     }
 
                     @Override
@@ -76,11 +81,7 @@ public class EmailRegisterPresenter extends BaseMvpPresenter<EmailRegisterView> 
                     public void onFail(BaseBean baseBean) {
                         super.onFail(baseBean);
                         // -3 错误验证码，-2未请求
-                        if (baseBean.getCode() == -3) {
-                            emailRegisterView.onShowEmailCheckCodeError("");
-                        } else {
-                            emailRegisterView.onShowError(baseBean.getMessage());
-                        }
+                        emailRegisterView.onShowEmailCheckCodeError(baseBean);
                     }
 
                     @Override

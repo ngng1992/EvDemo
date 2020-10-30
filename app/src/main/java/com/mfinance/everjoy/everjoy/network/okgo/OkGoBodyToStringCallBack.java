@@ -61,9 +61,13 @@ public abstract class OkGoBodyToStringCallBack extends StringCallback {
                 }
             } else {
                 BaseBean baseBean = new BaseBean();
-                baseBean.setCode(Integer.parseInt(body));
-                baseBean.setMessage("");
-                onFail(baseBean);
+                int status = Integer.parseInt(body);
+                baseBean.setCode(status);
+                if (status == 0) {
+                    onSuccessBody(baseBean);
+                } else {
+                    onFail(baseBean);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -80,7 +84,7 @@ public abstract class OkGoBodyToStringCallBack extends StringCallback {
         // 网络连接
         boolean connected = NetworkUtils.isConnected();
         if (connected) {
-            // 服务器出错，如果解析出错也会报这个错
+            // 服务器出错，如果解析出错也会报这个错，统一报【连接异常】
             ToastUtils.showToast(MultiLanguageUtil.showToastChangeContext(Utils.getApp()), R.string.toast_server_unusual);
         } else {
             // 网络出错
@@ -101,6 +105,9 @@ public abstract class OkGoBodyToStringCallBack extends StringCallback {
      * 错误
      */
     public void onFail(BaseBean baseBean) {
-
+        if (baseBean.getCode() == -1) {
+            //  -1 Internal Error
+            ToastUtils.showToast(MultiLanguageUtil.showToastChangeContext(Utils.getApp()), R.string.toast_server_unusual);
+        }
     }
 }

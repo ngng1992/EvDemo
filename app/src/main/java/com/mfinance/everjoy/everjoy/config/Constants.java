@@ -12,6 +12,7 @@ public class Constants {
     public static final int APP_LAUNCHER_URL_PORT_2 = 2083;
 
     public static final String EMAIL = "email";
+    public static final String OTP = "otp";
     public static final String IS_FORGET_PWD = "isForgetPwd";
 
     public static final String LANGUAGE = "language";

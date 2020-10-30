@@ -77,7 +77,7 @@
             android:layout_marginLeft="@dimen/dp_16"
             android:layout_marginTop="@dimen/dp_40"
             android:layout_marginRight="@dimen/dp_16"
-            android:text="@string/str_code"
+            android:text="@string/str_pwd"
             android:textColor="@color/gray1e"
             android:textSize="@dimen/sp_16">
 
