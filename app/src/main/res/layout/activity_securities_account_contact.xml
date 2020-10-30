@@ -330,7 +330,7 @@
                     app:isEditor="false"
                     app:isVisibilityGoto="true"
                     app:txtLeft="@string/ui_business"
-                    app:txtRightHint="@string/sec_acc_ui_select">
+                    app:txtRightHint="@string/sec_need_acc_ui_select">
 
                 </com.mfinance.everjoy.everjoy.view.AccountEditorInfoView>
 
@@ -341,7 +341,7 @@
                     app:isEditor="false"
                     app:isVisibilityGoto="true"
                     app:txtLeft="@string/ui_profession"
-                    app:txtRightHint="@string/sec_acc_ui_select">
+                    app:txtRightHint="@string/sec_need_acc_ui_select">
 
                 </com.mfinance.everjoy.everjoy.view.AccountEditorInfoView>
 
@@ -352,7 +352,7 @@
                     app:isEditor="false"
                     app:isVisibilityGoto="true"
                     app:txtLeft="@string/ui_working"
-                    app:txtRightHint="@string/sec_acc_ui_select">
+                    app:txtRightHint="@string/sec_need_acc_ui_select">
 
                 </com.mfinance.everjoy.everjoy.view.AccountEditorInfoView>
 

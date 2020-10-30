@@ -239,6 +239,7 @@
     <string name="msg_383">Invalid Password/Username</string>
     <string name="msg_393">Invalid Password/Username</string>
     <string name="msg_8001">Duplicate login occurs</string>
+    <string name="msg_8003">Duplicate login occurs</string>
     <string name="msg_310">Please login first</string>
     <string name="msg_311">Invalid Trade Date</string>
     <string name="msg_312">Account Locked. Please contact our Customer Services officer.</string>
@@ -732,8 +733,10 @@
     <string name="str_new_register">新用户注册</string>
     <string name="str_social_login">第三方账号登录</string>
     <string name="toast_exit">再按一次退出%1$s</string>
+    <string name="str_logout">Logout</string>
 
     <string name="arsp_set_login_pwd">设置登录密码</string>
+    <string name="arsp_old_pwd">Old Password</string>
     <string name="arsp_new_pwd">新密码</string>
     <string name="arsp_input_pwd">请输入密码</string>
     <string name="arsp_define_pwd">确认密码</string>
@@ -768,13 +771,14 @@
     <string name="sec_acc_ui_mrs">太太</string>
     <string name="sec_acc_ui_miss">小姐</string>
     <string name="sec_acc_ui_chinese_name">中文姓名</string>
-    <string name="sec_acc_ui_input_chinese_name">请输入中文姓名</string>
+    <string name="sec_acc_ui_input_chinese_name">(非必填)请输入中文姓名</string>
     <string name="sec_acc_ui_eg_name">英文姓名</string>
     <string name="sec_acc_ui_input_eg_name">请输入英文姓名</string>
     <string name="sec_acc_ui_birthplace">出生地区</string>
     <string name="sec_acc_ui_hk">中国香港</string>
     <string name="sec_acc_ui_birthday">出生日期</string>
     <string name="toast_sec_acc_eighteen">声请人必须年满18岁或以上</string>
+    <string name="sec_need_acc_ui_select">(非必填)请选择</string>
     <string name="sec_acc_ui_select">请选择</string>
     <string name="sec_acc_ui_marriage">婚姻状况</string>
     <string name="sec_acc_ui_sex">性别</string>
@@ -786,6 +790,7 @@
     <string name="sec_acc_ui_next">下一步</string>
     <string name="sec_acc_ui_contact">如有问题，立即在线咨询</string>
     <string name="saa_input_card_code">请输入证件号码</string>
+    <string name="saa_cardid_error">错误证件号码格式</string>
 
     <string name="recg_ui_auto">上载证件自动填写</string>
     <string name="recg_ui_front">身份证正面*</string>
@@ -813,11 +818,11 @@
     <string name="ui_edu">教育程度</string>
     <string name="ui_work">工作状况</string>
     <string name="ui_comp">雇主名称</string>
-    <string name="ui_input_comp">请输入雇主名称</string>
+    <string name="ui_input_comp">(非必填)请输入雇主名称</string>
     <string name="ui_comp_address">公司地址</string>
-    <string name="ui_input_comp_address">（非必填）请输入公司地址</string>
+    <string name="ui_input_comp_address">(非必填)请输入公司地址</string>
     <string name="ui_comp_phone">公司电话</string>
-    <string name="ui_input_comp_phone">（非必填）请输入公司电话</string>
+    <string name="ui_input_comp_phone">(非必填)请输入公司电话</string>
     <string name="ui_business">业务性质</string>
     <string name="ui_profession">职业</string>
     <string name="ui_working">工作年资</string>
@@ -828,7 +833,7 @@
     <string name="txt_finish">完成</string>
     <string name="auc_card_upload">证件上传</string>
     <string name="auc_address_desc">住址证明*</string>
-    <string name="auc_passport1">护照/港澳通行证（非必填）</string>
+    <string name="auc_passport1">护照/港澳通行证(非必填)</string>
     <string name="auc_passport2">护照/港澳通行证*</string>
 
     <string name="af_revenue">财政收入</string>
@@ -937,6 +942,7 @@
     <string name="str_forget_pwd2">忘记密码</string>
     <string name="str_quick_login">快速登入</string>
     <string name="toast_input_email">请输入您的邮箱账号</string>
+    <string name="toast_input_acc">请输入您的ID</string>
     <string name="toast_input_login_pwd">请输入您的登录密码</string>
     <string name="toast_email_error">邮箱格式不正确</string>
     <string name="toast_input_pwd">请输入密码</string>
@@ -1012,13 +1018,16 @@
     <string name="toast_server_unusual">连接异常</string>
     <string name="toast_net_unusual">网络异常</string>
 
-
-
-
-
-
     <string name="login_fail_1">Wrong Password/Token</string>
     <string name="login_fail_2">Account Locked</string>
     <string name="login_fail_3">Server has reached max. connection</string>
+
+    <string name="login_sec_fail_1">Wrong Password/Token</string>
+    <string name="login_sec_fail_2">BSS service is not available</string>
+    <string name="login_sec_fail_3">Server has reached max. connection</string>
+    <string name="login_sec_otp_fail">Wrong OTP</string>
+
+    <string name="resetpassword_success">Reset Password Success</string>
+    <string name="resetpassword_fail">Reset Password Failed</string>
 
 </resources>

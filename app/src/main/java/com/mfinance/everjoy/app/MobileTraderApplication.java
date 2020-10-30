@@ -792,19 +792,6 @@ public class MobileTraderApplication extends Application {
         return setting.getString("OPEN_ID", "null");
     }
 
-    public void setPassword(String password) {
-        SharedPreferences setting = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        SharedPreferences.Editor editor = setting.edit();
-        editor.putString("PASSWORD", password);
-        editor.commit();
-    }
-
-    public String getPassword() {
-        SharedPreferences setting = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        return setting.getString("PASSWORD", "null");
-    }
-
-
     public void setDefaultPage(String sSeq) {
         if (sSeq != null) {
             data.setContractSequence(sSeq);

@@ -32,59 +32,58 @@ public class LoginProcessor implements MessageProcessor{
 	public boolean processMessage(Message msg, FxMobileTraderService service) {
 
 		Bundle data = msg.getData();
-
-		int type = Integer.parseInt(data.getString(ServiceFunction.LOGIN_TYPE));
 		String level = data.getString(ServiceFunction.LOGIN_LEVEL);
-
-		String strURL = "";
-		int iPort = -1;
-
-		String strUserID = "";
-		String strPwdToken = "";
-		String strOpenID = "";
-		String strOType = "";
-		String strPassword = "";
-		String strSelfIP = "";
-
-		try {
-			final String selfIP = CompanySettings.getSelfIPBySSL ? IPRetriever.httpsGet(CompanySettings.echoiplink) : IPRetriever.get(new URL(CompanySettings.echoServer));
-			if (selfIP != null) {
-				//
-				strSelfIP = selfIP;
-				service.app.setSelfIP(selfIP);
-			}
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
-
-		int iConnIdx = data.getInt(ServiceFunction.LOGIN_CONN_INDEX);
-
-		service.app.setLoginID(strUserID);
-
-		if (CompanySettings.checkProdServer() == 1) {
-			if(iConnIdx == -1 || iConnIdx >= service.app.alLoginInfoProd.size() )
-			{
-				strURL = service.app.loginInfoProd.sURL;
-				iPort = Utility.toInteger(service.app.loginInfoProd.sPort, 15000);
-			}
-			else
-			{
-				strURL = service.app.alLoginInfoProd.get(iConnIdx).sURL;
-				iPort = Utility.toInteger(service.app.alLoginInfoProd.get(iConnIdx).sPort, 15000);
-			}
-		}
-
-		InetAddress giriAddress = null;
-		try {
-			giriAddress = java.net.InetAddress.getByName(strURL);
-		} catch (UnknownHostException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-			giriAddress = null;
-		}
 
 		try {
 			if (level.equals("2")) {
+				int type = Integer.parseInt(data.getString(ServiceFunction.LOGIN_TYPE));
+				String strURL = "";
+				int iPort = -1;
+
+				String strUserID = "";
+				String strPwdToken = "";
+				String strOpenID = "";
+				String strOType = "";
+				String strPassword = "";
+				String strSelfIP = "";
+
+				try {
+					final String selfIP = CompanySettings.getSelfIPBySSL ? IPRetriever.httpsGet(CompanySettings.echoiplink) : IPRetriever.get(new URL(CompanySettings.echoServer));
+					if (selfIP != null) {
+						//
+						strSelfIP = selfIP;
+						service.app.setSelfIP(selfIP);
+					}
+				} catch (MalformedURLException e) {
+					e.printStackTrace();
+				}
+
+				int iConnIdx = data.getInt(ServiceFunction.LOGIN_CONN_INDEX);
+
+
+
+				if (CompanySettings.checkProdServer() == 1) {
+					if(iConnIdx == -1 || iConnIdx >= service.app.alLoginInfoProd.size() )
+					{
+						strURL = service.app.loginInfoProd.sURL;
+						iPort = Utility.toInteger(service.app.loginInfoProd.sPort, 15000);
+					}
+					else
+					{
+						strURL = service.app.alLoginInfoProd.get(iConnIdx).sURL;
+						iPort = Utility.toInteger(service.app.alLoginInfoProd.get(iConnIdx).sPort, 15000);
+					}
+				}
+
+				InetAddress giriAddress = null;
+				try {
+					giriAddress = java.net.InetAddress.getByName(strURL);
+				} catch (UnknownHostException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					giriAddress = null;
+				}
+
 				service.app.setLoginType(type);
 
 				if (type == Type.EMAIL){
@@ -97,15 +96,12 @@ public class LoginProcessor implements MessageProcessor{
 					strOpenID = data.getString(ServiceFunction.LOGIN_OPENID);
 				}
 
+				service.app.setLoginID(strUserID);
 				strPassword = data.getString(ServiceFunction.LOGIN_PASSWORD);
 
 				service.app.data.setStrURL(strURL);
 				service.app.data.setiPort(iPort);
 				service.app.data.setStrPassword(strPassword);
-
-				if (!strPassword.isEmpty()){
-					service.app.setPassword(strPassword);
-				}
 
 				service.startConnection(strURL, iPort);
 
@@ -141,24 +137,26 @@ public class LoginProcessor implements MessageProcessor{
 				Log.i(TAG, "[LoginProcessor]["+loginMsg.convertToString(false)+"]");
 			}
 			else if (level.equals("3")){
-				strUserID = data.getString(ServiceFunction.LOGIN_USERNAME);
-				strPassword = data.getString(ServiceFunction.LOGIN_PASSWORD);
+				String strUserID = data.getString(ServiceFunction.LOGIN_USERNAME);
+				String strPassword = data.getString(ServiceFunction.LOGIN_PASSWORD);
+
+				service.app.data.setStrSecurityLoginID(strUserID);
 
 				MessageObj loginMsg = MessageObj.getMessageObj(IDDictionary.SERVER_LOGIN_SERVICE_TYPE, IDDictionary.SERVER_LOGIN_LOGIN_SECURITY);
 				loginMsg.addField(LoginRequest.ACC, strUserID);
-				loginMsg.addField(Protocol.LoginRequest.PASSWORD, strPassword);
+				loginMsg.addField(LoginRequest.PASSWORD, strPassword);
 
-				if (giriAddress != null)
-					loginMsg.addField(Protocol.LoginRequest.SERVER_IP, strURL + "/" + giriAddress.getHostAddress());
-				else
-					loginMsg.addField(Protocol.LoginRequest.SERVER_IP, strURL);
+				service.connection.sendMessage(loginMsg.convertToString(true));
+				Log.i(TAG, loginMsg.convertToString(false));
+				Log.i(TAG, "[LoginProcessor]["+loginMsg.convertToString(true)+"]");
+				Log.i(TAG, "[LoginProcessor]["+loginMsg.convertToString(false)+"]");
+			}
+			else if (level.equals("3.1")){
+				String strOTP = data.getString(ServiceFunction.LOGIN_SEC_OTP);
 
-				try {
-					loginMsg.addField(Protocol.LoginRequest.OS_VERSION, System.getProperty("os.version"));
-				} catch (Exception e) {
-				}
-				loginMsg.addField(Protocol.LoginRequest.SELF_IP, strSelfIP);
-				loginMsg.addField(Protocol.LoginRequest.TYPE, "a");
+				MessageObj loginMsg = MessageObj.getMessageObj(IDDictionary.SERVER_LOGIN_SERVICE_TYPE, IDDictionary.SERVER_LOGIN_LOGIN_SECURITY_OTP);
+				loginMsg.addField(LoginRequest.ACC, service.app.data.getStrSecurityLoginID());
+				loginMsg.addField(LoginRequest.OTP, strOTP);
 
 				service.connection.sendMessage(loginMsg.convertToString(true));
 				Log.i(TAG, loginMsg.convertToString(false));

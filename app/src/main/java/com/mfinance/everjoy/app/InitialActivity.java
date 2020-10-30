@@ -69,7 +69,10 @@ public class InitialActivity extends BaseViewActivity {
                             goTo(ServiceFunction.SRV_TO_SHOW_ANDROID_MARKET_MSG);
                         } else {
                             if (isServerAvailable()) {
-                                goTo(ServiceFunction.SRV_MOVE_TO_LOGIN);
+                                if (app.getPasswordToken() != null && app.getLoginID() != null)
+                                    goTo(ServiceFunction.SRV_MOVE_TO_LOGIN);
+                                else
+                                    goTo(ServiceFunction.SRV_MOVE_TO_MAIN_PAGE);
                             } else
                                 inVisiableTheProgressBar(Boolean.TRUE);
                         }
@@ -107,23 +110,23 @@ public class InitialActivity extends BaseViewActivity {
         });
     }
 
-    public void showDeclaration() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                progressBar.setVisibility(View.INVISIBLE);
-                findViewById(R.id.dView).setVisibility(View.VISIBLE);
-            }
-        });
-    }
+	public void showDeclaration() {
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				progressBar.setVisibility(View.INVISIBLE);
+				findViewById(R.id.dView).setVisibility(View.VISIBLE);
+			}
+		});
+	}
 
-    public boolean isAgreedDeclaration() {
-        if (!CompanySettings.ENABLE_Declaration_Screen)
-            return true;
-        return android.preference.PreferenceManager
-                .getDefaultSharedPreferences(this).getBoolean(
-                        "isAgreedDeclaration", false);
-    }
+	public boolean isAgreedDeclaration() {
+		if (!CompanySettings.ENABLE_Declaration_Screen)
+			return true;
+		return android.preference.PreferenceManager
+				.getDefaultSharedPreferences(this).getBoolean(
+						"isAgreedDeclaration", false);
+	}
 
     public void setAgreedDeclaration() {
         android.preference.PreferenceManager.getDefaultSharedPreferences(this)

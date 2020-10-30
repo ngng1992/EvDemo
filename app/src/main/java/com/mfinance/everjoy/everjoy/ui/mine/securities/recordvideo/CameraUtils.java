@@ -8,7 +8,7 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import net.mfinance.chatlib.utils.ConfigUtils;
+import com.mfinance.everjoy.everjoy.config.FileConfig;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -190,8 +190,8 @@ public class CameraUtils {
         }
         if (mCamera != null) {
             surfaceView.getHolder().removeCallback(callback);
-            mCamera.setPreviewCallback(null);
             mCamera.stopPreview();
+            mCamera.setPreviewCallback(null);
             mCamera.lock();
             mCamera.release();
             mCamera = null;
@@ -250,11 +250,12 @@ public class CameraUtils {
         }
         mediaRecorder.setPreviewDisplay(surfaceView.getHolder().getSurface());
         // 设置视频路径
-        String videoNamePath = ConfigUtils.getVideoNamePath();
+        String videoName = FileConfig.getVideoName();
+        String videoPath = FileConfig.getVideoNamePath(videoName);
         if (recordCallBack != null) {
-            recordCallBack.filePath(videoNamePath);
+            recordCallBack.filePath(videoPath, videoName);
         }
-        mediaRecorder.setOutputFile(videoNamePath);
+        mediaRecorder.setOutputFile(videoPath);
         try {
             mediaRecorder.prepare();
             mediaRecorder.start();

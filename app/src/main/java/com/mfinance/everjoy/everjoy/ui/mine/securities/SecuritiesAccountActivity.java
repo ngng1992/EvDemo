@@ -15,8 +15,8 @@ import com.mfinance.everjoy.everjoy.dialog.SelectBirthplaceDialog;
 import com.mfinance.everjoy.everjoy.dialog.impl.OnClickDialogOrFragmentViewListener;
 import com.mfinance.everjoy.everjoy.sp.SecuritiesSharedPUtils;
 import com.mfinance.everjoy.everjoy.ui.mine.ContactActivity;
-import com.mfinance.everjoy.everjoy.utils.CardIdUtils;
 import com.mfinance.everjoy.everjoy.utils.DateFormatUtils;
+import com.mfinance.everjoy.everjoy.utils.ToolsUtils;
 import com.mfinance.everjoy.everjoy.view.AccountEditorInfoView;
 import com.mfinance.everjoy.everjoy.view.AccountStepView;
 
@@ -25,7 +25,6 @@ import net.mfinance.commonlib.view.StringTextView;
 
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.List;
 
 import butterknife.BindArray;
 import butterknife.BindView;
@@ -126,9 +125,7 @@ public class SecuritiesAccountActivity extends BaseViewActivity {
             SecuritiesSharedPUtils.setPersGender(persGenderIndex);
         }
 
-        if (persNationalityIndex != -1) {
-            SecuritiesSharedPUtils.setPersNationality(persNationalityIndex);
-        }
+        SecuritiesSharedPUtils.setPersNationality(persNationalityIndex);
 
         if (persIdTypeIndex != -1) {
             SecuritiesSharedPUtils.setPersIdType(persIdTypeIndex);
@@ -178,7 +175,10 @@ public class SecuritiesAccountActivity extends BaseViewActivity {
         // 选择出生日期,yyyy-mm-dd
         long persBirthDate = SecuritiesSharedPUtils.getPersBirthDate();
         if (persBirthDate != 0) {
-            selectDate.setTimeInMillis(persBirthDate);
+            if (selectDate == null) {
+                selectDate = Calendar.getInstance();
+                selectDate.setTimeInMillis(persBirthDate);
+            }
             String millis2String = TimeUtils.millis2String(persBirthDate, DateFormatUtils.DATE_FORMAT3);
             ll_persBirthDate.setEditorContent(millis2String);
         }
@@ -216,11 +216,9 @@ public class SecuritiesAccountActivity extends BaseViewActivity {
         });
 
         // 国籍地区
-        persNationalityIndex = SecuritiesSharedPUtils.getPersGender();
-        if (persNationalityIndex != -1) {
-            String marriageType = country_area[persNationalityIndex];
-            ll_persNationality.setEditorContent(marriageType);
-        }
+        persNationalityIndex = SecuritiesSharedPUtils.getPersNationalit();
+        String marriageType = country_area[persNationalityIndex];
+        ll_persNationality.setEditorContent(marriageType);
         ll_persNationality.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
@@ -248,10 +246,8 @@ public class SecuritiesAccountActivity extends BaseViewActivity {
 
         // 银行账户所属地区
         persBandAccRegionIndex = SecuritiesSharedPUtils.getPersBandAccRegion();
-        if (persBandAccRegionIndex != -1) {
-            String name = country_area[persBandAccRegionIndex];
-            ll_persBandAccRegion.setEditorContent(name);
-        }
+        String name = country_area[persBandAccRegionIndex];
+        ll_persBandAccRegion.setEditorContent(name);
         ll_persBandAccRegion.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
@@ -278,8 +274,8 @@ public class SecuritiesAccountActivity extends BaseViewActivity {
                 .create();
     }
 
-
-    private int persBandAccRegionIndex = 0;
+    // 默认中国香港
+    private int persBandAccRegionIndex = 3;
 
     /**
      * 银行账户所属地区
@@ -462,13 +458,6 @@ public class SecuritiesAccountActivity extends BaseViewActivity {
 
     }
 
-    private int index = 0;
-
-    public void onStepIndex(View view) {
-        index++;
-        llAccountStep.scrollStep(index);
-    }
-
     @OnClick({R.id.iv_back, R.id.tv_recognition, R.id.tv_next})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -485,7 +474,7 @@ public class SecuritiesAccountActivity extends BaseViewActivity {
                     ToastUtils.showToast(this, ll_persNameTitle.getLeftAndHintContentForTip());
                     return;
                 }
-                String editorContent = ll_persNameChinese.getEditorContent();
+//                String editorContent = ll_persNameChinese.getEditorContent();
                 String persNameEnglishEditorContent = ll_persNameEnglish.getEditorContent();
                 if (TextUtils.isEmpty(persNameEnglishEditorContent)) {
                     ToastUtils.showToast(this, ll_persNameEnglish.getHintContentForTip());
@@ -525,6 +514,17 @@ public class SecuritiesAccountActivity extends BaseViewActivity {
                 if (TextUtils.isEmpty(persIdNoEditorContent)) {
                     ToastUtils.showToast(this, ll_persIdNo.getHintContentForTip());
                     return;
+                }
+                if (persIdTypeIndex == 0) {
+                    if (!ToolsUtils.validateHKCard(persIdNoEditorContent)) {
+                        ToastUtils.showToast(this, R.string.saa_cardid_error);
+                        return;
+                    }
+                } else if (persIdTypeIndex == 1) {
+                    if (!RegexUtils.isIDCard18(persIdNoEditorContent)) {
+                        ToastUtils.showToast(this, R.string.saa_cardid_error);
+                        return;
+                    }
                 }
                 String persBandAccRegionEditorContent = ll_persBandAccRegion.getEditorContent();
                 if (TextUtils.isEmpty(persBandAccRegionEditorContent)) {

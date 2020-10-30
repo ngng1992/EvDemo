@@ -1,16 +1,21 @@
 package com.mfinance.everjoy.everjoy.ui.mine;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Message;
+import android.os.RemoteException;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.mfinance.everjoy.R;
+import com.mfinance.everjoy.app.constant.ServiceFunction;
+import com.mfinance.everjoy.app.model.DataRepository;
+import com.mfinance.everjoy.app.model.LoginSecurityProgress;
 import com.mfinance.everjoy.everjoy.base.BaseViewActivity;
 import com.mfinance.everjoy.everjoy.config.Constants;
-import com.mfinance.everjoy.everjoy.sp.UserSharedPUtils;
-import com.mfinance.everjoy.everjoy.ui.home.MainActivity;
+import com.mfinance.everjoy.everjoy.utils.ToolsUtils;
 
 import net.mfinance.commonlib.timer.CountDownHelper;
 import net.mfinance.commonlib.timer.OnTimerCallBack;
@@ -56,6 +61,7 @@ public class LoginVerificationActivity extends BaseViewActivity {
      */
     private boolean isForgetPwd;
     private String email;
+    private String prefix;
     private String code;
 
     /**
@@ -82,6 +88,7 @@ public class LoginVerificationActivity extends BaseViewActivity {
     protected void initView(View currentView) {
         Intent intent = getIntent();
         email = intent.getStringExtra(Constants.EMAIL);
+        prefix = intent.getStringExtra(Constants.PREFIX);
         isForgetPwd = intent.getBooleanExtra(Constants.IS_FORGET_PWD, false);
         if (isForgetPwd) {
             tvSubmit.setText(R.string.str_submit);
@@ -98,7 +105,6 @@ public class LoginVerificationActivity extends BaseViewActivity {
                 .create();
 
         vciCode.setOnCompleteListener(new VerificationCodeInput.OnCompleteListener() {
-
             @Override
             public void onComplete(String content) {
                 code = content;
@@ -123,18 +129,24 @@ public class LoginVerificationActivity extends BaseViewActivity {
 
                 // TODO 验证成功
                 if (isForgetPwd) {
-                    startActivity(new Intent(this, ResetPwdActivity.class));
-                }else {
-                    // 首次登录，询问是否启用指纹识别
-                    boolean loginFirstByEmail = UserSharedPUtils.isLoginFirstByEmail(email);
-                    if (loginFirstByEmail) {
-                        // 验证邮箱成功后，设置sp为false
-                        startActivity(new Intent(this, FingeridOpenActivity.class));
-                        UserSharedPUtils.setIsLoginFirst(email, false);
-                    } else {
-                        MainActivity.startMainActivity2(this);
-                        finish();
-                    }
+                    Runnable r = new moveToOTPResetPassword(code);
+                    (new Thread(r)).start();
+                } else {
+//                    // 首次登录，询问是否启用指纹识别
+//                    boolean loginFirstByEmail = UserSharedPUtils.isLoginFirstByEmail(email);
+//                    if (loginFirstByEmail) {
+//                        // 验证邮箱成功后，设置sp为false
+//                        startActivity(new Intent(this, FingeridOpenActivity.class));
+//                        UserSharedPUtils.setIsLoginFirst(email, false);
+//                    } else {
+//                        MainActivity.startMainActivity2(this);
+//                        finish();
+//                    }
+
+                    //Send Level 3 Login request to server
+                    LoginSecurityProgress.reset();
+                    Runnable r = new moveToOTPLogin(code);
+                    (new Thread(r)).start();
                 }
                 break;
             case R.id.tv_resend_code:
@@ -177,6 +189,104 @@ public class LoginVerificationActivity extends BaseViewActivity {
         super.onDestroy();
         if (countDownHelper != null) {
             countDownHelper.stopTimer();
+        }
+    }
+
+    public class moveToOTPResetPassword implements Runnable {
+        private String otp;
+
+        public moveToOTPResetPassword() {
+        }
+
+        public moveToOTPResetPassword(String otp) {
+            this.otp = otp;
+        }
+
+        public void run() {
+            try {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (dialog == null)
+                            dialog = ProgressDialog.show(LoginVerificationActivity.this, "", res.getString(R.string.please_wait), true);
+                    }
+                });
+
+                DataRepository.getInstance().clear();
+                if (ToolsUtils.checkNetwork(app)) {
+                    Thread thread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            reset(prefix + "-" + otp);
+                        }
+                    });
+                    thread.start();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public class moveToOTPLogin implements Runnable {
+        private String otp;
+
+        public moveToOTPLogin() {
+        }
+
+        public moveToOTPLogin(String otp) {
+            this.otp = otp;
+        }
+
+        public void run() {
+            try {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (dialog == null)
+                            dialog = ProgressDialog.show(LoginVerificationActivity.this, "", res.getString(R.string.please_wait), true);
+                    }
+                });
+
+                DataRepository.getInstance().clear();
+                if (ToolsUtils.checkNetwork(app)) {
+                    Thread thread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            login(prefix + otp);
+                        }
+                    });
+                    thread.start();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void login(String strOTP) {
+        Message loginMsg = Message.obtain(null, ServiceFunction.SRV_LOGIN);
+        loginMsg.replyTo = mServiceMessengerHandler;
+
+        loginMsg.getData().putString(ServiceFunction.LOGIN_LEVEL, "3.1");
+        loginMsg.getData().putString(ServiceFunction.LOGIN_SEC_OTP, strOTP);
+        try {
+            mService.send(loginMsg);
+        } catch (RemoteException e) {
+            Log.e("login", "Unable to send login message", e.fillInStackTrace());
+        }
+    }
+
+    public void reset(String strOTP) {
+        Message loginMsg = Message.obtain(null, ServiceFunction.SRV_SEND_CHANGE_PASSWORD_OTP_REQUEST);
+        loginMsg.replyTo = mServiceMessengerHandler;
+
+        loginMsg.getData().putString(ServiceFunction.FORGETPASSWORD_EMAIL, email);
+        loginMsg.getData().putString(ServiceFunction.FORGETPASSWORD_OTP, strOTP);
+        try {
+            mService.send(loginMsg);
+        } catch (RemoteException e) {
+            Log.e("login", "Unable to send login message", e.fillInStackTrace());
         }
     }
 }

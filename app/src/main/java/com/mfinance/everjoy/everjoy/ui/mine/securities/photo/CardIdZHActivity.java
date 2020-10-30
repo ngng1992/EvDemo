@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ImageUtils;
 import com.mfinance.everjoy.R;
+import com.mfinance.everjoy.everjoy.config.FileConfig;
 
 import net.mfinance.chatlib.utils.ConfigUtils;
 
@@ -288,7 +289,7 @@ public class CardIdZHActivity extends Activity implements View.OnClickListener {
      */
     private File getOriginalFile() {
         String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(new Date());
-        File file = new File(ConfigUtils.FILE_IDCARDS);
+        File file = new File(FileConfig.FILE_IDCARDS);
         switch (type) {
             case TYPE_IDCARD_FRONT:
                 return new File(file, "idcard_front_" + timeStamp + ".jpg");
@@ -313,18 +314,18 @@ public class CardIdZHActivity extends Activity implements View.OnClickListener {
         String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(new Date());
         switch (type) {
             case TYPE_IDCARD_FRONT:
-                cropFilePath = ConfigUtils.FILE_IDCARDS + "/idcard_crop_front_" + timeStamp + ".jpg";
+                cropFilePath = FileConfig.FILE_IDCARDS + "/idcard_crop_front_" + timeStamp + ".jpg";
                 break;
             case TYPE_IDCARD_BACK:
-                cropFilePath = ConfigUtils.FILE_IDCARDS + "/idcard_crop_back_" + timeStamp + ".jpg";
+                cropFilePath = FileConfig.FILE_IDCARDS + "/idcard_crop_back_" + timeStamp + ".jpg";
                 break;
             case TYPE_COMPANY_PORTRAIT:
             case TYPE_COMPANY_LANDSCAPE:
-                cropFilePath = ConfigUtils.FILE_IDCARDS + "/comp_crop_" + timeStamp + ".jpg";
+                cropFilePath = FileConfig.FILE_IDCARDS + "/comp_crop_" + timeStamp + ".jpg";
                 break;
             case TYPE_OTHER_PORTRAIT:
             case TYPE_OTHER_LANDSCAPE:
-                cropFilePath = ConfigUtils.FILE_IDCARDS + "/card_crop_" + timeStamp + ".jpg";
+                cropFilePath = FileConfig.FILE_IDCARDS + "/card_crop_" + timeStamp + ".jpg";
                 break;
             default:
                 break;

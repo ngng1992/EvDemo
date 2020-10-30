@@ -16,16 +16,12 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ImageUtils;
 import com.mfinance.everjoy.R;
-
-import net.mfinance.chatlib.utils.ConfigUtils;
+import com.mfinance.everjoy.everjoy.config.FileConfig;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 /**
  * 参考地址：https://github.com/xiaoowuu/CertificateCamera
@@ -55,8 +51,8 @@ public class CaraIdHKActivity extends Activity implements View.OnClickListener {
      */
     public final static int TYPE_COMPANY_LANDSCAPE = 4;
 
-    public final static int REQUEST_CODE = 0X13;
-    public final static int RESULT_CODE = 0X14;
+    public final static int REQUEST_CODE = 0X15;
+    public final static int RESULT_CODE = 0X16;
 
     /**
      * @param type {@link #TYPE_IDCARD_FRONT}
@@ -68,16 +64,6 @@ public class CaraIdHKActivity extends Activity implements View.OnClickListener {
         Intent intent = new Intent(activity, CaraIdHKActivity.class);
         intent.putExtra("type", type);
         activity.startActivityForResult(intent, REQUEST_CODE);
-    }
-
-    /**
-     * @return 结果文件路径
-     */
-    public static String getResult(Intent data) {
-        if (data != null) {
-            return data.getStringExtra("result");
-        }
-        return "";
     }
 
     private CameraPreview cameraPreview;
@@ -267,37 +253,41 @@ public class CaraIdHKActivity extends Activity implements View.OnClickListener {
      * @return 拍摄图片原始文件
      */
     private File getOriginalFile() {
-        String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(new Date());
-        File file = new File(ConfigUtils.FILE_DIR);
+        String imageName = FileConfig.getImageName();
+        File file = new File(FileConfig.FILE_DIR);
         switch (type) {
             case TYPE_IDCARD_FRONT:
-                return new File(file, "idcard_front_" + timeStamp + ".jpg");
+                return new File(file, "idcard_front_" + imageName);
             case TYPE_IDCARD_BACK:
-                return new File(file, "idcard_back_" + timeStamp + ".jpg");
+                return new File(file, "idcard_back_" + imageName);
             case TYPE_COMPANY_PORTRAIT:
             case TYPE_COMPANY_LANDSCAPE:
-                return new File(file, "idcard_" + timeStamp + ".jpg");
+                return new File(file, "idcard_" + imageName);
         }
-        return new File(file, "picture_" + timeStamp + ".jpg");
+        return new File(file, "picture_" + imageName);
     }
 
     private String cropFilePath;
+    private String cropFileName;
 
     /**
      * @return 拍摄图片裁剪文件
      */
     private String getCropFile() {
-        String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(new Date());
+        String imageName = FileConfig.getImageName();
         switch (type) {
             case TYPE_IDCARD_FRONT:
-                cropFilePath = ConfigUtils.FILE_IDCARDS + "/idcard_crop_front_" + timeStamp + ".jpg";
+                cropFileName = "idcard_crop_front_" + imageName;
+                cropFilePath = FileConfig.FILE_IDCARDS + "/" + imageName;
                 break;
             case TYPE_IDCARD_BACK:
-                cropFilePath = ConfigUtils.FILE_IDCARDS + "/idcard_crop_back_" + timeStamp + ".jpg";
+                cropFileName = "idcard_crop_back_" + imageName;
+                cropFilePath = FileConfig.FILE_IDCARDS + "/" + imageName;
                 break;
             case TYPE_COMPANY_PORTRAIT:
             case TYPE_COMPANY_LANDSCAPE:
-                cropFilePath = ConfigUtils.FILE_IDCARDS + "/com_crop_" + timeStamp + ".jpg";
+                cropFileName = "com_crop_" + imageName;
+                cropFilePath = FileConfig.FILE_IDCARDS + "/com_crop_" + imageName;
                 break;
             default:
                 break;
@@ -310,7 +300,8 @@ public class CaraIdHKActivity extends Activity implements View.OnClickListener {
      */
     private void goBack() {
         Intent intent = new Intent();
-        intent.putExtra("result", cropFilePath);
+        intent.putExtra("imgPath", cropFilePath);
+        intent.putExtra("imgName", cropFileName);
         setResult(RESULT_CODE, intent);
         finish();
     }

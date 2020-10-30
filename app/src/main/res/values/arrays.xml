@@ -46,13 +46,13 @@
         <item>待业</item>
     </string-array>
 
-    <string-array name="array_business">
+    <string-array name="array_work_type">
         <item>会计</item>
         <item>金融</item>
         <item>其他</item>
     </string-array>
 
-    <string-array name="array_profession">
+    <string-array name="array_work_pos">
         <item>文员</item>
         <item>经理</item>
         <item>主管</item>
@@ -60,7 +60,7 @@
         <item>其他</item>
     </string-array>
 
-    <string-array name="array_working">
+    <string-array name="array_work_year">
         <item>一年</item>
         <item>一年至三年</item>
         <item>三年至五年</item>

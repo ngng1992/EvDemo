@@ -114,7 +114,7 @@
         </activity>
 
         <activity
-            android:name="com.mfinance.everjoy.everjoy.ui.mine.LoginVerificationActivity"
+            android:name="com.mfinance.everjoy.everjoy.ui.mine.LoginSecurityActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
 
@@ -139,12 +139,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
 
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
-
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
-
         </activity>
 
         <activity
@@ -165,12 +159,6 @@
             android:name=".everjoy.ui.mine.RegisterSuccessOpenAccountActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
-
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
-
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
 
         </activity>
 
@@ -239,8 +227,13 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
 
-        </activity>
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
 
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+
+        </activity>
 
         <activity
             android:name=".everjoy.ui.mine.securities.SelectAccountActivity"
@@ -458,10 +451,8 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>

@@ -77,10 +77,12 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_8"
             android:layout_marginLeft="@dimen/dp_40"
-            android:layout_marginTop="@dimen/dp_16"
             android:paddingLeft="@dimen/dp_16"
-            android:paddingRight="@dimen/dp_16">
+            android:paddingTop="@dimen/dp_8"
+            android:paddingRight="@dimen/dp_16"
+            android:paddingBottom="@dimen/dp_8">
 
             <ImageView
                 android:id="@+id/iv_identity_document"
@@ -124,9 +126,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_40"
-            android:layout_marginTop="@dimen/dp_8"
             android:paddingLeft="@dimen/dp_16"
-            android:paddingRight="@dimen/dp_16">
+            android:paddingTop="@dimen/dp_8"
+            android:paddingRight="@dimen/dp_16"
+            android:paddingBottom="@dimen/dp_8">
 
             <ImageView
                 android:id="@+id/iv_identity_address"
@@ -155,9 +158,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_40"
-            android:layout_marginTop="@dimen/dp_8"
             android:paddingLeft="@dimen/dp_16"
-            android:paddingRight="@dimen/dp_16">
+            android:paddingTop="@dimen/dp_8"
+            android:paddingRight="@dimen/dp_16"
+            android:paddingBottom="@dimen/dp_8">
 
             <ImageView
                 android:id="@+id/iv_bank"
@@ -186,10 +190,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_40"
-            android:layout_marginTop="@dimen/dp_8"
-            android:layout_marginBottom="@dimen/dp_8"
             android:paddingLeft="@dimen/dp_16"
-            android:paddingRight="@dimen/dp_16">
+            android:paddingTop="@dimen/dp_8"
+            android:paddingRight="@dimen/dp_16"
+            android:paddingBottom="@dimen/dp_8">
 
             <ImageView
                 android:id="@+id/iv_passport"

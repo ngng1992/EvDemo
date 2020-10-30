@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.mfinance.everjoy.R;
 import com.mfinance.everjoy.everjoy.base.BaseViewActivity;
+import com.mfinance.everjoy.everjoy.config.Constants;
 import com.mfinance.everjoy.everjoy.dialog.SelectBirthplaceDialog;
 import com.mfinance.everjoy.everjoy.dialog.SelectCameraDialog;
 import com.mfinance.everjoy.everjoy.dialog.impl.OnClickDialogOrFragmentViewListener;
@@ -16,11 +17,9 @@ import com.mfinance.everjoy.everjoy.pics.FileSelector;
 import com.mfinance.everjoy.everjoy.pics.FileUtil;
 import com.mfinance.everjoy.everjoy.pics.GlideShowUtils;
 import com.mfinance.everjoy.everjoy.ui.mine.securities.photo.CardIdZHActivity;
-import com.mfinance.everjoy.everjoy.utils.Contents;
 import com.mfinance.everjoy.everjoy.view.AccountEditorInfoView;
 
 import net.mfinance.commonlib.permission.PermissionController;
-import net.mfinance.commonlib.toast.ToastUtils;
 
 import java.util.Arrays;
 
@@ -175,7 +174,7 @@ public class NewAddBankActivity extends BaseViewActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         String filePath = null;
-        if (resultCode == RESULT_OK && requestCode == Contents.REQUEST_CODE_SELECT_PHOTO) {
+        if (resultCode == RESULT_OK && requestCode == Constants.REQUEST_CODE_SELECT_PHOTO) {
             if (data != null) {
                 Uri uri = data.getData();
                 if (uri != null) {

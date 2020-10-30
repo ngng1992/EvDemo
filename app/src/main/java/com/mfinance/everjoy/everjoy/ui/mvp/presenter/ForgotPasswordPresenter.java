@@ -6,19 +6,21 @@ import com.mfinance.everjoy.everjoy.bean.base.BaseBean;
 import com.mfinance.everjoy.everjoy.network.URLContents;
 import com.mfinance.everjoy.everjoy.network.okgo.OkGoBodyToStringCallBack;
 import com.mfinance.everjoy.everjoy.sp.AppSharedPUtils;
+import com.mfinance.everjoy.everjoy.ui.mine.ForgetPwdActivity;
 import com.mfinance.everjoy.everjoy.ui.mvp.base.BaseMvpPresenter;
 import com.mfinance.everjoy.everjoy.ui.mvp.view.EmailRegisterView;
+import com.mfinance.everjoy.everjoy.ui.mvp.view.ForgetPwdView;
 
-public class EmailRegisterPresenter extends BaseMvpPresenter<EmailRegisterView> {
+public class ForgotPasswordPresenter extends BaseMvpPresenter<ForgetPwdView> {
 
-    private EmailRegisterView emailRegisterView;
+    private ForgetPwdActivity forgetPwdView;
 
-    public EmailRegisterPresenter(EmailRegisterView emailRegisterView) {
-        this.emailRegisterView = emailRegisterView;
+    public ForgotPasswordPresenter(ForgetPwdActivity forgetPwdView) {
+        this.forgetPwdView = forgetPwdView;
     }
 
     public void requestEmailCode(String email) {
-        OkGo.<String>get(URLContents.REGISTER)
+        OkGo.<String>get(URLContents.FORGOTPASSWORD)
                 .tag(mTAG)
                 .params("type", 1)
                 .params("email", email)
@@ -28,67 +30,58 @@ public class EmailRegisterPresenter extends BaseMvpPresenter<EmailRegisterView> 
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
                         super.onStart(request);
-                        emailRegisterView.onShowLoading();
+                        forgetPwdView.onShowLoading();
                     }
 
                     @Override
                     public void onSuccessBody(BaseBean baseBean) {
                         super.onSuccessBody(baseBean);
-                        emailRegisterView.onShowData(baseBean);
+                        forgetPwdView.onShowEmailCheckCode(baseBean);
                     }
 
                     @Override
                     public void onFail(BaseBean baseBean) {
                         super.onFail(baseBean);
-                        // 0 - OK, -1 - Internal Error, -2 - Email already registered
-                        if (baseBean.getCode() == -2) {
-                            emailRegisterView.onShowEmailCodeError(baseBean);
-                        }else {
-                            emailRegisterView.onShowError(baseBean.getMessage());
-                        }
-                        emailRegisterView.onShowError(baseBean.getMessage());
+                        forgetPwdView.onShowError(baseBean.getMessage());
                     }
 
                     @Override
                     public void onFinish() {
                         super.onFinish();
-                        emailRegisterView.onHideLoading();
+                        forgetPwdView.onHideLoading();
                     }
                 });
     }
 
-
-    public void requestEmailCheckCode(String email, String code) {
-        OkGo.<String>get(URLContents.REGISTER)
+    public void requestForgotPassword(String acc, String email) {
+        OkGo.<String>get(URLContents.FORGOTSECPASSWORD)
                 .tag(mTAG)
-                .params("type", 2)
+                .params("acc", acc)
                 .params("email", email)
-                .params("otp", code)
                 .execute(new OkGoBodyToStringCallBack() {
 
                     @Override
                     public void onStart(Request<String, ? extends Request> request) {
                         super.onStart(request);
-                        emailRegisterView.onShowLoading();
+                        forgetPwdView.onShowLoading();
                     }
 
                     @Override
                     public void onSuccessBody(BaseBean baseBean) {
                         super.onSuccessBody(baseBean);
-                        emailRegisterView.onShowEmailCheckCode(baseBean);
+                        forgetPwdView.onShowEmailCheckCode(baseBean);
                     }
 
                     @Override
                     public void onFail(BaseBean baseBean) {
                         super.onFail(baseBean);
-                        // -3 错误验证码，-2未请求
-                        emailRegisterView.onShowEmailCheckCodeError(baseBean);
+                        forgetPwdView.onShowError(baseBean.getMessage());
                     }
 
                     @Override
                     public void onFinish() {
                         super.onFinish();
-                        emailRegisterView.onHideLoading();
+                        forgetPwdView.onHideLoading();
                     }
                 });
     }

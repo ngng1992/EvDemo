@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.mfinance.everjoy.R;
 import com.mfinance.everjoy.app.constant.ServiceFunction;
 import com.mfinance.everjoy.everjoy.base.BaseViewActivity;
-import com.mfinance.everjoy.everjoy.ui.mine.securities.SecuritiesAccountActivity;
 
 import net.mfinance.commonlib.view.StringTextView;
 
@@ -26,6 +25,10 @@ import butterknife.OnClick;
  */
 public class ResetPwdActivity extends BaseViewActivity {
 
+    private String type;
+
+//    @BindView(R.id.et_oldpwd)
+//    EditText etOldpwd;
     @BindView(R.id.et_newpwd)
     EditText etNewpwd;
     @BindView(R.id.iv_show_newpwd)
@@ -56,6 +59,9 @@ public class ResetPwdActivity extends BaseViewActivity {
 
     @Override
     protected void initView(View currentView) {
+        Intent intent = getIntent();
+        type = intent.getStringExtra(ServiceFunction.RESETPASSWORD_TYPE);
+
         // 在线咨询
         String verifMsg = getString(R.string.sec_acc_ui_contact);
         String target = verifMsg.substring(verifMsg.length() - 4);
@@ -97,19 +103,22 @@ public class ResetPwdActivity extends BaseViewActivity {
                 }
                 break;
             case R.id.tv_submit:
-//                resetPassword(etNewpwd.getText().toString());
-                // 重置密码成功
-                startActivity(new Intent(this, SetPwdSuccessActivity.class));
+                // 重置密码，没有要求输入以前的密码
+//                resetPassword(etOldpwd.getText().toString(), etNewpwd.getText().toString());
+//                // 重置密码成功
+//                startActivity(new Intent(this, SetPwdSuccessActivity.class));
                 break;
             default:
                 break;
         }
     }
 
-    public void resetPassword(String newPassword) {
+    public void resetPassword(String oldPassword, String newPassword) {
         Message resetPwdMsg = Message.obtain(null, ServiceFunction.SRV_RESET_PASSWORD);
         resetPwdMsg.replyTo = mServiceMessengerHandler;
 
+        resetPwdMsg.getData().putString(ServiceFunction.RESETPASSWORD_TYPE, type);
+        resetPwdMsg.getData().putString(ServiceFunction.RESETPASSWORD_OLDPASSWORD, oldPassword);
         resetPwdMsg.getData().putString(ServiceFunction.RESETPASSWORD_NEWPASSWORD, newPassword);
         try {
             mService.send(resetPwdMsg);

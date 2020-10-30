@@ -34,8 +34,12 @@ public class IDDictionary {
 
     /***************** Trader Functions of Login Service Type **********************/
     public static final int TRADER_REQUEST_LOGIN_RETURN = 1;
+    public static final int TRADER_REQUEST_LOGIN_SECURITY_RETURN = 2;
+    public static final int TRADER_REQUEST_LOGIN_SECURITY_OTP_RETURN = 3;
+    public static final int TRADER_REQUEST_LOGIN_SECURITY_LOGOUT_RETURN = 4;
 
     /***************** Trader Functions of IO Service Type **********************/
+    public static final int TRADER_REQUEST_CHANGE_SECURITY_PASSWORD_RETURN = 1;
     public static final int TRADER_REQUEST_CHANGE_PASSWORD_RETURN = 3;
 
     /***************** Trader Functions of deal Service Type **********************/
@@ -90,14 +94,17 @@ public class IDDictionary {
 
     /******************* Server Functions of Login Service ************************/
     public static final int SERVER_LOGIN_LOGIN = 1;
-    public static final int SERVER_LOGIN_LOGOUT = 2;
+    public static final int SERVER_LOGIN_SECURITY_LOGOUT = 2;
     public static final int SERVER_LOGIN_LOGOUT_BY_SESSION_TIMEOUT = 3;
     public static final int SERVER_LOGIN_KEYEXHANGE = 5;
     public static final int SERVER_LOGIN_PRICE_AGENT = 6;
     public static final int SERVER_LOGIN_LOGIN_SECURITY = 7;
+    public static final int SERVER_LOGIN_LOGIN_SECURITY_OTP = 8;
 
     /******************* Server Functions of IO Service ************************/
     public static final int SERVER_IO_REQUEST_CHANGE_PASSWORD = 6;
+    public static final int SERVER_IO_REQUEST_CHANGE_SECURITY_PASSWORD = 7;
+
     public static final int SERVER_IO_REQUEST_EXECUTE_ORDER_HISTORY = 10;
     @Deprecated
     public static final int SERVER_IO_REQUEST_CANCEL_ORDER_OLD = 11;

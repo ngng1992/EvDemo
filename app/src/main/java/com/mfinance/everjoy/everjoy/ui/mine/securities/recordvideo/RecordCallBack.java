@@ -8,7 +8,7 @@ public interface RecordCallBack {
 
     void finish();
 
-    void filePath(String path);
+    void filePath(String videoPath, String videoName);
 
 
 }

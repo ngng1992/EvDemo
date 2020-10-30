@@ -18,6 +18,7 @@ import com.mfinance.everjoy.everjoy.base.BaseEverjoyActivity;
 import com.mfinance.everjoy.everjoy.network.okhttp.OkHttpUtils;
 import com.mfinance.everjoy.everjoy.network.okhttp.OnHttpCompleteListener;
 import com.mfinance.everjoy.everjoy.ui.home.MainActivity;
+import com.mfinance.everjoy.everjoy.ui.mine.RegisterSuccessOpenAccountActivity;
 import com.mfinance.everjoy.everjoy.utils.ToolsUtils;
 
 import net.mfinance.commonlib.permission.PermissionController;
@@ -69,8 +70,8 @@ public class SplashActivity extends BaseEverjoyActivity {
             @Override
             public void onHasPermission(boolean hasPermission) {
                 if (hasPermission) {
-                    startActivity(new Intent(SplashActivity.this, InitialActivity.class));
-//                    startActivity(new Intent(SplashActivity.this, RegisterSuccessOpenAccountActivity.class));
+//                    startActivity(new Intent(SplashActivity.this, InitialActivity.class));
+                    startActivity(new Intent(SplashActivity.this, RegisterSuccessOpenAccountActivity.class));
                     finish();
                 }
 //                if (hasPermission) {

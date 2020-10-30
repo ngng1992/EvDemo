@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.hardware.Camera;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -13,7 +12,8 @@ import android.widget.TextView;
 
 import com.mfinance.everjoy.R;
 import com.mfinance.everjoy.everjoy.base.BaseViewActivity;
-import com.mfinance.everjoy.everjoy.utils.Contents;
+import com.mfinance.everjoy.everjoy.config.Constants;
+import com.mfinance.everjoy.everjoy.config.FileConfig;
 
 import net.mfinance.chatlib.utils.ConfigUtils;
 
@@ -33,8 +33,8 @@ public class CardIdActivity extends BaseViewActivity implements View.OnClickList
 
     public static void openCardIdActivity(Activity activity, boolean isNeedLand) {
         Intent intent = new Intent(activity, CardIdActivity.class);
-        intent.putExtra(Contents.IS_NEED_LAND, isNeedLand);
-        activity.startActivityForResult(intent, Contents.KEY_CAMERA_REQUEST_CODE);
+        intent.putExtra(Constants.IS_NEED_LAND, isNeedLand);
+        activity.startActivityForResult(intent, Constants.KEY_CAMERA_REQUEST_CODE);
     }
 
     private CameraPreview cameraPreview;
@@ -54,7 +54,7 @@ public class CardIdActivity extends BaseViewActivity implements View.OnClickList
     protected void onStart() {
         super.onStart();
         Intent intent = getIntent();
-        boolean isNeedLand = intent.getBooleanExtra(Contents.IS_NEED_LAND, false);
+        boolean isNeedLand = intent.getBooleanExtra(Constants.IS_NEED_LAND, false);
         if (isNeedLand) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         } else {
@@ -156,7 +156,7 @@ public class CardIdActivity extends BaseViewActivity implements View.OnClickList
                     @Override
                     public void run() {
                         try {
-                            filePath = ConfigUtils.getFileNamePath();
+                            filePath = FileConfig.getFileNamePath();
                             File originalFile = new File(filePath);
                             FileOutputStream originalFileOutputStream = new FileOutputStream(originalFile);
                             originalFileOutputStream.write(data);
@@ -226,8 +226,8 @@ public class CardIdActivity extends BaseViewActivity implements View.OnClickList
     private void goBack() {
         // TODO 如果有拍照，保存图片到本地，下次直接使用
         Intent intent = new Intent();
-        intent.putExtra(Contents.KEY_FILE_PATH, filePath);
-        setResult(Contents.KEY_CAMERA_RESULT_OK, intent);
+        intent.putExtra(Constants.KEY_FILE_PATH, filePath);
+        setResult(Constants.KEY_CAMERA_RESULT_OK, intent);
         finish();
     }
 }

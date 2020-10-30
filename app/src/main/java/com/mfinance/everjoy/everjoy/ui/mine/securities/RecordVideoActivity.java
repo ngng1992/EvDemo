@@ -2,6 +2,7 @@ package com.mfinance.everjoy.everjoy.ui.mine.securities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
@@ -9,9 +10,11 @@ import android.widget.TextView;
 
 import com.mfinance.everjoy.R;
 import com.mfinance.everjoy.everjoy.base.BaseViewActivity;
+import com.mfinance.everjoy.everjoy.config.Constants;
+import com.mfinance.everjoy.everjoy.config.FileConfig;
+import com.mfinance.everjoy.everjoy.sp.SecuritiesSharedPUtils;
 import com.mfinance.everjoy.everjoy.ui.mine.securities.recordvideo.CameraUtils;
 import com.mfinance.everjoy.everjoy.ui.mine.securities.recordvideo.RecordCallBack;
-import com.mfinance.everjoy.everjoy.utils.Contents;
 
 import net.mfinance.chatlib.utils.ConfigUtils;
 
@@ -26,7 +29,7 @@ public class RecordVideoActivity extends BaseViewActivity {
 
     public static void startRecordVideoActivity(Activity activity, int cardType) {
         Intent intent = new Intent(activity, RecordVideoActivity.class);
-        intent.putExtra(Contents.CARD_TYPE, cardType);
+        intent.putExtra(Constants.CARD_TYPE, cardType);
         activity.startActivity(intent);
     }
 
@@ -42,6 +45,7 @@ public class RecordVideoActivity extends BaseViewActivity {
     private CameraUtils cameraUtils;
     // 文件路径
     private String videoPath;
+    private String videoName;
     private boolean isSuccess;
     private int cardType;
 
@@ -62,8 +66,8 @@ public class RecordVideoActivity extends BaseViewActivity {
 
     @Override
     protected void initView(View currentView) {
-        ConfigUtils.initFileConfig();
-        cardType = getIntent().getIntExtra(Contents.CARD_TYPE, Contents.CARD_HK_TYPE);
+        FileConfig.initFileConfig();
+        cardType = getIntent().getIntExtra(Constants.CARD_TYPE, Constants.CARD_HK_TYPE);
 
         SurfaceView surfaceView = currentView.findViewById(R.id.surfaceView);
 
@@ -76,7 +80,6 @@ public class RecordVideoActivity extends BaseViewActivity {
         cameraUtils.setRecordCallBack(new RecordCallBack() {
             @Override
             public void finish() {
-                cameraUtils.stop();
                 tv_desc.setVisibility(View.GONE);
                 tv_count_time.setVisibility(View.GONE);
                 tv_verfi_success.setVisibility(View.VISIBLE);
@@ -103,8 +106,9 @@ public class RecordVideoActivity extends BaseViewActivity {
             }
 
             @Override
-            public void filePath(String path) {
-                videoPath = path;
+            public void filePath(String videoPath, String videoName) {
+                RecordVideoActivity.this.videoPath = videoPath;
+                RecordVideoActivity.this.videoName = videoName;
             }
         });
     }
@@ -113,16 +117,12 @@ public class RecordVideoActivity extends BaseViewActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_back:
-                // 是否已经完成录制，需要保存
-                if (isSuccess) {
-                    // 保存
-                }
-                finish();
+                onBackPressed();
                 break;
             case R.id.tv_camera:
                 if (isSuccess) {
                     // 上传证件/保存
-                    cameraUtils.destroy();
+                    saveToSp();
                     UploadCardActivity.startUploadCardActivity(this, cardType);
                     finish();
                 } else {
@@ -135,10 +135,28 @@ public class RecordVideoActivity extends BaseViewActivity {
     }
 
     @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        saveToSp();
+        finish();
+    }
+
+    private void saveToSp() {
+        cameraUtils.destroy();
+        if (isSuccess) {
+            if (!TextUtils.isEmpty(videoPath)) {
+                SecuritiesSharedPUtils.setVideoPath(videoPath);
+            }
+            if (!TextUtils.isEmpty(videoName)) {
+                SecuritiesSharedPUtils.setVideoName(videoName);
+            }
+        }
+    }
+
+    @Override
     protected void onStop() {
         super.onStop();
         Log.e("video", "onStop: ");
-        cameraUtils.stop();
         isSuccess = false;
     }
 
@@ -146,7 +164,6 @@ public class RecordVideoActivity extends BaseViewActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.e("video", "onDestroy: ");
-        cameraUtils.destroy();
         isSuccess = false;
     }
 
