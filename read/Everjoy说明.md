@@ -1,12 +1,63 @@
+
+服务器
+
+External IP: 202.155.229.105:24387
+Username: MFHKW005\szdev
+Password: s!9nF#SAVMz
+
+
+ftp
+
+szftp.mfcloud.net:24388
+szdev
+3Ra@pUCDrTz$
+
+
+测试邮箱
+
+https://webmail.tradingsky.net/
+mfdev
+mF34266223ok
+
+
+文档地址
+
+    http://ejconfluence.m-finance.net/display/EJ/Web+Services
+    
+    https://srcsvn.m-finance.net/svn/mF/_CustomerImage/Everjoy/desktop-preview
+    
+    http://ejconfluence.m-finance.net/pages/viewpage.action?pageId=1048588
+
+Weibo
+App Key：1736060757
+App Secret：bf264786dc4d9d1ef1d32fb1fc0c3992
+
+Twitter
+API key: 1TD1MKyHcf6sUbg4201vzZzrZ
+API key secret: ymqYcbmFvzhLPvI9wyowsdPAiohkFaCYVwfA17LWdsL6glPUfL
+Bearer token: AAAAAAAAAAAAAAAAAAAAAM%2BpJAEAAAAA7lXNhs9Zxdp%2F2utZR9KCtBg6XUw%3DKg6vU4izHukatq3ULDOZbGEtns8sN1w
+
+
+
+companySetting loginInfoTest 換成"202.155.229.105", 15100
+jimmy.xiao@m-finance.net mF123456
+
+confluence app文档
+
+    http://ejconfluence.m-finance.net/
+
+    devandroid
+    mF123456
+
 每天发送工作日志
 
     tommy.ng@m-finance.net
 
     terry.chan@m-finance.net
 
-
 测试账号
-帳號：johnnymf 密碼：mF123456
+
+    帳號：johnnymf 密碼：mF123456
 
 证券登录账号
 
@@ -18,6 +69,11 @@
 
   User: TEST03
    Password:        emuxnmwbqmh
+
+收件人 : Chris Chui
+联系电话 : 3979 6648
+香港告士打道77告士打道77-79号富通大厦1801室
+
 
 1. Facebook App ID,
 3368598136542224
@@ -37,7 +93,8 @@ everjoy.android.test
 mF123456
 
 Android and iOS:
-<https://srcsvn.m-finance.net/svn/mF/_CustomerImage/Everjoy/mobile>
+
+    https://srcsvn.m-finance.net/svn/mF/_CustomerImage/Everjoy/mobile
 
 ## 第三方平台
 
@@ -71,15 +128,6 @@ Instagram
       密码：hkfinance
 
         AppID：wx12cc7dcb43d518c2
-
-
-SVN项目地址：
-
-    svn：http://zhaochegou.com/svn/repos/car_android/trunk/CCar
-    
-    账号：
-        jimmy
-        OAjCCjim12966
 
 ## 第三方库
 
@@ -123,6 +171,8 @@ SVN项目地址：
     新浪sdk：[新浪sdk](https://github.com/sinaweibosdk/weibo_android_sdk)
 
     facebook：[fecebook登录分享](https://github.com/facebook/facebook-android-sdk)
+    
+    wlmedia：[音视频播放](https://github.com/wanliyang1990/wlmedia)
 
 ## cmd命令
 

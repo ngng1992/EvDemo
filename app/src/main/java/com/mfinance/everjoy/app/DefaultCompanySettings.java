@@ -72,7 +72,6 @@ public class DefaultCompanySettings {
 	public static int PLATFORM_ID_FROM_MOBILE_SERVICE = 1;
 	public static final boolean ENABLE_FATCH_PLATFORM_ID_FROM_MOBILE_SERVICE = false;
 	public static final boolean ENABLE_FATCH_REPORT_GROUP = false;
-	public static final boolean ENABLE_FATCH_REPORT_GROUP_OTX = false;
 	public static final boolean ENABLE_FATCH_SERVER = false;
 	public static final boolean ENABLE_CREDIT_RATIO = false;
 	public static final boolean ENABLE_Declaration_Screen = false;

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -69,6 +70,42 @@
             android:text="@string/str_register"
             android:textColor="@color/blue02"
             android:textSize="@dimen/sp_14">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/tv_logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:layout_marginRight="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_30"
+            android:background="@drawable/bg_yellowd2_corner24"
+            android:gravity="center"
+            android:paddingBottom="@dimen/dp_12"
+            android:paddingTop="@dimen/dp_12"
+            android:text="@string/str_logout"
+            android:textColor="@color/whiteff"
+            android:textSize="@dimen/sp_14"
+            tools:visibility="gone">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/tv_reset"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:layout_marginRight="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_30"
+            android:background="@drawable/bg_yellowd2_corner24"
+            android:gravity="center"
+            android:paddingBottom="@dimen/dp_12"
+            android:paddingTop="@dimen/dp_12"
+            android:text="@string/str_reset_pwd"
+            android:textColor="@color/whiteff"
+            android:textSize="@dimen/sp_14"
+            tools:visibility="gone">
 
         </TextView>
 

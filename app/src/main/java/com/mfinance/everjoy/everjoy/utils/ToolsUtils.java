@@ -24,7 +24,7 @@ import com.mfinance.everjoy.app.CompanySettings;
 import com.mfinance.everjoy.app.MobileTraderApplication;
 import com.mfinance.everjoy.app.util.AppLauncherLib;
 import com.mfinance.everjoy.app.util.Utility;
-import com.mfinance.everjoy.everjoy.config.Contants;
+import com.mfinance.everjoy.everjoy.config.Constants;
 
 import net.mfinance.commonlib.toast.ToastUtils;
 
@@ -223,8 +223,8 @@ public class ToolsUtils {
         if (CompanySettings.FOR_TEST && !CompanySettings.CHECK_APPLAUNCHER_IN_TEST)
             return true;
 
-        boolean appLaucherURL1OK = isServerAvailable(Contants.APP_LAUNCHER_URL_DOMAIN_1, 2083);
-        boolean appLaucherURL2OK = isServerAvailable(Contants.APP_LAUNCHER_URL_DOMAIN_2, 2083);
+        boolean appLaucherURL1OK = isServerAvailable(Constants.APP_LAUNCHER_URL_DOMAIN_1, 2083);
+        boolean appLaucherURL2OK = isServerAvailable(Constants.APP_LAUNCHER_URL_DOMAIN_2, 2083);
 
         String result_demo = "";
         String result_prod = "";
@@ -745,13 +745,16 @@ public class ToolsUtils {
      * 包含至少一个数字
      * 包含至少一个大写英文
      * 包含至少一个小写英文
-     * 包含至少一个字符
+     * 包含至少一个特殊字符
+     * 不包含空格符
      * <p>
-     * 参考：https://www.jianshu.com/p/3222ac7921cc
      */
-    private static boolean verfiPwd(String pwd) {
-        String reg = "/(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[\\W_]).{8,16}/";
-        return RegexUtils.isMatch(reg, pwd);
+    public static boolean verfiPwd(String pwd) {
+        if (pwd.contains(" ")) {
+            return false;
+        }
+        String reg = "(?=.*?[A-Z])(?=(.*[az]){1,})(?=(.*[\\d]){1,})(?=(.*[\\W]){1,})(?!.*\\s).{8,16}$";
+        return RegexUtils.isMatch(reg, pwd.trim());
     }
 
 
@@ -767,5 +770,17 @@ public class ToolsUtils {
         activity.startActivity(intent);
     }
 
-
+    /**
+     * 验证香港身份证号码
+     * <p>
+     * 香港身份证号码由三部分组成：一个英文字母；6个数字；括号及0-9中的任一个数字，或者字母A。
+     * 括号中的数字或字母A，是校验码，用于检验括号前面的号码的逻辑正确性。
+     *
+     * @param idCard 身份证号码
+     * @return 验证码是否符合
+     */
+    public static boolean validateHKCard(String idCard) {
+        String match = "/^((\\s?[A-Za-z])|([A-Za-z]{2}))\\d{6}(\\([0−9aA]\\)|[0-9aA])$/";
+        return RegexUtils.isMatch(match, idCard);
+    }
 }

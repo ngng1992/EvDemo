@@ -6,7 +6,6 @@ import java.util.Date;
 import android.util.Log;
 
 import com.mfinance.everjoy.BuildConfig;
-import com.mfinance.everjoy.app.LoginActivity;
 import com.mfinance.everjoy.app.constant.IDDictionary;
 import com.mfinance.everjoy.app.constant.ServiceFunction;
 import com.mfinance.everjoy.app.service.FxMobileTraderService;
@@ -28,11 +27,11 @@ public class HeartBeatMessageHandler extends ServerMessageHandler {
 			if (BuildConfig.DEBUG)
 				Log.i(TAG, "[Change Trade Date]");
 			try{
-				MessageObj messageObj = MessageObj.getMessageObj(IDDictionary.SERVER_LOGIN_SERVICE_TYPE,  IDDictionary.SERVER_LOGIN_LOGOUT);
-				service.connection.sendFlushMessage(messageObj.convertToString(true));
-				service.connection.closeConnection();
-				LoginActivity.identityPassed = false;
-				service.app.data.clear();		
+//				MessageObj messageObj = MessageObj.getMessageObj(IDDictionary.SERVER_LOGIN_SERVICE_TYPE,  IDDictionary.SERVER_LOGIN_LOGOUT);
+//				service.connection.sendFlushMessage(messageObj.convertToString(true));
+//				service.connection.closeConnection();
+//				//LoginActivity.identityPassed = false;
+//				service.app.data.clear();
 			}catch(Exception e){
 				Log.e(TAG, e.getLocalizedMessage(), e.fillInStackTrace());			
 			}

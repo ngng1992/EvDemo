@@ -31,4 +31,10 @@
         </attr>
     </declare-styleable>
 
+
+    <!--    完善资料 步骤  -->
+    <declare-styleable name="AccountStepView">
+        <attr name="selectIndex" format="integer" />
+    </declare-styleable>
+
 </resources>

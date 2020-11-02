@@ -10,6 +10,15 @@ import com.mfinance.everjoy.everjoy.base.BaseViewActivity;
  */
 public class UserAgreementActivity extends BaseViewActivity {
 
+    @Override
+    protected boolean isRemoveAppBar() {
+        return true;
+    }
+
+    @Override
+    protected boolean isFullStatusByView() {
+        return true;
+    }
 
     @Override
     protected int setLayoutResId() {

@@ -100,4 +100,21 @@ public class AccountEditorInfoView extends RelativeLayout {
     public void setEditorContent(String content) {
         et_right_content.setText(content);
     }
+
+    public String getLeftAndHintContentForTip() {
+        return et_right_content.getHint().toString() + tv_left_title.getText().toString();
+    }
+
+    public String getHintContentForTip() {
+        return et_right_content.getHint().toString();
+    }
+
+    public void setEditor(boolean isEditor) {
+        et_right_content.setFocusable(isEditor);
+        et_right_content.setFocusableInTouchMode(isEditor);
+        if (isEditor) {
+            et_right_content.setOnClickListener(null);
+        }
+        iv_goto.setVisibility(isEditor ? GONE : VISIBLE);
+    }
 }

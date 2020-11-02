@@ -297,6 +297,6 @@ public class FileUtils {
     public static String rename(String fileName) {
         String temp = fileName.substring(0, fileName.lastIndexOf("."));
         String suffix = fileName.substring(fileName.lastIndexOf("."));
-        return new StringBuffer().append(temp).append("_").append(getCreateFileName()).append(suffix).toString();
+        return new StringBuffer().append(temp).append("btn_pause").append(getCreateFileName()).append(suffix).toString();
     }
 }

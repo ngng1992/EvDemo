@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteff">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/bg_signup">
+
+    </ImageView>
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_24">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_16"
+            android:src="@drawable/ic_gray33_left_back11">
+
+        </ImageView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/afm_title"
+            android:textColor="@color/gray1e"
+            android:textSize="@dimen/sp_18">
+
+        </TextView>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_title"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_16"
+        android:layout_marginBottom="@dimen/dp_4"
+        android:text="@string/afm_bank"
+        android:textColor="@color/gray1e"
+        android:textSize="@dimen/sp_16">
+
+    </TextView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/tv_hkd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_desc"
+        android:layout_margin="@dimen/dp_16"
+        android:background="@drawable/bg_gray68_frame_corner4"
+        android:drawableLeft="@mipmap/icon_hkd"
+        android:drawableRight="@mipmap/btn_dropbox"
+        android:drawablePadding="@dimen/dp_16"
+        android:gravity="center_vertical"
+        android:padding="@dimen/dp_16"
+        android:text="@string/adf_hkd"
+        android:textColor="@color/gray1e"
+        android:textSize="@dimen/sp_16">
+
+    </TextView>
+
+
+    <TextView
+        android:id="@+id/tv_usd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_hkd"
+        android:layout_margin="@dimen/dp_16"
+        android:background="@drawable/bg_gray68_frame_corner4"
+        android:drawableLeft="@mipmap/icon_usd"
+        android:drawableRight="@mipmap/btn_dropbox"
+        android:drawablePadding="@dimen/dp_16"
+        android:gravity="center_vertical"
+        android:padding="@dimen/dp_16"
+        android:text="@string/adf_usd"
+        android:textColor="@color/gray1e"
+        android:textSize="@dimen/sp_16">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/tv_cny"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_usd"
+        android:layout_margin="@dimen/dp_16"
+        android:background="@drawable/bg_gray68_frame_corner4"
+        android:drawableLeft="@mipmap/icon_cny"
+        android:drawableRight="@mipmap/btn_dropbox"
+        android:drawablePadding="@dimen/dp_16"
+        android:gravity="center_vertical"
+        android:padding="@dimen/dp_16"
+        android:text="@string/adf_cny"
+        android:textColor="@color/gray1e"
+        android:textSize="@dimen/sp_16">
+
+    </TextView>
+
+</RelativeLayout>

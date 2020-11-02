@@ -1,7 +1,6 @@
 package net.mfinance.chatlib.utils;
 
 import android.content.Context;
-import android.os.Environment;
 import android.util.Log;
 
 import java.io.File;
@@ -16,40 +15,7 @@ public class ConfigUtils {
      */
     public static final String NAME = "everjoy";
 
-    /**
-     * 目录
-     */
-    public static final String FILE_DIR = Environment.getExternalStorageDirectory() + "/" + ConfigUtils.NAME;
-
-    /**
-     * 保存拍摄身份证的目录
-     */
-    public static final String FILE_IDCARDS = Environment.getExternalStorageDirectory() + "/" + ConfigUtils.NAME +"/idcards";
-
-    /**
-     * 保存拍摄视频的目录
-     */
-    public static final String FILE_VIDEOS = Environment.getExternalStorageDirectory() + "/" + ConfigUtils.NAME +"/videos";
-
-    /**
-     * 文件目录
-     */
-    private static String mFileDirName;
-
-    public static void initFileConfig() {
-        File file = new File(FILE_DIR);
-        if (!file.exists()) {
-            file.mkdir();
-        }
-        File fileIdcards = new File(FILE_IDCARDS);
-        if (!fileIdcards.exists()) {
-            fileIdcards.mkdirs();
-        }
-        File filevideos = new File(FILE_VIDEOS);
-        if (!filevideos.exists()) {
-            filevideos.mkdirs();
-        }
-    }
+    public static String mFileDirName = null;
 
     /**
      * 获取文件存储路径

@@ -2,8 +2,10 @@ package com.mfinance.everjoy.everjoy.base;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -321,4 +323,5 @@ public abstract class BaseViewActivity extends BaseEverjoyActivity {
             mUnbinder.unbind();
         }
     }
+
 }

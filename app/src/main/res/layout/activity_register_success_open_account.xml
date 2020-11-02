@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteff">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/bg_signup">
+
+    </ImageView>
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_24">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_16"
+            android:src="@drawable/ic_gray33_left_back11">
+
+        </ImageView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/sec_acc_ui_title"
+            android:textColor="@color/gray1e"
+            android:textSize="@dimen/sp_18">
+
+        </TextView>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ll_open_account"
+        android:layout_below="@+id/rl_title"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_marginRight="@dimen/dp_16"
+        android:background="@mipmap/bg_open_acc"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="115dp"
+            android:text="@string/arsoa_register_success"
+            android:textColor="@color/gray1e"
+            android:textSize="@dimen/sp_16">
+
+        </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_8"
+            android:text="@string/arsoa_register_success_desc"
+            android:textColor="@color/gray999"
+            android:textSize="@dimen/sp_14">
+
+        </TextView>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginLeft="@dimen/dp_40"
+            android:paddingLeft="@dimen/dp_16"
+            android:paddingTop="@dimen/dp_8"
+            android:paddingRight="@dimen/dp_16"
+            android:paddingBottom="@dimen/dp_8">
+
+            <ImageView
+                android:id="@+id/iv_identity_document"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_open_01">
+
+            </ImageView>
+
+            <TextView
+                android:id="@+id/tv_identity_document"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_16"
+                android:layout_toRightOf="@+id/iv_identity_document"
+                android:gravity="center"
+                android:text="@string/arsoa_identity_document"
+                android:textColor="@color/gray1e"
+                android:textSize="@dimen/sp_16">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/tv_online_deposit_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_identity_document"
+                android:layout_marginLeft="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_4"
+                android:layout_toRightOf="@+id/iv_identity_document"
+                android:gravity="center"
+                android:text="@string/arsoa_identity_document_desc"
+                android:textColor="@color/gray999"
+                android:textSize="@dimen/sp_14">
+
+            </TextView>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_40"
+            android:paddingLeft="@dimen/dp_16"
+            android:paddingTop="@dimen/dp_8"
+            android:paddingRight="@dimen/dp_16"
+            android:paddingBottom="@dimen/dp_8">
+
+            <ImageView
+                android:id="@+id/iv_identity_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_open_02">
+
+            </ImageView>
+
+            <TextView
+                android:id="@+id/tv_identity_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dp_16"
+                android:layout_toRightOf="@+id/iv_identity_address"
+                android:text="@string/arsoa_identity_address"
+                android:textColor="@color/gray1e"
+                android:textSize="@dimen/sp_16">
+
+            </TextView>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_40"
+            android:paddingLeft="@dimen/dp_16"
+            android:paddingTop="@dimen/dp_8"
+            android:paddingRight="@dimen/dp_16"
+            android:paddingBottom="@dimen/dp_8">
+
+            <ImageView
+                android:id="@+id/iv_bank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_open_03">
+
+            </ImageView>
+
+            <TextView
+                android:id="@+id/tv_bank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dp_16"
+                android:layout_toRightOf="@+id/iv_bank"
+                android:text="@string/arsoa_bank"
+                android:textColor="@color/gray1e"
+                android:textSize="@dimen/sp_16">
+
+            </TextView>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_40"
+            android:paddingLeft="@dimen/dp_16"
+            android:paddingTop="@dimen/dp_8"
+            android:paddingRight="@dimen/dp_16"
+            android:paddingBottom="@dimen/dp_8">
+
+            <ImageView
+                android:id="@+id/iv_passport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_open_04">
+
+            </ImageView>
+
+            <TextView
+                android:id="@+id/tv_passport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_16"
+                android:layout_toRightOf="@+id/iv_passport"
+                android:gravity="center"
+                android:text="@string/arsoa_identity_document"
+                android:textColor="@color/gray1e"
+                android:textSize="@dimen/sp_16">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/tv_passport_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_passport"
+                android:layout_marginLeft="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_4"
+                android:layout_toRightOf="@+id/iv_passport"
+                android:gravity="center"
+                android:text="@string/arsoa_passport_desc"
+                android:textColor="@color/gray999"
+                android:textSize="@dimen/sp_14">
+
+            </TextView>
+
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <CheckBox
+                    android:id="@+id/cbx_desc1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@android:color/transparent"
+                    android:button="@null"
+                    android:checked="false"
+                    android:drawableLeft="@drawable/selector_cbx_yellow"
+                    android:drawablePadding="@dimen/dp_8"
+                    android:gravity="center_vertical"
+                    android:lineSpacingMultiplier="1.1"
+                    android:paddingLeft="@dimen/dp_16"
+                    android:paddingTop="@dimen/dp_8"
+                    android:paddingRight="@dimen/dp_16"
+                    android:paddingBottom="@dimen/dp_8"
+                    android:text="@string/str_read_account_file"
+                    android:textColor="@color/gray68"
+                    android:textSize="@dimen/sp_14">
+
+                </CheckBox>
+
+
+                <CheckBox
+                    android:id="@+id/cbx_desc2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@android:color/transparent"
+                    android:button="@null"
+                    android:checked="false"
+                    android:drawableLeft="@drawable/selector_cbx_yellow"
+                    android:drawablePadding="@dimen/dp_8"
+                    android:gravity="center_vertical"
+                    android:lineSpacingMultiplier="1.1"
+                    android:paddingLeft="@dimen/dp_16"
+                    android:paddingTop="@dimen/dp_8"
+                    android:paddingRight="@dimen/dp_16"
+                    android:paddingBottom="@dimen/dp_8"
+                    android:text="@string/str_not_american"
+                    android:textColor="@color/gray68"
+                    android:textSize="@dimen/sp_14">
+
+                </CheckBox>
+
+                <CheckBox
+                    android:id="@+id/cbx_desc3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@android:color/transparent"
+                    android:button="@null"
+                    android:checked="false"
+                    android:drawableLeft="@drawable/selector_cbx_yellow"
+                    android:drawablePadding="@dimen/dp_8"
+                    android:gravity="center_vertical"
+                    android:lineSpacingMultiplier="1.1"
+                    android:paddingLeft="@dimen/dp_16"
+                    android:paddingTop="@dimen/dp_8"
+                    android:paddingRight="@dimen/dp_16"
+                    android:paddingBottom="@dimen/dp_8"
+                    android:text="@string/str_not_hk_employee"
+                    android:textColor="@color/gray68"
+                    android:textSize="@dimen/sp_14">
+
+                </CheckBox>
+
+                <CheckBox
+                    android:id="@+id/cbx_desc4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@android:color/transparent"
+                    android:button="@null"
+                    android:checked="false"
+                    android:drawableLeft="@drawable/selector_cbx_yellow"
+                    android:drawablePadding="@dimen/dp_8"
+                    android:gravity="center_vertical"
+                    android:lineSpacingMultiplier="1.1"
+                    android:paddingLeft="@dimen/dp_16"
+                    android:paddingTop="@dimen/dp_8"
+                    android:paddingRight="@dimen/dp_16"
+                    android:paddingBottom="@dimen/dp_8"
+                    android:text="@string/str_not_company_employee"
+                    android:textColor="@color/gray68"
+                    android:textSize="@dimen/sp_14">
+
+                </CheckBox>
+
+                <CheckBox
+                    android:id="@+id/cbx_desc5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@android:color/transparent"
+                    android:button="@null"
+                    android:checked="false"
+                    android:drawableLeft="@drawable/selector_cbx_yellow"
+                    android:drawablePadding="@dimen/dp_8"
+                    android:gravity="center_vertical"
+                    android:lineSpacingMultiplier="1.1"
+                    android:paddingLeft="@dimen/dp_16"
+                    android:paddingTop="@dimen/dp_8"
+                    android:paddingRight="@dimen/dp_16"
+                    android:paddingBottom="@dimen/dp_8"
+                    android:text="@string/str_not_everjoy_relationship"
+                    android:textColor="@color/gray68"
+                    android:textSize="@dimen/sp_14">
+
+                </CheckBox>
+
+                <CheckBox
+                    android:id="@+id/cbx_desc6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@android:color/transparent"
+                    android:button="@null"
+                    android:checked="false"
+                    android:drawableLeft="@drawable/selector_cbx_yellow"
+                    android:drawablePadding="@dimen/dp_8"
+                    android:gravity="center_vertical"
+                    android:lineSpacingMultiplier="1.1"
+                    android:paddingLeft="@dimen/dp_16"
+                    android:paddingTop="@dimen/dp_8"
+                    android:paddingRight="@dimen/dp_16"
+                    android:paddingBottom="@dimen/dp_8"
+                    android:text="@string/str_not_other_account"
+                    android:textColor="@color/gray68"
+                    android:textSize="@dimen/sp_14">
+
+                </CheckBox>
+
+                <CheckBox
+                    android:id="@+id/cbx_desc7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@android:color/transparent"
+                    android:button="@null"
+                    android:checked="false"
+                    android:drawableLeft="@drawable/selector_cbx_yellow"
+                    android:drawablePadding="@dimen/dp_8"
+                    android:gravity="center_vertical"
+                    android:lineSpacingMultiplier="1.1"
+                    android:paddingLeft="@dimen/dp_16"
+                    android:paddingTop="@dimen/dp_8"
+                    android:paddingRight="@dimen/dp_16"
+                    android:paddingBottom="@dimen/dp_8"
+                    android:text="@string/str_not_government"
+                    android:textColor="@color/gray68"
+                    android:textSize="@dimen/sp_14">
+
+                </CheckBox>
+
+                <CheckBox
+                    android:id="@+id/cbx_desc8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@android:color/transparent"
+                    android:button="@null"
+                    android:checked="false"
+                    android:drawableLeft="@drawable/selector_cbx_yellow"
+                    android:drawablePadding="@dimen/dp_8"
+                    android:gravity="center_vertical"
+                    android:lineSpacingMultiplier="1.1"
+                    android:paddingLeft="@dimen/dp_16"
+                    android:paddingTop="@dimen/dp_8"
+                    android:paddingRight="@dimen/dp_16"
+                    android:paddingBottom="@dimen/dp_8"
+                    android:text="@string/str_not_bankruptcy"
+                    android:textColor="@color/gray68"
+                    android:textSize="@dimen/sp_14">
+
+                </CheckBox>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_open_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/dp_16"
+        android:layout_marginBottom="@dimen/dp_16"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_open_account"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_44"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:layout_marginRight="@dimen/dp_16"
+            android:background="@drawable/bg_yellowd2_corner24"
+            android:gravity="center"
+            android:text="@string/str_open_account"
+            android:textColor="@color/whiteff"
+            android:textSize="@dimen/sp_16">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/tv_jump"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_8"
+            android:text="@string/str_jump"
+            android:textColor="@color/gray68"
+            android:textSize="@dimen/sp_14">
+
+        </TextView>
+
+    </LinearLayout>
+
+</RelativeLayout>

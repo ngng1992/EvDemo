@@ -100,3 +100,6 @@
 
 #Okio
 -dontwarn org.codehaus.mojo.animal_sniffer.*
+
+# 音视频播放
+-keep class com.ywl5320.wlmedia.* {*;}

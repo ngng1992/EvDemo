@@ -13,9 +13,10 @@ import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import androidx.multidex.MultiDex;
+
 import com.blankj.utilcode.util.Utils;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import com.lzy.okgo.OkGo;
 import com.mfinance.everjoy.BuildConfig;
 import com.mfinance.everjoy.app.bo.ContractObj;
 import com.mfinance.everjoy.app.bo.LiquidationRecord;
@@ -26,8 +27,8 @@ import com.mfinance.everjoy.app.model.DataRepository;
 import com.mfinance.everjoy.app.util.ConnectionSelector;
 import com.mfinance.everjoy.app.util.PRNGFixes;
 import com.mfinance.everjoy.everjoy.network.okgo.OkGoInit;
-import com.mfinance.everjoy.everjoy.sp.AppSharedPUtils;
 import com.mfinance.everjoy.everjoy.sp.UserSharedPUtils;
+import com.mfinance.everjoy.everjoy.utils.LanguageSettingUtil;
 import com.mfinance.everjoy.hungkee.xml.Economicdata;
 import com.mfinance.everjoy.hungkee.xml.Hourproduct;
 import com.mfinance.everjoy.hungkee.xml.Master;
@@ -54,8 +55,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
-
-import androidx.multidex.MultiDex;
 
 /* -- Facebook
 import com.facebook.android.AsyncFacebookRunner;
@@ -176,6 +175,19 @@ public class MobileTraderApplication extends Application {
     public volatile boolean bPriceReloadInXML = false;
 
     public boolean bLogon = false;
+    public boolean bSecurityLogon = false;
+
+    public String resetPasswordLevel = "";
+    public boolean bResetSecPassword = false;
+
+    public boolean isDuplicatedLogin = false;
+    public boolean isAutoRelogin = false;
+    public int disconnectLevel = 1;
+    public int autoLoginRetryCount = 0;
+
+    public String tempForgotEmail = null;
+    public String tempSecPwd = null;
+    public String tempSecPwdToken = null;
 
     public boolean bQuit = false;
     public Activity firstActivity;
@@ -190,6 +202,9 @@ public class MobileTraderApplication extends Application {
     public boolean usingPriceStreaming = false;
 
     public Date dServerDateTime = new Date();
+
+    public String strUsername;
+    public int loginType;
 
     public static class LoginInfo {
         public String sURL = null;
@@ -455,7 +470,7 @@ public class MobileTraderApplication extends Application {
         Utils.init(this);
         // sp
         UserSharedPUtils.init();
-        AppSharedPUtils.init();
+        LanguageSettingUtil.init(this);
     }
 
     /**
@@ -546,7 +561,7 @@ public class MobileTraderApplication extends Application {
         super.attachBaseContext(localeContextWrapper);
 
         // 分包工具
-		MultiDex.install(this);
+        MultiDex.install(this);
     }
 
     /**
@@ -741,6 +756,90 @@ public class MobileTraderApplication extends Application {
         return iDefaultService;
     }
 
+    public void setPasswordToken(String token) {
+        SharedPreferences setting = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = setting.edit();
+        editor.putString("PWD_TOKEN", token);
+        editor.commit();
+    }
+
+    public String getPasswordToken() {
+        SharedPreferences setting = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        return setting.getString("PWD_TOKEN", null);
+    }
+
+    public void setSecPasswordToken(String token) {
+        SharedPreferences setting = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = setting.edit();
+        editor.putString("SEC_PWD_TOKEN", token);
+        editor.commit();
+    }
+
+    public String getSecPasswordToken() {
+        SharedPreferences setting = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        return setting.getString("SEC_PWD_TOKEN", null);
+    }
+
+    public void setLoginType(int type) {
+        SharedPreferences setting = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = setting.edit();
+        editor.putInt("LOGIN_TYPE", type);
+        editor.commit();
+    }
+
+    public int getLoginType() {
+        SharedPreferences setting = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        return setting.getInt("LOGIN_TYPE", -1);
+    }
+
+    public void setLoginID(String id) {
+        SharedPreferences setting = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = setting.edit();
+        editor.putString("LOGIN_ID", id);
+        editor.commit();
+    }
+
+    public String getLoginID() {
+        SharedPreferences setting = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        return setting.getString("LOGIN_ID", "null");
+    }
+
+    public void setSecLoginID(String id) {
+        SharedPreferences setting = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = setting.edit();
+        editor.putString("SEC_LOGIN_ID", id);
+        editor.commit();
+    }
+
+    public String getSecLoginID() {
+        SharedPreferences setting = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        return setting.getString("SEC_LOGIN_ID", "null");
+    }
+
+    public void setOpenID(String id) {
+        SharedPreferences setting = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = setting.edit();
+        editor.putString("OPEN_ID", id);
+        editor.commit();
+    }
+
+    public String getOpenID() {
+        SharedPreferences setting = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        return setting.getString("OPEN_ID", "null");
+    }
+
+    public void setFingerID(boolean isOn) {
+        SharedPreferences setting = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = setting.edit();
+        editor.putBoolean("SAVE_TOUCH_ID", isOn);
+        editor.commit();
+    }
+
+    public boolean getFingerID(){
+        SharedPreferences setting = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        return setting.getBoolean("SAVE_TOUCH_ID", false);
+    }
+
     public void setDefaultPage(String sSeq) {
         if (sSeq != null) {
             data.setContractSequence(sSeq);
@@ -905,27 +1004,19 @@ public class MobileTraderApplication extends Application {
 
     public String getReportGroupURL(boolean isDemo) {
         String url = null;
-        if (CompanySettings.ENABLE_FATCH_REPORT_GROUP_OTX == true) {
-            if (isDemo)
-                url = this.loginInfoDemoServer_otx.sURL;
-            else
-                url = this.loginInfoProdServer_otx.sURL;
+        if (isDemo) {
+            url = this.loginInfoDemo.sURL;
             return "http://" + url + CompanySettings.REPORTGROUP_URL;
         } else {
-            if (isDemo) {
-                url = this.loginInfoDemo.sURL;
+            if (CompanySettings.ENABLE_FATCH_PLATFORM_ID_FROM_MOBILE_SERVICE) {
+                url = this.loginInfoProd.sURL;
+                return "http://" + url + CompanySettings.REPORTGROUP_URL;
+            } else if (CompanySettings.checkProdServer() == 1) {
+                url = this.loginInfoProd.sURL;
                 return "http://" + url + CompanySettings.REPORTGROUP_URL;
             } else {
-                if (CompanySettings.ENABLE_FATCH_PLATFORM_ID_FROM_MOBILE_SERVICE) {
-                    url = this.loginInfoProd.sURL;
-                    return "http://" + url + CompanySettings.REPORTGROUP_URL;
-                } else if (CompanySettings.checkProdServer() == 1) {
-                    url = this.loginInfoProd.sURL;
-                    return "http://" + url + CompanySettings.REPORTGROUP_URL;
-                } else {
-                    url = this.loginInfoProd2.sURL;
-                    return "http://" + url + CompanySettings.REPORTGROUP_URL_PROD2;
-                }
+                url = this.loginInfoProd2.sURL;
+                return "http://" + url + CompanySettings.REPORTGROUP_URL_PROD2;
             }
         }
     }

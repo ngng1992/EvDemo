@@ -56,7 +56,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/ll_account_step"
         android:layout_marginTop="@dimen/dp_16"
-        android:background="@drawable/bg_whiteff_corner24"
+        android:background="@drawable/bg_whiteff_top_corner24"
         android:orientation="vertical">
 
         <net.mfinance.commonlib.view.LineStepView
@@ -330,7 +330,7 @@
                     app:isEditor="false"
                     app:isVisibilityGoto="true"
                     app:txtLeft="@string/ui_business"
-                    app:txtRightHint="@string/sec_acc_ui_select">
+                    app:txtRightHint="@string/sec_need_acc_ui_select">
 
                 </com.mfinance.everjoy.everjoy.view.AccountEditorInfoView>
 
@@ -341,7 +341,7 @@
                     app:isEditor="false"
                     app:isVisibilityGoto="true"
                     app:txtLeft="@string/ui_profession"
-                    app:txtRightHint="@string/sec_acc_ui_select">
+                    app:txtRightHint="@string/sec_need_acc_ui_select">
 
                 </com.mfinance.everjoy.everjoy.view.AccountEditorInfoView>
 
@@ -352,7 +352,7 @@
                     app:isEditor="false"
                     app:isVisibilityGoto="true"
                     app:txtLeft="@string/ui_working"
-                    app:txtRightHint="@string/sec_acc_ui_select">
+                    app:txtRightHint="@string/sec_need_acc_ui_select">
 
                 </com.mfinance.everjoy.everjoy.view.AccountEditorInfoView>
 

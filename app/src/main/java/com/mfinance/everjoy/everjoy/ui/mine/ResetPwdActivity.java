@@ -1,15 +1,21 @@
 package com.mfinance.everjoy.everjoy.ui.mine;
 
+import android.content.Intent;
+import android.os.Message;
+import android.os.RemoteException;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.RegexUtils;
 import com.mfinance.everjoy.R;
+import com.mfinance.everjoy.app.constant.ServiceFunction;
 import com.mfinance.everjoy.everjoy.base.BaseViewActivity;
+
+import net.mfinance.commonlib.view.StringTextView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -19,21 +25,33 @@ import butterknife.OnClick;
  */
 public class ResetPwdActivity extends BaseViewActivity {
 
+    private String type;
 
+//    @BindView(R.id.et_oldpwd)
+//    EditText etOldpwd;
+    @BindView(R.id.et_oldpwd)
+    EditText etOldpwd;
     @BindView(R.id.et_newpwd)
     EditText etNewpwd;
     @BindView(R.id.iv_show_newpwd)
     ImageView ivShowNewpwd;
     @BindView(R.id.et_define_pwd)
     EditText etDefinePwd;
-    @BindView(R.id.iv_show_definepwd)
+    @BindView(R.id.iv_show_define_pwd)
     ImageView ivShowDefinepwd;
     @BindView(R.id.tv_submit)
     TextView tvSubmit;
+    @BindView(R.id.tv_contact)
+    TextView tvContact;
 
     @Override
-    protected boolean isVisibleToolbarLine() {
-        return false;
+    protected boolean isRemoveAppBar() {
+        return true;
+    }
+
+    @Override
+    protected boolean isFullStatusByView() {
+        return true;
     }
 
     @Override
@@ -43,10 +61,29 @@ public class ResetPwdActivity extends BaseViewActivity {
 
     @Override
     protected void initView(View currentView) {
+        Intent intent = getIntent();
+        type = intent.getStringExtra(ServiceFunction.RESETPASSWORD_TYPE);
 
+        // 在线咨询
+        String verifMsg = getString(R.string.sec_acc_ui_contact);
+        String target = verifMsg.substring(verifMsg.length() - 4);
+        new StringTextView(tvContact)
+                .setStrText(verifMsg)
+                .setColor(getResources().getColor(R.color.blue18))
+                .setTextSize(1f)
+                .setTargetText(target)
+                .setUnderline(false)
+                .setClick(true)
+                .setOnClickSpannableStringListener(new StringTextView.OnClickSpannableStringListener() {
+                    @Override
+                    public void onClickSpannableString(View view) {
+                        ContactActivity.startContactActivity(ResetPwdActivity.this);
+                    }
+                })
+                .create();
     }
 
-    @OnClick({R.id.iv_show_newpwd, R.id.iv_show_definepwd, R.id.tv_submit})
+    @OnClick({R.id.iv_show_newpwd, R.id.iv_show_define_pwd, R.id.tv_submit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_show_newpwd:
@@ -59,7 +96,7 @@ public class ResetPwdActivity extends BaseViewActivity {
                     etNewpwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 }
                 break;
-            case R.id.iv_show_definepwd:
+            case R.id.iv_show_define_pwd:
                 ivShowDefinepwd.setSelected(!ivShowDefinepwd.isSelected());
                 if (ivShowDefinepwd.isSelected()) {
                     etDefinePwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
@@ -68,11 +105,27 @@ public class ResetPwdActivity extends BaseViewActivity {
                 }
                 break;
             case R.id.tv_submit:
+                // 重置密码，没有要求输入以前的密码 //Need BA to clarify this part. Server protocol needs以前的密码 
+                resetPassword(etOldpwd.getText().toString(), etNewpwd.getText().toString());
+//                // 重置密码成功
+//                startActivity(new Intent(this, SetPwdSuccessActivity.class));
                 break;
             default:
                 break;
         }
     }
 
+    public void resetPassword(String oldPassword, String newPassword) {
+        Message resetPwdMsg = Message.obtain(null, ServiceFunction.SRV_RESET_PASSWORD);
+        resetPwdMsg.replyTo = mServiceMessengerHandler;
 
+        resetPwdMsg.getData().putString(ServiceFunction.RESETPASSWORD_TYPE, type);
+        resetPwdMsg.getData().putString(ServiceFunction.RESETPASSWORD_OLDPASSWORD, oldPassword);
+        resetPwdMsg.getData().putString(ServiceFunction.RESETPASSWORD_NEWPASSWORD, newPassword);
+        try {
+            mService.send(resetPwdMsg);
+        } catch (RemoteException e) {
+            Log.e("login", "Unable to send login message", e.fillInStackTrace());
+        }
+    }
 }

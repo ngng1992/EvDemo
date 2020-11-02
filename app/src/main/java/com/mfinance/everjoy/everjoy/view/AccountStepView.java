@@ -1,6 +1,7 @@
 package com.mfinance.everjoy.everjoy.view;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,38 +23,42 @@ public class AccountStepView extends LinearLayout {
 
     public AccountStepView(Context context) {
         super(context);
-        init(context);
+        init(context, null);
     }
 
     public AccountStepView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init(context);
+        init(context, attrs);
     }
 
     public AccountStepView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context);
+        init(context, attrs);
     }
 
     public AccountStepView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init(context);
+        init(context, attrs);
     }
 
-    private void init(Context context) {
+    private void init(Context context, AttributeSet attrs) {
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.AccountStepView);
+        int selectIndex = a.getInt(R.styleable.AccountStepView_selectIndex, 0);
+        a.recycle();
+
         LayoutInflater.from(context).inflate(R.layout.view_account_step, this);
         ll_edit_info = findViewById(R.id.ll_edit_info);
         ll_open_account = findViewById(R.id.ll_open_account);
         ll_risk_disclosure = findViewById(R.id.ll_risk_disclosure);
         ll_signing_agreement = findViewById(R.id.ll_signing_agreement);
-        scrollStep(0);
+        scrollStep(selectIndex);
     }
 
     /**
-     * 滚动到第几个位置了
+     * 滚动到第几个位置了，从0开始
      */
-    public void scrollStep(int index) {
-        if (index == 0) {
+    public void scrollStep(int selectIndex) {
+        if (selectIndex == 0) {
             int childCount0 = ll_edit_info.getChildCount();
             for (int i = 0; i < childCount0; i++) {
                 View childAt = ll_edit_info.getChildAt(i);
@@ -82,7 +87,7 @@ public class AccountStepView extends LinearLayout {
                 childAt.setVisibility(i == 0 ? VISIBLE : GONE);
                 childAt.setAlpha(0.5f);
             }
-        } else if (index == 1) {
+        } else if (selectIndex == 1) {
             int childCount0 = ll_edit_info.getChildCount();
             for (int i = 0; i < childCount0; i++) {
                 View childAt = ll_edit_info.getChildAt(i);
@@ -110,7 +115,7 @@ public class AccountStepView extends LinearLayout {
                 childAt.setVisibility(i == 0 ? VISIBLE : GONE);
                 childAt.setAlpha(0.5f);
             }
-        } else if (index == 2) {
+        } else if (selectIndex == 2) {
             int childCount0 = ll_edit_info.getChildCount();
             for (int i = 0; i < childCount0; i++) {
                 View childAt = ll_edit_info.getChildAt(i);

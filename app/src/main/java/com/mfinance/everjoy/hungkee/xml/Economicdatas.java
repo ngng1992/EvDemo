@@ -24,7 +24,7 @@ public class Economicdatas {
 			HashMap<Integer, Economicdata> hmEconomicdata = new HashMap<Integer, Economicdata>();
 			int count=0;
 			for(Economicdata e : lEconomicdatas){
-				//System.out.println(e.getDate() + "-"+e.getTime()+"_"+e.getCountryGB()+"-"+e.getNameGB());
+				//System.out.println(e.getDate() + "-"+e.getTime()+"btn_pause"+e.getCountryGB()+"-"+e.getNameGB());
 				hmEconomicdata.put(count++, e);
 			}
 			return hmEconomicdata;			

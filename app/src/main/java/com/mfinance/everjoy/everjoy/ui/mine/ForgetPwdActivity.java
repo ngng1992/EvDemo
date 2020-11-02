@@ -1,31 +1,50 @@
 package com.mfinance.everjoy.everjoy.ui.mine;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.RegexUtils;
 import com.mfinance.everjoy.R;
-import com.mfinance.everjoy.everjoy.base.BaseViewActivity;
+import com.mfinance.everjoy.app.constant.ServiceFunction;
+import com.mfinance.everjoy.everjoy.bean.base.BaseBean;
+import com.mfinance.everjoy.everjoy.config.Constants;
+import com.mfinance.everjoy.everjoy.ui.mvp.base.BaseMvpViewActivity;
+import com.mfinance.everjoy.everjoy.ui.mvp.presenter.ForgotPasswordPresenter;
+import com.mfinance.everjoy.everjoy.ui.mvp.view.ForgetPwdView;
+
+import net.mfinance.commonlib.timer.CountDownHelper;
+import net.mfinance.commonlib.timer.OnTimerCallBack;
+import net.mfinance.commonlib.toast.ToastUtils;
+import net.mfinance.commonlib.view.StringTextView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
  * 忘记密码
  */
-public class ForgetPwdActivity extends BaseViewActivity {
+public class ForgetPwdActivity extends BaseMvpViewActivity<ForgetPwdView, ForgotPasswordPresenter>
+        implements ForgetPwdView {
 
+    String type = null;
+    String email = null;
+
+    @BindView(R.id.et_acc)
+    EditText etAcc;
     @BindView(R.id.et_email)
     EditText etEmail;
     @BindView(R.id.tv_submit)
     TextView tvSubmit;
+    @BindView(R.id.tv_contact)
+    TextView tvContact;
+    @BindView(R.id.tv_tips)
+    TextView tvTips;
 
-    @Override
-    protected boolean isVisibleToolbarLine() {
-        return false;
-    }
+    private CountDownHelper countDownHelper;
 
     @Override
     protected int setLayoutResId() {
@@ -34,7 +53,36 @@ public class ForgetPwdActivity extends BaseViewActivity {
 
     @Override
     protected void initView(View currentView) {
+        // 在线咨询
+        Intent intent = getIntent();
+        type = intent.getStringExtra(ServiceFunction.FORGETPASSWORD_TYPE);
 
+        String resend = intent.getStringExtra(ServiceFunction.FORGETPASSWORD_RESEND);
+        if (resend != null) {
+            resendCode();
+        }
+
+        if (type.equals("2")) {
+            etAcc.setVisibility(View.GONE);
+            String verifMsg = getString(R.string.sec_acc_ui_contact);
+            String target = verifMsg.substring(verifMsg.length() - 4);
+            new StringTextView(tvContact)
+                    .setStrText(verifMsg)
+                    .setColor(getResources().getColor(R.color.blue18))
+                    .setTextSize(1f)
+                    .setTargetText(target)
+                    .setUnderline(false)
+                    .setClick(true)
+                    .setOnClickSpannableStringListener(new StringTextView.OnClickSpannableStringListener() {
+                        @Override
+                        public void onClickSpannableString(View view) {
+                            ContactActivity.startContactActivity(ForgetPwdActivity.this);
+                        }
+                    })
+                    .create();
+        } else if (type.equals("3")) {
+            tvTips.setVisibility(View.GONE);
+        }
     }
 
     @OnClick({R.id.et_email, R.id.tv_submit})
@@ -43,6 +91,10 @@ public class ForgetPwdActivity extends BaseViewActivity {
             case R.id.et_email:
                 break;
             case R.id.tv_submit:
+                if (type.equals("2"))
+                    getCode();
+                else if (type.equals("3"))
+                    forgotPassword();
                 break;
             default:
                 break;
@@ -50,10 +102,121 @@ public class ForgetPwdActivity extends BaseViewActivity {
     }
 
     /**
-     * 验证成功，跳转至登录验证
+     * 获取验证码
      */
-    private void showVerifSuccess() {
-        String email = etEmail.getText().toString();
-        LoginVerificationActivity.startLoginVerificationActivity(this, email);
+    private void getCode() { //Level 2 forgot password, get OTP code
+        email = etEmail.getText().toString();
+        if (TextUtils.isEmpty(email)) {
+            ToastUtils.showToast(this, R.string.toast_input_email);
+            return;
+        }
+        if (!RegexUtils.isEmail(email)) {
+            ToastUtils.showToast(this, R.string.str_email_rule_error);
+            return;
+        }
+        app.tempForgotEmail = email;
+        mPresenter.requestEmailCode(email);
+    }
+
+    public void resendCode() {
+        email = app.tempForgotEmail;
+        mPresenter.requestEmailCode(email);
+    }
+
+
+    private void forgotPassword() { //Level 3 forgot password, call webservice to reset
+        String acc = etAcc.getText().toString();
+        email = etEmail.getText().toString();
+        if (TextUtils.isEmpty(email)) {
+            ToastUtils.showToast(this, R.string.toast_input_email);
+            return;
+        }
+        if (!RegexUtils.isEmail(email)) {
+            ToastUtils.showToast(this, R.string.str_email_rule_error);
+            return;
+        }
+        mPresenter.requestForgotPassword(acc, email);
+    }
+
+    @Override
+    protected boolean isRemoveAppBar() {
+        return true;
+    }
+
+    @Override
+    protected boolean isFullStatusByView() {
+        return true;
+    }
+
+    @Override
+    protected ForgotPasswordPresenter createPresenter() {
+        return new ForgotPasswordPresenter(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (countDownHelper != null) {
+            countDownHelper.stopTimer();
+        }
+    }
+
+    @Override
+    public void onShowData(BaseBean data) {
+        startTimer();
+    }
+
+    private void startTimer() {
+        countDownHelper = new CountDownHelper(this);
+        countDownHelper.setTime(60);
+        countDownHelper.setOnTimerTaskCallBack(new OnTimerCallBack() {
+            @Override
+            public void onCallBack(long time) {
+                if (time <= 0) {
+                } else {
+                    String timeContent = String.format(getString(R.string.str_second), time);
+                }
+            }
+        });
+        countDownHelper.startTimer();
+    }
+
+    @Override
+    public void onShowError(String msg) {
+        ToastUtils.showToast(this, msg);
+    }
+
+    @Override
+    public void onShowLoading() {
+        showLoading();
+    }
+
+    @Override
+    public void onHideLoading() {
+        hideLoading();
+    }
+
+    @Override
+    public void onShowEmailCheckCode(BaseBean baseBean) {
+        String prefix = baseBean.getMessage();
+
+        Bundle data = new Bundle();
+        data.putString(ServiceFunction.FORGETPASSWORD_TYPE, "2");
+        data.putString(ServiceFunction.FORGETPASSWORD_EMAIL, email);
+        data.putString(ServiceFunction.FORGETPASSWORD_PREFIX, prefix);
+        //data.putString()
+        data.putBoolean(Constants.IS_FORGET_PWD, true);
+
+        //data.putString(ServiceFunction.LOGIN_SEC_PREFIX, strPrefix);
+        goTo(ServiceFunction.SRV_MOVE_TO_FORGOT_PASSWORD_OTP, data);
+    }
+
+    @Override
+    public void onShowEmailCheckCodeError(String msg) {
+    }
+
+    public void toSecurityLogin(){
+        Intent intent = new Intent(ForgetPwdActivity.this, LoginSecurityActivity.class);
+        startActivity(intent);
     }
 }

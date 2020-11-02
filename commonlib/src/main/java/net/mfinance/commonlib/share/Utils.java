@@ -12,6 +12,21 @@ import net.mfinance.commonlib.share.qq.QQShareUtils;
 import net.mfinance.commonlib.share.wechat.WechatUtils;
 
 public class Utils {
+    public static class LoginOAuthType{
+        public static int FACEBOOK = 1;
+        public static int TWITTER = 2;
+        public static int WECHAT = 3;
+        public static int SINA = 4;
+        public static int IG = 5;
+        public static int QQ = 7;
+    }
+
+    public static class LevelType{
+        public static String LEVEL2 = "2";
+        public static String LEVEL3 = "3";
+        public static String LEVEL3_OTP_LOGIN = "3.1";
+        public static String LEVEL3_FIRST_LOGIN = "3.2";
+    }
 
     /**
      * QQ
@@ -89,4 +104,13 @@ public class Utils {
         return "";
     }
 
+    /**
+     * INSTAGRAM
+     */
+    public static final String INSTAGRAM_OAUTH_AUTHORIZE = "https://api.instagram.com/oauth/authorize";
+    public static final String INSTAGRAM_OAUTH_ACCESS_TOKEN = "https://api.instagram.com/oauth/access_token";
+    public static final String INSTAGRAM_OAUTH_ME = "https://graph.instagram.com/me";
+    public static final String INSTAGRAM_APP_ID = "3019715511588677";
+    public static final String INSTAGRAM_APP_SECRET = "a1d9a65e800c93225e14e1dcf2bb43cf";
+    public static final String INSTAGRAM_APP_REDIRECT_URL = "https://www.m-finance.com/web/tc/";
 }

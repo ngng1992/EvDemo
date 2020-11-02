@@ -3,13 +3,10 @@ package com.mfinance.everjoy.everjoy.pics;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 
-import androidx.core.content.FileProvider;
-
-import com.blankj.utilcode.util.ImageUtils;
+import com.mfinance.everjoy.everjoy.config.Constants;
 
 import net.mfinance.chatlib.utils.ConfigUtils;
 
@@ -23,22 +20,19 @@ import java.util.Locale;
  */
 public class FileSelector {
 
-    public static final int REQUEST_CODE_SELECT_PHOTO = 100;
-    public static final int REQUEST_CODE_SELECT_CAMERA = 101;
-
     /**
      * 选择1张图片
      */
     public static void selectImage(Activity activity) {
         Intent intentToPickPic = new Intent(Intent.ACTION_PICK, null);
         intentToPickPic.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-        activity.startActivityForResult(intentToPickPic, REQUEST_CODE_SELECT_PHOTO);
+        activity.startActivityForResult(intentToPickPic, Constants.REQUEST_CODE_SELECT_PHOTO);
     }
 
     /**
      * 选择相机拍照
      */
-    public static String selectCamera(Activity activity){
+    public static String selectCamera(Activity activity) {
         Intent intentToTakePhoto = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         File fileDir = new File(Environment.getExternalStorageDirectory() + File.separator + ConfigUtils.NAME + File.separator);
         if (!fileDir.exists()) {
@@ -49,7 +43,7 @@ public class FileSelector {
         String mTempPhotoPath = photoFile.getAbsolutePath();
         Uri imageUri = FileProvider7.getUriForFile(activity, photoFile);
         intentToTakePhoto.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-        activity.startActivityForResult(intentToTakePhoto, REQUEST_CODE_SELECT_CAMERA);
+        activity.startActivityForResult(intentToTakePhoto, Constants.REQUEST_CODE_SELECT_CAMERA);
         return mTempPhotoPath;
     }
 

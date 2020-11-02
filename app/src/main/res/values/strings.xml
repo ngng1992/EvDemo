@@ -239,6 +239,7 @@
     <string name="msg_383">Invalid Password/Username</string>
     <string name="msg_393">Invalid Password/Username</string>
     <string name="msg_8001">Duplicate login occurs</string>
+    <string name="msg_8003">Duplicate login occurs</string>
     <string name="msg_310">Please login first</string>
     <string name="msg_311">Invalid Trade Date</string>
     <string name="msg_312">Account Locked. Please contact our Customer Services officer.</string>
@@ -732,17 +733,31 @@
     <string name="str_new_register">新用户注册</string>
     <string name="str_social_login">第三方账号登录</string>
     <string name="toast_exit">再按一次退出%1$s</string>
+    <string name="str_logout">Logout</string>
+
+    <string name="arsp_set_login_pwd">设置登录密码</string>
+    <string name="arsp_old_pwd">Old Password</string>
+    <string name="arsp_new_pwd">新密码</string>
+    <string name="arsp_input_pwd">请输入密码</string>
+    <string name="arsp_define_pwd">确认密码</string>
+    <string name="arsp_input_define_pwd">请输入确认密码</string>
+    <string name="arsp_new_define_pwd">登陆密码与确认登陆密码必须相同</string>
+
+    <string name="aua_agreement_title">大圣取金用户协议</string>
+    <string name="aua_agreement_user">尊敬的用户：</string>
 
     <string name="login_ui_account_blocked">此账户已经封锁</string>
-    <string name="login_ui_account_blocked_desc">已连续5次输入错误登记密码，\n为了安全理由，此账户已经封锁。</string>
+    <string name="login_ui_account_blocked_desc">已连续5次输入错误登记密码，\n为了安全理由，此账户已经封锁</string>
     <string name="login_ui_know">我知道了</string>
     <string name="login_ui_forget_pwd">忘记密码</string>
 
     <string name="verif_ui_title">登录验证</string>
-    <string name="verif_ui_send_msg">已发送验证码到%1$s的电邮，请输入短信验证</string>
+    <string name="verif_ui_send_msg">已发送验证码到%1$s的电邮，请输入验证码</string>
     <string name="verif_ui_resend_code_second">%1$ds后重发验证码</string>
     <string name="verif_ui_resend_code">重发验证码</string>
     <string name="toast_input_code">请输入您的验证码</string>
+    <string name="toast_input_digits">ABCDEFGHIJKLMNOPGRSTUVWXYZabcdefghijklmnopgrstuvwxyz0123456789-</string>
+    <string name="toast_pls_get_code">请重新获取验证码</string>
 
     <string name="sec_acc_ui_title">开通大圣证券账户</string>
     <string name="sec_acc_ui_edit_info">编辑资料</string>
@@ -756,13 +771,14 @@
     <string name="sec_acc_ui_mrs">太太</string>
     <string name="sec_acc_ui_miss">小姐</string>
     <string name="sec_acc_ui_chinese_name">中文姓名</string>
-    <string name="sec_acc_ui_input_chinese_name">请输入中文姓名</string>
+    <string name="sec_acc_ui_input_chinese_name">(非必填)请输入中文姓名</string>
     <string name="sec_acc_ui_eg_name">英文姓名</string>
-    <string name="sec_acc_ui_input_eg_name">（非必填）请输入英文姓名</string>
+    <string name="sec_acc_ui_input_eg_name">请输入英文姓名</string>
     <string name="sec_acc_ui_birthplace">出生地区</string>
     <string name="sec_acc_ui_hk">中国香港</string>
     <string name="sec_acc_ui_birthday">出生日期</string>
     <string name="toast_sec_acc_eighteen">声请人必须年满18岁或以上</string>
+    <string name="sec_need_acc_ui_select">(非必填)请选择</string>
     <string name="sec_acc_ui_select">请选择</string>
     <string name="sec_acc_ui_marriage">婚姻状况</string>
     <string name="sec_acc_ui_sex">性别</string>
@@ -773,10 +789,12 @@
     <string name="sec_acc_ui_bank_area">银行账户所属地区</string>
     <string name="sec_acc_ui_next">下一步</string>
     <string name="sec_acc_ui_contact">如有问题，立即在线咨询</string>
+    <string name="saa_input_card_code">请输入证件号码</string>
+    <string name="saa_cardid_error">错误证件号码格式</string>
 
     <string name="recg_ui_auto">上载证件自动填写</string>
-    <string name="recg_ui_front">正面</string>
-    <string name="recg_ui_background">反面</string>
+    <string name="recg_ui_front">身份证正面*</string>
+    <string name="recg_ui_background">身份证反面*</string>
 
     <string name="touch_to_focus">触摸屏幕对焦</string>
     <string name="cn_idcard_back">请将带国徽的一面放到框内</string>
@@ -800,41 +818,120 @@
     <string name="ui_edu">教育程度</string>
     <string name="ui_work">工作状况</string>
     <string name="ui_comp">雇主名称</string>
-    <string name="ui_input_comp">请输入雇主名称</string>
+    <string name="ui_input_comp">(非必填)请输入雇主名称</string>
     <string name="ui_comp_address">公司地址</string>
-    <string name="ui_input_comp_address">（非必填）请输入公司地址</string>
+    <string name="ui_input_comp_address">(非必填)请输入公司地址</string>
     <string name="ui_comp_phone">公司电话</string>
-    <string name="ui_input_comp_phone">（非必填）请输入公司电话</string>
+    <string name="ui_input_comp_phone">(非必填)请输入公司电话</string>
     <string name="ui_business">业务性质</string>
     <string name="ui_profession">职业</string>
     <string name="ui_working">工作年资</string>
+    <string name="txt_back">返回</string>
+    <string name="txt_camera">拍摄</string>
+    <string name="txt_camera_video_desc">请对准面部及五官\n再按拍摄2秒短片</string>
+    <string name="txt_verfi_success">验证成功！</string>
+    <string name="txt_finish">完成</string>
+    <string name="auc_card_upload">证件上传</string>
+    <string name="auc_address_desc">住址证明*</string>
+    <string name="auc_passport1">护照/港澳通行证(非必填)</string>
+    <string name="auc_passport2">护照/港澳通行证*</string>
 
+    <string name="af_revenue">财政收入</string>
+    <string name="af_annual_income">年收入</string>
+    <string name="af_asset_value">资产净值</string>
+    <string name="af_house">住宅类别</string>
+    <string name="af_source_funds">资金来源</string>
+    <string name="af_funds_type">资产类别</string>
+    <string name="af_investment_target">投资目标</string>
+    <string name="af_taking_risks">可承受风险</string>
+    <string name="af_investment_quota">平均年投资额</string>
+    <string name="af_investment_experience">投资经验</string>
+    <string name="af_shares">股票</string>
+    <string name="af_derivatives">衍生工具</string>
+    <string name="af_futures_options">期货期权</string>
+    <string name="af_forex_precious">外汇/贵金属</string>
+    <string name="af_bonds_certificates">债券/存款证</string>
+    <string name="af_unit_fund">单位信托基金/基金</string>
+    <string name="af_other">其他</string>
+    <string name="af_derivative">衍生品</string>
 
+    <string name="asa_pls_account">请选择要开通的账户</string>
+    <string name="asa_account_desc">账户说明</string>
+    <string name="asa_account">账户</string>
+    <string name="asa_stock_market">股票市场</string>
+    <string name="asa_hk_stock">港股</string>
+    <string name="asa_am_stock">美股</string>
+    <string name="asa_ch_stock">A股</string>
+    <string name="asa_taxation">税务</string>
+    <string name="asa_taxation_info">税务信息</string>
+    <string name="asa_country_area">国家/地区</string>
+    <string name="asa_taxation_code">税务编号</string>
+    <string name="asa_input_taxation_code">请输入税务编号</string>
+    <string name="asa_taxation_desc">税务居民是指因具有某地居民身份，而在当地负有缴税责任，即为某地的税务居民</string>
+    <string name="asa_country_taxation">所在国家或地区在美国与该国的所得税协定含义在范围内</string>
+    <string name="asa_desc_cbx1">本人明白证券保证金账户属于“中等风险”及/或“高风险”类别；并确认拥有足够能力作定期注资及/或满足提供额外抵押品之要求</string>
+    <string name="asa_desc_cbx2">本人确认本人和配偶及同一居所内之直係亲属：没有持有“悦有证券”任何现金/保证金账户及拥有超过35%权益之相关账户【假设是选择了默认的设定孖展账户才会出现】</string>
+    <string name="asa_desc_cbx3">本人确认及同意“悦有证券”根据《客户账户协议书》内“个人资料收集声明”及”中华通北向交易个人资料收集声明”中的条款和所载目的使用本人的个人资料</string>
+    <string name="asa_desc_cbx4">个人税务身份及AEOI信息共享:\n本人确认就(CRS/W8BEN)个人税务身份自我声明内所填报的所有资料均属真实、正确和完备。如情况有所改变，本人会于30日内通知悦有证券，并会向悦有证券提交一份已适当更新的(CRS/W8BEN)个人税务身份自我声明表格</string>
+    <string name="asa_desc_cbx5">本人同意就有关账户持有人和账户活动的信息与悦有证券关联方共享, 及用于向税务局报告及与全球其它政府当局共享此类信息</string>
+    <string name="asa_error_info">信息填写有误</string>
 
+    <string name="ard_licensees">持牌人</string>
+    <string name="ard_licensees_name">Marry Chan</string>
+    <string name="ard_licensees_code">牌照编号</string>
+    <string name="ard_licensees_code_name">ABC123</string>
+    <string name="ard_tips">温馨提示：点击开始后，将播放风险披露声明，如环境不便，请使用耳机去进行收听；如有任何疑问，请致电联系我们</string>
+    <string name="ard_risk_statement">风险披露声明</string>
+    <string name="ard_cbx_1">本人确认以上个人资料</string>
+    <string name="ard_cbx_2">本人已阅读客户开户协议书</string>
+    <string name="ard_appointment_witness">预约见证</string>
+    <string name="ard_open_tips">开户提示</string>
 
+    <string name="asa_explanation">协议签署认证及说明</string>
+    <string name="asa_autograph">签名</string>
+    <string name="asa_self_define">本人确认以下之签署,将同时用于所有文件(包括: 客户协议, 客户款项常设授权，客户证券常设授权，个人资料收集及使用同意书，CRS及W8BEN表格) 及办理账户相关事宜\n本人了解并同意在下方键入姓名的法律效力等同于手写签名，并确认及保证所提交的个人信息: 准确，完整和可靠，并己阅读及同意全部开户文件内之条款</string>
+    <string name="asa_input_auto">请输入签名</string>
+    <string name="asa_input_auto_name">如：%1$s 姓氏与名字之间要有一个空格</string>
 
+    <string name="asd_transfer_accounts">您的证券账户正在批核，\n立即转账一万元港币开通账户</string>
+    <string name="asd_online_deposit">线上入金</string>
+    <string name="asd_online_deposit_desc">转账一万元港币，即可开通账户</string>
+    <string name="asd_cheque">支票开户</string>
+    <string name="asd_cheque_desc">邮寄支票正本，即可开通账户</string>
+    <string name="asd_arrange">邮寄支票正本，即可开通账户</string>
+    <string name="asd_arrange_desc">可预约2周内，港铁沿线见证</string>
 
+    <string name="aod_quick_deposit">极速入金开户</string>
+    <string name="aod_prepare_bank">首先准备您的银行卡</string>
+    <string name="aod_input_bank">填写银行卡资料</string>
+    <string name="aod_input_bank_verify">需填入</string>
+    <string name="aod_input_bank_verify1">10,000港币</string>
+    <string name="aod_input_bank_verify2"> 或 </string>
+    <string name="aod_input_bank_verify3">其他等额币种</string>
+    <string name="aod_input_bank_verify4">去核实银行卡</string>
+    <string name="aod_start">立即开始</string>
 
-    <string name="sec_acc_ui_income">年收入</string>
-    <string name="sec_acc_ui_input">请输入</string>
-    <string name="sec_acc_ui_property">资产净值</string>
-    <string name="sec_acc_ui_house">住宅类别</string>
-    <string name="sec_acc_ui_source_funds">资金来源</string>
-    <string name="sec_acc_ui_fundstype">资产类别</string>
-    <string name="sec_acc_ui_investment_target">投资目标</string>
-    <string name="sec_acc_ui_taking_risks">可承受风险</string>
-    <string name="sec_acc_ui_investment_quota">平均年投资额</string>
-    <string name="sec_acc_ui_investment_experience">投资经验</string>
-
-
-
-
-
-
-
-
-
-
+    <string name="arsoa_register_success">注册成功，进行开户</string>
+    <string name="arsoa_register_success_desc">请准备以下开户资料</string>
+    <string name="arsoa_identity_document">身份证明文件</string>
+    <string name="arsoa_identity_document_desc">香港身份证/大陆身份证</string>
+    <string name="arsoa_identity_address">身份证明文件</string>
+    <string name="arsoa_identity_address_desc">身份证明文件</string>
+    <string name="arsoa_bank">银行卡</string>
+    <string name="arsoa_passport">护照</string>
+    <string name="arsoa_passport_desc">护照(非永久居民需要提供)</string>
+    <string name="str_read_account_file">本人已详细阅读并同意签署所有《开户文件》</string>
+    <string name="str_read_account_file_desc">《开户文件》</string>
+    <string name="str_not_american">本人不是美国公民/美国居民或持有美国护照/绿卡</string>
+    <string name="str_not_hk_employee">不是香港证监会的持牌或注册人士或任何持牌或注册机构之董事或雇员</string>
+    <string name="str_not_company_employee">不是上市公司之高级职员、董事或大股东</string>
+    <string name="str_not_everjoy_relationship">本人和悦有证券有限公司或其联营公司的董事或僱员没有任何关系</string>
+    <string name="str_not_other_account">本人或与其「有关的账户」没有於悦有证券有限公司或悦有集团(下称“悦有”)操作/持有其他账户</string>
+    <string name="str_not_government">不是任何国家/地方之政界人士/政党领袖/政府高级官员: 并同上述人土没有任何联系</string>
+    <string name="str_not_bankruptcy">本人未在过去7年中曾经破产或递送破产申请</string>
+    <string name="str_checked">请勾选</string>
+    <string name="str_open_account">立即开通</string>
+    <string name="str_jump">跳过，去首页>></string>
 
     <string name="str_phone">手机号码</string>
     <string name="toast_copied">已复制</string>
@@ -842,32 +939,32 @@
     <string name="str_email_login">电邮登录</string>
     <string name="str_pwd">密码</string>
     <string name="str_forget_pwd">忘记密码?</string>
+    <string name="str_forget_pwd2">忘记密码</string>
     <string name="str_quick_login">快速登入</string>
     <string name="toast_input_email">请输入您的邮箱账号</string>
-
+    <string name="toast_input_acc">请输入您的ID</string>
     <string name="toast_input_login_pwd">请输入您的登录密码</string>
     <string name="toast_email_error">邮箱格式不正确</string>
     <string name="toast_input_pwd">请输入密码</string>
-    <string name="str_login_error">登入帐户/密码错误</string>
-    <string name="str_pwd_error">登入账户/密码错误，你还有%1$d次机会登录此账户。</string>
+    <string name="str_login_error">登入帐户或密码错误</string>
+    <string name="str_pwd_error">登入账户或密码错误，你还有%1$d次机会登录此账户</string>
     <string name="str_pls_reset_pwd">请重设密码</string>
-
-
     <string name="str_submit">提交</string>
     <string name="str_resend_code">重新发送</string>
     <string name="str_resend_code_second">(于%1$d秒后可重新发送)</string>
-    <string name="str_send_code_email">我们将验证码发送到您登记的电邮。</string>
+    <string name="str_send_code_email">我们将验证码发送到您登记的电邮</string>
     <string name="toast_code_error">错误验证码</string>
+    <string name="toast_email">该邮箱已被注册</string>
     <string name="str_reset_pwd">重置密码</string>
     <string name="str_newpwd">新密码</string>
     <string name="str_define_newpwd">确认新密码</string>
     <string name="str_pwd_rule">8到16位数字或字母</string>
     <string name="str_pwd_rule_error">密码格式不正确</string>
     <string name="str_pls_input_code">请输入验证码</string>
-    <string name="str_get_code">获取验证码</string>
+    <string name="str_get_code">发送验证码</string>
     <string name="str_read_user_agreement">我已阅读并同意</string>
     <string name="str_user_agreement">《注册用户使用协议》</string>
-    <string name="str_second">%1$d秒</string>
+    <string name="str_second">%1$d 秒</string>
     <string name="str_email_rule_error">错误电邮格式</string>
     <string name="str_agreement_file">开户文件</string>
     <string name="str_client_agreement">客户协议书及风险披露声明</string>
@@ -882,20 +979,55 @@
     <string name="str_login_pwd_rule">密码应为8-16个字符并包含一个大写字母，一个小写字母，一个数字和一个特殊字符。</string>
     <string name="str_quick_register">快速注册</string>
     <string name="str_account">账号</string>
-    <string name="str_success_register">您已成功注册</string>
-    <string name="str_opening_securities">极速开通证券账户\n在开户前请准备</string>
-    <string name="str_identity_doc">身份证明文件</string>
-    <string name="str_address_doc">住址证明文件</string>
-    <string name="str_bank_card">银行卡</string>
-    <string name="str_passport_desc">(非永久居民需要提供)</string>
-    <string name="str_read_account_file">本人已详细阅读并同意签署所有《开户文件》</string>
-    <string name="str_not_american">本人不是美国公民/美国居民或持有美国护照/绿卡</string>
-    <string name="str_not_hk_employee">不是香港证监会的持牌或注册人士或任何持牌或注册机构之董事或雇员</string>
-    <string name="str_not_company_employee">不是上市公司之高级职员、董事或大股东</string>
-    <string name="str_not_everjoy_relationship">本人和悦有证券有限公司或其联营公司的董事或僱员没有任何关系</string>
-    <string name="str_not_other_account">本人或与其「有关的账户」没有於悦有证券有限公司或悦有集团(下称“悦有”)操作/持有其他账户</string>
-    <string name="str_not_government">不是任何国家/地方之政界人士/政党领袖/政府高级官员: 并同上述人土没有任何联系</string>
-    <string name="str_not_bankruptcy">本人未在过去7年中曾经破产或递送破产申请</string>
+    <string name="str_set_pwd_success">密码修改成功</string>
+    <string name="str_to_login">去登陆</string>
 
-    <string name="str_open_account">立即开通</string>
+    <string name="afo_need_agree_open">要启用指纹登入吗？</string>
+    <string name="afo_need_agree_open_desc">当启用Touch ID感应器后您将无须\n使用用户登入账号和密码登入</string>
+    <string name="afo_need_agreement_desc">请在启用....</string>
+    <string name="afo_agree_open">同意并启用</string>
+    <string name="afo_no_agree_open">稍后设置</string>
+
+    <string name="aaw_title">预约开户</string>
+    <string name="aaw_tips">客户亦可预约指定时间于本公司开户。请填妥以下资料，我们将尽快与您联络，或您可致电客户服务热线(052)2111-0110</string>
+    <string name="aaw_name">名称</string>
+    <string name="aaw_input_name">请输入名称</string>
+    <string name="aaw_date">日期</string>
+    <string name="aaw_time">时间</string>
+
+    <string name="anab_title">新增银行卡</string>
+    <string name="anab_pls_camera_upload">请拍摄/上传银行卡</string>
+    <string name="anab_camera_upload">拍摄/上传</string>
+    <string name="anab_bank_name">银行名称</string>
+    <string name="anab_bank_code">账户号码</string>
+    <string name="anab_input_bank_code">请输入/核对账户号码</string>
+    <string name="anab_bank_username">账户姓名</string>
+    <string name="anab_input_bank_username">请输入账户姓名</string>
+    <string name="anab_bank_type">账户类型</string>
+
+    <string name="adf_title">存入资金</string>
+    <string name="adf_title_desc">选择需要存入的币种</string>
+    <string name="adf_hkd">存入港币</string>
+    <string name="adf_usd">存入美元</string>
+    <string name="adf_cny">存入离岸人民币</string>
+
+    <string name="afm_title">存入方式</string>
+    <string name="afm_bank">存入银行</string>
+
+
+    <string name="toast_server_unusual">连接异常</string>
+    <string name="toast_net_unusual">网络异常</string>
+
+    <string name="login_fail_1">Wrong Password/Token</string>
+    <string name="login_fail_2">Account Locked</string>
+    <string name="login_fail_3">Server has reached max. connection</string>
+
+    <string name="login_sec_fail_1">Wrong Password/Token</string>
+    <string name="login_sec_fail_2">BSS service is not available</string>
+    <string name="login_sec_fail_3">Server has reached max. connection</string>
+    <string name="login_sec_otp_fail">Wrong OTP</string>
+
+    <string name="resetpassword_success">Reset Password Success</string>
+    <string name="resetpassword_fail">Reset Password Failed</string>
+
 </resources>

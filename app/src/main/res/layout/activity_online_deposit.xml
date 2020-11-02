@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteff">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/bg_signup">
+
+    </ImageView>
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_24">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_16"
+            android:src="@drawable/ic_gray33_left_back11">
+
+        </ImageView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/sec_acc_ui_title"
+            android:textColor="@color/gray1e"
+            android:textSize="@dimen/sp_18">
+
+        </TextView>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_od_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_40"
+        android:src="@mipmap/img_arrange">
+
+    </ImageView>
+
+    <TextView
+        android:id="@+id/tv_od_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_od_img"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_16"
+        android:text="@string/aod_quick_deposit"
+        android:textColor="@color/gray1e"
+        android:textSize="@dimen/sp_16">
+
+    </TextView>
+
+
+    <LinearLayout
+        android:id="@+id/ll_step"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_od_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_16"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:src="@mipmap/icon_od_step">
+
+        </ImageView>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_16">
+
+            <TextView
+                android:id="@+id/tv_step1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Step:1"
+                android:textColor="@color/gray1e"
+                android:textSize="@dimen/sp_16">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/tv_step1_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_step1"
+                android:layout_marginTop="@dimen/dp_4"
+                android:text="@string/aod_prepare_bank"
+                android:textColor="@color/gray999"
+                android:textSize="@dimen/sp_14">
+
+            </TextView>
+
+
+            <TextView
+                android:id="@+id/tv_step2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_step1_desc"
+                android:layout_marginTop="36dp"
+                android:text="Step:2"
+                android:textColor="@color/gray1e"
+                android:textSize="@dimen/sp_16">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/tv_step2_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_step2"
+                android:layout_marginTop="@dimen/dp_4"
+                android:text="@string/aod_input_bank"
+                android:textColor="@color/gray999"
+                android:textSize="@dimen/sp_14">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/tv_step3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_step2_desc"
+                android:layout_marginTop="36dp"
+                android:text="Step:3"
+                android:textColor="@color/gray1e"
+                android:textSize="@dimen/sp_16">
+
+            </TextView>
+
+            <LinearLayout
+                android:id="@+id/ll_step3_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_step3"
+                android:layout_marginTop="@dimen/dp_4"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/aod_input_bank_verify"
+                    android:textColor="@color/gray999"
+                    android:textSize="@dimen/sp_14">
+
+                </TextView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/aod_input_bank_verify1"
+                    android:textColor="@color/gray1e"
+                    android:textSize="@dimen/sp_14">
+
+                </TextView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/aod_input_bank_verify2"
+                    android:textColor="@color/gray999"
+                    android:textSize="@dimen/sp_14">
+
+                </TextView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/aod_input_bank_verify3"
+                    android:textColor="@color/gray1e"
+                    android:textSize="@dimen/sp_14">
+
+                </TextView>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_step3_desc"
+                android:text="@string/aod_input_bank_verify4"
+                android:textColor="@color/gray999"
+                android:textSize="@dimen/sp_14">
+
+            </TextView>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_start"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_44"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_16"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:background="@drawable/bg_yellowd2_corner24"
+        android:gravity="center"
+        android:text="@string/aod_start"
+        android:textColor="@color/whiteff"
+        android:textSize="@dimen/sp_16">
+
+    </TextView>
+
+</RelativeLayout>

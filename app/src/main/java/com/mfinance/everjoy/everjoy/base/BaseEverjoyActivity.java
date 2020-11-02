@@ -1,11 +1,15 @@
 package com.mfinance.everjoy.everjoy.base;
 
 import android.app.ActivityManager;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,89 +22,51 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
-import com.mfinance.everjoy.app.AnnouncementActivity;
-import com.mfinance.everjoy.app.CancelledOrderListActivity;
-import com.mfinance.everjoy.app.CashMovementActivity;
-import com.mfinance.everjoy.app.CashMovementHistoryListActivity;
-import com.mfinance.everjoy.app.ChangePasswordActivity;
-import com.mfinance.everjoy.app.ChartActivity;
+import com.mfinance.everjoy.R;
 import com.mfinance.everjoy.app.CompanySettings;
-import com.mfinance.everjoy.app.ContactActivity;
-import com.mfinance.everjoy.app.ContractDetailActivity;
-import com.mfinance.everjoy.app.ContractListActivity;
-import com.mfinance.everjoy.app.ContractListGuestActivity;
-import com.mfinance.everjoy.app.ContractListSortActivity;
-import com.mfinance.everjoy.app.CustomListActivity;
-import com.mfinance.everjoy.app.DashboardActivity;
-import com.mfinance.everjoy.app.DealActivity;
-import com.mfinance.everjoy.app.DemoRegistrationActivity;
-import com.mfinance.everjoy.app.EconomicActivity;
-import com.mfinance.everjoy.app.EditOrderActivity;
-import com.mfinance.everjoy.app.ExecutedOrderListActivity;
-import com.mfinance.everjoy.app.HistoryListActivity;
-import com.mfinance.everjoy.app.IdentityCheckActivity;
-import com.mfinance.everjoy.app.LiquidateAllActivity;
-import com.mfinance.everjoy.app.LiquidationActivity;
-import com.mfinance.everjoy.app.LiquidationHistoryListActivity;
 import com.mfinance.everjoy.app.LocaleUtility;
-import com.mfinance.everjoy.app.LoginActivity;
-import com.mfinance.everjoy.app.LostPasswordActivity;
 import com.mfinance.everjoy.app.MobileTraderApplication;
-import com.mfinance.everjoy.app.NewPriceAlertActivity;
-import com.mfinance.everjoy.app.NewsActivity;
-import com.mfinance.everjoy.app.OnLineStatementActivity;
-import com.mfinance.everjoy.app.OpenPositionListActivity;
-import com.mfinance.everjoy.app.OpenPositionSummaryActivity;
-import com.mfinance.everjoy.app.OrderActivity;
-import com.mfinance.everjoy.app.PriceAlertActivity;
-import com.mfinance.everjoy.app.PriceAlertHistoryActivity;
-import com.mfinance.everjoy.app.RunningOrderListActivity;
-import com.mfinance.everjoy.app.SettingActivity;
-import com.mfinance.everjoy.app.SettingIDActivity;
-import com.mfinance.everjoy.app.TermsNConditionActivity;
-import com.mfinance.everjoy.app.TransactionListActivity;
-import com.mfinance.everjoy.app.TwoFAActivity;
-import com.mfinance.everjoy.app.WebViewActivity;
-import com.mfinance.everjoy.app.bo.ContractObj;
+import com.mfinance.everjoy.app.constant.Protocol;
 import com.mfinance.everjoy.app.constant.ServiceFunction;
-import com.mfinance.everjoy.app.content.CompanyProfileActivity;
-import com.mfinance.everjoy.app.content.ContactUsActivity;
-import com.mfinance.everjoy.app.content.EconomicDataDetailActivity;
-import com.mfinance.everjoy.app.content.EconomicDataListingActivitiy;
-import com.mfinance.everjoy.app.content.HourProductDetailActivity;
-import com.mfinance.everjoy.app.content.HourProductListingActivitiy;
-import com.mfinance.everjoy.app.content.MasterDetailActivity;
-import com.mfinance.everjoy.app.content.MasterListingActivitiy;
-import com.mfinance.everjoy.app.content.NewsContentDetailActivity;
-import com.mfinance.everjoy.app.content.NewsContentListingActivitiy;
-import com.mfinance.everjoy.app.content.NewsDetailActivity;
-import com.mfinance.everjoy.app.content.NewsListingActivitiy;
-import com.mfinance.everjoy.app.content.StrategyDetailActivity;
-import com.mfinance.everjoy.app.content.StrategyListingActivitiy;
-import com.mfinance.everjoy.app.content.TermsActivity;
 import com.mfinance.everjoy.app.model.DataRepository;
+import com.mfinance.everjoy.app.model.LoginProgress;
+import com.mfinance.everjoy.app.model.LoginSecurityProgress;
+import com.mfinance.everjoy.app.pojo.ConnectionStatus;
 import com.mfinance.everjoy.app.service.FxMobileTraderService;
-import com.mfinance.everjoy.app.util.CommonFunction;
+import com.mfinance.everjoy.app.service.internal.PriceAgentConnectionProcessor;
+import com.mfinance.everjoy.everjoy.dialog.PwdErrorDialog;
+import com.mfinance.everjoy.everjoy.dialog.PwdErrorFiveDialog;
+import com.mfinance.everjoy.everjoy.ui.home.MainActivity;
+import com.mfinance.everjoy.everjoy.ui.mine.FingeridOpenActivity;
+import com.mfinance.everjoy.everjoy.ui.mine.LoginActivity;
+import com.mfinance.everjoy.everjoy.ui.mine.LoginVerificationActivity;
+import com.mfinance.everjoy.everjoy.ui.mine.ResetPwdActivity;
 import com.mfinance.everjoy.everjoy.utils.ToolsUtils;
 import com.umeng.analytics.MobclickAgent;
+
+import net.mfinance.commonlib.share.Utils;
+import net.mfinance.commonlib.toast.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.function.Consumer;
 
 /**
  * 基类，初始化第三方库等
  */
-public class BaseEverjoyActivity extends HuanxinChatActivity implements ServiceConnection {
+public class BaseEverjoyActivity extends AppCompatActivity implements ServiceConnection {
 
-    private static final String TAG = BaseEverjoyActivity.class.getSimpleName();
+    protected static final String TAG = BaseEverjoyActivity.class.getSimpleName();
 
-    protected MobileTraderApplication mMobileTraderApplication;
+    protected MobileTraderApplication app;
+    protected Resources res;
     protected Consumer<Locale> changeLocale = l -> {
     };
-
 
     /**
      * Preferences
@@ -113,10 +79,13 @@ public class BaseEverjoyActivity extends HuanxinChatActivity implements ServiceC
         }
     };
 
+    Timer loginTimer;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mMobileTraderApplication = (MobileTraderApplication) getApplication();
+        app = (MobileTraderApplication) getApplication();
+        res = this.getResources();
         if (isRegisterEventBus()) {
             EventBus.getDefault().register(this);
         }
@@ -249,27 +218,27 @@ public class BaseEverjoyActivity extends HuanxinChatActivity implements ServiceC
             Log.e(TAG, "Bind service fail", e.fillInStackTrace());
         }
         // 超时设置
-//        if (mMobileTraderApplication.bLogon) {
-//            if (mMobileTraderApplication.isTimeout()) {
+//        if (app.bLogon) {
+//            if (app.isTimeout()) {
 //                this.goTo(ServiceFunction.SRV_LOGOUT);
 //            }
 //
-//            mMobileTraderApplication.stopTimeout();
+//            app.stopTimeout();
 //            long lTimeout = getTimeout();
 //            long alTimeout = 0;
-//            if (mMobileTraderApplication.data.sessTimeoutDisconn != -1) {
-//                lTimeout = mMobileTraderApplication.data.sessTimeoutDisconn * 1000;
-//                alTimeout = mMobileTraderApplication.data.sessTimeoutAlert * 1000;
+//            if (app.data.sessTimeoutDisconn != -1) {
+//                lTimeout = app.data.sessTimeoutDisconn * 1000;
+//                alTimeout = app.data.sessTimeoutAlert * 1000;
 //            }
 //            //System.out.println(lTimeout);
 //            backgroundthread = false;
 //            if (lTimeout > 0)
-//                mMobileTraderApplication.startTimeout(lTimeout, this);
+//                app.startTimeout(lTimeout, this);
 //            if (alTimeout > 0)
-//                mMobileTraderApplication.startAlertTimeout(alTimeout, this);
+//                app.startAlertTimeout(alTimeout, this);
 //
 //        } else {
-//            mMobileTraderApplication.stopTimeout();
+//            app.stopTimeout();
 //        }
 
 //        if (CompanySettings.ENABLE_CONTENT) {
@@ -301,31 +270,67 @@ public class BaseEverjoyActivity extends HuanxinChatActivity implements ServiceC
 //                    showSystemAlertMessage();
                     break;
                 case ServiceFunction.ACT_UPDATE_UI:
-//                    fireUIUpdate();
+                    fireUIUpdate();
                     break;
                 case ServiceFunction.ACT_VIBRATE:
 //                    fireVibrate();
                     break;
                 case ServiceFunction.ACT_DISCONNECT:
                     try {
-                        boolean isLogin = msg.getData().getBoolean("login", false);
-                        if (!isLogin) {
-                            intent = new Intent(BaseEverjoyActivity.this, LoginActivity.class);
+                        if (!app.isDuplicatedLogin && app.getPasswordToken() != null && app.getLoginID() != null && app.disconnectLevel >= 2){ //Reconnect to Level 2
+                            if (dialog != null) {
+                                dialog.dismiss();
+                                dialog = null;
+                            }
+                            app.isAutoRelogin = true;
+                            //Autoreconnect level 2 login
+                            LoginProgress.reset();
+                            if (loginTimer != null) {
+                                loginTimer.cancel();
+                            }
+                            loginTimer = new Timer();
+                            loginTimer.schedule(new Task(true), 10 * 1000);
+
+                            Thread.sleep(2000);//Wait 2 sec before reconnect
+
+                            if (app.getLoginType() == -1) {
+                                Runnable r = new moveToLogin(true, null, null);
+                                (new Thread(r)).start();
+                            } else {
+                                Runnable r = new moveToLogin(app.getLoginType(), app.getLoginID(), app.getOpenID());
+                                (new Thread(r)).start();
+                            }
+                        }
+                        else {
+                            app.isDuplicatedLogin = false;
+                            if (dialog != null) {
+                                dialog.dismiss();
+                                dialog = null;
+                            }
+                            intent = new Intent(BaseEverjoyActivity.this, MainActivity.class);
                             intent.putExtras(msg.getData());
                             intent.putExtra("disconnected", true);
                             startActivity(intent);
                             BaseEverjoyActivity.this.finish();
-                        } else {
-//                            if (dialog != null) {
-//                                dialog.dismiss();
-//                                dialog = null;
-//                            }
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    break;
+                case ServiceFunction.ACT_RECONNECT_SECURITY:
+                    if (app.getSecPasswordToken() != null && app.getSecLoginID() != null && app.bLogon && app.disconnectLevel >= 3){ //Reconnect to Level 2
+                        app.isAutoRelogin = true;
+                        //Autoreconnect level 3 login
+                        LoginSecurityProgress.reset();
+                        if (loginTimer != null) {
+                            loginTimer.cancel();
+                        }
+                        loginTimer = new Timer();
+                        loginTimer.schedule(new Task(true), 10 * 1000);
 
-
+                        Runnable r = new moveToLogin(app.getSecLoginID(), app.getSecPasswordToken(), true);
+                        (new Thread(r)).start();
+                    }
                     break;
                 case ServiceFunction.ACT_GO_TO_LOGIN:
                     //System.out.println("-------------------------------------- finish 1");
@@ -337,123 +342,20 @@ public class BaseEverjoyActivity extends HuanxinChatActivity implements ServiceC
                     startActivity(intent);
                     //System.out.println("-------------------------------------- finish 3");
                     break;
-                case ServiceFunction.ACT_GO_TO_DASHBOARD:
-                    // TODO 跳转首页
-                    intent = new Intent(BaseEverjoyActivity.this, DashboardActivity.class);
-                    if (CompanySettings.newinterface)
-                        intent = new Intent(BaseEverjoyActivity.this, ContractListActivity.class);
+                case ServiceFunction.ACT_GO_TO_OTP_LOGIN_PAGE:
+                    BaseEverjoyActivity.this.finish();
+                    intent = new Intent(BaseEverjoyActivity.this, LoginVerificationActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtras(msg.getData());
                     startActivity(intent);
-                    finish();
                     break;
                 case ServiceFunction.ACT_GO_TO_PRICE: {
-                    boolean guest = msg.getData().getBoolean("guest", false);
-                    intent = new Intent(BaseEverjoyActivity.this, guest ? ContractListGuestActivity.class : ContractListActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
+//                    boolean guest = msg.getData().getBoolean("guest", false);
+//                    intent = new Intent(BaseEverjoyActivity.this, guest ? ContractListGuestActivity.class : ContractListActivity.class);
+//                    intent.putExtras(msg.getData());
+//                    startActivity(intent);
+//                    break;
                 }
-                case ServiceFunction.ACT_GO_TO_OPEN_POSITION:
-                    intent = new Intent(BaseEverjoyActivity.this, OpenPositionListActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_CONTRACT_DETAIL: {
-                    if (mMobileTraderApplication.getSelectedContract() != null) {
-                        intent = new Intent(BaseEverjoyActivity.this, ContractDetailActivity.class);
-                        intent.putExtras(msg.getData());
-                        startActivity(intent);
-                    }
-                    break;
-                }
-                case ServiceFunction.ACT_GO_TO_TRANSACTION:
-                    intent = new Intent(BaseEverjoyActivity.this, TransactionListActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_DEAL:
-                    if (mMobileTraderApplication.getSelectedContract() != null) {
-                        intent = new Intent(BaseEverjoyActivity.this, DealActivity.class);
-                        intent.putExtras(msg.getData());
-                        startActivity(intent);
-                    }
-                    break;
-                case ServiceFunction.ACT_GO_TO_LIQUIDATE:
-                    intent = new Intent(BaseEverjoyActivity.this, LiquidationActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_RUNNING_ORDER:
-                    intent = new Intent(BaseEverjoyActivity.this, RunningOrderListActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_EXECUTED_ORDER:
-                    intent = new Intent(BaseEverjoyActivity.this, ExecutedOrderListActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_CANCELLED_ORDER:
-                    intent = new Intent(BaseEverjoyActivity.this, CancelledOrderListActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_LIQUIDATION_HISTORY:
-                    intent = new Intent(BaseEverjoyActivity.this, LiquidationHistoryListActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_ORDER:
-                    if (mMobileTraderApplication.getSelectedContract() != null) {
-                        intent = new Intent(BaseEverjoyActivity.this, OrderActivity.class);
-                        intent.putExtras(msg.getData());
-                        startActivity(intent);
-                    }
-                    break;
-                case ServiceFunction.ACT_GO_TO_EDIT_ORDER:
-                    if (mMobileTraderApplication.getSelectedRunningOrder() != null) {
-                        intent = new Intent(BaseEverjoyActivity.this, EditOrderActivity.class);
-                        intent.putExtras(msg.getData());
-                        startActivity(intent);
-                    }
-                    break;
-                case ServiceFunction.ACT_GO_TO_CHART:
-                    if (mMobileTraderApplication.getSelectedContract() != null) {
-                        intent = new Intent(BaseEverjoyActivity.this, ChartActivity.class);
-                        intent.putExtras(msg.getData());
-                        startActivity(intent);
-                    }
-                    break;
-                case ServiceFunction.ACT_GO_TO_OPEN_POSITION_SUMMARY:
-                    intent = new Intent(BaseEverjoyActivity.this, OpenPositionSummaryActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_SETTING: {
-                    ContractObj defaultContract = getDefaultContract();
-                    if (defaultContract != null) {
-                        intent = new Intent(BaseEverjoyActivity.this, SettingActivity.class);
-                        intent.putExtras(msg.getData());
-                        startActivity(intent);
-                    } else if (defaultContract == null && (CompanySettings.ENABLE_CONTENT) && !mMobileTraderApplication.bLogon) {
-                        intent = new Intent(BaseEverjoyActivity.this, SettingActivity.class);
-                        intent.putExtras(msg.getData());
-                        startActivity(intent);
-                    }
-                    break;
-                }
-                case ServiceFunction.ACT_GO_TO_SETTING_ID:
-                    if (getDefaultContract() != null) {
-                        intent = new Intent(BaseEverjoyActivity.this, SettingIDActivity.class);
-                        intent.putExtras(msg.getData());
-                        startActivity(intent);
-                    }
-                    break;
-                case ServiceFunction.ACT_GO_TO_HISTORY:
-                    intent = new Intent(BaseEverjoyActivity.this, HistoryListActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
                 case ServiceFunction.ACT_VISIBLE_POP_UP:
 //                    if (dialog == null)
 //                        dialog = ProgressDialog.show(BaseEverjoyActivity.this, "", res.getString(R.string.please_wait), true);
@@ -461,222 +363,121 @@ public class BaseEverjoyActivity extends HuanxinChatActivity implements ServiceC
 //                        dialog.show();
                     break;
                 case ServiceFunction.ACT_INVISIBLE_POP_UP:
-//                    dialog.dismiss();
-//                    dialog = null;
+                    dialog.dismiss();
+                    dialog = null;
                     break;
                 case ServiceFunction.ACT_GO_TO_ANDROID_MARKET:
                     ToolsUtils.openAndroidMarket(BaseEverjoyActivity.this);
-                    break;
-                case ServiceFunction.ACT_GO_TO_ON_LINE_STATEMENT:
-                    intent = new Intent(BaseEverjoyActivity.this, OnLineStatementActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_POST_FB:
-                    //System.out.println(msg.getData().getString(ServiceFunction.FACEBOOK_MESSAGE));
-					/* -- Facebook
-					if (isPostFacebookEnable())
-						app.postMessageOnWall(msg.getData().getString(ServiceFunction.FACEBOOK_MESSAGE));
-					 */
-
                     break;
                 case ServiceFunction.ACT_SHOW_TOAST:
                     String sMsg = msg.getData().getString(ServiceFunction.MESSAGE);
                     Toast.makeText(BaseEverjoyActivity.this.getBaseContext(), sMsg, Toast.LENGTH_LONG).show();
                     break;
+                case ServiceFunction.ACT_SHOW_DIALOG:
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String sFinish = msg.getData().getString(ServiceFunction.FINISH, "");
+                            String sDialogMsg = msg.getData().getString(ServiceFunction.MESSAGE);
+                            AlertDialog.Builder builder1 = new AlertDialog.Builder(BaseEverjoyActivity.this);
+                            builder1.setMessage(sDialogMsg);
+
+                            builder1.setPositiveButton(
+                                    "Yes",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            if (sFinish.isEmpty())
+                                                dialog.cancel();
+                                            else {
+
+                                            }
+                                        }
+                                    });
+
+                            AlertDialog alert11 = builder1.create();
+                            alert11.show();
+                        }
+                    });
+                    break;
                 case ServiceFunction.ACT_UNBIND_SERVICE:
                     doUnbindService();
                     break;
-                case ServiceFunction.ACT_GO_TO_COMPANY_PROFILE:
-                    intent = new Intent(BaseEverjoyActivity.this, CompanyProfileActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_NEWS_DETAIL:
-                    intent = new Intent(BaseEverjoyActivity.this, NewsDetailActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_CONTACT_US:
-                    intent = new Intent(BaseEverjoyActivity.this, ContactUsActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_STRATEGY_DETAIL:
-                    intent = new Intent(BaseEverjoyActivity.this,
-                            StrategyDetailActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_ECONOMIC_DATA_DETAIL:
-                    intent = new Intent(BaseEverjoyActivity.this,
-                            EconomicDataDetailActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_MASTER_DETAIL:
-                    intent = new Intent(BaseEverjoyActivity.this,
-                            MasterDetailActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_NEWS_LIST:
-                    intent = new Intent(BaseEverjoyActivity.this,
-                            NewsListingActivitiy.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_DAY_PLAN_LIST:
-                    intent = new Intent(BaseEverjoyActivity.this,
-                            StrategyListingActivitiy.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_ECONOMIC_DATA_LIST:
-                    intent = new Intent(BaseEverjoyActivity.this,
-                            EconomicDataListingActivitiy.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_NEWS_CONTENT_LIST:
-                    intent = new Intent(BaseEverjoyActivity.this,
-                            NewsContentListingActivitiy.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_MASTER_LIST:
-                    intent = new Intent(BaseEverjoyActivity.this,
-                            MasterListingActivitiy.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_NEWS_CONTENT_DETAIL:
-                    intent = new Intent(BaseEverjoyActivity.this,
-                            NewsContentDetailActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
                 case ServiceFunction.ACT_FINISH_ACTIVITY:
+                    // TODO 登录成功？
                     finish();
                     break;
                 case ServiceFunction.ACT_SHOW_ACC_INFO:
 //                    showAccountInformation();
                     break;
-                case ServiceFunction.ACT_GO_TO_HOUR_PRODUCT:
-                    intent = new Intent(BaseEverjoyActivity.this, HourProductListingActivitiy.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_HOUR_PRODUCT_DETAIL:
-                    intent = new Intent(BaseEverjoyActivity.this, HourProductDetailActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_TERMS:
-                    intent = new Intent(BaseEverjoyActivity.this, TermsActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_CASH_MOVEMENT:
-                    intent = new Intent(BaseEverjoyActivity.this, CashMovementActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_CASH_MOVEMENT_HISTORY:
-                    intent = new Intent(BaseEverjoyActivity.this, CashMovementHistoryListActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.SRV_REPORT_ERROR:
-                    Message ReportErrorMsg = Message.obtain(null, ServiceFunction.SRV_REPORT_ERROR);
-                    ReportErrorMsg.getData().putString(ServiceFunction.MESSAGE, msg.getData().getString(ServiceFunction.MESSAGE));
-                    ReportErrorMsg.replyTo = mServiceMessengerHandler;
-
-                    try {
-                        mService.send(ReportErrorMsg);
-                    } catch (RemoteException e) {
-                        Log.e(CommonFunction.class.getSimpleName(), "Unable to sendBankInfoRequest message", e.fillInStackTrace());
-                    }
-                    break;
-                case ServiceFunction.ACT_GO_TO_DEMO_REGISTRATION:
-                    intent = new Intent(BaseEverjoyActivity.this, DemoRegistrationActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
                 case ServiceFunction.ACT_GO_TO_LOST_PASSWORD:
-                    intent = new Intent(BaseEverjoyActivity.this, LostPasswordActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_IDENTITY_CHECK:
-                    intent = new Intent(BaseEverjoyActivity.this, IdentityCheckActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_CUST_LIST:
-                    intent = new Intent(BaseEverjoyActivity.this, CustomListActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_TWO_FA:
-                    intent = new Intent(BaseEverjoyActivity.this, TwoFAActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
+//                    intent = new Intent(BaseEverjoyActivity.this, LostPasswordActivity.class);
+//                    intent.putExtras(msg.getData());
+//                    startActivity(intent);
                     break;
                 case ServiceFunction.ACT_GO_TO_CHANGE_PASSWORD:
-                    intent = new Intent(BaseEverjoyActivity.this, ChangePasswordActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                case ServiceFunction.ACT_GO_TO_CONTRACT_SORT:
-                    intent = new Intent(BaseEverjoyActivity.this, ContractListSortActivity.class);
+                    intent = new Intent(BaseEverjoyActivity.this, ResetPwdActivity.class);
                     intent.putExtras(msg.getData());
                     startActivity(intent);
                     break;
-                case ServiceFunction.ACT_GO_TO_ANNOUNCEMENT:
-                    intent = new Intent(BaseEverjoyActivity.this, AnnouncementActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_NEWS:
-                    intent = new Intent(BaseEverjoyActivity.this, NewsActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_ECONOMIC:
-                    intent = new Intent(BaseEverjoyActivity.this, EconomicActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_CONTACTUS:
-                    intent = new Intent(BaseEverjoyActivity.this, ContactActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_TERMSNCONDITION:
-                    intent = new Intent(BaseEverjoyActivity.this, TermsNConditionActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
-                    break;
-                case ServiceFunction.ACT_GO_TO_LIQUIDATE_ALL:
-                    intent = new Intent(BaseEverjoyActivity.this, LiquidateAllActivity.class);
-                    intent.putExtras(msg.getData());
-                    startActivity(intent);
                 case ServiceFunction.SRV_WEB_VIEW:
-                    intent = new Intent(BaseEverjoyActivity.this, WebViewActivity.class);
+//                    intent = new Intent(BaseEverjoyActivity.this, WebViewActivity.class);
+//                    intent.putExtras(msg.getData());
+//                    startActivity(intent);
+                    break;
+                case ServiceFunction.ACT_GO_TO_DEFAULT_LOGIN_PAGE:
+                    intent = new Intent(BaseEverjoyActivity.this, MainActivity.class);
                     intent.putExtras(msg.getData());
                     startActivity(intent);
-                case ServiceFunction.ACT_GO_TO_PRICE_ALERT:
-                    intent = new Intent(BaseEverjoyActivity.this, PriceAlertActivity.class);
+                    break;
+
+                case ServiceFunction.ACT_GO_TO_MAIN_PAGE:
+                    // TODO 默认进入首页
+                    intent = new Intent(BaseEverjoyActivity.this, MainActivity.class);
+//                    intent = new Intent(BaseEverjoyActivity.this, LoginActivity.class);
                     intent.putExtras(msg.getData());
                     startActivity(intent);
-                case ServiceFunction.ACT_GO_TO_PRICE_ALERT_HISTORY:
-                    intent = new Intent(BaseEverjoyActivity.this, PriceAlertHistoryActivity.class);
+                    break;
+
+                case ServiceFunction.ACT_DISCONNECT_DUPLICATE:
+                    app.setPasswordToken(null);
+                    app.setLoginID(null);
+                    break;
+
+                case ServiceFunction.ACT_GO_TO_FORGOT_PASSWORD_OTP_PAGE:
+                    intent = new Intent(BaseEverjoyActivity.this, LoginVerificationActivity.class);
                     intent.putExtras(msg.getData());
                     startActivity(intent);
-                case ServiceFunction.ACT_GO_TO_NEW_PRICE_ALERT:
-                    intent = new Intent(BaseEverjoyActivity.this, NewPriceAlertActivity.class);
+                    break;
+
+                case ServiceFunction.ACT_GO_TO_FINGER_ID_PAGE:
+                    intent = new Intent(BaseEverjoyActivity.this, FingeridOpenActivity.class);
                     intent.putExtras(msg.getData());
                     startActivity(intent);
+                    break;
+
+                case ServiceFunction.ACT_SHOW_FAIL_PASSWORD_DIALOG:
+                    int pwdErrorCount = Integer.parseInt(msg.getData().getString(ServiceFunction.COUNT));
+                    if (pwdErrorCount >= 5) {
+                        PwdErrorFiveDialog pwdErrorFiveDialog = new PwdErrorFiveDialog(BaseEverjoyActivity.this);
+                        pwdErrorFiveDialog.show();
+                        return;
+                    }
+                    else if (pwdErrorCount >=3 &&  pwdErrorCount <5) {
+                        PwdErrorDialog pwdErrorDialog = new PwdErrorDialog(BaseEverjoyActivity.this, 5 - pwdErrorCount);
+                        pwdErrorDialog.show();
+                    }
+                    else {
+                        ToastUtils.showToast(BaseEverjoyActivity.this, R.string.msg_306);
+                    }
+                    break;
+                case ServiceFunction.ACT_LOGOUT_SECURITY:
+                    Message loginMsg = Message.obtain(null, ServiceFunction.SRV_LOGOUT_SECURITY);
+                    loginMsg.replyTo = mServiceMessengerHandler;
+                    try {
+                        mService.send(loginMsg);
+                    } catch (RemoteException e) {
+                        Log.e("login", "Unable to send logout message", e.fillInStackTrace());
+                    }
                     break;
                 default:
                     handleByChild(msg);
@@ -692,34 +493,6 @@ public class BaseEverjoyActivity extends HuanxinChatActivity implements ServiceC
      */
     public void handleByChild(Message msg) {
 
-    }
-
-
-    /**
-     * Get default Contract
-     *
-     * @return Default contract
-     */
-    public ContractObj getDefaultContract() {
-        String sContract = setting.getString("DEFAULT_CONTRACT", CompanySettings.getDefaultDefaultContract(mMobileTraderApplication));
-        if (sContract == null)
-            return null;
-        else {
-            if (mMobileTraderApplication.bLogon) {
-                // Restrict user set non-tradable contract as default
-                ContractObj c = mMobileTraderApplication.data.getContract(sContract);
-                if (c == null || c.isViewable() == false || DataRepository.getInstance().getTradableContract().contains(sContract) == false) {
-                    for (int i = 0; i < DataRepository.getInstance().getTradableContract().size(); i++) {
-                        sContract = DataRepository.getInstance().getTradableContract().get(i);
-                        if (mMobileTraderApplication.data.getContract(sContract).isViewable())
-                            break;
-                    }
-
-                }
-            }
-            mMobileTraderApplication.setDefaultContract(sContract);
-            return mMobileTraderApplication.data.getContract(sContract);
-        }
     }
 
     private boolean mBound;
@@ -751,6 +524,304 @@ public class BaseEverjoyActivity extends HuanxinChatActivity implements ServiceC
         if (!mBound) {
             //Log.i(SLEEP, this.getClass().getSimpleName() + "@doBindService |"+this+">>>>>>>>>>>>>>>>>>>>>>");
             bindService(new Intent(this, FxMobileTraderService.class), this, Context.BIND_AUTO_CREATE);
+        }
+    }
+
+    /**
+     * Jump to other activity
+     *
+     * @param iService ref. "ServiceFunction"
+     */
+    public void goTo(int iService) {
+        Message msg = Message.obtain(null, iService);
+        msg.replyTo = mServiceMessengerHandler;
+        try {
+            mService.send(msg);
+        } catch (RemoteException e) {
+            Log.e(TAG, "Unable to send login message", e.fillInStackTrace());
+        }
+
+    }
+
+    /**
+     * Jump to other activity
+     *
+     * @param iService ref. "ServiceFunction"
+     * @param bundle
+     */
+    public void goTo(int iService, Bundle bundle) {
+        Message msg = Message.obtain(null, iService);
+        msg.replyTo = mServiceMessengerHandler;
+        msg.setData(bundle);
+        try {
+            mService.send(msg);
+        } catch (RemoteException e) {
+            Log.e(TAG, "Unable to send login message", e.fillInStackTrace());
+        }
+    }
+
+    protected Handler uiHandler = new Handler();
+
+    public void fireUIUpdate() {
+        Thread t = new Thread() {
+            public void run() {
+                if (uiHandler != null)
+                    uiHandler.post(updateUI);
+            }
+        };
+        t.start();
+    }
+
+    Runnable updateUI = new Runnable() {
+        @Override
+        public void run() {
+            try {
+                updateBaseUI();
+                updateUI();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
+    public void updateUI() {
+    }
+
+    protected void updateBaseUI() {
+    }
+
+    protected static ProgressDialog dialog;
+
+    public class Task extends TimerTask {
+        private boolean autoLogin = false;
+
+        public Task(){
+            System.out.println("Task 1");
+        }
+
+        public Task(boolean autoLogin){
+            this.autoLogin = autoLogin;
+        }
+
+
+        @Override
+        public void run() {
+            if (dialog != null && dialog.isShowing()) {
+                boolean isFinished = false;
+
+                // Timeout occur
+                int RoundRobinIndex = 0;
+                int iTrialIndex = 0;
+
+
+                if (CompanySettings.checkProdServer() == 1) {
+//                    app.iTrialIndexProd = (app.iTrialIndexProd + 1) % app.alLoginInfoProd.size();
+//                    iTrialIndex = app.iTrialIndexProd;
+//                    RoundRobinIndex = app.RoundRobinIndexProd;
+                }
+
+                //if (CompanySettings.ENABLE_FATCH_SERVER || CompanySettings.FOR_TEST || iTrialIndex == RoundRobinIndex) {
+                if (app.autoLoginRetryCount >= 10 || app.bLogon) {
+                    app.autoLoginRetryCount = 0;
+                    isFinished = true;
+                    app.isLoading = false;
+                    // If IP is fetch from Server or OTX Mode, or RR Trial has finished
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            dialog.dismiss();
+                            dialog = null;
+                            // 登录失败
+                            //showPwdError();
+                        }
+                    });
+                }
+
+//                Message msg = Message.obtain(null, ServiceFunction.SRV_LOGOUT);
+//                msg.replyTo = mServiceMessengerHandler;
+//                try {
+//                    Bundle data = new Bundle();
+//                    data.putBoolean(Protocol.Logout.REDIRECT, false);
+//                    msg.setData(data);
+//                    mService.send(msg);
+//                } catch (RemoteException e) {
+//                    Log.e(TAG, "Unable to send login message", e.fillInStackTrace());
+//                }
+
+                if (isFinished == false) {
+                    // Wait 2 seconds to let the previous connection close
+                    try {
+                        Thread.sleep(2000);
+                        if (!autoLogin) {
+                            Runnable r = new BaseEverjoyActivity.moveToLogin();
+                            (new Thread(r)).start();
+                            loginTimer.schedule(new BaseEverjoyActivity.Task(), 60 * 1000);
+                        }
+                        else {
+                            Runnable r = new BaseEverjoyActivity.moveToLogin(true, null,null);
+                            (new Thread(r)).start();
+                            loginTimer.schedule(new BaseEverjoyActivity.Task(true), 10 * 1000);
+                        }
+
+                        app.autoLoginRetryCount ++;
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            } else {
+                // The login progress is interrupted, change the isLoading to false
+                app.isLoading = false;
+            }
+
+        }
+    }
+
+    public class moveToLogin implements Runnable {
+        private int oType;
+        private boolean bToken;
+        private boolean isSecurityLogin;
+        private String strEmail;
+        private String strPwd;
+        private String userName;
+        private String openID;
+
+        public moveToLogin(){
+            System.out.println("moveToLogin 1");
+        }
+
+        public moveToLogin(boolean tokenLogin, String strEmail, String strPwd) {
+            System.out.println("moveToLogin 2");
+            this.isSecurityLogin = false;
+            this.oType = -1;
+            this.bToken = tokenLogin;
+            this.strEmail = strEmail;
+            this.strPwd = strPwd;
+        }
+
+        public moveToLogin(int oType, String userName, String openID) {
+            System.out.println("moveToLogin 3");
+            this.isSecurityLogin = false;
+            this.oType = oType;
+            this.userName = userName;
+            this.openID = openID;
+        }
+
+        public moveToLogin(String userName, String strPwd, boolean tokenLogin) {
+            System.out.println("moveToLogin 4");
+            this.bToken = tokenLogin;
+            this.isSecurityLogin = true;
+            this.userName = userName;
+            this.strPwd = strPwd;
+        }
+
+        public void run() {
+            try {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (dialog == null)
+                            dialog = ProgressDialog.show(BaseEverjoyActivity.this, "", res.getString(R.string.please_wait), true);
+                    }
+                });
+
+                DataRepository.getInstance().clear();
+                if (ToolsUtils.checkNetwork(app)) {
+                    Thread thread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            if (!isSecurityLogin) {
+                                ConnectionStatus connectionStatus = app.data.getGuestPriceAgentConnectionStatus();
+                                switch (connectionStatus) {
+                                    case CONNECTING:
+                                    case CONNECTED:
+                                        Message message = Message.obtain(null, ServiceFunction.SRV_GUEST_PRICE_AGENT);
+                                        message.arg1 = PriceAgentConnectionProcessor.ActionType.DISCONNECT.getValue();
+                                        try {
+                                            mService.send(message);
+                                        } catch (Exception ex) {
+
+                                        }
+                                        Message message1 = Message.obtain(null, ServiceFunction.SRV_GUEST_PRICE_AGENT);
+                                        message1.arg1 = PriceAgentConnectionProcessor.ActionType.RESET.getValue();
+                                        try {
+                                            mService.send(message1);
+                                        } catch (Exception ex) {
+
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+
+                                if (oType == -1) {
+                                    if (bToken)
+                                        login(oType, app.getLoginID(), "");
+                                    else
+                                        login(oType, strEmail, strPwd);
+                                } else {
+                                    login(oType, userName, openID);
+                                }
+                            } else {
+                                if (bToken && app.isAutoRelogin)
+                                    loginSecurity(app.getSecLoginID(), null);
+                                else
+                                    loginSecurity(userName, strPwd);
+                            }
+                        }
+                    });
+                    thread.start();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void login(int oType, String strID, String strPassword) {
+
+        Message loginMsg = Message.obtain(null, ServiceFunction.SRV_LOGIN);
+        loginMsg.replyTo = mServiceMessengerHandler;
+
+        loginMsg.getData().putString(ServiceFunction.LOGIN_TYPE, Integer.toString(oType));
+
+        loginMsg.getData().putString(ServiceFunction.LOGIN_LEVEL, "2");
+        if (oType == -1) {
+            loginMsg.getData().putString(ServiceFunction.LOGIN_EMAIL, strID);
+            loginMsg.getData().putString(ServiceFunction.LOGIN_PASSWORD, strPassword);
+            loginMsg.getData().putString(ServiceFunction.LOGIN_PASSWORDTOKEN, app.getPasswordToken());
+        } else {
+            loginMsg.getData().putString(ServiceFunction.LOGIN_OTYPE, Integer.toString(oType));
+            loginMsg.getData().putString(ServiceFunction.LOGIN_USERNAME, strID);
+            loginMsg.getData().putString(ServiceFunction.LOGIN_OPENID, strPassword);
+        }
+
+        loginMsg.getData().putInt(ServiceFunction.LOGIN_CONN_INDEX, -1);
+
+        try {
+            mService.send(loginMsg);
+        } catch (RemoteException e) {
+            Log.e("login", "Unable to send login message", e.fillInStackTrace());
+        }
+    }
+
+    public void loginSecurity(String strID, String strPassword) {
+
+        Message loginMsg = Message.obtain(null, ServiceFunction.SRV_LOGIN);
+        loginMsg.replyTo = mServiceMessengerHandler;
+
+        loginMsg.getData().putString(ServiceFunction.LOGIN_LEVEL, "3");
+
+        loginMsg.getData().putString(ServiceFunction.LOGIN_USERNAME, strID);
+        loginMsg.getData().putString(ServiceFunction.LOGIN_PASSWORD, strPassword);
+        if (strPassword == null)
+            loginMsg.getData().putString(ServiceFunction.LOGIN_PASSWORDTOKEN, app.getSecPasswordToken());
+
+        try {
+            mService.send(loginMsg);
+        } catch (RemoteException e) {
+            Log.e("login", "Unable to send login message", e.fillInStackTrace());
         }
     }
 }

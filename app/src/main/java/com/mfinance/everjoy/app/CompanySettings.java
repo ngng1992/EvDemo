@@ -52,7 +52,7 @@ public class CompanySettings extends DefaultCompanySettings {
     /**
      * 设置服务器地址
      */
-    public static final LoginInfo loginInfoTest = new LoginInfo("192.168.123.68", 15000);
+    public static final LoginInfo loginInfoTest = new LoginInfo("192.168.123.68", 15100);
 
     public static final String APP_UPDATE_URL = "https://dl.hg778899.com:18443/download/CROWNBULLIONLIMITED.apk";
     public static final String APP_UPDATE_URL_TYPE = null;
