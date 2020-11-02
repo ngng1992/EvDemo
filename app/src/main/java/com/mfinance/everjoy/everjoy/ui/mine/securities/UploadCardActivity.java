@@ -25,6 +25,7 @@ import com.mfinance.everjoy.everjoy.ui.mine.securities.photo.CardIdActivity;
 import com.mfinance.everjoy.everjoy.ui.mine.securities.photo.CardIdZHActivity;
 
 import net.mfinance.commonlib.permission.PermissionController;
+import net.mfinance.commonlib.toast.ToastUtils;
 import net.mfinance.commonlib.view.StringTextView;
 
 import java.io.File;
@@ -167,6 +168,42 @@ public class UploadCardActivity extends BaseViewActivity {
                 onBackPressed();
                 break;
             case R.id.tv_next:
+                if (cardType == Constants.CARD_HK_TYPE) {
+                    if (TextUtils.isEmpty(imgHkIdFront)) {
+                        ToastUtils.showToast(this, R.string.toast_pls_upload_cardid_front);
+                        return;
+                    }
+                    if (TextUtils.isEmpty(imgHkIdBack)) {
+                        ToastUtils.showToast(this, R.string.toast_pls_upload_cardid_back);
+                        return;
+                    }
+                    if (TextUtils.isEmpty(imgProofAddress)) {
+                        ToastUtils.showToast(this, R.string.toast_pls_upload_imgproofaddress);
+                        return;
+                    }
+                } else if (cardType == Constants.CARD_CH_TYPE) {
+                    if (TextUtils.isEmpty(imgHkIdFront)) {
+                        ToastUtils.showToast(this, R.string.toast_pls_upload_cardid_front);
+                        return;
+                    }
+                    if (TextUtils.isEmpty(imgHkIdBack)) {
+                        ToastUtils.showToast(this, R.string.toast_pls_upload_cardid_back);
+                        return;
+                    }
+                    if (TextUtils.isEmpty(imgProofAddress)) {
+                        ToastUtils.showToast(this, R.string.toast_pls_upload_imgproofaddress);
+                        return;
+                    }
+                } else if (cardType == Constants.CARD_OTHER_TYPE) {
+                    if (TextUtils.isEmpty(imgPassport) || TextUtils.isEmpty(imgHkMacauPass)) {
+                        ToastUtils.showToast(this, R.string.toast_pls_upload_imghkmacaupass);
+                        return;
+                    }
+                    if (TextUtils.isEmpty(imgProofAddress)) {
+                        ToastUtils.showToast(this, R.string.toast_pls_upload_imgproofaddress);
+                        return;
+                    }
+                }
                 saveToSP();
                 // 財務/投資經驗
                 startActivity(new Intent(this, FinanceActivity.class));
@@ -338,7 +375,7 @@ public class UploadCardActivity extends BaseViewActivity {
                     imgHkIdFront = data.getStringExtra("imgPath");
                     imgHkIdFrontFileName = data.getStringExtra("imgName");
                     GlideShowUtils.showImage(this, iv_card_front, imgHkIdFront);
-                }else if (address_passport == 2) {
+                } else if (address_passport == 2) {
                     imgHkIdBack = data.getStringExtra("imgPath");
                     imgHkIdBackFileName = data.getStringExtra("imgName");
                     GlideShowUtils.showImage(this, iv_card_background, imgHkIdBack);
@@ -351,7 +388,7 @@ public class UploadCardActivity extends BaseViewActivity {
                     imgMainlandIdFront = data.getStringExtra("imgPath");
                     imgMainlandIdFrontFileName = data.getStringExtra("imgName");
                     GlideShowUtils.showImage(this, iv_card_front, imgMainlandIdFront);
-                }else if (address_passport == 2) {
+                } else if (address_passport == 2) {
                     imgMainlandIdBack = data.getStringExtra("imgPath");
                     imgMainlandIdBackFileName = data.getStringExtra("imgName");
                     GlideShowUtils.showImage(this, iv_card_background, imgMainlandIdBack);
@@ -359,25 +396,25 @@ public class UploadCardActivity extends BaseViewActivity {
             }
         } else if (requestCode == Constants.KEY_CAMERA_REQUEST_CODE && resultCode == Constants.KEY_CAMERA_RESULT_OK) {
             if (data != null) {
-                String path = data.getStringExtra(Constants.KEY_FILE_PATH);
-                if (path != null) {
-                    String name = new File(path).getName();
+                String imgPath = data.getStringExtra("imgPath");
+                String imgName = data.getStringExtra("imgName");
+                if (imgPath != null) {
                     if (address_passport == 4) {
                         // 外地: 謢照/港澳通行證*
-                        imgPassport = path;
-                        imgPassportFileName = name;
-                        GlideShowUtils.showImage(this, iv_other_passport, path);
+                        imgPassport = imgPath;
+                        imgPassportFileName = imgName;
+                        GlideShowUtils.showImage(this, iv_other_passport, imgPath);
                     } else if (address_passport == 3) {
-                        imgProofAddress = path;
-                        imgProofAddressFileName = name;
-                        GlideShowUtils.showImage(this, iv_address_desc, path);
+                        imgProofAddress = imgPath;
+                        imgProofAddressFileName = imgName;
+                        GlideShowUtils.showImage(this, iv_address_desc, imgPath);
                     } else if (address_passport == 5) {
                         // 謢照/港澳通行證(非必填)
-                        imgPassport = path;
-                        imgPassportFileName = name;
-                        imgHkMacauPass = path;
-                        imgHkMacauPassFileName = name;
-                        GlideShowUtils.showImage(this, iv_passport, path);
+                        imgPassport = imgPath;
+                        imgPassportFileName = imgName;
+                        imgHkMacauPass = imgPath;
+                        imgHkMacauPassFileName = imgName;
+                        GlideShowUtils.showImage(this, iv_passport, imgPath);
                     }
                 }
             }

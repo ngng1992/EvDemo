@@ -185,7 +185,8 @@ public class NewAddBankActivity extends BaseViewActivity {
         }
         if (requestCode == CardIdZHActivity.REQUEST_CODE && resultCode == CardIdZHActivity.RESULT_CODE) {
             // 获取文件路径，显示图片
-            filePath = CardIdZHActivity.getResult(data);
+            filePath = data.getStringExtra("imgPath");
+            String imgName = data.getStringExtra("imgName");
             Log.e("rec", "图片路径：" + filePath);
         }
         if (!TextUtils.isEmpty(filePath)) {

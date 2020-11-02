@@ -95,7 +95,7 @@
                 </TextView>
 
                 <com.mfinance.everjoy.everjoy.view.AccountEditorInfoView
-                    android:id="@+id/ll_revenue"
+                    android:id="@+id/ll_finYearRevenue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:isEditor="false"
@@ -106,7 +106,7 @@
                 </com.mfinance.everjoy.everjoy.view.AccountEditorInfoView>
 
                 <com.mfinance.everjoy.everjoy.view.AccountEditorInfoView
-                    android:id="@+id/ll_asset_value"
+                    android:id="@+id/ll_finNetAssetValue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:isEditor="false"
@@ -117,7 +117,7 @@
                 </com.mfinance.everjoy.everjoy.view.AccountEditorInfoView>
 
                 <com.mfinance.everjoy.everjoy.view.AccountEditorInfoView
-                    android:id="@+id/ll_af_house"
+                    android:id="@+id/ll_finResidType"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:isEditor="false"
@@ -128,7 +128,7 @@
                 </com.mfinance.everjoy.everjoy.view.AccountEditorInfoView>
 
                 <com.mfinance.everjoy.everjoy.view.AccountEditorInfoView
-                    android:id="@+id/ll_source_funds"
+                    android:id="@+id/ll_finCapitalSource"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:isEditor="false"
@@ -139,7 +139,7 @@
                 </com.mfinance.everjoy.everjoy.view.AccountEditorInfoView>
 
                 <com.mfinance.everjoy.everjoy.view.AccountEditorInfoView
-                    android:id="@+id/ll_funds_type"
+                    android:id="@+id/ll_finAssetType"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:isEditor="false"
@@ -150,7 +150,7 @@
                 </com.mfinance.everjoy.everjoy.view.AccountEditorInfoView>
 
                 <com.mfinance.everjoy.everjoy.view.AccountEditorInfoView
-                    android:id="@+id/ll_investment_target"
+                    android:id="@+id/ll_finInvestTarget"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:isEditor="false"
@@ -161,7 +161,7 @@
                 </com.mfinance.everjoy.everjoy.view.AccountEditorInfoView>
 
                 <com.mfinance.everjoy.everjoy.view.AccountEditorInfoView
-                    android:id="@+id/ll_taking_risks"
+                    android:id="@+id/ll_finTolerateRisk"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:isEditor="false"
@@ -173,7 +173,7 @@
 
 
                 <com.mfinance.everjoy.everjoy.view.AccountEditorInfoView
-                    android:id="@+id/ll_investment_quota"
+                    android:id="@+id/ll_finInvestAvgYearValue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:isEditor="false"
@@ -194,7 +194,7 @@
                 </TextView>
 
                 <com.mfinance.everjoy.everjoy.view.AccountEditorInfoView
-                    android:id="@+id/ll_shares"
+                    android:id="@+id/ll_finExpStockYear"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:isEditor="false"
@@ -205,7 +205,7 @@
                 </com.mfinance.everjoy.everjoy.view.AccountEditorInfoView>
 
                 <com.mfinance.everjoy.everjoy.view.AccountEditorInfoView
-                    android:id="@+id/ll_derivative_tools"
+                    android:id="@+id/ll_finExpDerivativeYear"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:isEditor="false"
@@ -217,7 +217,7 @@
 
 
                 <com.mfinance.everjoy.everjoy.view.AccountEditorInfoView
-                    android:id="@+id/ll_futures_options"
+                    android:id="@+id/ll_finExpFutureYear"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:isEditor="false"
@@ -228,7 +228,7 @@
                 </com.mfinance.everjoy.everjoy.view.AccountEditorInfoView>
 
                 <com.mfinance.everjoy.everjoy.view.AccountEditorInfoView
-                    android:id="@+id/ll_forex_precious"
+                    android:id="@+id/ll_finExpForexYear"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:isEditor="false"
@@ -239,7 +239,7 @@
                 </com.mfinance.everjoy.everjoy.view.AccountEditorInfoView>
 
                 <com.mfinance.everjoy.everjoy.view.AccountEditorInfoView
-                    android:id="@+id/ll_bonds_certificates"
+                    android:id="@+id/ll_finExpBondYear"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:isEditor="false"
@@ -250,7 +250,7 @@
                 </com.mfinance.everjoy.everjoy.view.AccountEditorInfoView>
 
                 <com.mfinance.everjoy.everjoy.view.AccountEditorInfoView
-                    android:id="@+id/ll_unit_fund"
+                    android:id="@+id/ll_finExpFoundYear"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:isEditor="false"
@@ -261,7 +261,7 @@
                 </com.mfinance.everjoy.everjoy.view.AccountEditorInfoView>
 
                 <com.mfinance.everjoy.everjoy.view.AccountEditorInfoView
-                    android:id="@+id/ll_other"
+                    android:id="@+id/ll_finExpOtherYear"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:isEditor="false"

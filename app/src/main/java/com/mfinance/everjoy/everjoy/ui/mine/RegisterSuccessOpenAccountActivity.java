@@ -96,7 +96,7 @@ public class RegisterSuccessOpenAccountActivity extends BaseViewActivity {
                 boolean checked8 = cbxDesc8.isChecked();
                 if (!checked1 || !checked2 || !checked3 || !checked4 || !checked5 || !checked6 || !checked7 || !checked8) {
                     ToastUtils.showToast(this, R.string.str_checked);
-//                    return;
+                    return;
                 }
                 startActivity(new Intent(this, SecuritiesAccountActivity.class));
                 break;

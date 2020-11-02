@@ -15,8 +15,6 @@ import com.mfinance.everjoy.everjoy.base.BaseViewActivity;
 import com.mfinance.everjoy.everjoy.config.Constants;
 import com.mfinance.everjoy.everjoy.config.FileConfig;
 
-import net.mfinance.chatlib.utils.ConfigUtils;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -47,6 +45,7 @@ public class CardIdActivity extends BaseViewActivity implements View.OnClickList
      * 文件路径
      */
     private String filePath = "";
+    private String fileName = "";
 
     private boolean isNeedLand;
 
@@ -54,7 +53,7 @@ public class CardIdActivity extends BaseViewActivity implements View.OnClickList
     protected void onStart() {
         super.onStart();
         Intent intent = getIntent();
-        boolean isNeedLand = intent.getBooleanExtra(Constants.IS_NEED_LAND, false);
+        isNeedLand = intent.getBooleanExtra(Constants.IS_NEED_LAND, false);
         if (isNeedLand) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         } else {
@@ -156,7 +155,8 @@ public class CardIdActivity extends BaseViewActivity implements View.OnClickList
                     @Override
                     public void run() {
                         try {
-                            filePath = FileConfig.getFileNamePath();
+                            fileName = "idcard_" + FileConfig.getImageName();
+                            filePath = FileConfig.FILE_IDCARDS + "/" + fileName;
                             File originalFile = new File(filePath);
                             FileOutputStream originalFileOutputStream = new FileOutputStream(originalFile);
                             originalFileOutputStream.write(data);
@@ -224,9 +224,9 @@ public class CardIdActivity extends BaseViewActivity implements View.OnClickList
      * 返回
      */
     private void goBack() {
-        // TODO 如果有拍照，保存图片到本地，下次直接使用
         Intent intent = new Intent();
-        intent.putExtra(Constants.KEY_FILE_PATH, filePath);
+        intent.putExtra("imgPath", filePath);
+        intent.putExtra("imgName", fileName);
         setResult(Constants.KEY_CAMERA_RESULT_OK, intent);
         finish();
     }

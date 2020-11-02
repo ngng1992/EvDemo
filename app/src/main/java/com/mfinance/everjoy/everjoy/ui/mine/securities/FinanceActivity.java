@@ -1,6 +1,7 @@
 package com.mfinance.everjoy.everjoy.ui.mine.securities;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -8,13 +9,16 @@ import com.mfinance.everjoy.R;
 import com.mfinance.everjoy.everjoy.base.BaseViewActivity;
 import com.mfinance.everjoy.everjoy.dialog.SelectBirthplaceDialog;
 import com.mfinance.everjoy.everjoy.dialog.impl.OnClickDialogOrFragmentViewListener;
+
+import com.mfinance.everjoy.everjoy.sp.SecuritiesSharedPUtils;
 import com.mfinance.everjoy.everjoy.ui.mine.ContactActivity;
 import com.mfinance.everjoy.everjoy.view.AccountEditorInfoView;
 
+import net.mfinance.commonlib.toast.ToastUtils;
 import net.mfinance.commonlib.view.StringTextView;
 
 import java.util.Arrays;
-import java.util.List;
+
 
 import butterknife.BindArray;
 import butterknife.BindView;
@@ -25,40 +29,59 @@ import butterknife.OnClick;
  */
 public class FinanceActivity extends BaseViewActivity {
 
+    @BindArray(R.array.array_fin_year_revenue)
+    String[] array_fin_year_revenue;
+    @BindArray(R.array.array_fin_net_asset_value)
+    String[] array_fin_net_asset_value;
+    @BindArray(R.array.array_fin_resid_type)
+    String[] array_fin_resid_type;
+    @BindArray(R.array.array_fin_capital_source)
+    String[] array_fin_capital_source;
+    @BindArray(R.array.array_fin_asset_type)
+    String[] array_fin_asset_type;
+    @BindArray(R.array.array_fin_invest_target)
+    String[] array_fin_invest_target;
+    @BindArray(R.array.array_fin_tolerate_risk)
+    String[] array_fin_tolerate_risk;
+    @BindArray(R.array.array_fin_invest_avg_year_value)
+    String[] array_fin_invest_avg_year_value;
+    @BindArray(R.array.array_investment_experience)
+    String[] array_investment_experience;
+
 
     @BindArray(R.array.array_derivative)
     String[] array_derivative;
 
-    @BindView(R.id.ll_revenue)
-    AccountEditorInfoView ll_revenue;
-    @BindView(R.id.ll_asset_value)
-    AccountEditorInfoView ll_asset_value;
-    @BindView(R.id.ll_af_house)
-    AccountEditorInfoView ll_af_house;
-    @BindView(R.id.ll_source_funds)
-    AccountEditorInfoView ll_source_funds;
-    @BindView(R.id.ll_funds_type)
-    AccountEditorInfoView ll_funds_type;
-    @BindView(R.id.ll_investment_target)
-    AccountEditorInfoView ll_investment_target;
-    @BindView(R.id.ll_taking_risks)
-    AccountEditorInfoView ll_taking_risks;
-    @BindView(R.id.ll_investment_quota)
-    AccountEditorInfoView ll_investment_quota;
-    @BindView(R.id.ll_shares)
-    AccountEditorInfoView ll_shares;
-    @BindView(R.id.ll_derivative_tools)
-    AccountEditorInfoView ll_derivative_tools;
-    @BindView(R.id.ll_futures_options)
-    AccountEditorInfoView ll_futures_options;
-    @BindView(R.id.ll_forex_precious)
-    AccountEditorInfoView ll_forex_precious;
-    @BindView(R.id.ll_bonds_certificates)
-    AccountEditorInfoView ll_bonds_certificates;
-    @BindView(R.id.ll_unit_fund)
-    AccountEditorInfoView ll_unit_fund;
-    @BindView(R.id.ll_other)
-    AccountEditorInfoView ll_other;
+    @BindView(R.id.ll_finYearRevenue)
+    AccountEditorInfoView ll_finYearRevenue;
+    @BindView(R.id.ll_finNetAssetValue)
+    AccountEditorInfoView ll_finNetAssetValue;
+    @BindView(R.id.ll_finResidType)
+    AccountEditorInfoView ll_finResidType;
+    @BindView(R.id.ll_finCapitalSource)
+    AccountEditorInfoView ll_finCapitalSource;
+    @BindView(R.id.ll_finAssetType)
+    AccountEditorInfoView ll_finAssetType;
+    @BindView(R.id.ll_finInvestTarget)
+    AccountEditorInfoView ll_finInvestTarget;
+    @BindView(R.id.ll_finTolerateRisk)
+    AccountEditorInfoView ll_finTolerateRisk;
+    @BindView(R.id.ll_finInvestAvgYearValue)
+    AccountEditorInfoView ll_finInvestAvgYearValue;
+    @BindView(R.id.ll_finExpStockYear)
+    AccountEditorInfoView ll_finExpStockYear;
+    @BindView(R.id.ll_finExpDerivativeYear)
+    AccountEditorInfoView ll_finExpDerivativeYear;
+    @BindView(R.id.ll_finExpFutureYear)
+    AccountEditorInfoView ll_finExpFutureYear;
+    @BindView(R.id.ll_finExpForexYear)
+    AccountEditorInfoView ll_finExpForexYear;
+    @BindView(R.id.ll_finExpBondYear)
+    AccountEditorInfoView ll_finExpBondYear;
+    @BindView(R.id.ll_finExpFoundYear)
+    AccountEditorInfoView ll_finExpFoundYear;
+    @BindView(R.id.ll_finExpOtherYear)
+    AccountEditorInfoView ll_finExpOtherYear;
     @BindView(R.id.ll_derivative)
     AccountEditorInfoView ll_derivative;
     @BindView(R.id.tv_next)
@@ -84,98 +107,295 @@ public class FinanceActivity extends BaseViewActivity {
         return R.layout.activity_finance;
     }
 
+    private void saveToSP() {
+        if (finYearRevenueIndex != -1) {
+            SecuritiesSharedPUtils.setFinYearRevenue(finYearRevenueIndex);
+        }
+
+        if (finNetAssetValueIndex != -1) {
+            SecuritiesSharedPUtils.setFinNetAssetValueIndex(finNetAssetValueIndex);
+        }
+
+        if (finResidTypeIndex == array_fin_resid_type.length - 1) {
+            String finResidTypeEditorContent = ll_finResidType.getEditorContent();
+            if (!TextUtils.isEmpty(finResidTypeEditorContent)) {
+                SecuritiesSharedPUtils.setFinResidTypeOther(finResidTypeEditorContent);
+            }
+        } else {
+            if (finResidTypeIndex != -1) {
+                SecuritiesSharedPUtils.setFinResidTypeIndex(finResidTypeIndex);
+            }
+        }
+
+        if (finCapitalSourceIndex == array_fin_capital_source.length - 1) {
+            String finCapitalSourceEditorContent = ll_finCapitalSource.getEditorContent();
+            if (!TextUtils.isEmpty(finCapitalSourceEditorContent)) {
+                SecuritiesSharedPUtils.setFinCapitalSourceOther(finCapitalSourceEditorContent);
+            }
+        } else {
+            if (finCapitalSourceIndex != -1) {
+                SecuritiesSharedPUtils.setFinCapitalSourceIndex(finCapitalSourceIndex);
+            }
+        }
+
+        if (finAssetTypeIndex == array_fin_asset_type.length - 1) {
+            String finAssetTypeOtherEditorContent = ll_finAssetType.getEditorContent();
+            if (!TextUtils.isEmpty(finAssetTypeOtherEditorContent)) {
+                SecuritiesSharedPUtils.setFinAssetTypeOther(finAssetTypeOtherEditorContent);
+            }
+        } else {
+            if (finAssetTypeIndex != -1) {
+                SecuritiesSharedPUtils.setFinAssetTypeIndex(finAssetTypeIndex);
+            }
+        }
+
+        if (finInvestTargetIndex == array_fin_invest_target.length - 1) {
+            String finInvestTargetEditorContent = ll_finInvestTarget.getEditorContent();
+            if (!TextUtils.isEmpty(finInvestTargetEditorContent)) {
+                SecuritiesSharedPUtils.setFinInvestTargetOther(finInvestTargetEditorContent);
+            }
+        } else {
+            if (finInvestTargetIndex != -1) {
+                SecuritiesSharedPUtils.setFinInvestTargetIndex(finInvestTargetIndex);
+            }
+        }
+
+        if (finTolerateRiskIndex != -1) {
+            SecuritiesSharedPUtils.setFinTolerateRiskIndex(finTolerateRiskIndex);
+        }
+
+        if (finInvestAvgYearValueIndex != -1) {
+            SecuritiesSharedPUtils.setFinInvestAvgYearValueIndex(finInvestAvgYearValueIndex);
+        }
+
+        if (finExpDerivativeYearIndex != -1) {
+            SecuritiesSharedPUtils.setFinExpStockYearIndex(finExpStockYearIndex);
+        }
+
+        if (finExpDerivativeYearIndex != -1) {
+            SecuritiesSharedPUtils.setFinExpDerivativeYearIndex(finExpDerivativeYearIndex);
+        }
+
+        if (finExpFutureYearIndex != -1) {
+            SecuritiesSharedPUtils.setFinExpFutureYearIndex(finExpFutureYearIndex);
+        }
+
+        if (finExpForexYearIndex != -1) {
+            SecuritiesSharedPUtils.setFinExpForexYearIndex(finExpForexYearIndex);
+        }
+
+        if (finExpBondYearIndex != -1) {
+            SecuritiesSharedPUtils.setFinExpForexYearIndex(finExpBondYearIndex);
+        }
+
+        if (finExpFoundYearIndex != -1) {
+            SecuritiesSharedPUtils.setFinExpFoundYearIndex(finExpFoundYearIndex);
+        }
+
+        if (finExpOtherYearIndex != -1) {
+            SecuritiesSharedPUtils.setFinExpFoundYearIndex(finExpOtherYearIndex);
+        }
+    }
+
     @Override
     protected void initView(View currentView) {
-        ll_revenue.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
+        finYearRevenueIndex = SecuritiesSharedPUtils.getFinYearRevenue();
+        if (finYearRevenueIndex != -1) {
+            ll_finYearRevenue.setEditorContent(array_fin_year_revenue[finYearRevenueIndex]);
+        }
+        ll_finYearRevenue.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
+
             @Override
             public void onClickView(View view, Object object) {
                 showSelectRevenue();
             }
         });
-        ll_asset_value.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
+
+        finNetAssetValueIndex = SecuritiesSharedPUtils.getFinNetAssetValueIndex();
+        if (finNetAssetValueIndex != -1) {
+            ll_finNetAssetValue.setEditorContent(array_fin_net_asset_value[finNetAssetValueIndex]);
+        }
+        ll_finNetAssetValue.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
                 showAssetValue();
             }
         });
-        ll_af_house.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
+
+        finResidTypeIndex = SecuritiesSharedPUtils.getFinResidTypeIndex();
+        if (finResidTypeIndex == array_fin_resid_type.length - 1) {
+            String finResidTypeOther = SecuritiesSharedPUtils.getFinResidTypeOther();
+            if (!TextUtils.isEmpty(finResidTypeOther)) {
+                ll_finResidType.setEditorContent(finResidTypeOther);
+            }
+        } else {
+            if (finResidTypeIndex != -1) {
+                ll_finResidType.setEditorContent(array_fin_resid_type[finResidTypeIndex]);
+            }
+        }
+        ll_finResidType.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
                 showHouse();
             }
         });
-        ll_source_funds.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
+
+        finCapitalSourceIndex = SecuritiesSharedPUtils.getFinResidTypeIndex();
+        if (finCapitalSourceIndex == array_fin_capital_source.length - 1) {
+            String finCapitalSourceOther = SecuritiesSharedPUtils.getFinCapitalSourceOther();
+            if (!TextUtils.isEmpty(finCapitalSourceOther)) {
+                ll_finCapitalSource.setEditorContent(finCapitalSourceOther);
+            }
+        } else {
+            if (finCapitalSourceIndex != -1) {
+                ll_finCapitalSource.setEditorContent(array_fin_capital_source[finCapitalSourceIndex]);
+            }
+        }
+        ll_finCapitalSource.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
                 showSourceFunds();
             }
         });
-        ll_funds_type.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
+
+        finAssetTypeIndex = SecuritiesSharedPUtils.getFinAssetTypeIndex();
+        if (finAssetTypeIndex == array_fin_asset_type.length - 1) {
+            String finAssetTypeEditorContent = ll_finAssetType.getEditorContent();
+            if (!TextUtils.isEmpty(finAssetTypeEditorContent)) {
+                ll_finAssetType.setEditorContent(finAssetTypeEditorContent);
+            }
+        } else {
+            if (finAssetTypeIndex != -1) {
+                ll_finAssetType.setEditorContent(array_fin_asset_type[this.finAssetTypeIndex]);
+            }
+        }
+        ll_finAssetType.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
                 showFundsType();
             }
         });
-        ll_investment_target.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
+
+        finInvestTargetIndex = SecuritiesSharedPUtils.getFinInvestTargetIndex();
+        if (finInvestTargetIndex == array_fin_invest_target.length - 1) {
+            String finInvestTargetEditorContent = ll_finInvestTarget.getEditorContent();
+            if (!TextUtils.isEmpty(finInvestTargetEditorContent)) {
+                ll_finAssetType.setEditorContent(finInvestTargetEditorContent);
+            }
+        } else {
+            if (finInvestTargetIndex != -1) {
+                ll_finInvestTarget.setEditorContent(array_fin_invest_target[finInvestTargetIndex]);
+            }
+        }
+        ll_finInvestTarget.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
                 showInvestmentTarget();
             }
         });
-        ll_taking_risks.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
+
+        finTolerateRiskIndex = SecuritiesSharedPUtils.getFinTolerateRiskIndex();
+        if (finTolerateRiskIndex != -1) {
+            ll_finTolerateRisk.setEditorContent(array_fin_tolerate_risk[finTolerateRiskIndex]);
+        }
+        ll_finTolerateRisk.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
                 showTakingRisks();
             }
         });
-        ll_investment_quota.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
+
+        finInvestAvgYearValueIndex = SecuritiesSharedPUtils.getFinInvestAvgYearValueIndex();
+        if (finInvestAvgYearValueIndex != -1) {
+            ll_finInvestAvgYearValue.setEditorContent(array_fin_invest_avg_year_value[finInvestAvgYearValueIndex]);
+        }
+        ll_finInvestAvgYearValue.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
                 showInvestmentQuota();
             }
         });
-        ll_shares.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
+      
+        // 职业:•	學生: 一年至三年經驗(没有学生，这里不做判断)
+        //•	其他: 三年至五年經驗
+//        int workPosIndex = SecuritiesSharedPUtils.getWorkPos();
+        finExpStockYearIndex = SecuritiesSharedPUtils.getFinExpStockYearIndex();
+        if (finExpStockYearIndex != -1) {
+            ll_finExpStockYear.setEditorContent(array_investment_experience[finExpStockYearIndex]);
+        }
+        ll_finExpStockYear.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
                 showShares();
             }
         });
-        ll_derivative_tools.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
+
+        finExpDerivativeYearIndex = SecuritiesSharedPUtils.getFinExpStockYearIndex();
+        if (finExpDerivativeYearIndex != -1) {
+            ll_finExpDerivativeYear.setEditorContent(array_investment_experience[finExpDerivativeYearIndex]);
+        }
+        ll_finExpDerivativeYear.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
                 showDerivativeTools();
             }
         });
-        ll_futures_options.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
+
+        finExpFutureYearIndex = SecuritiesSharedPUtils.getFinExpFutureYearIndex();
+        if (finExpFutureYearIndex != -1) {
+            ll_finExpFutureYear.setEditorContent(array_investment_experience[finExpFutureYearIndex]);
+        }
+        ll_finExpFutureYear.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
                 showFuturesOptions();
             }
         });
-        ll_forex_precious.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
+
+        finExpForexYearIndex = SecuritiesSharedPUtils.getFinExpForexYearIndex();
+        if (finExpForexYearIndex != -1) {
+            ll_finExpForexYear.setEditorContent(array_investment_experience[finExpForexYearIndex]);
+        }
+        ll_finExpForexYear.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
                 showForexPrecious();
             }
         });
-        ll_bonds_certificates.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
+
+        finExpBondYearIndex = SecuritiesSharedPUtils.getFinExpBondYearIndex();
+        if (finExpBondYearIndex != -1) {
+            ll_finExpBondYear.setEditorContent(array_investment_experience[finExpBondYearIndex]);
+        }
+        ll_finExpBondYear.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
                 showBondsCertificates();
             }
         });
-        ll_unit_fund.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
+
+        finExpFoundYearIndex = SecuritiesSharedPUtils.getFinExpFoundYearIndex();
+        if (finExpFoundYearIndex != -1) {
+            ll_finExpFoundYear.setEditorContent(array_investment_experience[finExpFoundYearIndex]);
+        }
+        ll_finExpFoundYear.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
                 showUnitFund();
             }
         });
-        ll_other.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
+
+        finExpOtherYearIndex = SecuritiesSharedPUtils.getFinExpOtherYearIndex();
+        if (finExpOtherYearIndex != -1) {
+            ll_finExpOtherYear.setEditorContent(array_investment_experience[finExpOtherYearIndex]);
+        }
+        ll_finExpOtherYear.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
                 showOther();
             }
         });
+      
         ll_derivative.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
@@ -216,282 +436,296 @@ public class FinanceActivity extends BaseViewActivity {
         dialog.show();
     }
 
-    private int selectOtherIndex = 0;
+    private int finExpOtherYearIndex = -1;
 
     /**
      * 其他
      */
     private void showOther() {
-        List<String> list = Arrays.asList(getResources().getStringArray(R.array.array_investment_experience));
-        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this, selectOtherIndex, list);
+        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this,
+                finExpOtherYearIndex, Arrays.asList(array_investment_experience));
         dialog.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
-                selectOtherIndex = object == null ? 0 : (int) object;
-                String content = list.get(selectOtherIndex);
-                ll_other.setEditorContent(content);
+                finExpOtherYearIndex = object == null ? 0 : (int) object;
+                String content = array_investment_experience[finExpOtherYearIndex];
+                ll_finExpOtherYear.setEditorContent(content);
             }
         });
         dialog.show();
     }
 
-    private int selectUnitFundIndex = 0;
+    private int finExpFoundYearIndex = -1;
 
     /**
      * 单位信托基金/基金
      */
     private void showUnitFund() {
-        List<String> list = Arrays.asList(getResources().getStringArray(R.array.array_investment_experience));
-        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this, selectUnitFundIndex, list);
+        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this,
+                finExpFoundYearIndex, Arrays.asList(array_investment_experience));
         dialog.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
-                selectUnitFundIndex = object == null ? 0 : (int) object;
-                String content = list.get(selectUnitFundIndex);
-                ll_unit_fund.setEditorContent(content);
+                finExpFoundYearIndex = object == null ? 0 : (int) object;
+                String content = array_investment_experience[finExpFoundYearIndex];
+                ll_finExpFoundYear.setEditorContent(content);
             }
         });
         dialog.show();
     }
 
-    private int selectBondsCertificatesIndex = 0;
+    private int finExpBondYearIndex = -1;
 
     /**
      * 债券/存款证
      */
     private void showBondsCertificates() {
-        List<String> list = Arrays.asList(getResources().getStringArray(R.array.array_investment_experience));
-        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this, selectBondsCertificatesIndex, list);
+        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this,
+                finExpBondYearIndex, Arrays.asList(array_investment_experience));
         dialog.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
-                selectBondsCertificatesIndex = object == null ? 0 : (int) object;
-                String content = list.get(selectBondsCertificatesIndex);
-                ll_bonds_certificates.setEditorContent(content);
+                finExpBondYearIndex = object == null ? 0 : (int) object;
+                String content = array_investment_experience[finExpBondYearIndex];
+                ll_finExpBondYear.setEditorContent(content);
             }
         });
         dialog.show();
     }
 
-    private int selectForexPreciousIndex = 0;
-
+    private int finExpForexYearIndex = -1;
     /**
      * 外汇/贵金属
      */
     private void showForexPrecious() {
-        List<String> list = Arrays.asList(getResources().getStringArray(R.array.array_investment_experience));
-        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this, selectForexPreciousIndex, list);
+        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this,
+                finExpForexYearIndex, Arrays.asList(array_investment_experience));
         dialog.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
-                selectForexPreciousIndex = object == null ? 0 : (int) object;
-                String content = list.get(selectForexPreciousIndex);
-                ll_forex_precious.setEditorContent(content);
+                finExpForexYearIndex = object == null ? 0 : (int) object;
+                String content = array_investment_experience[finExpForexYearIndex];
+                ll_finExpForexYear.setEditorContent(content);
             }
         });
         dialog.show();
     }
 
-    private int selectFuturesOptionsIndex = 0;
+    private int finExpFutureYearIndex = 0;
 
     /**
      * 期货期权
      */
     private void showFuturesOptions() {
-        List<String> list = Arrays.asList(getResources().getStringArray(R.array.array_investment_experience));
-        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this, selectFuturesOptionsIndex, list);
+        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this,
+                finExpFutureYearIndex, Arrays.asList(array_investment_experience));
         dialog.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
-                selectFuturesOptionsIndex = object == null ? 0 : (int) object;
-                String content = list.get(selectFuturesOptionsIndex);
-                ll_futures_options.setEditorContent(content);
+                finExpFutureYearIndex = object == null ? 0 : (int) object;
+                String content = array_investment_experience[finExpFutureYearIndex];
+                ll_finExpFutureYear.setEditorContent(content);
             }
         });
         dialog.show();
     }
 
-    private int selectDerivativesIndex = 0;
+    private int finExpDerivativeYearIndex = -1;
 
     /**
      * 衍生工具
      */
     private void showDerivativeTools() {
-        List<String> list = Arrays.asList(getResources().getStringArray(R.array.array_investment_experience));
-        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this, selectDerivativesIndex, list);
+        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this, finExpDerivativeYearIndex, Arrays.asList(array_investment_experience));
         dialog.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
-                selectDerivativesIndex = object == null ? 0 : (int) object;
-                String content = list.get(selectDerivativesIndex);
-                ll_derivative_tools.setEditorContent(content);
+                finExpDerivativeYearIndex = object == null ? 0 : (int) object;
+                String content = array_investment_experience[finExpDerivativeYearIndex];
+                ll_finExpDerivativeYear.setEditorContent(content);
             }
         });
         dialog.show();
     }
 
-    private int selectSharesIndex = 0;
+    private int finExpStockYearIndex = -1;
 
     /**
      * 股票经验
      */
     private void showShares() {
-        List<String> list = Arrays.asList(getResources().getStringArray(R.array.array_investment_experience));
-        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this, selectSharesIndex, list);
+        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this,
+                finExpStockYearIndex, Arrays.asList(array_investment_experience));
         dialog.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
-                selectSharesIndex = object == null ? 0 : (int) object;
-                String content = list.get(selectSharesIndex);
-                ll_shares.setEditorContent(content);
+                finExpStockYearIndex = object == null ? 0 : (int) object;
+                String content = array_investment_experience[finExpStockYearIndex];
+                ll_finExpStockYear.setEditorContent(content);
             }
         });
         dialog.show();
     }
 
-    private int selectInvestmentQuotaIndex = 0;
+    private int finInvestAvgYearValueIndex = -1;
 
     /**
      * 平均年投资额
      */
     private void showInvestmentQuota() {
-        List<String> list = Arrays.asList(getResources().getStringArray(R.array.array_investment_quota));
-        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this, selectInvestmentQuotaIndex, list);
+        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this,
+                finInvestAvgYearValueIndex, Arrays.asList(array_fin_invest_avg_year_value));
         dialog.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
-                selectInvestmentQuotaIndex = object == null ? 0 : (int) object;
-                String content = list.get(selectInvestmentQuotaIndex);
-                ll_investment_quota.setEditorContent(content);
+                finInvestAvgYearValueIndex = object == null ? 0 : (int) object;
+                String content = array_fin_invest_avg_year_value[finInvestAvgYearValueIndex];
+                ll_finInvestAvgYearValue.setEditorContent(content);
             }
         });
         dialog.show();
     }
 
-    private int selectTakingRisksIndex = 0;
+    private int finTolerateRiskIndex = 0;
 
     private void showTakingRisks() {
-        List<String> list = Arrays.asList(getResources().getStringArray(R.array.array_taking_risks));
-        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this, selectTakingRisksIndex, list);
+        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this,
+                finTolerateRiskIndex, Arrays.asList(array_fin_tolerate_risk));
         dialog.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
-                selectTakingRisksIndex = object == null ? 0 : (int) object;
-                String content = list.get(selectTakingRisksIndex);
-                ll_taking_risks.setEditorContent(content);
+                finTolerateRiskIndex = object == null ? 0 : (int) object;
+                String content = array_fin_tolerate_risk[finTolerateRiskIndex];
+                ll_finTolerateRisk.setEditorContent(content);
             }
         });
         dialog.show();
     }
 
-    private int selectInvestmentTargetIndex = 0;
+    private int finInvestTargetIndex = -1;
 
     /**
      * 投资目标
      */
     private void showInvestmentTarget() {
-        List<String> list = Arrays.asList(getResources().getStringArray(R.array.array_investment_target));
-        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this, selectInvestmentTargetIndex, list);
+        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this,
+                finInvestTargetIndex, Arrays.asList(array_fin_invest_target));
         dialog.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
-                selectInvestmentTargetIndex = object == null ? 0 : (int) object;
-                String content = list.get(selectInvestmentTargetIndex);
-                ll_investment_target.setEditorContent(content);
+                finInvestTargetIndex = object == null ? 0 : (int) object;
+                if (finInvestTargetIndex == array_fin_invest_target.length - 1) {
+                    ll_finInvestTarget.setEditor(true);
+                } else {
+                    String content = array_fin_invest_target[finInvestTargetIndex];
+                    ll_finInvestTarget.setEditorContent(content);
+                }
             }
         });
         dialog.show();
     }
 
-    private int selectFundsTypeIndex = 0;
+    private int finAssetTypeIndex = -1;
 
     private void showFundsType() {
-        List<String> list = Arrays.asList(getResources().getStringArray(R.array.array_funds_type));
-        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this, selectFundsTypeIndex, list);
+        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this,
+                finAssetTypeIndex, Arrays.asList(array_fin_asset_type));
         dialog.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
-                selectFundsTypeIndex = object == null ? 0 : (int) object;
-                String content = list.get(selectFundsTypeIndex);
-                ll_funds_type.setEditorContent(content);
+                finAssetTypeIndex = object == null ? 0 : (int) object;
+                if (finAssetTypeIndex == array_fin_asset_type.length - 1) {
+                    ll_finAssetType.setEditor(true);
+                } else {
+                    ll_finAssetType.setEditor(false);
+                    String content = array_fin_asset_type[finAssetTypeIndex];
+                    ll_finAssetType.setEditorContent(content);
+                }
             }
         });
         dialog.show();
     }
 
-    private int selectSourceFundsIndex = 0;
+    private int finCapitalSourceIndex = -1;
 
     /**
      * 资金来源
      */
     private void showSourceFunds() {
-        List<String> list = Arrays.asList(getResources().getStringArray(R.array.array_source_funds));
-        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this, selectSourceFundsIndex, list);
+        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this,
+                finCapitalSourceIndex, Arrays.asList(array_fin_capital_source));
         dialog.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
-                selectSourceFundsIndex = object == null ? 0 : (int) object;
-                String content = list.get(selectSourceFundsIndex);
-                ll_source_funds.setEditorContent(content);
+                finCapitalSourceIndex = object == null ? 0 : (int) object;
+                if (finCapitalSourceIndex == array_fin_capital_source.length - 1) {
+                    ll_finCapitalSource.setEditor(true);
+                } else {
+                    ll_finCapitalSource.setEditor(false);
+                    String content = array_fin_capital_source[finCapitalSourceIndex];
+                    ll_finCapitalSource.setEditorContent(content);
+                }
             }
         });
         dialog.show();
     }
 
-    private int selectHouseIndex = 0;
+    private int finResidTypeIndex = -1;
 
     /**
      * 住宅类别
      */
     private void showHouse() {
-        List<String> list = Arrays.asList(getResources().getStringArray(R.array.array_house));
-        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this, selectHouseIndex, list);
+        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this, finResidTypeIndex, Arrays.asList(array_fin_resid_type));
         dialog.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
-                selectHouseIndex = object == null ? 0 : (int) object;
-                String content = list.get(selectHouseIndex);
-                ll_af_house.setEditorContent(content);
+                finResidTypeIndex = object == null ? 0 : (int) object;
+                if (finResidTypeIndex == array_fin_resid_type.length - 1) {
+                    ll_finResidType.setEditor(true);
+                } else {
+                    ll_finResidType.setEditor(false);
+                    String content = array_fin_resid_type[finResidTypeIndex];
+                    ll_finResidType.setEditorContent(content);
+                }
             }
         });
         dialog.show();
     }
 
-
-    private int selectAssetValueIndex = 0;
+    private int finNetAssetValueIndex = -1;
 
     /**
      * 资产净值
      */
     private void showAssetValue() {
-        List<String> list = Arrays.asList(getResources().getStringArray(R.array.array_asset_value));
-        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this, selectAssetValueIndex, list);
+        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this,
+                finNetAssetValueIndex, Arrays.asList(array_fin_net_asset_value));
         dialog.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
-                selectAssetValueIndex = object == null ? 0 : (int) object;
-                String content = list.get(selectAssetValueIndex);
-                ll_asset_value.setEditorContent(content);
+                finNetAssetValueIndex = object == null ? 0 : (int) object;
+                String content = array_fin_net_asset_value[finNetAssetValueIndex];
+                ll_finNetAssetValue.setEditorContent(content);
             }
         });
         dialog.show();
     }
 
 
-    private int selectRevenueIndex = 0;
+    private int finYearRevenueIndex = -1;
 
     /**
      * 选择年收入
      */
     private void showSelectRevenue() {
-        List<String> list = Arrays.asList(getResources().getStringArray(R.array.array_revenue));
-        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this, selectRevenueIndex, list);
+        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this, finYearRevenueIndex, Arrays.asList(array_fin_year_revenue));
         dialog.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
-                selectRevenueIndex = object == null ? 0 : (int) object;
-                String content = list.get(selectRevenueIndex);
-                ll_revenue.setEditorContent(content);
+                finYearRevenueIndex = object == null ? 0 : (int) object;
+                String content = array_fin_year_revenue[finYearRevenueIndex];
+                ll_finYearRevenue.setEditorContent(content);
             }
         });
         dialog.show();
@@ -508,6 +742,86 @@ public class FinanceActivity extends BaseViewActivity {
                 onBackPressed();
                 break;
             case R.id.tv_next:
+                String finYearRevenueEditorContent = ll_finYearRevenue.getEditorContent();
+                if (TextUtils.isEmpty(finYearRevenueEditorContent)) {
+                    ToastUtils.showToast(this, ll_finYearRevenue.getLeftAndHintContentForTip());
+                    return;
+                }
+                String finNetAssetValueEditorContent = ll_finNetAssetValue.getEditorContent();
+                if (TextUtils.isEmpty(finNetAssetValueEditorContent)) {
+                    ToastUtils.showToast(this, ll_finNetAssetValue.getLeftAndHintContentForTip());
+                    return;
+                }
+                String finResidTypeEditorContent = ll_finResidType.getEditorContent();
+                if (TextUtils.isEmpty(finResidTypeEditorContent)) {
+                    ToastUtils.showToast(this, ll_finResidType.getLeftAndHintContentForTip());
+                    return;
+                }
+                String finCapitalSourceEditorContent = ll_finCapitalSource.getEditorContent();
+                if (TextUtils.isEmpty(finCapitalSourceEditorContent)) {
+                    ToastUtils.showToast(this, ll_finCapitalSource.getLeftAndHintContentForTip());
+                    return;
+                }
+                String finAssetTypeEditorContent = ll_finAssetType.getEditorContent();
+                if (TextUtils.isEmpty(finAssetTypeEditorContent)) {
+                    ToastUtils.showToast(this, ll_finAssetType.getLeftAndHintContentForTip());
+                    return;
+                }
+                String finInvestTargetEditorContent = ll_finInvestTarget.getEditorContent();
+                if (TextUtils.isEmpty(finInvestTargetEditorContent)) {
+                    ToastUtils.showToast(this, ll_finInvestTarget.getLeftAndHintContentForTip());
+                    return;
+                }
+                String finTolerateRiskEditorContent = ll_finTolerateRisk.getEditorContent();
+                if (TextUtils.isEmpty(finTolerateRiskEditorContent)) {
+                    ToastUtils.showToast(this, ll_finTolerateRisk.getLeftAndHintContentForTip());
+                    return;
+                }
+                String finInvestAvgYearValueEditorContent = ll_finInvestAvgYearValue.getEditorContent();
+                if (TextUtils.isEmpty(finInvestAvgYearValueEditorContent)) {
+                    ToastUtils.showToast(this, ll_finInvestAvgYearValue.getLeftAndHintContentForTip());
+                    return;
+                }
+                String finExpStockYearEditorContent = ll_finExpStockYear.getEditorContent();
+                if (TextUtils.isEmpty(finExpStockYearEditorContent)) {
+                    ToastUtils.showToast(this, ll_finExpStockYear.getLeftAndHintContentForTip() + getString(R.string.af_investment_experience));
+                    return;
+                }
+                String finExpDerivativeYearEditorContent = ll_finExpDerivativeYear.getEditorContent();
+                if (TextUtils.isEmpty(finExpDerivativeYearEditorContent)) {
+                    ToastUtils.showToast(this, ll_finExpDerivativeYear.getLeftAndHintContentForTip() + getString(R.string.af_investment_experience));
+                    return;
+                }
+                String finExpFutureYearEditorContent = ll_finExpFutureYear.getEditorContent();
+                if (TextUtils.isEmpty(finExpFutureYearEditorContent)) {
+                    ToastUtils.showToast(this, ll_finExpFutureYear.getLeftAndHintContentForTip() + getString(R.string.af_investment_experience));
+                    return;
+                }
+                String finExpForexYearEditorContent = ll_finExpForexYear.getEditorContent();
+                if (TextUtils.isEmpty(finExpForexYearEditorContent)) {
+                    ToastUtils.showToast(this, ll_finExpForexYear.getLeftAndHintContentForTip() + getString(R.string.af_investment_experience));
+                    return;
+                }
+                String finExpBondYearEditorContent = ll_finExpBondYear.getEditorContent();
+                if (TextUtils.isEmpty(finExpBondYearEditorContent)) {
+                    ToastUtils.showToast(this, ll_finExpBondYear.getLeftAndHintContentForTip() + getString(R.string.af_investment_experience));
+                    return;
+                }
+                String finExpFoundYearEditorContent = ll_finExpFoundYear.getEditorContent();
+                if (TextUtils.isEmpty(finExpFoundYearEditorContent)) {
+                    ToastUtils.showToast(this, ll_finExpFoundYear.getLeftAndHintContentForTip() + getString(R.string.af_investment_experience));
+                    return;
+                }
+                String finExpOtherYearEditorContent = ll_finExpOtherYear.getEditorContent();
+                if (TextUtils.isEmpty(finExpOtherYearEditorContent)) {
+                    ToastUtils.showToast(this, ll_finExpOtherYear.getLeftAndHintContentForTip() + getString(R.string.af_investment_experience));
+                    return;
+                }
+                String derivativeEditorContent = ll_derivative.getEditorContent();
+                if (TextUtils.isEmpty(derivativeEditorContent)) {
+                    ToastUtils.showToast(this, ll_finExpOtherYear.getLeftAndHintContentForTip());
+                    return;
+                }
                 // 选择账户
                 saveToSP();
                 startActivity(new Intent(this, SelectAccountActivity.class));
@@ -524,8 +838,4 @@ public class FinanceActivity extends BaseViewActivity {
         finish();
     }
 
-    private void saveToSP() {
-        // 保存到本地
-
-    }
 }

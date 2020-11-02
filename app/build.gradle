@@ -138,6 +138,9 @@ dependencies {
     implementation files('libs/umeng-analytics-8.1.6.jar')
     implementation files('libs/umeng-common-2.2.5.jar')
 
+    // 签名sha256
+    implementation files('libs/commons-codec-1.15.jar')
+
     // 加载图片
     implementation rootProject.ext.dependencies.glide
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'

@@ -4,15 +4,20 @@ import android.content.Intent;
 import android.view.View;
 
 import com.mfinance.everjoy.R;
-import com.mfinance.everjoy.everjoy.base.BaseViewActivity;
+import com.mfinance.everjoy.everjoy.bean.base.BaseBean;
+import com.mfinance.everjoy.everjoy.ui.mvp.base.BaseMvpView;
+import com.mfinance.everjoy.everjoy.ui.mvp.base.BaseMvpViewActivity;
+import com.mfinance.everjoy.everjoy.ui.mvp.presenter.RegisterSuccessOpenAccountPresenter;
+
+import net.mfinance.commonlib.toast.ToastUtils;
 
 import butterknife.OnClick;
 
 /**
  * 提交成功，入金
  */
-public class SubmitDepositActivity extends BaseViewActivity {
 
+public class SubmitDepositActivity extends BaseMvpViewActivity<BaseMvpView<BaseBean>, RegisterSuccessOpenAccountPresenter> implements BaseMvpView<BaseBean> {
     @Override
     protected boolean isRemoveAppBar() {
         return true;
@@ -30,7 +35,7 @@ public class SubmitDepositActivity extends BaseViewActivity {
 
     @Override
     protected void initView(View currentView) {
-
+        mPresenter.requestEmailCode(this);
     }
 
     @OnClick({R.id.iv_back, R.id.cd_online_deposit, R.id.cd_cheque, R.id.cd_arrange})
@@ -51,5 +56,30 @@ public class SubmitDepositActivity extends BaseViewActivity {
             default:
                 break;
         }
+    }
+
+    @Override
+    protected RegisterSuccessOpenAccountPresenter createPresenter() {
+        return new RegisterSuccessOpenAccountPresenter(this);
+    }
+
+    @Override
+    public void onShowData(BaseBean data) {
+
+    }
+
+    @Override
+    public void onShowError(String msg) {
+        ToastUtils.showToast(this, msg);
+    }
+
+    @Override
+    public void onShowLoading() {
+        showLoading();
+    }
+
+    @Override
+    public void onHideLoading() {
+        hideLoading();
     }
 }

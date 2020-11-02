@@ -836,6 +836,11 @@
     <string name="auc_passport1">护照/港澳通行证(非必填)</string>
     <string name="auc_passport2">护照/港澳通行证*</string>
 
+    <string name="toast_pls_upload_cardid_front">请拍摄或上传身份证正面</string>
+    <string name="toast_pls_upload_cardid_back">请拍摄或上传身份证反面</string>
+    <string name="toast_pls_upload_imgproofaddress">请拍摄或上传住址证明</string>
+    <string name="toast_pls_upload_imghkmacaupass">请拍摄或上传护照/港澳通行证</string>
+
     <string name="af_revenue">财政收入</string>
     <string name="af_annual_income">年收入</string>
     <string name="af_asset_value">资产净值</string>
@@ -1014,9 +1019,18 @@
     <string name="afm_title">存入方式</string>
     <string name="afm_bank">存入银行</string>
 
-
     <string name="toast_server_unusual">连接异常</string>
     <string name="toast_net_unusual">网络异常</string>
+
+    <string name="ui_account_desc_title">账户说明</string>
+    <string name="toast_name_inconsistent">与个人资料所填写姓名不一致</string>
+
+
+
+
+
+
+
 
     <string name="login_fail_1">Wrong Password/Token</string>
     <string name="login_fail_2">Account Locked</string>
