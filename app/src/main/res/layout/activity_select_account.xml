@@ -119,7 +119,7 @@
                 </RelativeLayout>
 
                 <com.mfinance.everjoy.everjoy.view.AccountEditorInfoView
-                    android:id="@+id/ll_account"
+                    android:id="@+id/ll_createAccType"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:isEditor="false"
@@ -151,7 +151,7 @@
                     </TextView>
 
                     <CheckBox
-                        android:id="@+id/cbx_hk_stock"
+                        android:id="@+id/cbx_createAccStockHk"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -168,7 +168,7 @@
                     </CheckBox>
 
                     <CheckBox
-                        android:id="@+id/cbx_am_stock"
+                        android:id="@+id/cbx_createAccStockUs"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -187,7 +187,7 @@
                     </CheckBox>
 
                     <CheckBox
-                        android:id="@+id/cbx_ch_stock"
+                        android:id="@+id/cbx_createAccStockA"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -218,7 +218,7 @@
                 </TextView>
 
                 <com.mfinance.everjoy.everjoy.view.AccountEditorInfoView
-                    android:id="@+id/ll_taxation_info"
+                    android:id="@+id/ll_taxInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:isEditor="false"
@@ -229,9 +229,10 @@
                 </com.mfinance.everjoy.everjoy.view.AccountEditorInfoView>
 
                 <com.mfinance.everjoy.everjoy.view.AccountEditorInfoView
-                    android:id="@+id/ll_country_area"
+                    android:id="@+id/ll_taxRegion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     app:isEditor="false"
                     app:isVisibilityGoto="true"
                     app:txtLeft="@string/asa_country_area"
@@ -240,7 +241,7 @@
                 </com.mfinance.everjoy.everjoy.view.AccountEditorInfoView>
 
                 <com.mfinance.everjoy.everjoy.view.AccountEditorInfoView
-                    android:id="@+id/ll_taxation_code"
+                    android:id="@+id/ll_taxTin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:isEditor="true"
@@ -393,6 +394,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:background="@android:color/transparent"
                     android:button="@null"
                     android:checked="true"
                     android:drawableLeft="@drawable/selector_cbx_yellow"

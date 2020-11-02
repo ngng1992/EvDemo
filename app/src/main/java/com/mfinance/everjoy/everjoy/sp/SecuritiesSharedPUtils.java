@@ -241,23 +241,24 @@ public class SecuritiesSharedPUtils {
         return SPUTILS.getInt("workYear", -1);
     }
 
-    // ============================= step1 编辑资料 录制视频 ============================= //
+    // ============================= step1 编辑资料 录制视频 证件上传 ============================= //
+
     // 视频拍摄路径
-    public static void setVideoPath(String videoPath) {
-        SPUTILS.put("videoPath", videoPath);
+    public static void setVidSelfie(String videoPath) {
+        SPUTILS.put("vidSelfie", videoPath);
     }
 
-    public static String getVideoPath() {
-        return SPUTILS.getString("videoPath", "");
+    public static String getVidSelfie() {
+        return SPUTILS.getString("vidSelfie", "");
     }
 
     // 视频拍摄文件名称
     public static void setVideoName(String videoName) {
-        SPUTILS.put("videoName", videoName);
+        SPUTILS.put("vidSelfieFileName", videoName);
     }
 
-    public static String getVideoName() {
-        return SPUTILS.getString("videoName", "");
+    public static String getVidSelfieFileName() {
+        return SPUTILS.getString("vidSelfieFileName", "");
     }
 
     // 香港居民身份证正面
@@ -386,4 +387,236 @@ public class SecuritiesSharedPUtils {
         return SPUTILS.getString("imgProofAddressFileName", "");
     }
 
+
+
+    // ============================= step1 编辑资料 财政收入-投资经验 ============================= //
+
+    // 年收入
+    public static void setFinYearRevenue(int finYearRevenueIndex) {
+        SPUTILS.put("finYearRevenueIndex", finYearRevenueIndex);
+    }
+    public static int getFinYearRevenue() {
+        return SPUTILS.getInt("finYearRevenueIndex", -1);
+    }
+
+    // 年收入
+    public static void setFinNetAssetValueIndex(int finNetAssetValueIndex) {
+        SPUTILS.put("finNetAssetValueIndex", finNetAssetValueIndex);
+    }
+    public static int getFinNetAssetValueIndex() {
+        return SPUTILS.getInt("finNetAssetValueIndex", -1);
+    }
+
+    // 住宅类别
+    public static void setFinResidTypeIndex(int finResidTypeIndex) {
+        SPUTILS.put("finResidTypeIndex", finResidTypeIndex);
+    }
+    public static int getFinResidTypeIndex() {
+        return SPUTILS.getInt("finResidTypeIndex", -1);
+    }
+
+    // 住宅类别其他
+    public static void setFinResidTypeOther(String finResidTypeOther) {
+        SPUTILS.put("finResidTypeOther", finResidTypeOther);
+    }
+    public static String getFinResidTypeOther() {
+        return SPUTILS.getString("finResidTypeOther", "");
+    }
+
+    // 资金来源
+    public static void setFinCapitalSourceIndex(int finCapitalSourceIndex) {
+        SPUTILS.put("finCapitalSourceIndex", finCapitalSourceIndex);
+    }
+    public static int getFinCapitalSourceIndex() {
+        return SPUTILS.getInt("finCapitalSourceIndex", -1);
+    }
+
+    // 资金来源其他
+    public static void setFinCapitalSourceOther(String finCapitalSourceOther) {
+        SPUTILS.put("finCapitalSourceOther", finCapitalSourceOther);
+    }
+    public static String getFinCapitalSourceOther() {
+        return SPUTILS.getString("finCapitalSourceOther", "");
+    }
+
+    // 资产类别
+    public static void setFinAssetTypeIndex(int finAssetTypeIndex) {
+        SPUTILS.put("finAssetTypeIndex", finAssetTypeIndex);
+    }
+    public static int getFinAssetTypeIndex() {
+        return SPUTILS.getInt("finAssetTypeIndex", -1);
+    }
+
+    // 资产类别其他
+    public static void setFinAssetTypeOther(String finAssetTypeOther) {
+        SPUTILS.put("finAssetTypeOther", finAssetTypeOther);
+    }
+    public static String getFinAssetTypeOther() {
+        return SPUTILS.getString("finAssetTypeOther", "");
+    }
+
+    // 投资目标
+    public static void setFinInvestTargetIndex(int finInvestTargetIndex) {
+        SPUTILS.put("finInvestTargetIndex", finInvestTargetIndex);
+    }
+    public static int getFinInvestTargetIndex() {
+        return SPUTILS.getInt("finInvestTargetIndex", -1);
+    }
+
+    // 投资目标其他
+    public static void setFinInvestTargetOther(String finInvestTargetOther) {
+        SPUTILS.put("finInvestTargetOther", finInvestTargetOther);
+    }
+    public static String getFinInvestTargetOther() {
+        return SPUTILS.getString("finInvestTargetOther", "");
+    }
+
+    // 可承受风险
+    public static void setFinTolerateRiskIndex(int finTolerateRiskIndex) {
+        SPUTILS.put("finTolerateRiskIndex", finTolerateRiskIndex);
+    }
+    public static int getFinTolerateRiskIndex() {
+        return SPUTILS.getInt("finTolerateRiskIndex", -1);
+    }
+
+    // 平均年投資金額
+    public static void setFinInvestAvgYearValueIndex(int finInvestAvgYearValueIndex) {
+        SPUTILS.put("finInvestAvgYearValueIndex", finInvestAvgYearValueIndex);
+    }
+    public static int getFinInvestAvgYearValueIndex() {
+        return SPUTILS.getInt("finInvestAvgYearValueIndex", -1);
+    }
+
+    // 股票投资经验
+    public static void setFinExpStockYearIndex(int finExpStockYearIndex) {
+        SPUTILS.put("finExpStockYearIndex", finExpStockYearIndex);
+    }
+    public static int getFinExpStockYearIndex() {
+        return SPUTILS.getInt("finExpStockYearIndex", -1);
+    }
+
+    // 衍生工具投资经验
+    public static void setFinExpDerivativeYearIndex(int finExpDerivativeYearIndex) {
+        SPUTILS.put("finExpDerivativeYearIndex", finExpDerivativeYearIndex);
+    }
+    public static int getFinExpDerivativeYearIndex() {
+        return SPUTILS.getInt("finExpDerivativeYear", -1);
+    }
+
+    // 期货投资经验
+    public static void setFinExpFutureYearIndex(int finExpFutureYearIndex) {
+        SPUTILS.put("finExpFutureYearIndex", finExpFutureYearIndex);
+    }
+    public static int getFinExpFutureYearIndex() {
+        return SPUTILS.getInt("finExpFutureYearIndex", -1);
+    }
+
+    // 外汇投资经验
+    public static void setFinExpForexYearIndex(int finExpForexYearIndex) {
+        SPUTILS.put("finExpForexYearIndex", finExpForexYearIndex);
+    }
+    public static int getFinExpForexYearIndex() {
+        return SPUTILS.getInt("finExpFutureYearIndex", -1);
+    }
+
+    // 债券投资经验
+    public static void setFinExpBondYearIndex(int finExpBondYearIndex) {
+        SPUTILS.put("finExpBondYearIndex", finExpBondYearIndex);
+    }
+    public static int getFinExpBondYearIndex() {
+        return SPUTILS.getInt("finExpBondYearIndex", -1);
+    }
+
+    // 基金投资经验
+    public static void setFinExpFoundYearIndex(int finExpFoundYearIndex) {
+        SPUTILS.put("finExpFoundYearIndex", finExpFoundYearIndex);
+    }
+    public static int getFinExpFoundYearIndex() {
+        return SPUTILS.getInt("finExpFoundYearIndex", -1);
+    }
+
+    // 其他投资经验
+    public static void setFinExpOtherYearIndex(int finExpOtherYearIndex) {
+        SPUTILS.put("finExpOtherYearIndex", finExpOtherYearIndex);
+    }
+    public static int getFinExpOtherYearIndex() {
+        return SPUTILS.getInt("finExpOtherYearIndex", -1);
+    }
+
+
+    // ============================= step2 选择账户 ============================= //
+
+    // 账户
+    public static void setCreateAccTypeIndex(int createAccTypeIndex) {
+        SPUTILS.put("createAccTypeIndex", createAccTypeIndex);
+    }
+    public static int getCreateAccTypeIndex() {
+        return SPUTILS.getInt("createAccTypeIndex", 0);
+    }
+
+    // 港股
+    public static void setCreateAccStockHk(boolean createAccStockHk) {
+        SPUTILS.put("createAccStockHk", createAccStockHk);
+    }
+    public static boolean getCreateAccStockHk() {
+        return SPUTILS.getBoolean("createAccStockHk", true);
+    }
+
+    // 美股
+    public static void setCreateAccStockUs(boolean createAccStockUs) {
+        SPUTILS.put("createAccStockUs", createAccStockUs);
+    }
+    public static boolean getCreateAccStockUs() {
+        return SPUTILS.getBoolean("createAccStockUs", true);
+    }
+
+    // A股
+    public static void setCreateAccStockA(boolean createAccStockA) {
+        SPUTILS.put("createAccStockA", createAccStockA);
+    }
+    public static boolean getCreateAccStockA() {
+        return SPUTILS.getBoolean("createAccStockA", true);
+    }
+
+    // 税务信息
+    public static void setTaxInfoIndex(int taxInfoIndex) {
+        SPUTILS.put("taxInfoIndex", taxInfoIndex);
+    }
+    public static int getTaxInfoIndex() {
+        return SPUTILS.getInt("taxInfoIndex", -1);
+    }
+
+    // 税务信息-国家地区
+    public static void setTaxRegionIndex(int taxRegionIndex) {
+        SPUTILS.put("taxRegionIndex", taxRegionIndex);
+    }
+    public static int getTaxRegionIndex() {
+        return SPUTILS.getInt("taxRegionIndex", -1);
+    }
+
+    // 税务编号
+    public static void setTaxTin(String taxTin) {
+        SPUTILS.put("taxTin", taxTin);
+    }
+    public static String getTaxTin() {
+        return SPUTILS.getString("taxTin", "");
+    }
+
+    // W-8BEN國家或地區
+    public static void setTaxRegionW8benIndex(int taxRegionW8benIndex) {
+        SPUTILS.put("taxRegionW8benIndex", taxRegionW8benIndex);
+    }
+    public static int getTaxRegionW8benIndex() {
+        return SPUTILS.getInt("taxRegionW8benIndex", -1);
+    }
+
+
+    // ============================= step3 风险披露 ============================= //
+    // 电子签名
+    public static void setApplySign(String applySign) {
+        SPUTILS.put("applySign", applySign);
+    }
+    public static String getApplySign() {
+        return SPUTILS.getString("applySign", "");
+    }
 }

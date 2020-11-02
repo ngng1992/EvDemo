@@ -145,7 +145,7 @@ public class RecordVideoActivity extends BaseViewActivity {
         cameraUtils.destroy();
         if (isSuccess) {
             if (!TextUtils.isEmpty(videoPath)) {
-                SecuritiesSharedPUtils.setVideoPath(videoPath);
+                SecuritiesSharedPUtils.setVidSelfie(videoPath);
             }
             if (!TextUtils.isEmpty(videoName)) {
                 SecuritiesSharedPUtils.setVideoName(videoName);

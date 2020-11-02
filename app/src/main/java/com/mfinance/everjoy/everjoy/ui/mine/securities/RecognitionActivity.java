@@ -242,7 +242,8 @@ public class RecognitionActivity extends BaseViewActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CardIdZHActivity.REQUEST_CODE && resultCode == CardIdZHActivity.RESULT_CODE) {
             //获取文件路径，显示图片
-            final String path = CardIdZHActivity.getResult(data);
+            String path = data.getStringExtra("imgPath");
+            String imgName = data.getStringExtra("imgName");
             Log.e("rec", "图片路径：" + path);
             if (!TextUtils.isEmpty(path)) {
                 GlideShowUtils.showImage(this, isFront ? ivCardFront : ivCardBackground, path);

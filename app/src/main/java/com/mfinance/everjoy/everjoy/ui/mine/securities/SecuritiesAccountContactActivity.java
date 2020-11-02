@@ -104,11 +104,16 @@ public class SecuritiesAccountContactActivity extends BaseViewActivity {
         String persMailAddress = et_address_content.getText().toString();
         SecuritiesSharedPUtils.setPersMailAddress(persMailAddress);
 
-        if (persEducationLevelIndex != -1) {
-            SecuritiesSharedPUtils.setPersEducationLevel(persEducationLevelIndex);
+        if (persEducationLevelIndex == 4) {
+            String eduEditorContent = ll_editor_edu.getEditorContent();
+            if (!TextUtils.isEmpty(eduEditorContent)) {
+                SecuritiesSharedPUtils.setPersEducationLevelOther(eduEditorContent);
+            }
+        }else {
+            if (persEducationLevelIndex != -1) {
+                SecuritiesSharedPUtils.setPersEducationLevel(persEducationLevelIndex);
+            }
         }
-        String eduEditorContent = ll_editor_edu.getEditorContent();
-        SecuritiesSharedPUtils.setPersEducationLevelOther(eduEditorContent);
 
         SecuritiesSharedPUtils.setWorkState(workStateIndex);
 
@@ -164,7 +169,9 @@ public class SecuritiesAccountContactActivity extends BaseViewActivity {
         persEducationLevelIndex = SecuritiesSharedPUtils.getPersEducationLevel();
         if (persEducationLevelIndex == 4) {
             String persEducationLevelOther = SecuritiesSharedPUtils.getPersEducationLevelOther();
-            ll_editor_edu.setEditorContent(persEducationLevelOther);
+            if (!TextUtils.isEmpty(persEducationLevelOther)) {
+                ll_editor_edu.setEditorContent(persEducationLevelOther);
+            }
         } else {
             if (persEducationLevelIndex != -1) {
                 ll_editor_edu.setEditorContent(array_edu[persEducationLevelIndex]);

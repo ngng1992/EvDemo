@@ -80,16 +80,6 @@ public class CardIdZHActivity extends Activity implements View.OnClickListener {
         activity.startActivityForResult(intent, REQUEST_CODE);
     }
 
-    /**
-     * @return 结果文件路径
-     */
-    public static String getResult(Intent data) {
-        if (data != null) {
-            return data.getStringExtra("result");
-        }
-        return "";
-    }
-
     private CameraPreview cameraPreview;
     private TextView tvIdcardDesc;
     private View containerView;
@@ -288,44 +278,41 @@ public class CardIdZHActivity extends Activity implements View.OnClickListener {
      * @return 拍摄图片原始文件
      */
     private File getOriginalFile() {
-        String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(new Date());
-        File file = new File(FileConfig.FILE_IDCARDS);
+        String imageName = FileConfig.getImageName();
+        File file = new File(FileConfig.FILE_DIR);
         switch (type) {
             case TYPE_IDCARD_FRONT:
-                return new File(file, "idcard_front_" + timeStamp + ".jpg");
+                return new File(file, "idcard_front_" + imageName);
             case TYPE_IDCARD_BACK:
-                return new File(file, "idcard_back_" + timeStamp + ".jpg");
+                return new File(file, "idcard_back_" + imageName);
             case TYPE_COMPANY_PORTRAIT:
             case TYPE_COMPANY_LANDSCAPE:
-                return new File(file, "comp_" + timeStamp + ".jpg");
-            case TYPE_OTHER_PORTRAIT:
-            case TYPE_OTHER_LANDSCAPE:
-                return new File(file, "card_" + timeStamp + ".jpg");
+                return new File(file, "idcard_" + imageName);
         }
-        return new File(file, "picture_" + timeStamp + ".jpg");
+        return new File(file, "picture_" + imageName);
     }
 
     private String cropFilePath;
+    private String cropFileName;
 
     /**
      * @return 拍摄图片裁剪文件
      */
     private String getCropFile() {
-        String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault()).format(new Date());
+        String imageName = FileConfig.getImageName();
         switch (type) {
             case TYPE_IDCARD_FRONT:
-                cropFilePath = FileConfig.FILE_IDCARDS + "/idcard_crop_front_" + timeStamp + ".jpg";
+                cropFileName = "idcard_crop_front_" + imageName;
+                cropFilePath = FileConfig.FILE_IDCARDS + "/" + imageName;
                 break;
             case TYPE_IDCARD_BACK:
-                cropFilePath = FileConfig.FILE_IDCARDS + "/idcard_crop_back_" + timeStamp + ".jpg";
+                cropFileName = "idcard_crop_back_" + imageName;
+                cropFilePath = FileConfig.FILE_IDCARDS + "/" + imageName;
                 break;
             case TYPE_COMPANY_PORTRAIT:
             case TYPE_COMPANY_LANDSCAPE:
-                cropFilePath = FileConfig.FILE_IDCARDS + "/comp_crop_" + timeStamp + ".jpg";
-                break;
-            case TYPE_OTHER_PORTRAIT:
-            case TYPE_OTHER_LANDSCAPE:
-                cropFilePath = FileConfig.FILE_IDCARDS + "/card_crop_" + timeStamp + ".jpg";
+                cropFileName = "com_crop_" + imageName;
+                cropFilePath = FileConfig.FILE_IDCARDS + "/com_crop_" + imageName;
                 break;
             default:
                 break;
@@ -346,7 +333,8 @@ public class CardIdZHActivity extends Activity implements View.OnClickListener {
      */
     private void goBack() {
         Intent intent = new Intent();
-        intent.putExtra("result", cropFilePath);
+        intent.putExtra("imgPath", cropFilePath);
+        intent.putExtra("imgName", cropFileName);
         setResult(RESULT_CODE, intent);
         finish();
     }

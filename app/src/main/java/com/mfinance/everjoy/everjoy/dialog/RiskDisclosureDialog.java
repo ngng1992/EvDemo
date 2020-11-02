@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import com.mfinance.everjoy.R;
 import com.mfinance.everjoy.everjoy.dialog.base.BaseBottomDialog;
 
+import net.mfinance.commonlib.toast.ToastUtils;
+
 /**
  * 风险纰漏
  */
@@ -62,12 +64,19 @@ public class RiskDisclosureDialog extends BaseBottomDialog {
         tv_open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (cbx1 && cbx2) {
-                    if (onClickDialogOrFragmentViewListener != null) {
-                        onClickDialogOrFragmentViewListener.onClickView(tv_open, "");
-                    }
-                    dismiss();
+                if (!cbx1) {
+                    ToastUtils.showToast(mContext, R.string.str_checked);
+                    return;
                 }
+                if (!cbx2) {
+                    ToastUtils.showToast(mContext, R.string.str_checked);
+                    return;
+                }
+
+                if (onClickDialogOrFragmentViewListener != null) {
+                    onClickDialogOrFragmentViewListener.onClickView(tv_open, "");
+                }
+                dismiss();
             }
         });
     }

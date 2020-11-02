@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/whiteff"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:padding="@dimen/dp_16"
+            android:text="@string/ui_account_desc_title"
+            android:textColor="@color/gray1e"
+            android:textSize="@dimen/sp_18">
+
+        </TextView>
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="end"
+            android:padding="@dimen/dp_16"
+            android:src="@mipmap/btn_close">
+
+        </ImageView>
+
+    </RelativeLayout>
+
+    <View
+        style="@style/ViewLine"
+        android:layout_marginTop="@dimen/dp_16">
+
+    </View>
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_16"
+        android:text="弹出券商预设帐户说明内文 --------- 请提供内文"
+        android:textColor="@color/gray1e"
+        android:textSize="@dimen/sp_16">
+
+    </TextView>
+
+</LinearLayout>

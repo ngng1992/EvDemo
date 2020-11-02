@@ -1,14 +1,17 @@
 package com.mfinance.everjoy.everjoy.ui.mine.securities;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.mfinance.everjoy.R;
 import com.mfinance.everjoy.everjoy.base.BaseViewActivity;
+import com.mfinance.everjoy.everjoy.dialog.AccountDescriptionDialog;
 import com.mfinance.everjoy.everjoy.dialog.SelectBirthplaceDialog;
 import com.mfinance.everjoy.everjoy.dialog.impl.OnClickDialogOrFragmentViewListener;
+import com.mfinance.everjoy.everjoy.sp.SecuritiesSharedPUtils;
 import com.mfinance.everjoy.everjoy.ui.mine.ContactActivity;
 import com.mfinance.everjoy.everjoy.view.AccountEditorInfoView;
 
@@ -26,23 +29,27 @@ import butterknife.OnClick;
  */
 public class SelectAccountActivity extends BaseViewActivity {
 
-    @BindArray(R.array.array_account)
-    String[] accounts;
-    @BindArray(R.array.array_taxation_info)
-    String[] array_taxation_infos;
+    @BindArray(R.array.array_create_acc_type)
+    String[] array_create_acc_type;
+    @BindArray(R.array.array_tax_info)
+    String[] array_tax_info;
     @BindArray(R.array.country_area)
-    String[] country_areas;
+    String[] array_country_areas;
 
-    @BindView(R.id.ll_account)
-    AccountEditorInfoView ll_account;
-    @BindView(R.id.cbx_ch_stock)
-    CheckBox cbx_ch_stock;
-    @BindView(R.id.ll_taxation_info)
-    AccountEditorInfoView ll_taxation_info;
-    @BindView(R.id.ll_country_area)
-    AccountEditorInfoView ll_country_area;
-    @BindView(R.id.ll_taxation_code)
-    AccountEditorInfoView ll_taxation_code;
+    @BindView(R.id.ll_createAccType)
+    AccountEditorInfoView ll_createAccType;
+    @BindView(R.id.cbx_createAccStockHk)
+    CheckBox cbx_createAccStockHk;
+    @BindView(R.id.cbx_createAccStockUs)
+    CheckBox cbx_createAccStockUs;
+    @BindView(R.id.cbx_createAccStockA)
+    CheckBox cbx_createAccStockA;
+    @BindView(R.id.ll_taxInfo)
+    AccountEditorInfoView ll_taxInfo;
+    @BindView(R.id.ll_taxRegion)
+    AccountEditorInfoView ll_taxRegion;
+    @BindView(R.id.ll_taxTin)
+    AccountEditorInfoView ll_taxTin;
     @BindView(R.id.ll_w8_country_area)
     AccountEditorInfoView ll_w8_country_area;
     @BindView(R.id.tv_account_desc)
@@ -75,28 +82,77 @@ public class SelectAccountActivity extends BaseViewActivity {
         return R.layout.activity_select_account;
     }
 
+    private void saveToSP() {
+        SecuritiesSharedPUtils.setCreateAccTypeIndex(createAccTypeIndex);
+        SecuritiesSharedPUtils.setCreateAccStockHk(cbx_createAccStockHk.isChecked());
+        SecuritiesSharedPUtils.setCreateAccStockUs(cbx_createAccStockUs.isChecked());
+        SecuritiesSharedPUtils.setCreateAccStockA(cbx_createAccStockA.isChecked());
+
+        if (taxInfoIndex != -1) {
+            SecuritiesSharedPUtils.setTaxInfoIndex(taxInfoIndex);
+        }
+
+        if (taxRegionIndex != -1) {
+            SecuritiesSharedPUtils.setTaxRegionIndex(taxRegionIndex);
+        }
+
+        String taxTinEditorContent = ll_taxTin.getEditorContent();
+        if (!TextUtils.isEmpty(taxTinEditorContent)) {
+            SecuritiesSharedPUtils.setTaxTin(taxTinEditorContent);
+        }
+
+        if (taxRegionW8benIndex != -1) {
+            SecuritiesSharedPUtils.setTaxRegionW8benIndex(taxRegionW8benIndex);
+        }
+    }
+
     @Override
     protected void initView(View currentView) {
-        ll_account.setEditorContent(accounts[0]);
-        ll_account.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
+        createAccTypeIndex = SecuritiesSharedPUtils.getCreateAccTypeIndex();
+        ll_createAccType.setEditorContent(array_create_acc_type[createAccTypeIndex]);
+        ll_createAccType.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
                 showAccount();
             }
         });
-        ll_taxation_info.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
+
+        boolean createAccStockHk = SecuritiesSharedPUtils.getCreateAccStockHk();
+        cbx_createAccStockHk.setChecked(createAccStockHk);
+        boolean createAccStockUs = SecuritiesSharedPUtils.getCreateAccStockUs();
+        cbx_createAccStockUs.setChecked(createAccStockUs);
+        boolean createAccStockA = SecuritiesSharedPUtils.getCreateAccStockA();
+        cbx_createAccStockA.setChecked(createAccStockA);
+
+        taxInfoIndex = SecuritiesSharedPUtils.getTaxInfoIndex();
+        if (taxInfoIndex != -1) {
+            ll_taxInfo.setEditorContent(array_tax_info[taxInfoIndex]);
+        }
+        ll_taxInfo.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
                 showTaxationInfo();
             }
         });
-        ll_country_area.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
+
+        taxRegionIndex = SecuritiesSharedPUtils.getTaxRegionIndex();
+        ll_taxRegion.setEditorContent(array_country_areas[taxRegionIndex]);
+        ll_taxRegion.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
                 showCountryArea();
             }
         });
-        String editorContent = ll_taxation_code.getEditorContent();
+
+        String taxTin = SecuritiesSharedPUtils.getTaxTin();
+        if (!TextUtils.isEmpty(taxTin)) {
+            ll_taxTin.setEditorContent(taxTin);
+        }
+
+        taxRegionW8benIndex = SecuritiesSharedPUtils.getTaxRegionW8benIndex();
+        if (taxRegionW8benIndex != -1) {
+            ll_w8_country_area.setEditorContent(array_country_areas[taxRegionW8benIndex]);
+        }
         ll_w8_country_area.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
@@ -123,18 +179,19 @@ public class SelectAccountActivity extends BaseViewActivity {
                 .create();
     }
 
-    private int selectW8CountryAreaIndex = 0;
+    private int taxRegionW8benIndex = -1;
 
     /**
      * w8税务居民-国家/地区
      */
     private void showW8CountryArea() {
-        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this, selectW8CountryAreaIndex, Arrays.asList(country_areas));
+        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this,
+                taxRegionW8benIndex, Arrays.asList(array_country_areas));
         dialog.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
-                selectW8CountryAreaIndex = object == null ? 0 : (int) object;
-                String content = country_areas[selectW8CountryAreaIndex];
+                taxRegionW8benIndex = object == null ? 0 : (int) object;
+                String content = array_country_areas[taxRegionW8benIndex];
                 ll_w8_country_area.setEditorContent(content);
             }
         });
@@ -142,55 +199,61 @@ public class SelectAccountActivity extends BaseViewActivity {
     }
 
 
-    private int selectCountryAreaIndex = 0;
+    private int taxRegionIndex = -1;
 
     /**
      * 税务-国家
      */
     private void showCountryArea() {
-        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this, selectCountryAreaIndex, Arrays.asList(country_areas));
+        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this,
+                taxRegionIndex, Arrays.asList(array_country_areas));
         dialog.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
-                selectCountryAreaIndex = object == null ? 0 : (int) object;
-                String content = country_areas[selectCountryAreaIndex];
-                ll_country_area.setEditorContent(content);
+                taxRegionIndex = object == null ? 0 : (int) object;
+                String content = array_country_areas[taxRegionIndex];
+                ll_taxRegion.setEditorContent(content);
             }
         });
         dialog.show();
     }
 
-    private int selectTaxationInfoIndex = 0;
+    private int taxInfoIndex = -1;
 
     /**
      * 税务信息
      */
     private void showTaxationInfo() {
-        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this, selectTaxationInfoIndex, Arrays.asList(array_taxation_infos));
+        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this,
+                taxInfoIndex, Arrays.asList(array_tax_info));
         dialog.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
-                selectTaxationInfoIndex = object == null ? 0 : (int) object;
-                String content = array_taxation_infos[selectTaxationInfoIndex];
-                ll_taxation_info.setEditorContent(content);
+                taxInfoIndex = object == null ? 0 : (int) object;
+                String content = array_tax_info[taxInfoIndex];
+                ll_taxInfo.setEditorContent(content);
+
+                // 我不是...，显示国家选择
+                ll_taxRegion.setVisibility(taxInfoIndex == 1 ? View.VISIBLE : View.GONE);
             }
         });
         dialog.show();
     }
 
-    private int selectAccountIndex = 0;
+    private int createAccTypeIndex = 0;
 
     /**
      * 账户
      */
     private void showAccount() {
-        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this, selectAccountIndex, Arrays.asList(accounts));
+        SelectBirthplaceDialog dialog = new SelectBirthplaceDialog(this,
+                createAccTypeIndex, Arrays.asList(array_create_acc_type));
         dialog.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
             @Override
             public void onClickView(View view, Object object) {
-                selectAccountIndex = object == null ? 0 : (int) object;
-                String content = accounts[selectAccountIndex];
-                ll_account.setEditorContent(content);
+                createAccTypeIndex = object == null ? 0 : (int) object;
+                String content = array_create_acc_type[createAccTypeIndex];
+                ll_createAccType.setEditorContent(content);
             }
         });
         dialog.show();
@@ -202,14 +265,61 @@ public class SelectAccountActivity extends BaseViewActivity {
             case R.id.iv_back:
                 onBackPressed();
                 break;
-                case R.id.tv_account_desc:
+            case R.id.tv_account_desc:
                 // TODO 彈出券商預設帳戶說明內文
+                AccountDescriptionDialog accountDescriptionDialog = new AccountDescriptionDialog(this);
+                accountDescriptionDialog.show();
                 break;
             case R.id.tv_prev:
-                 onBackPressed();
+                onBackPressed();
                 break;
             case R.id.tv_next:
-                showNextInfo();
+                String taxInfoEditorContent = ll_taxInfo.getEditorContent();
+                if (TextUtils.isEmpty(taxInfoEditorContent)) {
+                    ToastUtils.showToast(this, ll_taxInfo.getLeftAndHintContentForTip());
+                    return;
+                }
+
+                if (taxInfoIndex == 1) {
+                    String taxRegionEditorContent = ll_taxRegion.getEditorContent();
+                    if (TextUtils.isEmpty(taxRegionEditorContent)) {
+                        ToastUtils.showToast(this, ll_taxRegion.getLeftAndHintContentForTip());
+                        return;
+                    }
+                }
+
+                if (createAccTypeIndex == 0) {
+                    if (!cbx_desc1.isChecked()) {
+                        ToastUtils.showToast(this, R.string.str_checked);
+                        return;
+                    }
+                    if (!cbx_desc2.isChecked()) {
+                        ToastUtils.showToast(this, R.string.str_checked);
+                        return;
+                    }
+                }
+                if (cbx_createAccStockA.isChecked()) {
+                    if (!cbx_desc2.isChecked()) {
+                        ToastUtils.showToast(this, R.string.str_checked);
+                        return;
+                    }
+                }
+                if (!cbx_desc3.isChecked()) {
+                    ToastUtils.showToast(this, R.string.str_checked);
+                    return;
+                }
+                if (!cbx_desc4.isChecked()) {
+                    ToastUtils.showToast(this, R.string.str_checked);
+                    return;
+                }
+                if (!cbx_desc5.isChecked()) {
+                    ToastUtils.showToast(this, R.string.str_checked);
+                    return;
+                }
+
+                // TODO 風險披露聲明
+                saveToSP();
+                startActivity(new Intent(this, RiskDisclosureActivity.class));
                 break;
             default:
                 break;
@@ -223,32 +333,4 @@ public class SelectAccountActivity extends BaseViewActivity {
         finish();
     }
 
-    /**
-     * 保存到本地
-     */
-    private void saveToSP() {
-
-    }
-
-    private void showNextInfo() {
-        if (selectAccountIndex == 0) {
-            if (!cbx_desc1.isChecked()) {
-                ToastUtils.showToast(this, R.string.asa_error_info);
-                return;
-            }
-            if (!cbx_desc2.isChecked()) {
-                ToastUtils.showToast(this, R.string.asa_error_info);
-                return;
-            }
-        }
-        if (cbx_ch_stock.isChecked()) {
-            if (!cbx_desc2.isChecked()) {
-                ToastUtils.showToast(this, R.string.asa_error_info);
-                return;
-            }
-        }
-        // TODO 風險披露聲明
-        saveToSP();
-        startActivity(new Intent(this, RiskDisclosureActivity.class));
-    }
 }

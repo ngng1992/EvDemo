@@ -1,6 +1,7 @@
 package com.mfinance.everjoy.everjoy.ui.mine.securities;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,6 +12,7 @@ import com.mfinance.everjoy.R;
 import com.mfinance.everjoy.everjoy.base.BaseViewActivity;
 import com.mfinance.everjoy.everjoy.dialog.RiskDisclosureDialog;
 import com.mfinance.everjoy.everjoy.dialog.impl.OnClickDialogOrFragmentViewListener;
+import com.mfinance.everjoy.everjoy.sp.SecuritiesSharedPUtils;
 import com.mfinance.everjoy.everjoy.ui.mine.ContactActivity;
 import com.ywl5320.wlmedia.WlMedia;
 import com.ywl5320.wlmedia.enums.WlComplete;
@@ -149,7 +151,16 @@ public class RiskDisclosureActivity extends BaseViewActivity {
                 }
                 break;
             case R.id.tv_next:
-                RiskDisclosureDialog riskDisclosureDialog = new RiskDisclosureDialog(this, "xiao", "ffffff");
+                String name;
+                String persNameEnglish = SecuritiesSharedPUtils.getPersNameEnglish();
+                String persNameChinese = SecuritiesSharedPUtils.getPersNameChinese();
+                if (!TextUtils.isEmpty(persNameEnglish)) {
+                    name = persNameEnglish;
+                }else {
+                    name = persNameChinese;
+                }
+                String persIdNo = SecuritiesSharedPUtils.getPersIdNo();
+                RiskDisclosureDialog riskDisclosureDialog = new RiskDisclosureDialog(this, name, persIdNo);
                 riskDisclosureDialog.setOnClickDialogOrFragmentViewListener(new OnClickDialogOrFragmentViewListener() {
                     @Override
                     public void onClickView(View view, Object object) {
