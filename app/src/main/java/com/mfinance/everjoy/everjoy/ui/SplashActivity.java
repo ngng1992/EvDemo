@@ -70,8 +70,8 @@ public class SplashActivity extends BaseEverjoyActivity {
             @Override
             public void onHasPermission(boolean hasPermission) {
                 if (hasPermission) {
-//                    startActivity(new Intent(SplashActivity.this, InitialActivity.class));
-                    startActivity(new Intent(SplashActivity.this, RegisterSuccessOpenAccountActivity.class));
+                    startActivity(new Intent(SplashActivity.this, InitialActivity.class));
+//                    startActivity(new Intent(SplashActivity.this, RegisterSuccessOpenAccountActivity.class));
                     finish();
                 }
 //                if (hasPermission) {

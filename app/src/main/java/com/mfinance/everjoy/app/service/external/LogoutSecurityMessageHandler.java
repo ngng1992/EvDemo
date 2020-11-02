@@ -28,6 +28,8 @@ public class LogoutSecurityMessageHandler extends ServerMessageHandler {
 
 			if("success".equals(msgObj.getField(Protocol.LoginResponse.STATUS))){
 				service.app.bSecurityLogon = false;
+				service.app.setSecLoginID(null);
+				service.app.setSecPasswordToken(null);
 				service.broadcast(ServiceFunction.ACT_GO_TO_MAIN_PAGE, null);
 			}
 			else{

@@ -60,6 +60,26 @@
             android:orientation="horizontal">
 
             <EditText
+                android:id="@+id/et_oldpwd"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dp_16"
+                android:layout_marginRight="@dimen/dp_16"
+                android:layout_weight="1"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="@string/arsp_input_pwd"
+                android:inputType="textEmailAddress"
+                android:paddingBottom="@dimen/dp_8"
+                android:paddingTop="@dimen/dp_8"
+                android:textColor="@color/gray1e"
+                android:textColorHint="@color/gray99"
+                android:textSize="@dimen/sp_16">
+
+            </EditText>
+
+            <EditText
                 android:id="@+id/et_newpwd"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

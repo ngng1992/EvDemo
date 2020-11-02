@@ -24,20 +24,36 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.mfinance.everjoy.R;
+import com.mfinance.everjoy.app.CompanySettings;
 import com.mfinance.everjoy.app.LocaleUtility;
 import com.mfinance.everjoy.app.MobileTraderApplication;
+import com.mfinance.everjoy.app.constant.Protocol;
 import com.mfinance.everjoy.app.constant.ServiceFunction;
+import com.mfinance.everjoy.app.model.DataRepository;
+import com.mfinance.everjoy.app.model.LoginProgress;
+import com.mfinance.everjoy.app.model.LoginSecurityProgress;
+import com.mfinance.everjoy.app.pojo.ConnectionStatus;
 import com.mfinance.everjoy.app.service.FxMobileTraderService;
+import com.mfinance.everjoy.app.service.internal.PriceAgentConnectionProcessor;
+import com.mfinance.everjoy.everjoy.dialog.PwdErrorDialog;
+import com.mfinance.everjoy.everjoy.dialog.PwdErrorFiveDialog;
 import com.mfinance.everjoy.everjoy.ui.home.MainActivity;
+import com.mfinance.everjoy.everjoy.ui.mine.FingeridOpenActivity;
 import com.mfinance.everjoy.everjoy.ui.mine.LoginActivity;
 import com.mfinance.everjoy.everjoy.ui.mine.LoginVerificationActivity;
 import com.mfinance.everjoy.everjoy.ui.mine.ResetPwdActivity;
 import com.mfinance.everjoy.everjoy.utils.ToolsUtils;
 import com.umeng.analytics.MobclickAgent;
 
+import net.mfinance.commonlib.share.Utils;
+import net.mfinance.commonlib.toast.ToastUtils;
+
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.function.Consumer;
 
 /**
@@ -62,6 +78,8 @@ public class BaseEverjoyActivity extends AppCompatActivity implements ServiceCon
             changeLocale.accept(locale);
         }
     };
+
+    Timer loginTimer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -259,24 +277,60 @@ public class BaseEverjoyActivity extends AppCompatActivity implements ServiceCon
                     break;
                 case ServiceFunction.ACT_DISCONNECT:
                     try {
-                        boolean isLogin = msg.getData().getBoolean("login", false);
-                        if (!isLogin) {
-                            intent = new Intent(BaseEverjoyActivity.this, LoginActivity.class);
+                        if (!app.isDuplicatedLogin && app.getPasswordToken() != null && app.getLoginID() != null && app.disconnectLevel >= 2){ //Reconnect to Level 2
+                            if (dialog != null) {
+                                dialog.dismiss();
+                                dialog = null;
+                            }
+                            app.isAutoRelogin = true;
+                            //Autoreconnect level 2 login
+                            LoginProgress.reset();
+                            if (loginTimer != null) {
+                                loginTimer.cancel();
+                            }
+                            loginTimer = new Timer();
+                            loginTimer.schedule(new Task(true), 10 * 1000);
+
+                            Thread.sleep(2000);//Wait 2 sec before reconnect
+
+                            if (app.getLoginType() == -1) {
+                                Runnable r = new moveToLogin(true, null, null);
+                                (new Thread(r)).start();
+                            } else {
+                                Runnable r = new moveToLogin(app.getLoginType(), app.getLoginID(), app.getOpenID());
+                                (new Thread(r)).start();
+                            }
+                        }
+                        else {
+                            app.isDuplicatedLogin = false;
+                            if (dialog != null) {
+                                dialog.dismiss();
+                                dialog = null;
+                            }
+                            intent = new Intent(BaseEverjoyActivity.this, MainActivity.class);
                             intent.putExtras(msg.getData());
                             intent.putExtra("disconnected", true);
                             startActivity(intent);
                             BaseEverjoyActivity.this.finish();
-                        } else {
-//                            if (dialog != null) {
-//                                dialog.dismiss();
-//                                dialog = null;
-//                            }
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    break;
+                case ServiceFunction.ACT_RECONNECT_SECURITY:
+                    if (app.getSecPasswordToken() != null && app.getSecLoginID() != null && app.bLogon && app.disconnectLevel >= 3){ //Reconnect to Level 2
+                        app.isAutoRelogin = true;
+                        //Autoreconnect level 3 login
+                        LoginSecurityProgress.reset();
+                        if (loginTimer != null) {
+                            loginTimer.cancel();
+                        }
+                        loginTimer = new Timer();
+                        loginTimer.schedule(new Task(true), 10 * 1000);
 
-
+                        Runnable r = new moveToLogin(app.getSecLoginID(), app.getSecPasswordToken(), true);
+                        (new Thread(r)).start();
+                    }
                     break;
                 case ServiceFunction.ACT_GO_TO_LOGIN:
                     //System.out.println("-------------------------------------- finish 1");
@@ -325,9 +379,7 @@ public class BaseEverjoyActivity extends AppCompatActivity implements ServiceCon
                         public void run() {
                             String sFinish = msg.getData().getString(ServiceFunction.FINISH, "");
                             String sDialogMsg = msg.getData().getString(ServiceFunction.MESSAGE);
-                            String sDialogTitle = msg.getData().getString(ServiceFunction.TITLE);
                             AlertDialog.Builder builder1 = new AlertDialog.Builder(BaseEverjoyActivity.this);
-                            builder1.setTitle(sDialogTitle);
                             builder1.setMessage(sDialogMsg);
 
                             builder1.setPositiveButton(
@@ -380,8 +432,8 @@ public class BaseEverjoyActivity extends AppCompatActivity implements ServiceCon
 
                 case ServiceFunction.ACT_GO_TO_MAIN_PAGE:
                     // TODO 默认进入首页
-//                    intent = new Intent(BaseEverjoyActivity.this, MainActivity.class);
-                    intent = new Intent(BaseEverjoyActivity.this, LoginActivity.class);
+                    intent = new Intent(BaseEverjoyActivity.this, MainActivity.class);
+//                    intent = new Intent(BaseEverjoyActivity.this, LoginActivity.class);
                     intent.putExtras(msg.getData());
                     startActivity(intent);
                     break;
@@ -397,6 +449,36 @@ public class BaseEverjoyActivity extends AppCompatActivity implements ServiceCon
                     startActivity(intent);
                     break;
 
+                case ServiceFunction.ACT_GO_TO_FINGER_ID_PAGE:
+                    intent = new Intent(BaseEverjoyActivity.this, FingeridOpenActivity.class);
+                    intent.putExtras(msg.getData());
+                    startActivity(intent);
+                    break;
+
+                case ServiceFunction.ACT_SHOW_FAIL_PASSWORD_DIALOG:
+                    int pwdErrorCount = Integer.parseInt(msg.getData().getString(ServiceFunction.COUNT));
+                    if (pwdErrorCount >= 5) {
+                        PwdErrorFiveDialog pwdErrorFiveDialog = new PwdErrorFiveDialog(BaseEverjoyActivity.this);
+                        pwdErrorFiveDialog.show();
+                        return;
+                    }
+                    else if (pwdErrorCount >=3 &&  pwdErrorCount <5) {
+                        PwdErrorDialog pwdErrorDialog = new PwdErrorDialog(BaseEverjoyActivity.this, 5 - pwdErrorCount);
+                        pwdErrorDialog.show();
+                    }
+                    else {
+                        ToastUtils.showToast(BaseEverjoyActivity.this, R.string.msg_306);
+                    }
+                    break;
+                case ServiceFunction.ACT_LOGOUT_SECURITY:
+                    Message loginMsg = Message.obtain(null, ServiceFunction.SRV_LOGOUT_SECURITY);
+                    loginMsg.replyTo = mServiceMessengerHandler;
+                    try {
+                        mService.send(loginMsg);
+                    } catch (RemoteException e) {
+                        Log.e("login", "Unable to send logout message", e.fillInStackTrace());
+                    }
+                    break;
                 default:
                     handleByChild(msg);
                     break;
@@ -510,4 +592,236 @@ public class BaseEverjoyActivity extends AppCompatActivity implements ServiceCon
 
     protected static ProgressDialog dialog;
 
+    public class Task extends TimerTask {
+        private boolean autoLogin = false;
+
+        public Task(){
+            System.out.println("Task 1");
+        }
+
+        public Task(boolean autoLogin){
+            this.autoLogin = autoLogin;
+        }
+
+
+        @Override
+        public void run() {
+            if (dialog != null && dialog.isShowing()) {
+                boolean isFinished = false;
+
+                // Timeout occur
+                int RoundRobinIndex = 0;
+                int iTrialIndex = 0;
+
+
+                if (CompanySettings.checkProdServer() == 1) {
+//                    app.iTrialIndexProd = (app.iTrialIndexProd + 1) % app.alLoginInfoProd.size();
+//                    iTrialIndex = app.iTrialIndexProd;
+//                    RoundRobinIndex = app.RoundRobinIndexProd;
+                }
+
+                //if (CompanySettings.ENABLE_FATCH_SERVER || CompanySettings.FOR_TEST || iTrialIndex == RoundRobinIndex) {
+                if (app.autoLoginRetryCount >= 10 || app.bLogon) {
+                    app.autoLoginRetryCount = 0;
+                    isFinished = true;
+                    app.isLoading = false;
+                    // If IP is fetch from Server or OTX Mode, or RR Trial has finished
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            dialog.dismiss();
+                            dialog = null;
+                            // 登录失败
+                            //showPwdError();
+                        }
+                    });
+                }
+
+//                Message msg = Message.obtain(null, ServiceFunction.SRV_LOGOUT);
+//                msg.replyTo = mServiceMessengerHandler;
+//                try {
+//                    Bundle data = new Bundle();
+//                    data.putBoolean(Protocol.Logout.REDIRECT, false);
+//                    msg.setData(data);
+//                    mService.send(msg);
+//                } catch (RemoteException e) {
+//                    Log.e(TAG, "Unable to send login message", e.fillInStackTrace());
+//                }
+
+                if (isFinished == false) {
+                    // Wait 2 seconds to let the previous connection close
+                    try {
+                        Thread.sleep(2000);
+                        if (!autoLogin) {
+                            Runnable r = new BaseEverjoyActivity.moveToLogin();
+                            (new Thread(r)).start();
+                            loginTimer.schedule(new BaseEverjoyActivity.Task(), 60 * 1000);
+                        }
+                        else {
+                            Runnable r = new BaseEverjoyActivity.moveToLogin(true, null,null);
+                            (new Thread(r)).start();
+                            loginTimer.schedule(new BaseEverjoyActivity.Task(true), 10 * 1000);
+                        }
+
+                        app.autoLoginRetryCount ++;
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            } else {
+                // The login progress is interrupted, change the isLoading to false
+                app.isLoading = false;
+            }
+
+        }
+    }
+
+    public class moveToLogin implements Runnable {
+        private int oType;
+        private boolean bToken;
+        private boolean isSecurityLogin;
+        private String strEmail;
+        private String strPwd;
+        private String userName;
+        private String openID;
+
+        public moveToLogin(){
+            System.out.println("moveToLogin 1");
+        }
+
+        public moveToLogin(boolean tokenLogin, String strEmail, String strPwd) {
+            System.out.println("moveToLogin 2");
+            this.isSecurityLogin = false;
+            this.oType = -1;
+            this.bToken = tokenLogin;
+            this.strEmail = strEmail;
+            this.strPwd = strPwd;
+        }
+
+        public moveToLogin(int oType, String userName, String openID) {
+            System.out.println("moveToLogin 3");
+            this.isSecurityLogin = false;
+            this.oType = oType;
+            this.userName = userName;
+            this.openID = openID;
+        }
+
+        public moveToLogin(String userName, String strPwd, boolean tokenLogin) {
+            System.out.println("moveToLogin 4");
+            this.bToken = tokenLogin;
+            this.isSecurityLogin = true;
+            this.userName = userName;
+            this.strPwd = strPwd;
+        }
+
+        public void run() {
+            try {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (dialog == null)
+                            dialog = ProgressDialog.show(BaseEverjoyActivity.this, "", res.getString(R.string.please_wait), true);
+                    }
+                });
+
+                DataRepository.getInstance().clear();
+                if (ToolsUtils.checkNetwork(app)) {
+                    Thread thread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            if (!isSecurityLogin) {
+                                ConnectionStatus connectionStatus = app.data.getGuestPriceAgentConnectionStatus();
+                                switch (connectionStatus) {
+                                    case CONNECTING:
+                                    case CONNECTED:
+                                        Message message = Message.obtain(null, ServiceFunction.SRV_GUEST_PRICE_AGENT);
+                                        message.arg1 = PriceAgentConnectionProcessor.ActionType.DISCONNECT.getValue();
+                                        try {
+                                            mService.send(message);
+                                        } catch (Exception ex) {
+
+                                        }
+                                        Message message1 = Message.obtain(null, ServiceFunction.SRV_GUEST_PRICE_AGENT);
+                                        message1.arg1 = PriceAgentConnectionProcessor.ActionType.RESET.getValue();
+                                        try {
+                                            mService.send(message1);
+                                        } catch (Exception ex) {
+
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+
+                                if (oType == -1) {
+                                    if (bToken)
+                                        login(oType, app.getLoginID(), "");
+                                    else
+                                        login(oType, strEmail, strPwd);
+                                } else {
+                                    login(oType, userName, openID);
+                                }
+                            } else {
+                                if (bToken && app.isAutoRelogin)
+                                    loginSecurity(app.getSecLoginID(), null);
+                                else
+                                    loginSecurity(userName, strPwd);
+                            }
+                        }
+                    });
+                    thread.start();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void login(int oType, String strID, String strPassword) {
+
+        Message loginMsg = Message.obtain(null, ServiceFunction.SRV_LOGIN);
+        loginMsg.replyTo = mServiceMessengerHandler;
+
+        loginMsg.getData().putString(ServiceFunction.LOGIN_TYPE, Integer.toString(oType));
+
+        loginMsg.getData().putString(ServiceFunction.LOGIN_LEVEL, "2");
+        if (oType == -1) {
+            loginMsg.getData().putString(ServiceFunction.LOGIN_EMAIL, strID);
+            loginMsg.getData().putString(ServiceFunction.LOGIN_PASSWORD, strPassword);
+            loginMsg.getData().putString(ServiceFunction.LOGIN_PASSWORDTOKEN, app.getPasswordToken());
+        } else {
+            loginMsg.getData().putString(ServiceFunction.LOGIN_OTYPE, Integer.toString(oType));
+            loginMsg.getData().putString(ServiceFunction.LOGIN_USERNAME, strID);
+            loginMsg.getData().putString(ServiceFunction.LOGIN_OPENID, strPassword);
+        }
+
+        loginMsg.getData().putInt(ServiceFunction.LOGIN_CONN_INDEX, -1);
+
+        try {
+            mService.send(loginMsg);
+        } catch (RemoteException e) {
+            Log.e("login", "Unable to send login message", e.fillInStackTrace());
+        }
+    }
+
+    public void loginSecurity(String strID, String strPassword) {
+
+        Message loginMsg = Message.obtain(null, ServiceFunction.SRV_LOGIN);
+        loginMsg.replyTo = mServiceMessengerHandler;
+
+        loginMsg.getData().putString(ServiceFunction.LOGIN_LEVEL, "3");
+
+        loginMsg.getData().putString(ServiceFunction.LOGIN_USERNAME, strID);
+        loginMsg.getData().putString(ServiceFunction.LOGIN_PASSWORD, strPassword);
+        if (strPassword == null)
+            loginMsg.getData().putString(ServiceFunction.LOGIN_PASSWORDTOKEN, app.getSecPasswordToken());
+
+        try {
+            mService.send(loginMsg);
+        } catch (RemoteException e) {
+            Log.e("login", "Unable to send login message", e.fillInStackTrace());
+        }
+    }
 }

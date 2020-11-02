@@ -42,6 +42,7 @@ public class ForgotPasswordOTPRequestProcessor implements MessageProcessor {
                         super.onSuccessBody(baseBean);
                         System.out.println("onSuccessBody " + baseBean.getMessage());
                         service.broadcast(ServiceFunction.ACT_INVISIBLE_POP_UP, null);
+                        service.broadcast(ServiceFunction.ACT_GO_TO_LOGIN, null);
                     }
 
                     @Override

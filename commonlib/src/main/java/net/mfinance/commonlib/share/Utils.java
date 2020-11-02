@@ -21,6 +21,13 @@ public class Utils {
         public static int QQ = 7;
     }
 
+    public static class LevelType{
+        public static String LEVEL2 = "2";
+        public static String LEVEL3 = "3";
+        public static String LEVEL3_OTP_LOGIN = "3.1";
+        public static String LEVEL3_FIRST_LOGIN = "3.2";
+    }
+
     /**
      * QQ
      */

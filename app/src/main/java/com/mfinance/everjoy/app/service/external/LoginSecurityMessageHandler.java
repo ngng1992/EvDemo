@@ -10,6 +10,8 @@ import com.mfinance.everjoy.app.service.FxMobileTraderService;
 import com.mfinance.everjoy.app.util.MessageMapping;
 import com.mfinance.everjoy.app.util.MessageObj;
 
+import net.mfinance.commonlib.share.Utils;
+
 public class LoginSecurityMessageHandler extends ServerMessageHandler {
 
 	public LoginSecurityMessageHandler(FxMobileTraderService service) {
@@ -26,32 +28,56 @@ public class LoginSecurityMessageHandler extends ServerMessageHandler {
 			// success表示成功
 			Log.e("login", "登录成功 ============================ field1 = " + field1);
 
-			if("success".equals(msgObj.getField(Protocol.LoginResponse.STATUS))){
-				//service.app.bSecurityLogon = true;
-				String strPrefix = msgObj.getField(Protocol.LoginResponse.PREFIX);
-				Bundle data = new Bundle();
-				data.putString(ServiceFunction.LOGIN_SEC_EMAIL, "noreply@m-finance.net");
-				data.putString(ServiceFunction.LOGIN_SEC_PREFIX, strPrefix);
-				service.broadcast(ServiceFunction.ACT_GO_TO_OTP_LOGIN_PAGE, data);
-			}
-			else{
-				service.app.isLoading = false;
-				service.app.data.setStrSecurityLoginID(null);
-
-				String strMsg = msgObj.getField(Protocol.LoginResponse.MSG);
-				String strToastMsg = "";
-				if (strMsg.equals("-1")){
-					strToastMsg = MessageMapping.getStringById(service.getRes(), "login_sec_fail_1", service.app.locale);
-				}else if (strMsg.equals("-2")){
-					strToastMsg = MessageMapping.getStringById(service.getRes(), "login_sec_fail_2", service.app.locale);
-				}else if (strMsg.equals("-3")){
-					strToastMsg = MessageMapping.getStringById(service.getRes(), "login_sec_fail_3", service.app.locale);
+			if (service.app.isAutoRelogin){
+				service.app.isAutoRelogin = false;
+				if ("success".equals(msgObj.getField(Protocol.LoginResponse.STATUS))) {
+					service.app.bSecurityLogon = true;
+					Bundle data = new Bundle();
+					data.putString(ServiceFunction.MESSAGE, "Reconnected");
+					service.broadcast(ServiceFunction.ACT_SHOW_TOAST, data);
+					service.broadcast(ServiceFunction.ACT_INVISIBLE_POP_UP, null);
 				}
-				Bundle data = new Bundle();
-				data.putString(ServiceFunction.MESSAGE, strToastMsg);
-				service.broadcast(ServiceFunction.ACT_SHOW_TOAST, data);
-				service.broadcast(ServiceFunction.ACT_INVISIBLE_POP_UP, null);
-				service.broadcast(ServiceFunction.ACT_UPDATE_UI, null);
+				else {
+					service.app.bSecurityLogon = false;
+					service.app.setSecLoginID(null);
+					service.app.setSecPasswordToken(null);
+					service.broadcast(ServiceFunction.ACT_INVISIBLE_POP_UP, null);
+					service.broadcast(ServiceFunction.ACT_GO_TO_MAIN_PAGE, null);
+				}
+			}
+			else {
+				if ("success".equals(msgObj.getField(Protocol.LoginResponse.STATUS))) {
+					//service.app.bSecurityLogon = true;
+					String firstLogin = msgObj.getField(Protocol.LoginResponse.FIRST_LOGIN_CHANGE_PWD);
+					service.app.bResetSecPassword = firstLogin.equals("1");
+					String pwdToken = msgObj.getField(Protocol.LoginResponse.PASSWORD_TOKEN);
+					service.app.tempSecPwdToken = pwdToken;
+
+					String strPrefix = msgObj.getField(Protocol.LoginResponse.PREFIX);
+					Bundle data = new Bundle();
+					data.putString(ServiceFunction.LOGIN_SEC_EMAIL, "noreply@m-finance.net");
+					data.putString(ServiceFunction.LOGIN_SEC_PREFIX, strPrefix);
+					service.broadcast(ServiceFunction.ACT_GO_TO_OTP_LOGIN_PAGE, data);
+
+				} else {
+					service.app.isLoading = false;
+					service.app.setSecLoginID(null);
+
+					String strMsg = msgObj.getField(Protocol.LoginResponse.MSG);
+					String strToastMsg = "";
+					if (strMsg.equals("-1")) {
+						strToastMsg = MessageMapping.getStringById(service.getRes(), "login_sec_fail_1", service.app.locale);
+					} else if (strMsg.equals("-2")) {
+						strToastMsg = MessageMapping.getStringById(service.getRes(), "login_sec_fail_2", service.app.locale);
+					} else if (strMsg.equals("-3")) {
+						strToastMsg = MessageMapping.getStringById(service.getRes(), "login_sec_fail_3", service.app.locale);
+					}
+					Bundle data = new Bundle();
+					data.putString(ServiceFunction.MESSAGE, strToastMsg);
+					service.broadcast(ServiceFunction.ACT_SHOW_TOAST, data);
+					service.broadcast(ServiceFunction.ACT_INVISIBLE_POP_UP, null);
+					service.broadcast(ServiceFunction.ACT_UPDATE_UI, null);
+				}
 			}
 			service.app.isLoading = false;
 			

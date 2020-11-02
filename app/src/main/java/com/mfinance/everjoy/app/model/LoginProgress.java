@@ -47,18 +47,32 @@ public class LoginProgress
 					@Override
 					public void run() {
 						try {
-							int defaultPage = service.app.getDefaultPage();
-							// 默认页defaultPage = 4；
-							Log.e("login", "登录成功后 默认页 defaultPage = " + defaultPage);
+							if (!service.app.isAutoRelogin) {
+								int defaultPage = service.app.getDefaultPage();
+								// 默认页defaultPage = 4；
+								Log.e("login", "登录成功后 默认页 defaultPage = " + defaultPage);
 
-							Message msg;
-							msg = Message.obtain(null, ServiceFunction.SRV_DEFAULT_LOGIN_PAGE);
-							Log.e("login", "msg = Message.obtain(null, defaultPage)");
+								Message msg;
+								msg = Message.obtain(null, ServiceFunction.SRV_DEFAULT_LOGIN_PAGE);
+								Log.e("login", "msg = Message.obtain(null, defaultPage)");
 
-							int what = msg.what;
-							Log.e("login", "登录成功后msg的what = " + what);
+								int what = msg.what;
+								Log.e("login", "登录成功后msg的what = " + what);
 
-							service.handler.handleMessage(msg);
+								service.handler.handleMessage(msg);
+							}
+							else{
+								if (service.app.getSecLoginID() != null && service.app.getSecPasswordToken() != null){
+									//Reconnect to level 3
+									service.broadcast(ServiceFunction.ACT_RECONNECT_SECURITY, null);
+									service.broadcast(ServiceFunction.ACT_INVISIBLE_POP_UP, null);
+								}
+								else {
+									//Reconnect login level completed
+									service.app.isAutoRelogin = false;
+									service.broadcast(ServiceFunction.ACT_INVISIBLE_POP_UP, null);
+								}
+							}
 						} catch (Exception e) {
 							e.printStackTrace();
 						}

@@ -1,6 +1,8 @@
 package com.mfinance.everjoy.app.service.external;
 
 import android.os.Bundle;
+import android.os.Message;
+import android.os.RemoteException;
 import android.util.Log;
 
 import com.mfinance.everjoy.app.bo.SystemMessage;
@@ -43,6 +45,7 @@ public class SystemMessageHandler extends ServerMessageHandler {
 		}
 
 		if (strMsgCode.equals("8001")) {
+			service.app.isDuplicatedLogin = true;
 			Bundle data = new Bundle();
 			String sMsg = MessageMapping.getMessageByCode(service.getRes(), sCode,service.app.locale);
 			data.putString(ServiceFunction.MESSAGE, sMsg);
@@ -53,8 +56,7 @@ public class SystemMessageHandler extends ServerMessageHandler {
 			String sMsg = MessageMapping.getMessageByCode(service.getRes(), sCode,service.app.locale);
 			data.putString(ServiceFunction.MESSAGE, sMsg);
 			service.broadcast(ServiceFunction.ACT_SHOW_TOAST, data);
-			service.broadcast(ServiceFunction.ACT_DISCONNECT_DUPLICATE, null);
-			service.broadcast(ServiceFunction.ACT_GO_TO_MAIN_PAGE, null);
+			service.broadcast(ServiceFunction.ACT_LOGOUT_SECURITY, null);
 		}
 		
 //		String sMsg = "";

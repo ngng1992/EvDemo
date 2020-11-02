@@ -74,6 +74,7 @@ public class DataRepository {
 
 	private String strEmail;
 	private String strSecurityLoginID;
+
 	/**
 	 * Server URL
 	 */
@@ -556,13 +557,6 @@ public class DataRepository {
 		this.strEmail = strEmail;
 	}
 
-	public String getStrSecurityLoginID() {
-		return strSecurityLoginID;
-	}
-
-	public void setStrSecurityLoginID(String strID) {
-		this.strSecurityLoginID = strID;
-	}
 	/**
 	 * Get server URL
 	 * @return server URL

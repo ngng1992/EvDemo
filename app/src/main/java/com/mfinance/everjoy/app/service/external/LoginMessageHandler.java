@@ -9,6 +9,7 @@ import com.mfinance.everjoy.app.model.LoginProgress;
 import com.mfinance.everjoy.app.service.FxMobileTraderService;
 import com.mfinance.everjoy.app.util.MessageMapping;
 import com.mfinance.everjoy.app.util.MessageObj;
+import com.mfinance.everjoy.everjoy.dialog.PwdErrorDialog;
 
 public class LoginMessageHandler extends ServerMessageHandler {
 
@@ -20,6 +21,8 @@ public class LoginMessageHandler extends ServerMessageHandler {
 	public void handleMessage(MessageObj msgObj) {
 		//Log.i(TAG, msgObj.convertToString());
 		Log.e("login", "login:" + msgObj.convertToString());
+
+		service.app.autoLoginRetryCount = 0;
 
 		try {
 			String field1 = msgObj.getField(Protocol.LoginResponse.STATUS);
@@ -35,6 +38,7 @@ public class LoginMessageHandler extends ServerMessageHandler {
 					String strUsername = msgObj.getField(Protocol.LoginResponse.USERNAME);
 					service.app.setPasswordToken(strPwdToken);
 					service.app.strUsername = strUsername;
+					service.app.setOpenID(null);
 				}
 				else {
 					String strPwdToken = msgObj.getField(Protocol.LoginResponse.ID);
@@ -65,18 +69,26 @@ public class LoginMessageHandler extends ServerMessageHandler {
 			else{
 				service.app.isLoading = false;
 
-				String strMsg = msgObj.getField(Protocol.LoginResponse.MSG);
-				String strToastMsg = "";
-				if (strMsg.equals("-1")){
-					strToastMsg = MessageMapping.getStringById(service.getRes(), "login_fail_1", service.app.locale);
-				}else if (strMsg.equals("-2")){
-					strToastMsg = MessageMapping.getStringById(service.getRes(), "login_fail_2", service.app.locale);
-				}else if (strMsg.equals("-3")){
-					strToastMsg = MessageMapping.getStringById(service.getRes(), "login_fail_3", service.app.locale);
-				}
-				Bundle data = new Bundle();
-				data.putString(ServiceFunction.MESSAGE, strToastMsg);
-				service.broadcast(ServiceFunction.ACT_SHOW_TOAST, data);
+//				String strMsg = msgObj.getField(Protocol.LoginResponse.MSG);
+//				String strToastMsg = "";
+//				if (strMsg.equals("-1")){
+//					strToastMsg = MessageMapping.getStringById(service.getRes(), "login_fail_1", service.app.locale);
+//				}else if (strMsg.equals("-2")){
+//					strToastMsg = MessageMapping.getStringById(service.getRes(), "login_fail_2", service.app.locale);
+//				}else if (strMsg.equals("-3")){
+//					strToastMsg = MessageMapping.getStringById(service.getRes(), "login_fail_3", service.app.locale);
+//				}
+//				Bundle data = new Bundle();
+//				data.putString(ServiceFunction.MESSAGE, strToastMsg);
+//				service.broadcast(ServiceFunction.ACT_SHOW_TOAST, data);
+//				service.broadcast(ServiceFunction.ACT_INVISIBLE_POP_UP, null);
+//				service.broadcast(ServiceFunction.ACT_UPDATE_UI, null);
+
+				String failcount = msgObj.getField(Protocol.LoginResponse.FAIL_COUNT);
+				Bundle data2 = new Bundle();
+				data2.putString(ServiceFunction.COUNT, failcount);
+				service.broadcast(ServiceFunction.ACT_SHOW_FAIL_PASSWORD_DIALOG, data2);
+
 				service.broadcast(ServiceFunction.ACT_INVISIBLE_POP_UP, null);
 				service.broadcast(ServiceFunction.ACT_UPDATE_UI, null);
 				

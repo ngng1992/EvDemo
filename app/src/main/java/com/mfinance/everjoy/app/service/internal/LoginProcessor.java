@@ -137,14 +137,20 @@ public class LoginProcessor implements MessageProcessor{
 				Log.i(TAG, "[LoginProcessor]["+loginMsg.convertToString(false)+"]");
 			}
 			else if (level.equals("3")){
+				String strPwdToken = data.getString(ServiceFunction.LOGIN_PASSWORDTOKEN);
 				String strUserID = data.getString(ServiceFunction.LOGIN_USERNAME);
 				String strPassword = data.getString(ServiceFunction.LOGIN_PASSWORD);
 
-				service.app.data.setStrSecurityLoginID(strUserID);
+				service.app.setSecLoginID(strUserID);
+				service.app.tempSecPwd = strPassword;
 
 				MessageObj loginMsg = MessageObj.getMessageObj(IDDictionary.SERVER_LOGIN_SERVICE_TYPE, IDDictionary.SERVER_LOGIN_LOGIN_SECURITY);
 				loginMsg.addField(LoginRequest.ACC, strUserID);
-				loginMsg.addField(LoginRequest.PASSWORD, strPassword);
+				if (strPwdToken == null)
+					loginMsg.addField(LoginRequest.PASSWORD, strPassword);
+				else {
+					loginMsg.addField(LoginRequest.PASSWORD_TOKEN, service.app.getSecPasswordToken());
+				}
 
 				service.connection.sendMessage(loginMsg.convertToString(true));
 				Log.i(TAG, loginMsg.convertToString(false));
@@ -155,7 +161,7 @@ public class LoginProcessor implements MessageProcessor{
 				String strOTP = data.getString(ServiceFunction.LOGIN_SEC_OTP);
 
 				MessageObj loginMsg = MessageObj.getMessageObj(IDDictionary.SERVER_LOGIN_SERVICE_TYPE, IDDictionary.SERVER_LOGIN_LOGIN_SECURITY_OTP);
-				loginMsg.addField(LoginRequest.ACC, service.app.data.getStrSecurityLoginID());
+				loginMsg.addField(LoginRequest.ACC, service.app.getSecLoginID());
 				loginMsg.addField(LoginRequest.OTP, strOTP);
 
 				service.connection.sendMessage(loginMsg.convertToString(true));

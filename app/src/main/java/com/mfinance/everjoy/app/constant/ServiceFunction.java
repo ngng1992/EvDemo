@@ -62,6 +62,10 @@ public class ServiceFunction {
     public final static int ACT_GO_TO_OTP_LOGIN_PAGE = 21;
     public final static int ACT_SHOW_DIALOG = 22;
     public final static int ACT_GO_TO_FORGOT_PASSWORD_OTP_PAGE = 23;
+    public final static int ACT_GO_TO_FINGER_ID_PAGE = 24;
+    public final static int ACT_RECONNECT_SECURITY = 25;
+    public final static int ACT_SHOW_FAIL_PASSWORD_DIALOG = 26;
+    public final static int ACT_LOGOUT_SECURITY = 27;
 
     public final static int ACT_TRADER_RECEIVE_MULTIPLE_LIQUIDATE_RETURN = 10075;
     public final static int SRV_WEB_VIEW = 10076;
@@ -100,10 +104,12 @@ public class ServiceFunction {
     public final static String FORGETPASSWORD_TYPE = "type";
     public final static String FORGETPASSWORD_PREFIX = "prefix";
     public final static String FORGETPASSWORD_OTP = "otp";
+    public final static String FORGETPASSWORD_RESEND = "resend";
 
     public final static String FINISH = "FINISH";
     public final static String MESSAGE = "MESSAGE";
     public final static String TITLE = "TITLE";
+    public final static String COUNT = "COUNT";
 }
 
 

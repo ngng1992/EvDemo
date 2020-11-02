@@ -29,6 +29,8 @@ public class ResetPwdActivity extends BaseViewActivity {
 
 //    @BindView(R.id.et_oldpwd)
 //    EditText etOldpwd;
+    @BindView(R.id.et_oldpwd)
+    EditText etOldpwd;
     @BindView(R.id.et_newpwd)
     EditText etNewpwd;
     @BindView(R.id.iv_show_newpwd)
@@ -103,8 +105,8 @@ public class ResetPwdActivity extends BaseViewActivity {
                 }
                 break;
             case R.id.tv_submit:
-                // 重置密码，没有要求输入以前的密码
-//                resetPassword(etOldpwd.getText().toString(), etNewpwd.getText().toString());
+                // 重置密码，没有要求输入以前的密码 //Need BA to clarify this part. Server protocol needs以前的密码 
+                resetPassword(etOldpwd.getText().toString(), etNewpwd.getText().toString());
 //                // 重置密码成功
 //                startActivity(new Intent(this, SetPwdSuccessActivity.class));
                 break;
