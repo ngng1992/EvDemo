@@ -2,6 +2,7 @@ package com.mfinance.everjoy.everjoy.ui.mvp.presenter;
 
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.request.base.Request;
+import com.mfinance.everjoy.app.constant.ServiceFunction;
 import com.mfinance.everjoy.everjoy.bean.base.BaseBean;
 import com.mfinance.everjoy.everjoy.network.URLContents;
 import com.mfinance.everjoy.everjoy.network.okgo.OkGoBodyToStringCallBack;
@@ -53,7 +54,7 @@ public class ForgotPasswordPresenter extends BaseMvpPresenter<ForgetPwdView> {
                 });
     }
 
-    public void requestForgotPassword(String acc, String email) {
+    public void requestForgotPassword(String acc, String email) { //
         OkGo.<String>get(URLContents.FORGOTSECPASSWORD)
                 .tag(mTAG)
                 .params("acc", acc)
@@ -69,7 +70,8 @@ public class ForgotPasswordPresenter extends BaseMvpPresenter<ForgetPwdView> {
                     @Override
                     public void onSuccessBody(BaseBean baseBean) {
                         super.onSuccessBody(baseBean);
-                        forgetPwdView.onShowEmailCheckCode(baseBean);
+                        forgetPwdView.toSecurityLogin();
+                        //forgetPwdView.onShowEmailCheckCode(baseBean);
                     }
 
                     @Override

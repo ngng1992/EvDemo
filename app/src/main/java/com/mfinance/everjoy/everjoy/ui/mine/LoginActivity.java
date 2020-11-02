@@ -101,69 +101,6 @@ public class LoginActivity extends BaseViewActivity {
     @BindView(R.id.tvTitle)
     TextView tvTitle;
 
-    class Task extends TimerTask {
-        @Override
-        public void run() {
-            if (dialog != null && dialog.isShowing()) {
-                boolean isFinished = false;
-
-                // Timeout occur
-                int RoundRobinIndex = 0;
-                int iTrialIndex = 0;
-
-
-                if (CompanySettings.checkProdServer() == 1) {
-                    app.iTrialIndexProd = (app.iTrialIndexProd + 1) % app.alLoginInfoProd.size();
-                    iTrialIndex = app.iTrialIndexProd;
-                    RoundRobinIndex = app.RoundRobinIndexProd;
-                }
-
-                if (CompanySettings.ENABLE_FATCH_SERVER || CompanySettings.FOR_TEST || iTrialIndex == RoundRobinIndex) {
-                    isFinished = true;
-                    app.isLoading = false;
-                    // If IP is fetch from Server or OTX Mode, or RR Trial has finished
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            dialog.dismiss();
-                            dialog = null;
-                            // 登录失败
-                            showPwdError();
-                        }
-                    });
-                }
-
-                Message msg = Message.obtain(null, ServiceFunction.SRV_LOGOUT);
-                msg.replyTo = mServiceMessengerHandler;
-                try {
-                    Bundle data = new Bundle();
-                    data.putBoolean(Protocol.Logout.REDIRECT, false);
-                    msg.setData(data);
-                    mService.send(msg);
-                } catch (RemoteException e) {
-                    Log.e(TAG, "Unable to send login message", e.fillInStackTrace());
-                }
-
-                if (isFinished == false) {
-                    // Wait 2 seconds to let the previous connection close
-                    try {
-                        Thread.sleep(2000);
-                        Runnable r = new moveToLogin();
-                        (new Thread(r)).start();
-                        loginTimer.schedule(new Task(), 60 * 1000);
-                    } catch (InterruptedException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                }
-            } else {
-                // The login progress is interrupted, change the isLoading to false
-                app.isLoading = false;
-            }
-
-        }
-    }
-
     /**
      * 密码错误次数
      */
@@ -202,7 +139,7 @@ public class LoginActivity extends BaseViewActivity {
         boolean checkFingerprint = FingerprintUtils.checkFingerprint(this);
         tv_fingerprint_login.setVisibility(checkFingerprint ? View.VISIBLE : View.GONE);
 
-        if (app.getPasswordToken() != null && app.getLoginID() != null) {
+        if (app.getPasswordToken() != null && app.getLoginID() != null) { //Autologin for level 2 users
             tokenLogin = true;
             LoginProgress.reset();
             if (loginTimer != null) {
@@ -212,7 +149,7 @@ public class LoginActivity extends BaseViewActivity {
             loginTimer.schedule(new Task(), 600 * 1000);
 
             if (app.getLoginType() == -1) {
-                Runnable r = new moveToLogin();
+                Runnable r = new moveToLogin(true, null, null);
                 (new Thread(r)).start();
             } else {
                 Runnable r = new moveToLogin(app.getLoginType(), app.getLoginID(), app.getOpenID());
@@ -414,7 +351,7 @@ public class LoginActivity extends BaseViewActivity {
                 }
                 loginTimer = new Timer();
                 loginTimer.schedule(new Task(), 600 * 1000);
-                Runnable r = new moveToLogin();
+                Runnable r = new moveToLogin(false, etEmail.getText().toString(), etPwd.getText().toString());
                 (new Thread(r)).start();
 
                 //login();
@@ -484,106 +421,6 @@ public class LoginActivity extends BaseViewActivity {
         } else {
             MainActivity.startMainActivity2(this);
             finish();
-        }
-    }
-
-    public class moveToLogin implements Runnable {
-        private int oType;
-        private String userName;
-        private String openID;
-
-        public moveToLogin() {
-            this.oType = -1;
-        }
-
-        public moveToLogin(int oType, String userName, String openID) {
-            this.oType = oType;
-            this.userName = userName;
-            this.openID = openID;
-        }
-
-        public void run() {
-            try {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (dialog == null)
-                            dialog = ProgressDialog.show(LoginActivity.this, "", res.getString(R.string.please_wait), true);
-                    }
-                });
-
-                DataRepository.getInstance().clear();
-                if (ToolsUtils.checkNetwork(app)) {
-                    Thread thread = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            ConnectionStatus connectionStatus = app.data.getGuestPriceAgentConnectionStatus();
-                            switch (connectionStatus) {
-                                case CONNECTING:
-                                case CONNECTED:
-                                    Message message = Message.obtain(null, ServiceFunction.SRV_GUEST_PRICE_AGENT);
-                                    message.arg1 = PriceAgentConnectionProcessor.ActionType.DISCONNECT.getValue();
-                                    try {
-                                        mService.send(message);
-                                    } catch (Exception ex) {
-
-                                    }
-                                    Message message1 = Message.obtain(null, ServiceFunction.SRV_GUEST_PRICE_AGENT);
-                                    message1.arg1 = PriceAgentConnectionProcessor.ActionType.RESET.getValue();
-                                    try {
-                                        mService.send(message1);
-                                    } catch (Exception ex) {
-
-                                    }
-                                    break;
-                                default:
-                                    break;
-                            }
-
-                            if (oType == -1) {
-                                String email = etEmail.getText().toString();
-                                String pwd = etPwd.getText().toString();
-                                if (tokenLogin)
-                                    login(oType, app.getLoginID(), "");
-                                else
-                                    login(oType, email, pwd);
-                            } else {
-                                login(oType, userName, openID);
-                            }
-                        }
-                    });
-                    thread.start();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void login(int oType, String strID, String strPassword) {
-
-        Message loginMsg = Message.obtain(null, ServiceFunction.SRV_LOGIN);
-        loginMsg.replyTo = mServiceMessengerHandler;
-
-        loginMsg.getData().putString(ServiceFunction.LOGIN_TYPE, Integer.toString(oType));
-
-        loginMsg.getData().putString(ServiceFunction.LOGIN_LEVEL, "2");
-        if (oType == -1) {
-            loginMsg.getData().putString(ServiceFunction.LOGIN_EMAIL, strID);
-            loginMsg.getData().putString(ServiceFunction.LOGIN_PASSWORD, strPassword);
-            loginMsg.getData().putString(ServiceFunction.LOGIN_PASSWORDTOKEN, app.getPasswordToken());
-        } else {
-            loginMsg.getData().putString(ServiceFunction.LOGIN_OTYPE, Integer.toString(oType));
-            loginMsg.getData().putString(ServiceFunction.LOGIN_USERNAME, strID);
-            loginMsg.getData().putString(ServiceFunction.LOGIN_OPENID, strPassword);
-        }
-
-        loginMsg.getData().putInt(ServiceFunction.LOGIN_CONN_INDEX, -1);
-
-        try {
-            mService.send(loginMsg);
-        } catch (RemoteException e) {
-            Log.e("login", "Unable to send login message", e.fillInStackTrace());
         }
     }
 

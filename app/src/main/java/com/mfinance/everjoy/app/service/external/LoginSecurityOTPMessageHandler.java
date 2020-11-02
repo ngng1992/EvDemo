@@ -10,6 +10,8 @@ import com.mfinance.everjoy.app.service.FxMobileTraderService;
 import com.mfinance.everjoy.app.util.MessageMapping;
 import com.mfinance.everjoy.app.util.MessageObj;
 
+import net.mfinance.commonlib.share.Utils;
+
 public class LoginSecurityOTPMessageHandler extends ServerMessageHandler {
 
 	public LoginSecurityOTPMessageHandler(FxMobileTraderService service) {
@@ -27,11 +29,10 @@ public class LoginSecurityOTPMessageHandler extends ServerMessageHandler {
 			Log.e("login", "登录成功 ============================ field1 = " + field1);
 
 			if("success".equals(msgObj.getField(Protocol.LoginResponse.STATUS))){
-				String firstLogin = msgObj.getField(Protocol.LoginResponse.FIRST_LOGIN);
-				//firstLogin = "1";
-				if (firstLogin != null){
+				service.app.tempSecPwd = null;
+				if (service.app.bResetSecPassword){
 					Bundle data = new Bundle();
-					data.putString(ServiceFunction.RESETPASSWORD_TYPE, "3"); //Reset login type level "2"/"3"
+					data.putString(ServiceFunction.RESETPASSWORD_TYPE, Utils.LevelType.LEVEL3_FIRST_LOGIN); //Reset login type level "2"/"3"
 					service.broadcast(ServiceFunction.ACT_GO_TO_CHANGE_PASSWORD, data);
 				}
 				else {

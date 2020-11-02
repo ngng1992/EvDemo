@@ -177,6 +177,18 @@ public class MobileTraderApplication extends Application {
     public boolean bLogon = false;
     public boolean bSecurityLogon = false;
 
+    public String resetPasswordLevel = "";
+    public boolean bResetSecPassword = false;
+
+    public boolean isDuplicatedLogin = false;
+    public boolean isAutoRelogin = false;
+    public int disconnectLevel = 1;
+    public int autoLoginRetryCount = 0;
+
+    public String tempForgotEmail = null;
+    public String tempSecPwd = null;
+    public String tempSecPwdToken = null;
+
     public boolean bQuit = false;
     public Activity firstActivity;
 
@@ -756,6 +768,18 @@ public class MobileTraderApplication extends Application {
         return setting.getString("PWD_TOKEN", null);
     }
 
+    public void setSecPasswordToken(String token) {
+        SharedPreferences setting = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = setting.edit();
+        editor.putString("SEC_PWD_TOKEN", token);
+        editor.commit();
+    }
+
+    public String getSecPasswordToken() {
+        SharedPreferences setting = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        return setting.getString("SEC_PWD_TOKEN", null);
+    }
+
     public void setLoginType(int type) {
         SharedPreferences setting = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = setting.edit();
@@ -780,6 +804,18 @@ public class MobileTraderApplication extends Application {
         return setting.getString("LOGIN_ID", "null");
     }
 
+    public void setSecLoginID(String id) {
+        SharedPreferences setting = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = setting.edit();
+        editor.putString("SEC_LOGIN_ID", id);
+        editor.commit();
+    }
+
+    public String getSecLoginID() {
+        SharedPreferences setting = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        return setting.getString("SEC_LOGIN_ID", "null");
+    }
+
     public void setOpenID(String id) {
         SharedPreferences setting = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = setting.edit();
@@ -790,6 +826,18 @@ public class MobileTraderApplication extends Application {
     public String getOpenID() {
         SharedPreferences setting = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         return setting.getString("OPEN_ID", "null");
+    }
+
+    public void setFingerID(boolean isOn) {
+        SharedPreferences setting = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = setting.edit();
+        editor.putBoolean("SAVE_TOUCH_ID", isOn);
+        editor.commit();
+    }
+
+    public boolean getFingerID(){
+        SharedPreferences setting = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        return setting.getBoolean("SAVE_TOUCH_ID", false);
     }
 
     public void setDefaultPage(String sSeq) {

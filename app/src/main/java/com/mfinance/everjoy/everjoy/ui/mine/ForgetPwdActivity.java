@@ -57,6 +57,11 @@ public class ForgetPwdActivity extends BaseMvpViewActivity<ForgetPwdView, Forgot
         Intent intent = getIntent();
         type = intent.getStringExtra(ServiceFunction.FORGETPASSWORD_TYPE);
 
+        String resend = intent.getStringExtra(ServiceFunction.FORGETPASSWORD_RESEND);
+        if (resend != null) {
+            resendCode();
+        }
+
         if (type.equals("2")) {
             etAcc.setVisibility(View.GONE);
             String verifMsg = getString(R.string.sec_acc_ui_contact);
@@ -99,7 +104,7 @@ public class ForgetPwdActivity extends BaseMvpViewActivity<ForgetPwdView, Forgot
     /**
      * 获取验证码
      */
-    private void getCode() {
+    private void getCode() { //Level 2 forgot password, get OTP code
         email = etEmail.getText().toString();
         if (TextUtils.isEmpty(email)) {
             ToastUtils.showToast(this, R.string.toast_input_email);
@@ -109,10 +114,17 @@ public class ForgetPwdActivity extends BaseMvpViewActivity<ForgetPwdView, Forgot
             ToastUtils.showToast(this, R.string.str_email_rule_error);
             return;
         }
+        app.tempForgotEmail = email;
         mPresenter.requestEmailCode(email);
     }
 
-    private void forgotPassword() {
+    public void resendCode() {
+        email = app.tempForgotEmail;
+        mPresenter.requestEmailCode(email);
+    }
+
+
+    private void forgotPassword() { //Level 3 forgot password, call webservice to reset
         String acc = etAcc.getText().toString();
         email = etEmail.getText().toString();
         if (TextUtils.isEmpty(email)) {
@@ -201,5 +213,10 @@ public class ForgetPwdActivity extends BaseMvpViewActivity<ForgetPwdView, Forgot
 
     @Override
     public void onShowEmailCheckCodeError(String msg) {
+    }
+
+    public void toSecurityLogin(){
+        Intent intent = new Intent(ForgetPwdActivity.this, LoginSecurityActivity.class);
+        startActivity(intent);
     }
 }

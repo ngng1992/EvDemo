@@ -33,6 +33,7 @@ import com.mfinance.everjoy.app.model.DataRepository;
 import com.mfinance.everjoy.app.model.LoginProgress;
 import com.mfinance.everjoy.app.pojo.ConnectionStatus;
 import com.mfinance.everjoy.app.service.internal.PriceAgentConnectionProcessor;
+import com.mfinance.everjoy.everjoy.base.BaseEverjoyActivity;
 import com.mfinance.everjoy.everjoy.base.BaseViewActivity;
 import com.mfinance.everjoy.everjoy.dialog.PwdErrorDialog;
 import com.mfinance.everjoy.everjoy.dialog.PwdErrorFiveDialog;
@@ -108,57 +109,7 @@ public class LoginSecurityActivity extends BaseViewActivity {
         @Override
         public void run() {
             if (dialog != null && dialog.isShowing()) {
-                boolean isFinished = false;
-
-                // Timeout occur
-                int RoundRobinIndex = 0;
-                int iTrialIndex = 0;
-
-
-                if (CompanySettings.checkProdServer() == 1) {
-                    app.iTrialIndexProd = (app.iTrialIndexProd + 1) % app.alLoginInfoProd.size();
-                    iTrialIndex = app.iTrialIndexProd;
-                    RoundRobinIndex = app.RoundRobinIndexProd;
-                }
-
-                if (CompanySettings.ENABLE_FATCH_SERVER || CompanySettings.FOR_TEST || iTrialIndex == RoundRobinIndex) {
-                    isFinished = true;
-                    app.isLoading = false;
-                    // If IP is fetch from Server or OTX Mode, or RR Trial has finished
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            dialog.dismiss();
-                            dialog = null;
-                            // 登录失败
-                            showPwdError();
-                        }
-                    });
-                }
-
-                Message msg = Message.obtain(null, ServiceFunction.SRV_LOGOUT);
-                msg.replyTo = mServiceMessengerHandler;
-                try {
-                    Bundle data = new Bundle();
-                    data.putBoolean(Protocol.Logout.REDIRECT, false);
-                    msg.setData(data);
-                    mService.send(msg);
-                } catch (RemoteException e) {
-                    Log.e(TAG, "Unable to send login message", e.fillInStackTrace());
-                }
-
-                if (isFinished == false) {
-                    // Wait 2 seconds to let the previous connection close
-                    try {
-                        Thread.sleep(2000);
-                        Runnable r = new moveToLogin();
-                        (new Thread(r)).start();
-                        loginTimer.schedule(new Task(), 60 * 1000);
-                    } catch (InterruptedException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                }
+                dialog.dismiss();
             } else {
                 // The login progress is interrupted, change the isLoading to false
                 app.isLoading = false;
@@ -207,104 +158,12 @@ public class LoginSecurityActivity extends BaseViewActivity {
         tvTitle.setText("Lv3");
         v_social_login.setVisibility(View.GONE);
 
-        etEmail.setText("");
-        etPwd.setText("");
     }
 
     @SuppressLint("InflateParams")
     private View getPagerView(int i) {
-        View view;
-        if (i == 0) {
-            view = LayoutInflater.from(this).inflate(R.layout.vp_social_one, null);
-            ImageView ivSina = view.findViewById(R.id.iv_sina);
-            ImageView ivTwitter = view.findViewById(R.id.iv_twitter);
-            ImageView ivQQ = view.findViewById(R.id.iv_qq);
-            ivSina.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startSocialLogin(Platform.SINA);
-                }
-            });
-            ivTwitter.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startSocialLogin(Platform.TWITTER);
-                }
-            });
-            ivQQ.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startSocialLogin(Platform.QQ);
-                }
-            });
-        } else {
-            view = LayoutInflater.from(this).inflate(R.layout.vp_social_two, null);
-            ImageView iv_wechat = view.findViewById(R.id.iv_wechat);
-            ImageView iv_facebook = view.findViewById(R.id.iv_facebook);
-            ImageView iv_ig = view.findViewById(R.id.iv_ig);
-            iv_wechat.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startSocialLogin(Platform.WECAHT);
-                }
-            });
-            iv_facebook.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startSocialLogin(Platform.FACEBOOK);
-                }
-            });
-            iv_ig.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startSocialLogin(Platform.INSTAGRAM);
-                }
-            });
-        }
+        View view = null;
         return view;
-    }
-
-    /**
-     * 第三方登录
-     *
-     * @param platform 哪个平台
-     */
-    private void startSocialLogin(Platform platform) {
-        LoginUtils.startLogin(this, platform, new OnLoginListener() {
-            @Override
-            public void onLogin(LoginBean loginBean) {
-                // 登录成功
-                app.setOpenID(loginBean.getOpenId());
-
-                if (loginTimer != null) {
-                    loginTimer.cancel();
-                }
-                loginTimer = new Timer();
-                loginTimer.schedule(new Task(), 600 * 1000);
-                Runnable r = new moveToLogin(loginBean.getOAuthType(), loginBean.getNickname(), loginBean.getOpenId());
-                (new Thread(r)).start();
-            }
-
-            @Override
-            public void onCancel() {
-                System.out.println("startSocialLogin onCancel");
-            }
-
-            @Override
-            public void onError(String msg) {
-                System.out.println("startSocialLogin onError");
-                Toast.makeText(LoginSecurityActivity.this.getBaseContext(), msg, Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
-    /**
-     * 微信登录发送过来的消息
-     * {@link WXEntryActivity#onResp(BaseResp)}
-     */
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(LoginBean loginBean) {
-        // 微信登录
     }
 
     @Override
@@ -338,10 +197,14 @@ public class LoginSecurityActivity extends BaseViewActivity {
                     return;
                 }
 
-                Runnable r = new moveToLogin();
-                (new Thread(r)).start();
+                if (loginTimer != null) {
+                    loginTimer.cancel();
+                }
+                loginTimer = new Timer();
+                loginTimer.schedule(new Task(), 200 * 1000);
 
-                //login();
+                Runnable r = new moveToLogin(email, pwd, false);
+                (new Thread(r)).start();
                 break;
             case R.id.tv_fingerprint_login:
                 // 指纹登录
@@ -372,65 +235,13 @@ public class LoginSecurityActivity extends BaseViewActivity {
         }
     }
 
-    public class moveToLogin implements Runnable {
-        private int oType;
-        private String userName;
-        private String openID;
-
-        public moveToLogin() {
-            this.oType = -1;
-        }
-
-        public moveToLogin(int oType, String userName, String openID) {
-            this.oType = oType;
-            this.userName = userName;
-            this.openID = openID;
-        }
-
-        public void run() {
-            try {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (dialog == null)
-                            dialog = ProgressDialog.show(LoginSecurityActivity.this, "", res.getString(R.string.please_wait), true);
-                    }
-                });
-
-                DataRepository.getInstance().clear();
-                if (ToolsUtils.checkNetwork(app)) {
-                    Thread thread = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            String email = etEmail.getText().toString();
-                            String pwd = etPwd.getText().toString();
-                            login(oType, email, pwd);
-                        }
-                    });
-                    thread.start();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void login(int oType, String strID, String strPassword) {
-
-        Message loginMsg = Message.obtain(null, ServiceFunction.SRV_LOGIN);
-        loginMsg.replyTo = mServiceMessengerHandler;
-
-        loginMsg.getData().putString(ServiceFunction.LOGIN_TYPE, Integer.toString(oType));
-
-        loginMsg.getData().putString(ServiceFunction.LOGIN_LEVEL, "3");
-
-        loginMsg.getData().putString(ServiceFunction.LOGIN_USERNAME, strID);
-        loginMsg.getData().putString(ServiceFunction.LOGIN_PASSWORD, strPassword);
-        try {
-            mService.send(loginMsg);
-        } catch (RemoteException e) {
-            Log.e("login", "Unable to send login message", e.fillInStackTrace());
-        }
+    /**
+     * 微信登录发送过来的消息
+     * {@link WXEntryActivity#onResp(BaseResp)}
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(LoginBean loginBean) {
+        // 微信登录
     }
 
     public static String fetch(String address) throws Exception {

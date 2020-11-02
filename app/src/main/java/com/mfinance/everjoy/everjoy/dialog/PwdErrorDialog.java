@@ -38,10 +38,11 @@ public class PwdErrorDialog extends BaseDialog {
         });
 
         String verifMsg = String.format(context.getResources().getString(R.string.str_pwd_error), errorCount);
-        String target = verifMsg.substring(verifMsg.length() - 7);
+        int countIndex = verifMsg.indexOf(Integer.toString(errorCount));
+        String target = verifMsg.substring(countIndex, countIndex+2);
         new StringTextView(tv_login_point_title)
                 .setStrText(verifMsg)
-                .setColor(context.getResources().getColor(R.color.blue18))
+                .setColor(context.getResources().getColor(R.color.redff))
                 .setTextSize(1f)
                 .setTargetText(target)
                 .setUnderline(false)

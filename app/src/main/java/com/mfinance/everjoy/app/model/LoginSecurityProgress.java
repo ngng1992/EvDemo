@@ -47,6 +47,12 @@ public class LoginSecurityProgress
 					@Override
 					public void run() {
 						try {
+							//Set level 3 pwd token into cache
+							if (service.app.tempSecPwdToken != null){
+								service.app.setSecPasswordToken(service.app.tempSecPwdToken);
+								service.app.tempSecPwdToken = null;
+							}
+
 							int defaultPage = service.app.getDefaultPage();
 							// 默认页defaultPage = 4；
 							Log.e("login", "登录成功后 默认页 defaultPage = " + defaultPage);

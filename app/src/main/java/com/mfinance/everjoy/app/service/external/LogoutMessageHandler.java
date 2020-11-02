@@ -18,7 +18,7 @@ public class LogoutMessageHandler extends ServerMessageHandler {
 	@Override
 	public void handleMessage(MessageObj msgObj) {
 		service.bQuit = true;
-		service.app.bLogon = false;
+		//service.app.bLogon = false;
 		service.onLogout();
 		if (BuildConfig.DEBUG)
 			Log.i(TAG, "[Close Connection]");

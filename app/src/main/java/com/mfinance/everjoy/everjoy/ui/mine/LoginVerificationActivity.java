@@ -3,6 +3,7 @@ package com.mfinance.everjoy.everjoy.ui.mine;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Message;
 import android.os.RemoteException;
 import android.util.Log;
@@ -155,6 +156,19 @@ public class LoginVerificationActivity extends BaseViewActivity {
                     countDownHelper = null;
                 }
                 startTimer();
+
+                if (isForgetPwd) {
+                    Bundle data = new Bundle();
+                    data.putString(ServiceFunction.FORGETPASSWORD_TYPE, "2"); //Reset login type level "2"/"3"
+                    data.putString(ServiceFunction.FORGETPASSWORD_RESEND, "1");
+                    Intent intent = new Intent(this, ForgetPwdActivity.class);
+                    intent.putExtras(data);
+                    startActivity(intent);
+                }else {
+                    Runnable r = new moveToLogin(app.getSecLoginID(), app.tempSecPwd, false);
+                    (new Thread(r)).start();
+                    break;
+                }
                 break;
             default:
                 break;
@@ -168,7 +182,7 @@ public class LoginVerificationActivity extends BaseViewActivity {
         tvResendCode.setClickable(false);
         tvResendCode.setVisibility(View.VISIBLE);
         countDownHelper = new CountDownHelper(this);
-        countDownHelper.setTime(60);
+        countDownHelper.setTime(10);
         countDownHelper.setOnTimerTaskCallBack(new OnTimerCallBack() {
             @Override
             public void onCallBack(long time) {

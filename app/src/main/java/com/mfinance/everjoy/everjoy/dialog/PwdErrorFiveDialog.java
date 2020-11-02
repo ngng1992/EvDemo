@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.mfinance.everjoy.R;
+import com.mfinance.everjoy.app.constant.ServiceFunction;
 import com.mfinance.everjoy.everjoy.dialog.base.BaseDialog;
 import com.mfinance.everjoy.everjoy.ui.mine.ForgetPwdActivity;
 
@@ -34,7 +35,11 @@ public class PwdErrorFiveDialog extends BaseDialog {
             @Override
             public void onClick(View view) {
                 dismiss();
-                context.startActivity(new Intent(context, ForgetPwdActivity.class));
+                Bundle data = new Bundle();
+                data.putString(ServiceFunction.FORGETPASSWORD_TYPE, "2"); //Reset login type level "2"/"3"
+                Intent intent = new Intent(context, ForgetPwdActivity.class);
+                intent.putExtras(data);
+                context.startActivity(intent);
             }
         });
     }

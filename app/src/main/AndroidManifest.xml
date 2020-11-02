@@ -121,6 +121,13 @@
         </activity>
 
         <activity
+            android:name="com.mfinance.everjoy.everjoy.ui.mine.LoginVerificationActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+
+        <activity
             android:name="com.mfinance.everjoy.everjoy.ui.mine.ForgetPwdActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">

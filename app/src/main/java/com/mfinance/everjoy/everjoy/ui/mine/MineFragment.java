@@ -75,19 +75,22 @@ public class MineFragment extends BaseViewFragment {
 
     @Override
     protected void initView(View currentView) {
-        if (!iApp.bLogon){
+        if (!iApp.bLogon){ //Level 1 display
             tvReset.setVisibility(View.GONE);
             tvRegister.setVisibility(View.VISIBLE);
             tvLogin.setVisibility(View.VISIBLE);
             tvLogout.setVisibility(View.GONE);
         }
-        else {
-            tvReset.setVisibility(View.VISIBLE);
+        else if (iApp.bLogon && !iApp.bSecurityLogon) { //Level 2 display
+            if (iApp.getOpenID() == null || (iApp.getOpenID() != null && iApp.getOpenID().equals("null")))
+                tvReset.setVisibility(View.VISIBLE);
+            else
+                tvReset.setVisibility(View.GONE);
             tvRegister.setVisibility(View.VISIBLE);
             tvLogin.setVisibility(View.VISIBLE);
             tvLogout.setVisibility(View.VISIBLE);
         }
-        if (iApp.bLogon && iApp.bSecurityLogon) {
+        if (iApp.bLogon && iApp.bSecurityLogon) { //Level 3 display
             tvRegister.setVisibility(View.GONE);
             tvLogin.setVisibility(View.GONE);
             tvReset.setVisibility(View.VISIBLE);

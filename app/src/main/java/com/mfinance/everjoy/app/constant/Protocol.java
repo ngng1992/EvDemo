@@ -23,7 +23,8 @@ public class Protocol {
 		public final static String USERNAME = "username";
 		public final static String ID = "id";
 		public final static String PREFIX = "prefix";
-		public final static String FIRST_LOGIN = "firstlogin";
+		public final static String FIRST_LOGIN_CHANGE_PWD = "chgpwd";
+		public final static String FAIL_COUNT = "failcount";
 	}
 	
 	public class SystemMessage{
